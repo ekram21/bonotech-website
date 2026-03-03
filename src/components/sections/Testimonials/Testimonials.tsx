@@ -13,22 +13,22 @@ const TESTIMONIALS: TestimonialData[] = [
     authorRole: "Generalist-Human Resources, Mermaid Beach Resort",
     backgroundColor: "#8269CF",
   },
-  {
-    id: "testimonial-2",
-    quote:
-      "Created by my ex-students. They have made my classroom management much easier and have created all advanced custom features that I have asked for.",
-    authorName: "Engr. Md. Nadim",
-    authorRole: "Teacher, Edbase",
-    backgroundColor: "#131314",
-  },
-  {
-    id: "testimonial-3",
-    quote:
-      "Working with Bonotech was a game-changer for our business. They transformed our vision into a beautiful, functional application that our users love.",
-    authorName: "James Wilson",
-    authorRole: "Founder, BrightPath",
-    backgroundColor: "#F59E0B",
-  },
+  // {
+  //   id: "testimonial-2",
+  //   quote:
+  //     "Created by my ex-students. They have made my classroom management much easier and have created all advanced custom features that I have asked for.",
+  //   authorName: "Engr. Md. Nadim",
+  //   authorRole: "Teacher, Edbase",
+  //   backgroundColor: "#131314",
+  // },
+  // {
+  //   id: "testimonial-3",
+  //   quote:
+  //     "Working with Bonotech was a game-changer for our business. They transformed our vision into a beautiful, functional application that our users love.",
+  //   authorName: "James Wilson",
+  //   authorRole: "Founder, BrightPath",
+  //   backgroundColor: "#F59E0B",
+  // },
 ];
 
 /** Stack visual config — per-layer overrides for a natural deck look */
