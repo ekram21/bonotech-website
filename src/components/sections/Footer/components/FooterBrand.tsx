@@ -19,14 +19,14 @@ export function FooterBrand() {
 
             {/* Email */}
             <a
-                href="mailto:hello@bonotech.io"
+                href="mailto:contact@bonotech.io"
                 className="group font-body text-sm leading-[1.5] font-medium text-white no-underline opacity-70 inline-flex items-center gap-2 transition-(--transition-base) hover:opacity-100"
             >
                 <Mail
                     size={15}
                     className="opacity-60 group-hover:opacity-100 transition-(--transition-base)"
                 />
-                hello@bonotech.io
+                contact@bonotech.io
             </a>
         </div>
     )

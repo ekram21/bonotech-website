@@ -189,7 +189,7 @@ export function Testimonials({ className }: TestimonialsProps) {
             id="testimonials-heading"
             className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
           >
-            Testimonial
+            Testimonials
           </h2>
         </div>
 

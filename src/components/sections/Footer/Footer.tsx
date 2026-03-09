@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { ArrowUp } from 'lucide-react'
 import type { FooterProps, FooterLinkGroup } from './Footer.types'
@@ -35,9 +36,9 @@ const LINK_GROUPS: FooterLinkGroup[] = [
 ]
 
 const BOTTOM_LINKS = [
-    { label: '© Bonotech.io', href: '#' },
-    { label: 'Terms of Service', href: '#' },
-    { label: 'Privacy Policy', href: '#' },
+    { label: '© Bonotech.io', href: '/', internal: true },
+    { label: 'Terms of Service', href: '/terms', internal: true },
+    { label: 'Privacy Policy', href: '/privacy', internal: true },
 ]
 
 export function Footer({ className }: FooterProps) {
@@ -78,7 +79,7 @@ export function Footer({ className }: FooterProps) {
             />
 
             {/* ─── Content ─── */}
-            <div className="relative z-20 mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
+            <div className="relative z-20 mx-auto w-full max-w-(--width-container) px-container-x">
                 {/* ─── Main grid: Brand + Link columns ─── */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-16 pt-20 pb-14">
                     {/* Brand area — left */}
@@ -104,15 +105,25 @@ export function Footer({ className }: FooterProps) {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-6">
                     {/* Left — Legal links */}
                     <div className="flex flex-wrap items-center gap-6">
-                        {BOTTOM_LINKS.map((link) => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                className="font-body text-[13px] leading-[1.4] font-normal text-white no-underline opacity-45 transition-(--transition-base) hover:opacity-70"
-                            >
-                                {link.label}
-                            </a>
-                        ))}
+                        {BOTTOM_LINKS.map((link) =>
+                            link.internal ? (
+                                <Link
+                                    key={link.label}
+                                    to={link.href}
+                                    className="font-body text-[13px] leading-[1.4] font-normal text-white no-underline opacity-45 transition-(--transition-base) hover:opacity-70"
+                                >
+                                    {link.label}
+                                </Link>
+                            ) : (
+                                <a
+                                    key={link.label}
+                                    href={link.href}
+                                    className="font-body text-[13px] leading-[1.4] font-normal text-white no-underline opacity-45 transition-(--transition-base) hover:opacity-70"
+                                >
+                                    {link.label}
+                                </a>
+                            )
+                        )}
                     </div>
 
                     {/* Right — Back to top */}
