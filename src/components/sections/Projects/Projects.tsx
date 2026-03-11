@@ -83,50 +83,90 @@ const PROJECTS: ProjectCardData[] = [
 
 /** Fixed height of the site navbar (px) */
 const NAVBAR_H = 80;
+/** Vertical padding around title block (px) */
+const TITLE_BOTTOM_MARGIN = 16;
 /** Degrees to rotate stacked cards (alternates ±) */
 const CARD_ROTATION = 2;
+/**
+ * Minimum viewport width (px) to use the scroll-driven stacking layout.
+ * Below this we fall back to the simple mobile stack.
+ */
+const DESKTOP_BREAKPOINT = 768;
 
 export function Projects({ className }: ProjectsProps) {
   const runwayRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const firstCardRef = useRef<HTMLDivElement>(null);
   const cardEls = useRef<(HTMLDivElement | null)[]>([]);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [dims, setDims] = useState({ titleH: 200, cardH: 600 });
 
-  /* ── Measure title + card on mount / resize ── */
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [dims, setDims] = useState({
+    titleH: 200,
+    cardH: 600,
+    viewportH: 800,
+    viewportW: 1280,
+  });
+
+  /* ── Measure on mount / resize ── */
   useEffect(() => {
     const measure = () => {
-      setIsDesktop(window.innerWidth >= 768);
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      setIsDesktop(vw >= DESKTOP_BREAKPOINT);
       setDims({
-        titleH: titleRef.current?.offsetHeight || 200,
-        cardH: firstCardRef.current?.offsetHeight || 600,
+        titleH: titleRef.current?.offsetHeight ?? 200,
+        cardH: firstCardRef.current?.offsetHeight ?? 600,
+        viewportH: vh,
+        viewportW: vw,
       });
     };
+
     measure();
-    requestAnimationFrame(measure); // re‑measure after first paint
+    // Re-measure after first paint so heights are accurate
+    const rafId = requestAnimationFrame(measure);
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("resize", measure);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
-  const { titleH, cardH } = dims;
+  const { titleH, cardH, viewportH } = dims;
 
-  /* Visible height of the card-stacking viewport
-       (all cards stack in the same position, no vertical offset) */
+  /* Visible height of the card-stacking viewport */
   const cardAreaH = cardH;
 
-  /* Scroll distance allocated for each card to animate in */
+  /* Scroll distance allocated per card entering the stack (unscaled) */
   const scrollPerCard = isDesktop
     ? Math.max(cardH * 1.5, 600)
     : Math.max(cardH * 0.5, 300);
 
-  /* Total scroll needed for cards 2…N to enter */
-  const totalCardScroll = scrollPerCard * (PROJECTS.length - 1);
+  /* Height of what the sticky wrapper "displays" (before scaling) */
+  const stickyContentH = titleH + TITLE_BOTTOM_MARGIN + cardAreaH;
 
-  /* The runway is taller than the sticky wrapper so the wrapper
-       stays pinned exactly until the last card finishes animating,
-       then everything scrolls away as one block. */
-  const stickyContentH = titleH + cardAreaH;
+  /*
+   * Scale the sticky block down so title + cards always fit within
+   * the visible viewport regardless of zoom level or screen size.
+   * We leave a generous 48 px buffer below, plus the navbar height.
+   */
+  const availableH = Math.max(viewportH - NAVBAR_H - 48, 320);
+  const stickyScale =
+    stickyContentH > 0 ? Math.min(1, availableH / stickyContentH) : 1;
+
+  /*
+   * When stickyScale < 1 the content appears shorter on screen than its
+   * CSS layout height, so we need MORE scroll distance per card to make
+   * each animation feel the same length visually.
+   *
+   * This value is used BOTH for the runway height and the animation
+   * progress calculation so they always agree.
+   */
+  const effectiveScrollPerCard = scrollPerCard / stickyScale;
+
+  /* Total scroll consumed animating cards 2…N into view */
+  const totalCardScroll = effectiveScrollPerCard * (PROJECTS.length - 1);
+
+  /* Total runway height: sticky content + scale-compensated animation room */
   const runwayH = stickyContentH + totalCardScroll;
 
   /* ── Scroll-driven card animation ── */
@@ -137,30 +177,28 @@ export function Projects({ className }: ProjectsProps) {
       if (!runwayRef.current) return;
       const rect = runwayRef.current.getBoundingClientRect();
 
-      /* progress = 0 → sticky wrapper just pinned
-               progress = N → user scrolled N px further */
+      /* progress = how many px the runway has scrolled past the navbar pin point */
       const progress = Math.max(0, NAVBAR_H - rect.top);
 
       cardEls.current.forEach((el, i) => {
         if (!el) return;
 
-        /* First card is always visible at the top */
+        /* First card is always pinned at the top */
         if (i === 0) {
           el.style.transform = "translateY(0px)";
           return;
         }
 
-        /* Subsequent cards slide up from below the clip area */
-        const animStart = (i - 1) * scrollPerCard;
+        const animStart = (i - 1) * effectiveScrollPerCard;
         const t = Math.min(
           1,
-          Math.max(0, (progress - animStart) / scrollPerCard),
+          Math.max(0, (progress - animStart) / effectiveScrollPerCard),
         );
 
-        const entryY = cardAreaH + 100; // below clip edge
-        const y = entryY + (0 - entryY) * t; // target Y is 0 (same position)
+        const entryY = cardAreaH + 100; // start below clip edge
+        const y = entryY + (0 - entryY) * t; // animate toward 0
 
-        /* Alternating rotation: +4°, -4°, +4°, … */
+        /* Alternating rotation when fully stacked */
         const sign = i % 2 === 0 ? 1 : -1;
         const rotation = isDesktop && t >= 1 ? sign * CARD_ROTATION : 0;
         el.style.transform = `translateY(${y}px) rotate(${rotation}deg)`;
@@ -178,7 +216,17 @@ export function Projects({ className }: ProjectsProps) {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(rafId);
     };
-  }, [isDesktop, scrollPerCard, cardAreaH]);
+  }, [isDesktop, effectiveScrollPerCard, cardAreaH, stickyScale]);
+
+  /* Shared section heading — identical class to the original */
+  const SectionHeading = ({ id }: { id?: string }) => (
+    <h2
+      id={id}
+      className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
+    >
+      Projects
+    </h2>
+  );
 
   return (
     <section
@@ -193,12 +241,7 @@ export function Projects({ className }: ProjectsProps) {
       {!isDesktop && (
         <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
           <div className="flex flex-col items-center select-none pb-12">
-            <h2
-              id="projects-heading"
-              className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
-            >
-              Projects
-            </h2>
+            <SectionHeading id="projects-heading" />
           </div>
           <div className="flex flex-col gap-8">
             {PROJECTS.map((project) => (
@@ -211,52 +254,75 @@ export function Projects({ className }: ProjectsProps) {
       {/* ── Desktop layout: scroll-driven stacking animation ── */}
       {isDesktop && (
         <>
-          {/* Scroll runway — oversized so the single sticky wrapper
-                        stays pinned for the full card-animation duration */}
+          {/* Scroll runway — oversized so the sticky wrapper stays pinned
+              for the full card-animation duration */}
           <div
             ref={runwayRef}
             className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
             style={{ height: runwayH }}
           >
-            {/* ─── Sticky wrapper ───
-                             Pins below the navbar. Title + card viewport move
-                             as a single block when the runway scrolls past. */}
-            <div className="sticky" style={{ top: NAVBAR_H }}>
-              {/* Section title */}
+            {/* Sticky wrapper — pins below the navbar.
+                 Height is the VISUAL scaled height so the layout footprint
+                 matches what the user actually sees. The inner scale div
+                 overflows below this boundary, but its overflow is empty
+                 (no content there), so nothing is clipped visually. */}
+            <div
+              className="sticky"
+              style={{
+                top: NAVBAR_H,
+                height: stickyContentH * stickyScale,
+              }}
+            >
+              {/*
+               * Scale wrapper: shrinks the entire title+cards block uniformly
+               * so it always fits within the viewport, even when zoomed in.
+               * transform-origin: top center keeps the heading aligned correctly.
+               */}
               <div
-                ref={titleRef}
-                className="flex flex-col items-center select-none mb-4"
-              >
-                <h2
-                  id="projects-heading"
-                  className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
-                >
-                  Projects
-                </h2>
-              </div>
-
-              {/* Card viewport — clipPath hides cards entering from below.
-                                Negative insets let rotated corners bleed without clipping. */}
-              <div
-                className="relative"
                 style={{
-                  height: cardAreaH,
-                  clipPath: "inset(-200px -200px -80px -200px)",
+                  transform: `scale(${stickyScale})`,
+                  transformOrigin: "top center",
+                  /*
+                   * When scaled down the block's layout height stays at the
+                   * original value (CSS transforms don't affect flow), so we
+                   * explicitly cap the visible area to avoid phantom whitespace.
+                   */
+                  height: stickyContentH,
+                  maxHeight: stickyContentH,
                 }}
               >
-                {PROJECTS.map((project, index) => (
-                  <div
-                    key={project.id}
-                    ref={(el) => {
-                      cardEls.current[index] = el;
-                      if (index === 0) firstCardRef.current = el;
-                    }}
-                    className="absolute inset-x-0 flex justify-center will-change-transform"
-                    style={{ zIndex: index + 1 }}
-                  >
-                    <ProjectCard project={project} />
-                  </div>
-                ))}
+                {/* Section title */}
+                <div
+                  ref={titleRef}
+                  className="flex flex-col items-center select-none"
+                  style={{ marginBottom: TITLE_BOTTOM_MARGIN }}
+                >
+                  <SectionHeading id="projects-heading" />
+                </div>
+
+                {/* Card viewport — clipPath hides cards entering from below.
+                    Negative insets let rotated corners bleed without clipping. */}
+                <div
+                  className="relative"
+                  style={{
+                    height: cardAreaH,
+                    clipPath: "inset(-200px -200px -200px -200px)",
+                  }}
+                >
+                  {PROJECTS.map((project, index) => (
+                    <div
+                      key={project.id}
+                      ref={(el) => {
+                        cardEls.current[index] = el;
+                        if (index === 0) firstCardRef.current = el;
+                      }}
+                      className="absolute inset-x-0 flex justify-center will-change-transform"
+                      style={{ zIndex: index + 1 }}
+                    >
+                      <ProjectCard project={project} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
