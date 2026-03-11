@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import type { ProjectsProps, ProjectCardData } from "./Projects.types";
 import { ProjectCard } from "./components/ProjectCard";
@@ -99,16 +99,30 @@ export function Projects({ className }: ProjectsProps) {
   const firstCardRef = useRef<HTMLDivElement>(null);
   const cardEls = useRef<(HTMLDivElement | null)[]>([]);
 
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [dims, setDims] = useState({
+  /*
+   * Initialise eagerly from window so the correct layout (desktop vs mobile)
+   * is rendered on the very first pass and refs are populated before the
+   * browser paints.
+   */
+  const [isDesktop, setIsDesktop] = useState(
+    () => window.innerWidth >= DESKTOP_BREAKPOINT,
+  );
+  const [dims, setDims] = useState(() => ({
     titleH: 200,
     cardH: 600,
-    viewportH: 800,
-    viewportW: 1280,
-  });
+    viewportH: window.innerHeight,
+    viewportW: window.innerWidth,
+  }));
 
   /* ── Measure on mount / resize ── */
-  useEffect(() => {
+  /*
+   * useLayoutEffect fires synchronously after the DOM is committed but
+   * BEFORE the browser paints.  Because isDesktop is now initialised
+   * eagerly, the desktop layout (and its refs) is already in the DOM when
+   * this effect runs, so we always get real offsetHeight values and
+   * stickyScale is correct on the very first frame.
+   */
+  useLayoutEffect(() => {
     const measure = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
@@ -122,12 +136,9 @@ export function Projects({ className }: ProjectsProps) {
     };
 
     measure();
-    // Re-measure after first paint so heights are accurate
-    const rafId = requestAnimationFrame(measure);
     window.addEventListener("resize", measure);
     return () => {
       window.removeEventListener("resize", measure);
-      cancelAnimationFrame(rafId);
     };
   }, []);
 
