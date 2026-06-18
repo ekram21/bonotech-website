@@ -10,7 +10,7 @@ export function TermsOfService() {
         <>
             <Navbar />
             <article className="min-h-screen w-full bg-surface-neutral text-content-primary">
-                <div className="mx-auto w-full max-w-(--width-container) px-container-x py-16 lg:py-24">
+                <div className="mx-auto w-full max-w-(--width-container) px-container-x pt-32 pb-16 lg:pt-40 lg:pb-24">
                     <header className="max-w-3xl mb-12 lg:mb-16">
                         <p className="font-body text-label-lg text-content-tertiary uppercase tracking-wider mb-3">
                             Bonotech Pte. Ltd.
