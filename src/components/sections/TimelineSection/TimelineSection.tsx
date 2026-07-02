@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import websiteWireframe from '@/assets/timeline/website-wireframe.png'
 import mobileWireframe from '@/assets/timeline/mobile-wireframe.png'
@@ -67,31 +67,50 @@ function TimelineHeading({ id }: { id?: string }) {
 
 export function TimelineSection({ className }: TimelineSectionProps) {
     const runwayRef = useRef<HTMLDivElement>(null)
-    const firstCardRef = useRef<HTMLDivElement>(null)
     const cardEls = useRef<(HTMLDivElement | null)[]>([])
 
     const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= DESKTOP_BREAKPOINT)
     const [dims, setDims] = useState(() => ({
-        cardH: 520,
+        cardH: 610,
         viewportH: window.innerHeight,
     }))
     const [activeIndex, setActiveIndex] = useState(0)
 
+    const measureCards = useCallback(() => {
+        const vw = window.innerWidth
+        const vh = window.innerHeight
+        setIsDesktop(vw >= DESKTOP_BREAKPOINT)
+
+        const heights = cardEls.current
+            .map((el) => {
+                const article = el?.querySelector('article')
+                return article?.offsetHeight ?? el?.offsetHeight ?? 0
+            })
+            .filter((height) => height > 0)
+
+        setDims({
+            cardH: heights.length ? Math.max(...heights) : 610,
+            viewportH: vh,
+        })
+    }, [])
+
     useLayoutEffect(() => {
-        const measure = () => {
-            const vw = window.innerWidth
-            const vh = window.innerHeight
-            setIsDesktop(vw >= DESKTOP_BREAKPOINT)
-            setDims({
-                cardH: firstCardRef.current?.offsetHeight ?? 520,
-                viewportH: vh,
+        measureCards()
+        window.addEventListener('resize', measureCards)
+
+        let observer: ResizeObserver | undefined
+        if (typeof ResizeObserver !== 'undefined') {
+            observer = new ResizeObserver(measureCards)
+            cardEls.current.forEach((el) => {
+                if (el) observer?.observe(el)
             })
         }
 
-        measure()
-        window.addEventListener('resize', measure)
-        return () => window.removeEventListener('resize', measure)
-    }, [])
+        return () => {
+            window.removeEventListener('resize', measureCards)
+            observer?.disconnect()
+        }
+    }, [isDesktop, measureCards])
 
     const { cardH, viewportH } = dims
     const cardAreaH = cardH
@@ -222,20 +241,21 @@ export function TimelineSection({ className }: TimelineSectionProps) {
                                     }}
                                     data-index={index}
                                 >
-                                    <TimelineScrollCard item={item} />
+                                    <TimelineScrollCard item={item} onImageLoad={measureCards} />
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <div ref={runwayRef} className="relative" style={{ height: runwayH }}>
                             <div
-                                className="sticky"
+                                className="sticky overflow-visible"
                                 style={{
                                     top: CARD_PIN_TOP,
                                     height: stickyContentH * stickyScale,
                                 }}
                             >
                                 <div
+                                    className="overflow-visible"
                                     style={{
                                         transform: `scale(${stickyScale})`,
                                         transformOrigin: 'top center',
@@ -244,10 +264,10 @@ export function TimelineSection({ className }: TimelineSectionProps) {
                                     }}
                                 >
                                     <div
-                                        className="relative"
+                                        className="relative overflow-visible"
                                         style={{
                                             height: cardAreaH,
-                                            clipPath: 'inset(-200px -200px -200px -200px)',
+                                            clipPath: 'inset(-200px -200px -300px -200px)',
                                         }}
                                     >
                                         {TIMELINE_ITEMS.map((item, index) => (
@@ -255,12 +275,11 @@ export function TimelineSection({ className }: TimelineSectionProps) {
                                                 key={item.days}
                                                 ref={(el) => {
                                                     cardEls.current[index] = el
-                                                    if (index === 0) firstCardRef.current = el
                                                 }}
-                                                className="absolute inset-x-0 will-change-transform"
+                                                className="absolute inset-x-0 top-0 flex justify-center will-change-transform"
                                                 style={{ zIndex: index + 1 }}
                                             >
-                                                <TimelineScrollCard item={item} />
+                                                <TimelineScrollCard item={item} onImageLoad={measureCards} />
                                             </div>
                                         ))}
                                     </div>

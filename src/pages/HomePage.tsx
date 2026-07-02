@@ -9,7 +9,8 @@ import { AiApproach } from '@/components/sections/AiApproach/AiApproach'
 import { Comparison } from '@/components/sections/Comparison/Comparison'
 // import { Timeline } from '@/components/sections/Timeline/Timeline'
 import { TimelineSection } from '@/components/sections/TimelineSection/TimelineSection'
-import { Speed } from '@/components/sections/Speed/Speed'
+// import { Speed } from '@/components/sections/Speed/Speed'
+import { SpeedSection } from '@/components/sections/SpeedSection/SpeedSection'
 import { Projects } from '@/components/sections/Projects/Projects'
 import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperience'
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
@@ -32,7 +33,8 @@ export function HomePage() {
             <AiApproach />
             {/* <Timeline /> */}
             <TimelineSection />
-            <Speed />
+            {/* <Speed /> */}
+            <SpeedSection />
             <Projects />
             <BonoExperience />
             <Testimonials />

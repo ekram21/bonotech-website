@@ -1,6 +1,11 @@
 import type { TimelineSectionItem } from '../TimelineSection.types'
 
-export function TimelineScrollCard({ item }: { item: TimelineSectionItem }) {
+interface TimelineScrollCardProps {
+    item: TimelineSectionItem
+    onImageLoad?: () => void
+}
+
+export function TimelineScrollCard({ item, onImageLoad }: TimelineScrollCardProps) {
     return (
         <article className="mx-auto flex w-full max-w-[576px] flex-col gap-2 rounded-2xl bg-[#EFECF9] p-2">
             <div className="overflow-hidden rounded-xl">
@@ -10,6 +15,7 @@ export function TimelineScrollCard({ item }: { item: TimelineSectionItem }) {
                     className="block h-auto w-full"
                     loading="lazy"
                     draggable={false}
+                    onLoad={onImageLoad}
                 />
             </div>
 
