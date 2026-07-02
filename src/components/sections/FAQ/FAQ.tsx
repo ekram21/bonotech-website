@@ -42,7 +42,7 @@ export function FAQ({ className }: FAQProps) {
             id="faq"
             aria-labelledby="faq-heading"
             className={cn(
-                'relative w-full overflow-hidden bg-[#F7F7F7] py-16 md:py-28',
+                'relative w-full overflow-hidden bg-[#FAFAFA] py-16 md:py-28',
                 className
             )}
         >
