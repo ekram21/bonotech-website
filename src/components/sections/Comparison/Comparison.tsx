@@ -69,7 +69,7 @@ export function Comparison({ className }: ComparisonProps) {
         <section
             id="comparison"
             aria-labelledby="comparison-heading"
-            className={cn('w-full bg-[#F4F5F6] py-16 md:py-28', className)}
+            className={cn('w-full bg-[#FFFFFF] py-16 md:py-28', className)}
         >
             <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center">
                 {/* Top Pill Badge */}
