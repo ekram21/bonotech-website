@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import bonotechMark from '@/assets/bonotech-splash-mark.png'
 import type { ComparisonProps, TimelineStep } from './Comparison.types'
@@ -63,16 +64,24 @@ const BONOTECH_STEPS: TimelineStep[] = [
     },
 ]
 
-function DurationBar({ value, className }: { value: number; className?: string }) {
+function DurationBlock({ label, value }: { label: string; value: number }) {
     return (
-        <div
-            className={cn('h-[6px] w-[120px] overflow-hidden rounded-full bg-[#8269CF]/20', className)}
-            role="presentation"
-        >
+        <div className="flex shrink-0 flex-col items-start gap-2">
+            <span className="text-left font-display text-[18px] font-bold leading-none text-[#8269CF]">
+                {label}
+            </span>
             <div
-                className="h-full rounded-full bg-[#8269CF]"
-                style={{ width: `${value}%` }}
-            />
+                className="h-[6px] w-[120px] overflow-hidden rounded-full bg-[#8269CF]/20"
+                role="presentation"
+            >
+                <motion.div
+                    className="h-full rounded-full bg-[#8269CF]"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${value}%` }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                />
+            </div>
         </div>
     )
 }
@@ -176,12 +185,7 @@ export function Comparison({ className }: ComparisonProps) {
                             <h3 className="font-display text-[22px] font-semibold leading-tight text-[#272829] sm:text-[24px]">
                                 Traditional Product Cycle
                             </h3>
-                            <div className="flex shrink-0 flex-col items-end gap-2">
-                                <span className="font-display text-[18px] font-bold leading-none text-[#8269CF]">
-                                    10 Month
-                                </span>
-                                <DurationBar value={82} />
-                            </div>
+                            <DurationBlock label="10 Month" value={82} />
                         </div>
 
                         <div className="flex-1 rounded-[16px] bg-white p-6 md:p-8">
@@ -204,12 +208,7 @@ export function Comparison({ className }: ComparisonProps) {
                                     BONOTECH
                                 </span>
                             </div>
-                            <div className="flex shrink-0 flex-col items-end gap-2">
-                                <span className="font-display text-[18px] font-bold leading-none text-[#8269CF]">
-                                    2 Weeks
-                                </span>
-                                <DurationBar value={90} />
-                            </div>
+                            <DurationBlock label="2 Weeks" value={90} />
                         </div>
 
                         <div className="relative flex-1 overflow-hidden rounded-[16px] bg-[#8269CF] p-6 md:p-8">
