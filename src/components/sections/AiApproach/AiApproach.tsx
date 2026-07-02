@@ -4,7 +4,6 @@ import {
     Blocks,
     Check,
     ChevronDown,
-    Cpu,
     Gauge,
     Map,
     Search,
@@ -14,7 +13,7 @@ import {
     Zap,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import bonotechMark from '@/assets/bonotech-splash-mark.png'
+import bonotechPillLogo from '@/assets/ai-approach/bonotech-pill-logo.png'
 import type { AiApproachProps, StatusVariant } from './AiApproach.types'
 import {
     ContractIcon,
@@ -25,6 +24,7 @@ import {
     ToolsIcon,
 } from './integration-icons'
 import { WiringConnectors } from './WiringConnectors'
+import { GenericAiChipIcon } from './pill-icons'
 
 const INTEGRATIONS = [
     { label: 'Tools', icon: ToolsIcon },
@@ -252,11 +252,11 @@ export function AiApproach({ className }: AiApproachProps) {
                     <div className="lg:border-r lg:border-[#E8E9EB] lg:pr-10 xl:pr-14">
                         <h2
                             id="ai-approach-heading"
-                            className="font-display text-[28px] font-semibold leading-[1.15] text-[#272829] sm:text-[32px]"
+                            className="text-center font-display text-[28px] font-semibold leading-[1.15] text-[#272829] sm:text-[32px]"
                         >
                             Plug &amp; Play AI
                         </h2>
-                        <p className="mt-3 max-w-[420px] font-body text-[15px] leading-[1.6] text-[#75777A] sm:text-[16px]">
+                        <p className="mx-auto mt-3 max-w-[420px] text-center font-body text-[15px] leading-[1.6] text-[#75777A] sm:text-[16px]">
                             Hovers over your stack. It never connects the systems where the real
                             work lives.
                         </p>
@@ -265,10 +265,11 @@ export function AiApproach({ className }: AiApproachProps) {
                             <IntegrationGrid statuses={LEFT_STATUSES} stopShort />
                         </div>
 
-                        <div className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#F4F5F6] px-4 py-3 text-center">
-                            <Cpu className="h-4 w-4 shrink-0 text-[#75777A]" strokeWidth={2} />
-                            <span className="font-body text-[13px] font-medium text-[#444547] sm:text-[14px]">
-                                Generic AI Can&apos;t reach your real workflow
+                        <div className="mt-2 flex items-center justify-center gap-2.5 rounded-full bg-[#F4F5F6] px-5 py-3 text-center">
+                            <GenericAiChipIcon className="h-[22px] w-[22px] shrink-0" />
+                            <span className="font-body text-[13px] text-[#444547] sm:text-[14px]">
+                                <span className="font-semibold text-[#272829]">Generic AI</span>
+                                <span className="font-normal"> Can&apos;t reach your real workflow</span>
                             </span>
                         </div>
 
@@ -288,10 +289,10 @@ export function AiApproach({ className }: AiApproachProps) {
 
                     {/* Bonotech approach */}
                     <div className="lg:pl-10 xl:pl-14">
-                        <h2 className="font-display text-[28px] font-semibold leading-[1.15] text-[#272829] sm:text-[32px]">
+                        <h2 className="text-center font-display text-[28px] font-semibold leading-[1.15] text-[#272829] sm:text-[32px]">
                             Bonotech approach
                         </h2>
-                        <p className="mt-3 max-w-[420px] font-body text-[15px] leading-[1.6] text-[#75777A] sm:text-[16px]">
+                        <p className="mx-auto mt-3 max-w-[420px] text-center font-body text-[15px] leading-[1.6] text-[#75777A] sm:text-[16px]">
                             Plugs into every system and learns how they connect — then builds AI
                             that fits.
                         </p>
@@ -300,16 +301,15 @@ export function AiApproach({ className }: AiApproachProps) {
                             <IntegrationGrid statuses={bonotechStatuses} stopShort={false} />
                         </div>
 
-                        <div className="mt-2 flex items-center justify-center gap-2.5 rounded-full bg-[#8269CF] px-4 py-3 text-center">
+                        <div className="mt-2 flex items-center justify-center gap-2.5 rounded-full bg-[#8269CF] px-5 py-3 text-center">
                             <img
-                                src={bonotechMark}
-                                alt=""
-                                aria-hidden="true"
-                                className="h-5 w-auto object-contain brightness-0 invert"
+                                src={bonotechPillLogo}
+                                alt="BONOTECH"
+                                className="h-[22px] w-auto shrink-0 object-contain"
                                 draggable={false}
                             />
-                            <span className="font-display text-[13px] font-semibold tracking-[0.06em] text-white sm:text-[14px]">
-                                BONOTECH Connects Every System
+                            <span className="font-display text-[13px] font-semibold tracking-[0.04em] text-white sm:text-[14px]">
+                                Connects Every System
                             </span>
                         </div>
 
