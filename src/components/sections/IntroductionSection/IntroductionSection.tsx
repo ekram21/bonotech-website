@@ -43,21 +43,31 @@ const cardVariants = {
 
 const carEase = [0.22, 1, 0.36, 1] as const
 
+const carStripVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.05,
+        },
+    },
+}
+
 const leftCarVariants = {
-    hidden: { x: '-120%', opacity: 0 },
+    hidden: { x: '-50vw', opacity: 0 },
     visible: {
         x: 0,
         opacity: 1,
-        transition: { duration: 1.1, ease: carEase },
+        transition: { duration: 1.2, ease: carEase },
     },
 }
 
 const rightCarVariants = {
-    hidden: { x: '120%', opacity: 0 },
+    hidden: { x: '50vw', opacity: 0 },
     visible: {
         x: 0,
         opacity: 1,
-        transition: { duration: 1.1, ease: carEase },
+        transition: { duration: 1.2, ease: carEase },
     },
 }
 
@@ -71,7 +81,7 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
             <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) py-16 md:py-24">
                 {/* Top row */}
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                    <div className="flex min-h-[280px] flex-col justify-between rounded-[24px] bg-[#8269CF] p-8 md:min-h-[320px] md:p-10">
+                    <div className="flex min-h-[240px] flex-col justify-between rounded-[24px] bg-[#8269CF] p-8 md:min-h-[240px] md:p-10">
                         <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-4 py-1.5">
                             <span
                                 className="h-2 w-2 shrink-0 rounded-full bg-[#8269CF]"
@@ -84,7 +94,7 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
 
                         <h2
                             id="introduction-heading"
-                            className="mt-8 font-display text-[40px] font-semibold leading-[1.08] tracking-tight text-white sm:text-[48px] md:text-[56px] lg:mt-0"
+                            className="mt-2 font-display text-[40px] font-semibold leading-[1.08] tracking-tight text-white sm:text-[48px] md:text-[56px] lg:mt-0"
                         >
                             Better. Faster.
                             <br />
@@ -92,7 +102,7 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
                         </h2>
                     </div>
 
-                    <div className="flex min-h-[280px] flex-col justify-center rounded-[24px] border border-[#E8E9EB] bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] md:min-h-[320px] md:p-10">
+                    <div className="flex min-h-[240px] flex-col justify-center rounded-[24px] border border-[#E8E9EB] bg-[#F5F3FB] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] md:min-h-[240px] md:p-10">
                         <h3 className="font-display text-[28px] font-semibold leading-[1.2] text-[#272829] sm:text-[32px]">
                             Zero to Launch with{' '}
                             <span className="text-[#8269CF]">SPEED.</span>
@@ -146,10 +156,11 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
 
             {/* F1 car strip — full-width lavender band, cars slide in from sides */}
             <motion.div
-                className="relative mt-5 w-full overflow-hidden"
+                className="relative mt-5 w-full overflow-x-clip"
+                variants={carStripVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: true, amount: 0.35 }}
             >
                 <div className="relative pt-6 pb-[46px] sm:pt-8 md:pt-10">
                     <div
@@ -159,22 +170,24 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
                     />
 
                     <div className="relative mx-auto flex w-full max-w-[100vw] items-end justify-between px-4 sm:px-8 md:px-12 lg:px-16">
-                        <motion.img
-                            src={f1CarLeft}
-                            alt=""
-                            aria-hidden="true"
-                            variants={leftCarVariants}
-                            className="h-[48px] w-auto max-w-[40%] object-contain object-left sm:h-[56px] md:h-[64px] lg:h-[72px]"
-                            draggable={false}
-                        />
-                        <motion.img
-                            src={f1CarRight}
-                            alt=""
-                            aria-hidden="true"
-                            variants={rightCarVariants}
-                            className="h-[48px] w-auto max-w-[40%] object-contain object-right sm:h-[56px] md:h-[64px] lg:h-[72px]"
-                            draggable={false}
-                        />
+                        <motion.div variants={leftCarVariants} className="will-change-transform">
+                            <img
+                                src={f1CarLeft}
+                                alt=""
+                                aria-hidden="true"
+                                className="h-[48px] w-auto max-w-[40vw] object-contain object-left sm:h-[56px] md:h-[64px] lg:h-[72px]"
+                                draggable={false}
+                            />
+                        </motion.div>
+                        <motion.div variants={rightCarVariants} className="will-change-transform">
+                            <img
+                                src={f1CarRight}
+                                alt=""
+                                aria-hidden="true"
+                                className="h-[48px] w-auto max-w-[40vw] object-contain object-right sm:h-[56px] md:h-[64px] lg:h-[72px]"
+                                draggable={false}
+                            />
+                        </motion.div>
                     </div>
                 </div>
             </motion.div>
