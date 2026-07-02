@@ -2,7 +2,8 @@
 import { Navbar } from '@/components/sections/Navbar/Navbar'
 import { Hero } from '@/components/sections/Hero/Hero'
 import { Clients } from '@/components/sections/Clients/Clients'
-import { Introduction } from '@/components/sections/Introduction/Introduction'
+// import { Introduction } from '@/components/sections/Introduction/Introduction'
+import { IntroductionSection } from '@/components/sections/IntroductionSection/IntroductionSection'
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
 import { Comparison } from '@/components/sections/Comparison/Comparison'
 import { Timeline } from '@/components/sections/Timeline/Timeline'
@@ -22,7 +23,8 @@ export function HomePage() {
             <Navbar />
             <Hero />
             <Clients />
-            <Introduction />
+            {/* <Introduction /> */}
+            <IntroductionSection />
             <Comparison />
             <WhatWeDo />
             <Timeline />
