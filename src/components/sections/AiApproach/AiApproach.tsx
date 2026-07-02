@@ -24,6 +24,7 @@ import {
     SheetsIcon,
     ToolsIcon,
 } from './integration-icons'
+import { WiringConnectors } from './WiringConnectors'
 
 const INTEGRATIONS = [
     { label: 'Tools', icon: ToolsIcon },
@@ -79,34 +80,35 @@ function StatusBadge({ variant }: { variant: StatusVariant }) {
     )
 }
 
-function ConnectorLines({ variant }: { variant: 'mixed' | 'brand' }) {
-    const strokeForIndex = (index: number) => {
-        if (variant === 'brand') return '#8269CF'
-        return LEFT_STATUSES[index] === 'success' ? '#22C55E' : '#E85D5D'
-    }
+function IntegrationGrid({
+    statuses,
+    stopShort,
+}: {
+    statuses: StatusVariant[]
+    stopShort?: boolean
+}) {
+    const variant = statuses[0] === 'brand' ? 'brand' : 'mixed'
 
     return (
-        <svg
-            viewBox="0 0 360 28"
-            className="mx-auto h-7 w-full max-w-[360px]"
-            aria-hidden="true"
-        >
-            {INTEGRATIONS.map((_, index) => {
-                const x = 30 + index * 60
-                return (
-                    <line
-                        key={index}
-                        x1={x}
-                        y1="0"
-                        x2="180"
-                        y2="26"
-                        stroke={strokeForIndex(index)}
-                        strokeWidth="1.5"
-                        strokeOpacity="0.55"
-                    />
-                )
-            })}
-        </svg>
+        <div>
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-6 sm:gap-2">
+                {INTEGRATIONS.map((item, index) => {
+                    const Icon = item.icon
+                    return (
+                        <div key={item.label} className="flex flex-col items-center gap-2">
+                            <StatusBadge variant={statuses[index]} />
+                            <div className="flex w-full flex-col items-center gap-2 rounded-2xl bg-[#F5F3FB] px-2 py-3">
+                                <Icon className="h-5 w-5 shrink-0" />
+                                <span className="text-center text-[11px] font-medium leading-tight text-[#75777A]">
+                                    {item.label}
+                                </span>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+            <WiringConnectors variant={variant} statuses={statuses} stopShort={stopShort} />
+        </div>
     )
 }
 
@@ -158,30 +160,6 @@ function CircularProgress({
                     {value}%
                 </span>
             </div>
-        </div>
-    )
-}
-
-function IntegrationGrid({ statuses }: { statuses: StatusVariant[] }) {
-    return (
-        <div>
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-6 sm:gap-2">
-                {INTEGRATIONS.map((item, index) => {
-                    const Icon = item.icon
-                    return (
-                        <div key={item.label} className="flex flex-col items-center gap-2">
-                            <StatusBadge variant={statuses[index]} />
-                            <div className="flex w-full flex-col items-center gap-2 rounded-2xl bg-[#F5F3FB] px-2 py-3">
-                                <Icon className="h-5 w-5 shrink-0" />
-                                <span className="text-center text-[11px] font-medium leading-tight text-[#75777A]">
-                                    {item.label}
-                                </span>
-                            </div>
-                        </div>
-                    )
-                })}
-            </div>
-            <ConnectorLines variant={statuses[0] === 'brand' ? 'brand' : 'mixed'} />
         </div>
     )
 }
@@ -284,7 +262,7 @@ export function AiApproach({ className }: AiApproachProps) {
                         </p>
 
                         <div className="mt-8">
-                            <IntegrationGrid statuses={LEFT_STATUSES} />
+                            <IntegrationGrid statuses={LEFT_STATUSES} stopShort />
                         </div>
 
                         <div className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#F4F5F6] px-4 py-3 text-center">
@@ -319,7 +297,7 @@ export function AiApproach({ className }: AiApproachProps) {
                         </p>
 
                         <div className="mt-8">
-                            <IntegrationGrid statuses={bonotechStatuses} />
+                            <IntegrationGrid statuses={bonotechStatuses} stopShort={false} />
                         </div>
 
                         <div className="mt-2 flex items-center justify-center gap-2.5 rounded-full bg-[#8269CF] px-4 py-3 text-center">
