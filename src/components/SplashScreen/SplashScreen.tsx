@@ -77,9 +77,9 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     return (
         <motion.div
             className="fixed inset-0 z-[200] flex items-center justify-center bg-white overflow-hidden"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: phase === 'exit' ? 0 : 1 }}
-            transition={{ duration: EXIT_MS / 1000, ease: 'easeInOut' }}
+            initial={{ y: 0 }}
+            animate={{ y: phase === 'exit' ? '-100%' : 0 }}
+            transition={{ duration: EXIT_MS / 1000, ease: slideEase }}
             aria-hidden="true"
         >
             <motion.div

@@ -15,7 +15,13 @@ function ScrollToTop() {
 
 export default function App() {
     const [showSplash, setShowSplash] = useState(true)
-    const handleSplashComplete = useCallback(() => setShowSplash(false), [])
+    const handleSplashComplete = useCallback(() => {
+        setShowSplash(false)
+        // Let Projects (sticky stack) remeasure after splash unmounts.
+        requestAnimationFrame(() => {
+            window.dispatchEvent(new Event('resize'))
+        })
+    }, [])
 
     return (
         <>
