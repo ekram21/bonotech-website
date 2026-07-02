@@ -76,10 +76,14 @@ function DurationBlock({ label, value }: { label: string; value: number }) {
             >
                 <motion.div
                     className="h-full rounded-full bg-[#8269CF]"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${value}%` }}
-                    viewport={{ once: true, amount: 0.6 }}
-                    transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                    initial={{ width: '0%' }}
+                    animate={{ width: [`0%`, `${value}%`] }}
+                    transition={{
+                        duration: 1.1,
+                        ease: [0.22, 1, 0.36, 1],
+                        repeat: Infinity,
+                        repeatDelay: 0.5,
+                    }}
                 />
             </div>
         </div>
