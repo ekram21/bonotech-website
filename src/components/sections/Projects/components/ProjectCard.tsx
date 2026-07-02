@@ -34,20 +34,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {/* Background Icon — centered, fills full height */}
             {project.iconSrc && (
                 <div
-                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    className={
+                        project.iconCover
+                            ? 'pointer-events-none absolute inset-0'
+                            : 'absolute inset-0 flex items-center justify-center pointer-events-none'
+                    }
                     aria-hidden="true"
                 >
                     <img
                         src={project.iconSrc}
                         alt=""
-                        className="object-contain"
-                        style={{
-                            ...(project.iconHeight ? { height: project.iconHeight } : {}),
-                            ...(project.iconWidth ? { width: project.iconWidth } : {}),
-                            maxWidth: '100%',
-                            maxHeight: '90%',
-                            opacity: project.opacity ? project.opacity / 100 : 1,
-                        }}
+                        className={project.iconCover ? 'h-full w-full object-cover' : 'object-contain'}
+                        style={
+                            project.iconCover
+                                ? { opacity: project.opacity ? project.opacity / 100 : 1 }
+                                : {
+                                      ...(project.iconHeight ? { height: project.iconHeight } : {}),
+                                      ...(project.iconWidth ? { width: project.iconWidth } : {}),
+                                      maxWidth: '100%',
+                                      maxHeight: '90%',
+                                      opacity: project.opacity ? project.opacity / 100 : 1,
+                                  }
+                        }
                     />
                 </div>
             )}

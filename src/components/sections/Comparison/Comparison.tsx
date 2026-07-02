@@ -1,6 +1,6 @@
-import { Calendar } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import bonotechLogo from '@/assets/bonotech-logo.png'
+import bonotechMark from '@/assets/bonotech-splash-mark.png'
 import type { ComparisonProps, TimelineStep } from './Comparison.types'
 
 const TRADITIONAL_STEPS: TimelineStep[] = [
@@ -26,18 +26,18 @@ const TRADITIONAL_STEPS: TimelineStep[] = [
     },
     {
         number: 5,
-        title: 'Month 1-2',
-        description: 'Discovery and requirements',
+        title: 'Month 8',
+        description: 'QA and revisions',
     },
     {
         number: 6,
-        title: 'Month 1-2',
-        description: 'Discovery and requirements',
+        title: 'Month 9',
+        description: 'Launch prep',
     },
     {
         number: 7,
-        title: 'Month 8-10',
-        description: 'QA, revisions, launch prep and launch',
+        title: 'Month 10',
+        description: 'Launch',
     },
 ]
 
@@ -50,7 +50,7 @@ const BONOTECH_STEPS: TimelineStep[] = [
     {
         number: 2,
         title: 'Week 2',
-        description: 'UX prototype, architecture, sprint backlog',
+        description: 'UX prototype, architecture, and sprint backlog',
     },
     {
         number: 3,
@@ -64,139 +64,166 @@ const BONOTECH_STEPS: TimelineStep[] = [
     },
 ]
 
+function DurationBlock({ label, value }: { label: string; value: number }) {
+    return (
+        <div className="flex shrink-0 flex-col items-start gap-2">
+            <span className="text-left font-display text-[18px] font-bold leading-none text-[#8269CF]">
+                {label}
+            </span>
+            <div
+                className="h-[6px] w-[120px] overflow-hidden rounded-full bg-[#8269CF]/20"
+                role="presentation"
+            >
+                <motion.div
+                    className="h-full rounded-full bg-[#8269CF]"
+                    initial={{ width: '0%' }}
+                    animate={{ width: [`0%`, `${value}%`] }}
+                    transition={{
+                        duration: 1.1,
+                        ease: [0.22, 1, 0.36, 1],
+                        repeat: Infinity,
+                        repeatDelay: 0.5,
+                    }}
+                />
+            </div>
+        </div>
+    )
+}
+
+function TimelineList({
+    steps,
+    variant,
+}: {
+    steps: TimelineStep[]
+    variant: 'light' | 'purple'
+}) {
+    const isPurple = variant === 'purple'
+
+    return (
+        <div className="flex flex-col">
+            {steps.map((step, index) => (
+                <div key={step.number} className="flex gap-4">
+                    <div className="flex flex-col items-center shrink-0">
+                        <div
+                            className={cn(
+                                'flex h-10 w-10 items-center justify-center rounded-full text-[16px] font-bold shrink-0',
+                                isPurple
+                                    ? 'bg-white text-[#8269CF]'
+                                    : 'bg-[#F4F5F6] text-[#272829]',
+                            )}
+                        >
+                            {step.number}
+                        </div>
+                        {index < steps.length - 1 && (
+                            <div
+                                className={cn(
+                                    'my-2 min-h-[24px] w-0 flex-grow border-l-2 border-dashed',
+                                    isPurple ? 'border-white/40' : 'border-[#B4B6B8]',
+                                )}
+                            />
+                        )}
+                    </div>
+
+                    <div
+                        className={cn(
+                            'flex flex-col justify-start pt-1.5',
+                            index === steps.length - 1 ? 'pb-0' : 'pb-6',
+                        )}
+                    >
+                        <h4
+                            className={cn(
+                                'text-[16px] font-bold leading-[1.3]',
+                                isPurple ? 'text-white' : 'text-[#272829]',
+                            )}
+                        >
+                            {step.title}
+                        </h4>
+                        <p
+                            className={cn(
+                                'mt-1 text-[14px] font-normal leading-[1.4]',
+                                isPurple ? 'text-white/95' : 'text-[#444547]',
+                            )}
+                        >
+                            {step.description}
+                        </p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    )
+}
+
 export function Comparison({ className }: ComparisonProps) {
     return (
         <section
             id="comparison"
             aria-labelledby="comparison-heading"
-            className={cn('w-full bg-[#F4F5F6] py-16 md:py-28', className)}
+            className={cn('w-full bg-white py-16 md:py-28', className)}
         >
-            <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center">
-                {/* Top Pill Badge */}
-                <div className="flex items-center gap-2 mb-4 py-1.5 px-4 rounded-full bg-white border border-[#E8E9EB] shadow-xs">
+            <div className="mx-auto flex w-full max-w-(--width-container) flex-col items-center px-(--spacing-container-x)">
+                <div className="mb-4 flex items-center gap-2 rounded-full border border-[#E8E9EB] bg-white px-4 py-1.5 shadow-xs">
                     <div
-                        className="w-2 h-2 rounded-full shrink-0 bg-[#8269CF]"
+                        className="h-2 w-2 shrink-0 rounded-full bg-[#8269CF]"
                         aria-hidden="true"
                     />
-                    <span className="font-display font-medium text-[12px] leading-[140%] uppercase tracking-[0.05em] text-[#8269CF]">
+                    <span className="font-display text-[12px] font-medium uppercase leading-[140%] tracking-[0.05em] text-[#8269CF]">
                         Comparison
                     </span>
                 </div>
 
-                {/* Section Heading */}
                 <h2
                     id="comparison-heading"
-                    className="max-w-[700px] font-display font-semibold text-[32px] md:text-[48px] leading-[1.15] text-center text-[#272829] mb-12 md:mb-16"
+                    className="mb-3 max-w-[700px] text-center font-display text-[32px] font-semibold leading-[1.15] text-[#272829] md:text-[48px]"
                 >
                     From Slow Vendor Cycle to Marketable Products
                 </h2>
 
-                {/* Card Container */}
-                <div className="w-full bg-white rounded-[24px] p-6 md:p-10 shadow-xs">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+                <p className="mb-12 text-center font-body text-[16px] leading-[1.5] text-[#75777A] md:mb-16 md:text-[18px]">
+                    How Bonotech does it better
+                </p>
 
-                        {/* Traditional Product Cycle (Left) */}
-                        <div className="flex flex-col h-full">
-                            {/* Column Header */}
-                            <h3 className="text-[28px] font-semibold text-[#272829] text-center leading-tight">
+                <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
+                    {/* Traditional Product Cycle */}
+                    <div className="flex flex-col rounded-[24px] bg-[#F5F3FB] p-6 md:p-8">
+                        <div className="mb-6 flex items-start justify-between gap-4">
+                            <h3 className="font-display text-[22px] font-semibold leading-tight text-[#272829] sm:text-[24px]">
                                 Traditional Product Cycle
                             </h3>
-
-                            {/* Timeframe Banner */}
-                            <div className="flex items-center gap-3 w-full my-6 shrink-0">
-                                <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
-                                <div className="flex items-center gap-2 text-[#8269CF] text-[18px] font-[700] leading-none shrink-0 font-display">
-                                    <Calendar className="w-[18px] h-[18px] text-[#8269CF] shrink-0" strokeWidth={2.2} />
-                                    <span>10 Month</span>
-                                </div>
-                                <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
-                            </div>
-
-                            {/* Timeline Box */}
-                            <div className="flex-1 bg-[#F4F5F6] rounded-[16px] p-[24px] flex flex-col justify-start">
-                                <div className="flex flex-col">
-                                    {TRADITIONAL_STEPS.map((step, index) => (
-                                        <div key={step.number} className="flex gap-4">
-                                            {/* Left side: Circle and Line */}
-                                            <div className="flex flex-col items-center shrink-0">
-                                                <div className="flex w-10 h-10 items-center justify-center rounded-full bg-white text-[16px] font-bold text-[#272829] shadow-xs shrink-0">
-                                                    {step.number}
-                                                </div>
-                                                {index < TRADITIONAL_STEPS.length - 1 && (
-                                                    <div className="w-[2px] flex-grow border-l-2 border-dashed border-[#B4B6B8] my-2 min-h-[24px]" />
-                                                )}
-                                            </div>
-                                            {/* Right side: Text details */}
-                                            <div className={cn("pt-1.5 flex flex-col justify-start", index === TRADITIONAL_STEPS.length - 1 ? "pb-0" : "pb-6")}>
-                                                <h4 className="text-[16px] font-bold leading-[1.3] text-[#272829]">
-                                                    {step.title}
-                                                </h4>
-                                                <p className="mt-1 text-[14px] font-normal leading-[1.4] text-[#272829]">
-                                                    {step.description}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            <DurationBlock label="10 Month" value={82} />
                         </div>
 
-                        {/* BONOTECH (Right) */}
-                        <div className="flex flex-col h-full">
-                            {/* Column Header */}
-                            <div className="flex justify-center items-center h-[36px]">
+                        <div className="flex-1 rounded-[16px] bg-white p-6 md:p-8">
+                            <TimelineList steps={TRADITIONAL_STEPS} variant="light" />
+                        </div>
+                    </div>
+
+                    {/* BONOTECH */}
+                    <div className="flex flex-col rounded-[24px] bg-[#F5F3FB] p-6 md:p-8">
+                        <div className="mb-6 flex items-start justify-between gap-4">
+                            <div className="flex items-center gap-2.5">
                                 <img
-                                    src={bonotechLogo}
-                                    alt="BONOTECH"
-                                    className="h-[36px] w-auto object-contain"
-                                />
-                            </div>
-
-                            {/* Timeframe Banner */}
-                            <div className="flex items-center gap-3 w-full my-6 shrink-0">
-                                <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
-                                <div className="flex items-center gap-2 text-[#8269CF] text-[18px] font-[700] leading-none shrink-0 font-display">
-                                    <Calendar className="w-[18px] h-[18px] text-[#8269CF] shrink-0" strokeWidth={2.2} />
-                                    <span>2 Week</span>
-                                </div>
-                                <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
-                            </div>
-
-                            {/* Timeline Box */}
-                            <div className="flex-1 bg-[#8269CF] rounded-[16px] p-[24px] relative overflow-hidden flex flex-col justify-start">
-                                {/* Decorative Faded Circle in Background */}
-                                <div
-                                    className="absolute bottom-0 right-0 w-[240px] h-[240px] rounded-full bg-white/[0.08] translate-x-1/4 translate-y-1/4 pointer-events-none"
+                                    src={bonotechMark}
+                                    alt=""
                                     aria-hidden="true"
+                                    className="h-8 w-auto object-contain"
+                                    draggable={false}
                                 />
-
-                                <div className="flex flex-col relative z-10">
-                                    {BONOTECH_STEPS.map((step, index) => (
-                                        <div key={step.number} className="flex gap-4">
-                                            {/* Left side: Circle and Line */}
-                                            <div className="flex flex-col items-center shrink-0">
-                                                <div className="flex w-10 h-10 items-center justify-center rounded-full bg-white text-[16px] font-bold text-[#8269CF] shadow-xs shrink-0">
-                                                    {step.number}
-                                                </div>
-                                                {index < BONOTECH_STEPS.length - 1 && (
-                                                    <div className="w-[2px] flex-grow border-l-2 border-dashed border-white/40 my-2 min-h-[24px]" />
-                                                )}
-                                            </div>
-                                            {/* Right side: Text details */}
-                                            <div className={cn("pt-1.5 flex flex-col justify-start", index === BONOTECH_STEPS.length - 1 ? "pb-0" : "pb-6")}>
-                                                <h4 className="text-[16px] font-bold leading-[1.3] text-white">
-                                                    {step.title}
-                                                </h4>
-                                                <p className="mt-1 text-[14px] font-normal leading-[1.4] text-white/95">
-                                                    {step.description}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                <span className="font-display text-[22px] font-semibold tracking-[0.08em] text-[#272829] sm:text-[24px]">
+                                    BONOTECH
+                                </span>
                             </div>
+                            <DurationBlock label="2 Weeks" value={90} />
                         </div>
 
+                        <div className="relative flex-1 overflow-hidden rounded-[16px] bg-[#8269CF] p-6 md:p-8">
+                            <div
+                                className="pointer-events-none absolute bottom-0 right-0 h-[220px] w-[220px] translate-x-1/4 translate-y-1/4 rounded-full bg-white/[0.08]"
+                                aria-hidden="true"
+                            />
+                            <div className="relative z-10">
+                                <TimelineList steps={BONOTECH_STEPS} variant="purple" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

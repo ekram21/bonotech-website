@@ -2,13 +2,18 @@
 import { Navbar } from '@/components/sections/Navbar/Navbar'
 import { Hero } from '@/components/sections/Hero/Hero'
 import { Clients } from '@/components/sections/Clients/Clients'
-import { Introduction } from '@/components/sections/Introduction/Introduction'
+// import { Introduction } from '@/components/sections/Introduction/Introduction'
+import { IntroductionSection } from '@/components/sections/IntroductionSection/IntroductionSection'
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
+import { AiApproach } from '@/components/sections/AiApproach/AiApproach'
 import { Comparison } from '@/components/sections/Comparison/Comparison'
-import { Timeline } from '@/components/sections/Timeline/Timeline'
-import { Speed } from '@/components/sections/Speed/Speed'
+// import { Timeline } from '@/components/sections/Timeline/Timeline'
+import { TimelineSection } from '@/components/sections/TimelineSection/TimelineSection'
+// import { Speed } from '@/components/sections/Speed/Speed'
+import { SpeedSection } from '@/components/sections/SpeedSection/SpeedSection'
 import { Projects } from '@/components/sections/Projects/Projects'
-import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperience'
+// import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperience'
+import { BonoExperienceSection } from '@/components/sections/BonoExperienceSection/BonoExperienceSection'
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
 import { FAQ } from '@/components/sections/FAQ/FAQ'
 import { Contact } from '@/components/sections/Contact/Contact'
@@ -22,13 +27,18 @@ export function HomePage() {
             <Navbar />
             <Hero />
             <Clients />
-            <Introduction />
+            {/* <Introduction /> */}
+            <IntroductionSection />
             <Comparison />
             <WhatWeDo />
-            <Timeline />
-            <Speed />
+            <AiApproach />
+            {/* <Timeline /> */}
+            <TimelineSection />
+            {/* <Speed /> */}
+            <SpeedSection />
             <Projects />
-            <BonoExperience />
+            {/* <BonoExperience /> */}
+            <BonoExperienceSection />
             <Testimonials />
             <FAQ />
             {/* <Contact /> */}

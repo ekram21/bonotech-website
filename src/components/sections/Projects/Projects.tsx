@@ -11,8 +11,8 @@ import olmoMockup from "@/assets/projects/olmo-mockup.png";
 import olmoIcon from "@/assets/projects/olmo-icon.svg";
 import olmoLogo from "@/assets/projects/olmo-logo.png";
 import milioMockup from "@/assets/projects/milio-mockup.png";
-import milioLogo from "@/assets/projects/milio-logo.svg";
-import milioIcon from "@/assets/projects/milio-icon.svg";
+import getMyGrailIcon from "@/assets/projects/get-my-grail-icon.png";
+import getMyGrailLogo from "@/assets/projects/get-my-grail-logo.png";
 import polysignalsMockup from "@/assets/projects/polysignals-mockup.png";
 import polysignalsIcon from "@/assets/projects/polysignals-icon.png";
 import polysignalsLogo from "@/assets/projects/polysignals-logo.png";
@@ -78,8 +78,8 @@ const PROJECTS: ProjectCardData[] = [
     opacity: 100,
   },
   {
-    id: "milio",
-    category: "Collectibles",
+    id: "get-my-grail",
+    category: "MMS",
     title: "Where collectors Can buy their Collectibles",
     features: [
       "Marketplace Flow",
@@ -94,15 +94,14 @@ const PROJECTS: ProjectCardData[] = [
     borderColor: "#D4D4D4",
     buttonColor: "#333333",
     mockupSrc: milioMockup,
-    iconSrc: milioIcon,
-    iconWidth: 765,
-    logoSrc: milioLogo,
-    logoAlt: "Milio logo",
-    logoDark: true,
-    logoWidth: 164.77,
-    logoHeight: 56,
-    playStoreHref: undefined,
-    appStoreHref: undefined,
+    iconSrc: getMyGrailIcon,
+    iconCover: true,
+    logoSrc: getMyGrailLogo,
+    logoAlt: "Get My Grail logo",
+    logoWidth: 170,
+    logoHeight: 79,
+    playStoreHref: "#",
+    appStoreHref: "#",
     learnMoreHref: "#",
     opacity: 35,
   },

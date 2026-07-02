@@ -15,6 +15,7 @@ export interface ProjectCardData {
     iconSrc?: string
     iconWidth?: number
     iconHeight?: number
+    iconCover?: boolean
     logoSrc: string
     logoAlt: string
     logoDark?: boolean

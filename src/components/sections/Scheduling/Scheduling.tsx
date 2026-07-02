@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { InlineWidget } from 'react-calendly'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -6,13 +7,13 @@ import type { SchedulingProps } from './Scheduling.types'
 const DEFAULT_CALENDLY_URL =
     import.meta.env.VITE_CALENDLY_URL ?? 'https://calendly.com/shahedantu/30min'
 
-/** 2-panel Calendly: event details (left) + calendar (right). Needs ~700px+ width. */
-const WIDGET_HEIGHT = 700
-const WIDGET_WIDTH = 1000
+const MOBILE_BREAKPOINT = 1024
+const MOBILE_WIDGET_HEIGHT = 760
+const DESKTOP_WIDGET_HEIGHT = 700
+const DESKTOP_WIDGET_WIDTH = 1000
 
 const CALENDLY_PAGE_SETTINGS = {
-    backgroundColor: 'ffffff',
-    hideEventTypeDetails: false,
+    backgroundColor: 'fafafa',
     hideLandingPageDetails: true,
     primaryColor: '8269CF',
     textColor: '272829',
@@ -20,11 +21,22 @@ const CALENDLY_PAGE_SETTINGS = {
 } as const
 
 export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: SchedulingProps) {
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+        }
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     return (
         <section
             id="schedule"
             aria-labelledby="schedule-heading"
-            className={cn('w-full bg-white py-20 md:py-28', className)}
+            className={cn('w-full bg-[#fafafa] py-20 md:py-28', className)}
         >
             <div className="relative mx-auto w-full max-w-[1600px] px-(--spacing-container-x)">
                 <div className="flex flex-col lg:flex-row lg:center gap-12 lg:gap-10 xl:gap-14 w-full">
@@ -91,23 +103,26 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                     </div>
 
                     {/* ─── Right: Calendly Widget ─── */}
-                    <div className="w-full lg:flex-1 lg:min-w-0 overflow-x-auto">
+                    <div className="w-full lg:flex-1 lg:min-w-0">
                         {/* <div
                             className={cn(
-                                'rounded-[24px] border border-[#E8E9EB] bg-white',
-                                'shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden',
-                                'w-full max-w-[1000px] min-w-[700px]',
+                                'w-full overflow-hidden rounded-[24px] border border-[#E8E9EB] bg-white',
+                                'shadow-[0_4px_24px_rgba(0,0,0,0.06)]',
                             )}
                         > */}
                             <InlineWidget
                                 url={calendlyUrl}
-                                pageSettings={CALENDLY_PAGE_SETTINGS}
+                                pageSettings={{
+                                    ...CALENDLY_PAGE_SETTINGS,
+                                    hideEventTypeDetails: isMobile,
+                                }}
                                 iframeTitle="Schedule a discovery call with Bonotech"
                                 styles={{
-                                    height: `${WIDGET_HEIGHT}px`,
-                                    width: `${WIDGET_WIDTH}px`,
-                                    minWidth: `${WIDGET_WIDTH}px`,
-                                    backgroundColor: '#ffffff',
+                                    height: `${isMobile ? MOBILE_WIDGET_HEIGHT : DESKTOP_WIDGET_HEIGHT}px`,
+                                    width: '100%',
+                                    minWidth: '100%',
+                                    maxWidth: `${DESKTOP_WIDGET_WIDTH}px`,
+                                    backgroundColor: '#fafafa',
                                 }}
                             />
                         {/* </div> */}
