@@ -27,9 +27,9 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
             className={cn('w-full bg-white py-20 md:py-28', className)}
         >
             <div className="relative mx-auto w-full max-w-[1600px] px-(--spacing-container-x)">
-                <div className="flex flex-col lg:flex-row lg:items-start gap-12 lg:gap-10 xl:gap-14 w-full">
+                <div className="flex flex-col lg:flex-row lg:center gap-12 lg:gap-10 xl:gap-14 w-full">
                     {/* ─── Left Content ─── */}
-                    <div className="w-full lg:w-[340px] xl:w-[380px] lg:shrink-0 flex flex-col gap-12 lg:justify-between lg:min-h-[700px]">
+                    <div className="w-full lg:w-[340px] xl:w-[480px] lg:shrink-0 flex flex-col gap-12 lg:justify-between lg:min-h-[500px] py-16">
                         <div>
                             <h2
                                 id="schedule-heading"
@@ -44,7 +44,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                             </p>
                         </div>
 
-                        <div className="flex flex-col gap-4 lg:mt-auto lg:pt-24">
+                        <div className="flex flex-col gap-4 lg:mt-0 lg:pt-0">
                             <div className="flex items-center gap-4">
                                 <div
                                     className="flex items-center justify-center w-[40px] h-[40px] bg-white rounded-full text-[#131314] shrink-0"
