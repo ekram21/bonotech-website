@@ -7,7 +7,8 @@ import { IntroductionSection } from '@/components/sections/IntroductionSection/I
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
 import { AiApproach } from '@/components/sections/AiApproach/AiApproach'
 import { Comparison } from '@/components/sections/Comparison/Comparison'
-import { Timeline } from '@/components/sections/Timeline/Timeline'
+// import { Timeline } from '@/components/sections/Timeline/Timeline'
+import { TimelineSection } from '@/components/sections/TimelineSection/TimelineSection'
 import { Speed } from '@/components/sections/Speed/Speed'
 import { Projects } from '@/components/sections/Projects/Projects'
 import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperience'
@@ -29,7 +30,8 @@ export function HomePage() {
             <Comparison />
             <WhatWeDo />
             <AiApproach />
-            <Timeline />
+            {/* <Timeline /> */}
+            <TimelineSection />
             <Speed />
             <Projects />
             <BonoExperience />
