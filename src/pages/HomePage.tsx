@@ -12,7 +12,8 @@ import { TimelineSection } from '@/components/sections/TimelineSection/TimelineS
 // import { Speed } from '@/components/sections/Speed/Speed'
 import { SpeedSection } from '@/components/sections/SpeedSection/SpeedSection'
 import { Projects } from '@/components/sections/Projects/Projects'
-import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperience'
+// import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperience'
+import { BonoExperienceSection } from '@/components/sections/BonoExperienceSection/BonoExperienceSection'
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
 import { FAQ } from '@/components/sections/FAQ/FAQ'
 import { Contact } from '@/components/sections/Contact/Contact'
@@ -36,7 +37,8 @@ export function HomePage() {
             {/* <Speed /> */}
             <SpeedSection />
             <Projects />
-            <BonoExperience />
+            {/* <BonoExperience /> */}
+            <BonoExperienceSection />
             <Testimonials />
             <FAQ />
             {/* <Contact /> */}
