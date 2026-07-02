@@ -5,6 +5,7 @@ import { Clients } from '@/components/sections/Clients/Clients'
 // import { Introduction } from '@/components/sections/Introduction/Introduction'
 import { IntroductionSection } from '@/components/sections/IntroductionSection/IntroductionSection'
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
+import { AiApproach } from '@/components/sections/AiApproach/AiApproach'
 import { Comparison } from '@/components/sections/Comparison/Comparison'
 import { Timeline } from '@/components/sections/Timeline/Timeline'
 import { Speed } from '@/components/sections/Speed/Speed'
@@ -27,6 +28,7 @@ export function HomePage() {
             <IntroductionSection />
             <Comparison />
             <WhatWeDo />
+            <AiApproach />
             <Timeline />
             <Speed />
             <Projects />
