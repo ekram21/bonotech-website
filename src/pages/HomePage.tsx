@@ -12,6 +12,7 @@ import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperie
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
 import { FAQ } from '@/components/sections/FAQ/FAQ'
 import { Contact } from '@/components/sections/Contact/Contact'
+import { Scheduling } from '@/components/sections/Scheduling/Scheduling'
 import { Footer } from '@/components/sections/Footer/Footer'
 
 export function HomePage() {
@@ -30,7 +31,8 @@ export function HomePage() {
             <BonoExperience />
             <Testimonials />
             <FAQ />
-            <Contact />
+            {/* <Contact /> */}
+            <Scheduling />
             <Footer />
         </>
     )

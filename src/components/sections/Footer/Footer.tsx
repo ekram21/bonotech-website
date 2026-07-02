@@ -13,6 +13,7 @@ const LINK_GROUPS: FooterLinkGroup[] = [
         links: [
             { label: 'About', href: '#about' },
             { label: 'Contact', href: '#contact' },
+            { label: 'Schedule a Call', href: '#schedule' },
             { label: 'FAQs', href: '#faqs' },
             { label: 'Privacy Policy', href: '/privacy', internal: true },
             { label: 'Terms and Conditions', href: '/terms', internal: true },
