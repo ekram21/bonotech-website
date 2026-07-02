@@ -2,17 +2,18 @@ import type { TimelineSectionItem } from '../TimelineSection.types'
 
 export function TimelineScrollCard({ item }: { item: TimelineSectionItem }) {
     return (
-        <article className="w-full overflow-hidden rounded-[24px] border border-[#E8E9EB] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.05)]">
-            <div className="flex min-h-[280px] items-center justify-center bg-[#F5F3FB] px-6 py-8 sm:min-h-[320px]">
+        <article className="mx-auto flex w-full max-w-[576px] flex-col gap-2 rounded-2xl bg-[#EFECF9] p-2">
+            <div className="overflow-hidden rounded-xl">
                 <img
                     src={item.image}
                     alt=""
-                    className="max-h-[260px] w-full max-w-full object-contain sm:max-h-[300px]"
+                    className="block h-auto w-full"
                     loading="lazy"
                     draggable={false}
                 />
             </div>
-            <div className="px-6 py-6 sm:px-8 sm:py-7">
+
+            <div className="rounded-xl bg-white px-6 py-6 sm:px-8 sm:py-7">
                 <h3 className="font-display text-[20px] font-semibold leading-[1.3] text-[#272829] sm:text-[22px]">
                     {item.title}
                 </h3>
