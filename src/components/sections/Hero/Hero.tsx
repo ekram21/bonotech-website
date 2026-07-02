@@ -2,7 +2,7 @@ import type { HeroProps } from "./Hero.types";
 import { HeroPill } from "./components/HeroPill";
 import { HeroButton } from "./components/HeroButton";
 
-import bonotechHeroBg from "@/assets/bonotech-hero-bg.jpg";
+import bonotechHeroBg1 from "@/assets/bonotech-hero-bg-1.png";
 
 export function Hero({
   pillText = "POWERED BY SPEED",
@@ -18,7 +18,7 @@ export function Hero({
       className="relative min-h-[823px] w-full overflow-hidden bg-[#020914] text-white max-lg:min-h-[720px] max-sm:min-h-[680px]"
     >
       <img
-        src={bonotechHeroBg}
+        src={bonotechHeroBg1}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover object-center"
