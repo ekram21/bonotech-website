@@ -86,12 +86,12 @@ export function BonoExperienceSection({ className }: BonoExperienceSectionProps)
 
                     <h2
                         id="experience-heading"
-                        className="font-display text-[32px] leading-[1.15] font-semibold text-[#313233] md:text-[48px]"
+                        className="font-display text-[32px] font-semibold leading-[1.15] text-[#272829] md:text-[48px]"
                     >
                         The Bono-Experience
                     </h2>
 
-                    <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A]">
+                    <p className="mt-4 font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px] text-[#444547]">
                         Bonotech uses AI to accelerate the entire product lifecycle from research to launch,
                         building systems that evolve with{' '}
                         SPEED and accountability at every

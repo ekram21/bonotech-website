@@ -17,10 +17,10 @@ function DiagramBox({
     return (
         <div
             className={[
-                'flex min-h-[40px] w-full items-center justify-center rounded-xl border border-dashed px-2.5 py-2 text-center font-body text-[10px] leading-[1.35] sm:min-h-[44px] sm:px-3 sm:text-[11px]',
+                'flex w-full items-center justify-center rounded-xl border border-dashed p-4 text-center font-body text-[12px] font-semibold leading-none tracking-[-0.015em]',
                 isHighlighted
-                    ? 'border-white/55 bg-white/10 text-white'
-                    : 'border-[#8269CF]/40 bg-white text-[#313233]',
+                    ? 'border-[#A28FDB] bg-[#A28FDB]/10 text-white'
+                    : 'border-[#CFC5EC] bg-[#F4F5F6] text-[#313233]',
             ].join(' ')}
         >
             {label}
@@ -52,7 +52,7 @@ function CenterLogo({ variant }: { variant: 'default' | 'highlighted' }) {
 
 export function ExperienceDiagram({ labels, variant = 'default' }: ExperienceDiagramProps) {
     const isHighlighted = variant === 'highlighted'
-    const lineColor = isHighlighted ? 'rgba(255,255,255,0.4)' : 'rgba(130,105,207,0.38)'
+    const lineColor = isHighlighted ? '#A28FDB' : '#CFC5EC'
 
     return (
         <div className="relative mt-8 w-full">
@@ -70,7 +70,7 @@ export function ExperienceDiagram({ labels, variant = 'default' }: ExperienceDia
                     <line x1="272" y1="156" x2="180" y2="100" stroke={lineColor} strokeWidth="1" strokeDasharray="3 4" />
                 </svg>
 
-                <div className="relative z-10 grid grid-cols-[1fr_auto_1fr] grid-rows-[auto_auto_auto] items-center gap-x-2 gap-y-2 sm:gap-x-3 sm:gap-y-3">
+                <div className="relative z-10 grid grid-cols-[1fr_auto_1fr] grid-rows-[auto_auto_auto] items-center gap-2">
                     <div className="col-start-1 row-start-1">
                         <DiagramBox label={labels[0]} variant={variant} />
                     </div>

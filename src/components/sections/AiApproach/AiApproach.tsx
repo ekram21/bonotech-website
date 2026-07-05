@@ -126,6 +126,16 @@ function CircularProgress({
     const stroke = 8
     const radius = (size - stroke) / 2
     const circumference = 2 * Math.PI * radius
+    const progress = Math.min(Math.max(value, 0), 100) / 100
+    const arcLength = progress * circumference
+    const gapLength = circumference - arcLength
+    // Round caps extend into the gap; compensate when the gap is smaller than the stroke.
+    const strokeDashoffset =
+        progress >= 1
+            ? 0
+            : gapLength < stroke
+              ? gapLength + stroke
+              : gapLength
 
     return (
         <div className="relative shrink-0" style={{ width: size, height: size }}>
@@ -149,7 +159,7 @@ function CircularProgress({
                     strokeDasharray={circumference}
                     initial={{ strokeDashoffset: circumference }}
                     whileInView={{
-                        strokeDashoffset: circumference - (value / 100) * circumference,
+                        strokeDashoffset,
                     }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 1.2, ease: progressEase, delay: 0.2 }}
