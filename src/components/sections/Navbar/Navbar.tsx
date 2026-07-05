@@ -89,7 +89,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     </div>
 
                     <a
-                        href={navHref('#contact')}
+                        href={navHref('#schedule')}
                         className={cn(
                             "group hidden h-[49px] items-center gap-3 rounded-full py-[6px] pl-[25px] pr-[7px] text-[17px] font-semibold leading-[1.4] text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] lg:inline-flex",
                             isScrolled ? "bg-white/10 hover:bg-white/20" : "bg-white/13 hover:bg-white/20"
@@ -173,7 +173,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                         }}
                     >
                         <a
-                            href={navHref('#contact')}
+                            href={navHref('#schedule')}
                             onClick={closeMenu}
                             className="inline-flex items-center gap-3 bg-white text-[#131314] rounded-full pl-[24px] pr-[6px] py-[6px] text-label-lg hover:bg-white/90 transition-all duration-300"
                         >
