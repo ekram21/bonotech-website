@@ -40,6 +40,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
     // true when the wrapper is wide enough for the fixed 678px card,
     // false on narrower desktops where the full-bleed layout is used
     const [fitsCard, setFitsCard] = useState(true)
+    const [showCalendlyLoader, setShowCalendlyLoader] = useState(true)
 
     useEffect(() => {
         const handleResize = () => {
@@ -58,6 +59,86 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
         })
         observer.observe(el)
         return () => observer.disconnect()
+    }, [])
+
+    useEffect(() => {
+        const handleCalendlyMessage = (event: MessageEvent) => {
+            if (!event.origin.includes('calendly.com')) return
+
+            const eventName = event.data?.event
+
+            if (
+                eventName === 'calendly.profile_page_viewed' ||
+                eventName === 'calendly.event_type_viewed' ||
+                eventName === 'calendly.date_and_time_selected'
+            ) {
+                window.setTimeout(() => {
+                    setShowCalendlyLoader(false)
+                }, 300)
+            }
+
+            if (eventName === 'calendly.event_scheduled') {
+                setShowCalendlyLoader(false)
+            }
+        }
+
+        window.addEventListener('message', handleCalendlyMessage)
+
+        const fallbackTimer = window.setTimeout(() => {
+            setShowCalendlyLoader(false)
+        }, 4500)
+
+        return () => {
+            window.removeEventListener('message', handleCalendlyMessage)
+            window.clearTimeout(fallbackTimer)
+        }
+    }, [])
+
+    useEffect(() => {
+        const wrapper = wrapperRef.current
+        if (!wrapper) return
+
+        let currentIframe: HTMLIFrameElement | null = null
+
+        const handleLoad = () => {
+            setShowCalendlyLoader(true)
+
+            window.setTimeout(() => {
+                setShowCalendlyLoader(false)
+            }, 900)
+        }
+
+        const attachIframeLoadListener = () => {
+            const iframe = wrapper.querySelector('iframe')
+
+            if (!iframe || iframe === currentIframe) return
+
+            if (currentIframe) {
+                currentIframe.removeEventListener('load', handleLoad)
+            }
+
+            currentIframe = iframe
+            currentIframe.addEventListener('load', handleLoad)
+        }
+
+        const observer = new MutationObserver(() => {
+            attachIframeLoadListener()
+        })
+
+        observer.observe(wrapper, {
+            childList: true,
+            subtree: true,
+        })
+
+        attachIframeLoadListener()
+
+        return () => {
+            observer.disconnect()
+
+            if (currentIframe) {
+                currentIframe.removeEventListener('load', handleLoad)
+            }
+        }
     }, [])
 
     const widgetStyles = isMobile
@@ -149,8 +230,14 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                     <div className="w-full lg:flex-1 lg:min-w-0">
                         <div
                             ref={wrapperRef}
-                            className="w-full overflow-hidden lg:ml-auto lg:max-w-[678px]"
+                            className="relative w-full overflow-hidden lg:ml-auto lg:max-w-[678px]"
                         >
+                            {showCalendlyLoader && (
+                                <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#fafafa]">
+                                    <CalendlyLoader />
+                                </div>
+                            )}
+
                             <InlineWidget
                                 url={calendlyUrl}
                                 pageSettings={{

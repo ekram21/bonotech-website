@@ -240,8 +240,8 @@ body {
     aspect-ratio: 1;
     border-radius: 50%;
     background:
-        radial-gradient(farthest-side, #006bff 94%, #0000) top / 8px 8px no-repeat,
-        conic-gradient(#0000 30%, #006bff);
+        radial-gradient(farthest-side, #8269cf 94%, #0000) top / 8px 8px no-repeat,
+        conic-gradient(#0000 30%, #8269cf);
     -webkit-mask: radial-gradient(
         farthest-side,
         #0000 calc(100% - 8px),
