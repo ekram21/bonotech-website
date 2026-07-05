@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { InlineWidget } from 'react-calendly'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { CalendlyLoader } from './CalendlyLoader'
 import type { SchedulingProps } from './Scheduling.types'
 
 const DEFAULT_CALENDLY_URL =
@@ -157,6 +158,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                     hideEventTypeDetails: isMobile,
                                 }}
                                 iframeTitle="Schedule a discovery call with Bonotech"
+                                LoadingSpinner={CalendlyLoader}
                                 styles={{
                                     ...widgetStyles,
                                     backgroundColor: '#fafafa',
