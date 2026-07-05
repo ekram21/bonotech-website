@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { InlineWidget } from 'react-calendly'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { CalendlyLoader } from './CalendlyLoader'
 import type { SchedulingProps } from './Scheduling.types'
 
 const DEFAULT_CALENDLY_URL =
@@ -10,7 +11,20 @@ const DEFAULT_CALENDLY_URL =
 const MOBILE_BREAKPOINT = 1024
 const MOBILE_WIDGET_HEIGHT = 760
 const DESKTOP_WIDGET_HEIGHT = 700
-const DESKTOP_WIDGET_WIDTH = 1000
+
+// Calendly's desktop booking page (measured Jul 2026) renders 68px of
+// whitespace above the card, and the card itself:
+//  - iframe width 760-999px: fixed 678px-wide card, centered, stable
+//    across month/time-picker states -> crop the sides exactly
+//  - iframe width <= 700px: card goes full-bleed -> nothing to crop
+// The >= 1000px two-panel layout can't be used: its card grows when a
+// date is picked, so any tight crop would clip the time slots.
+// We pin the iframe into the stable zones and hide the rest with an
+// overflow-hidden wrapper. On mobile Calendly has no whitespace at all.
+const CARD_TOP_GAP = 68
+const CARD_WIDTH = 678 // must match the lg:max-w-[678px] on the wrapper below
+const WIDE_IFRAME_WIDTH = 880
+const SIDE_CROP = (WIDE_IFRAME_WIDTH - CARD_WIDTH) / 2
 
 const CALENDLY_PAGE_SETTINGS = {
     backgroundColor: 'fafafa',
@@ -22,6 +36,11 @@ const CALENDLY_PAGE_SETTINGS = {
 
 export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: SchedulingProps) {
     const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT)
+    const wrapperRef = useRef<HTMLDivElement>(null)
+    // true when the wrapper is wide enough for the fixed 678px card,
+    // false on narrower desktops where the full-bleed layout is used
+    const [fitsCard, setFitsCard] = useState(true)
+    const [showCalendlyLoader, setShowCalendlyLoader] = useState(true)
 
     useEffect(() => {
         const handleResize = () => {
@@ -32,13 +51,118 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
+    useEffect(() => {
+        const el = wrapperRef.current
+        if (!el) return
+        const observer = new ResizeObserver(([entry]) => {
+            setFitsCard(entry.contentRect.width >= CARD_WIDTH)
+        })
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
+
+    useEffect(() => {
+        const handleCalendlyMessage = (event: MessageEvent) => {
+            if (!event.origin.includes('calendly.com')) return
+
+            const eventName = event.data?.event
+
+            if (
+                eventName === 'calendly.profile_page_viewed' ||
+                eventName === 'calendly.event_type_viewed' ||
+                eventName === 'calendly.date_and_time_selected'
+            ) {
+                window.setTimeout(() => {
+                    setShowCalendlyLoader(false)
+                }, 300)
+            }
+
+            if (eventName === 'calendly.event_scheduled') {
+                setShowCalendlyLoader(false)
+            }
+        }
+
+        window.addEventListener('message', handleCalendlyMessage)
+
+        const fallbackTimer = window.setTimeout(() => {
+            setShowCalendlyLoader(false)
+        }, 4500)
+
+        return () => {
+            window.removeEventListener('message', handleCalendlyMessage)
+            window.clearTimeout(fallbackTimer)
+        }
+    }, [])
+
+    useEffect(() => {
+        const wrapper = wrapperRef.current
+        if (!wrapper) return
+
+        let currentIframe: HTMLIFrameElement | null = null
+
+        const handleLoad = () => {
+            setShowCalendlyLoader(true)
+
+            window.setTimeout(() => {
+                setShowCalendlyLoader(false)
+            }, 900)
+        }
+
+        const attachIframeLoadListener = () => {
+            const iframe = wrapper.querySelector('iframe')
+
+            if (!iframe || iframe === currentIframe) return
+
+            if (currentIframe) {
+                currentIframe.removeEventListener('load', handleLoad)
+            }
+
+            currentIframe = iframe
+            currentIframe.addEventListener('load', handleLoad)
+        }
+
+        const observer = new MutationObserver(() => {
+            attachIframeLoadListener()
+        })
+
+        observer.observe(wrapper, {
+            childList: true,
+            subtree: true,
+        })
+
+        attachIframeLoadListener()
+
+        return () => {
+            observer.disconnect()
+
+            if (currentIframe) {
+                currentIframe.removeEventListener('load', handleLoad)
+            }
+        }
+    }, [])
+
+    const widgetStyles = isMobile
+        ? // mobile page has no internal whitespace; nothing to crop
+          { width: '100%', height: `${MOBILE_WIDGET_HEIGHT}px` }
+        : fitsCard
+          ? {
+                width: `${WIDE_IFRAME_WIDTH}px`,
+                height: `${DESKTOP_WIDGET_HEIGHT + CARD_TOP_GAP}px`,
+                margin: `-${CARD_TOP_GAP}px -${SIDE_CROP}px 0`,
+            }
+          : {
+                width: '100%',
+                height: `${DESKTOP_WIDGET_HEIGHT + CARD_TOP_GAP}px`,
+                margin: `-${CARD_TOP_GAP}px 0 0`,
+            }
+
     return (
         <section
             id="schedule"
             aria-labelledby="schedule-heading"
             className={cn('w-full bg-[#fafafa] py-20 md:py-28', className)}
         >
-            <div className="relative mx-auto w-full max-w-[1600px] px-(--spacing-container-x)">
+            <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
                 <div className="flex flex-col lg:flex-row lg:center gap-12 lg:gap-10 xl:gap-14 w-full">
                     {/* ─── Left Content ─── */}
                     <div className="w-full lg:w-[340px] xl:w-[480px] lg:shrink-0 flex flex-col gap-12 lg:justify-between lg:min-h-[500px] py-16">
@@ -104,12 +228,16 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
 
                     {/* ─── Right: Calendly Widget ─── */}
                     <div className="w-full lg:flex-1 lg:min-w-0">
-                        {/* <div
-                            className={cn(
-                                'w-full overflow-hidden rounded-[24px] border border-[#E8E9EB] bg-white',
-                                'shadow-[0_4px_24px_rgba(0,0,0,0.06)]',
+                        <div
+                            ref={wrapperRef}
+                            className="relative w-full overflow-hidden lg:ml-auto lg:max-w-[678px]"
+                        >
+                            {showCalendlyLoader && (
+                                <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#fafafa]">
+                                    <CalendlyLoader />
+                                </div>
                             )}
-                        > */}
+
                             <InlineWidget
                                 url={calendlyUrl}
                                 pageSettings={{
@@ -117,15 +245,14 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                     hideEventTypeDetails: isMobile,
                                 }}
                                 iframeTitle="Schedule a discovery call with Bonotech"
+                                LoadingSpinner={CalendlyLoader}
                                 styles={{
-                                    height: `${isMobile ? MOBILE_WIDGET_HEIGHT : DESKTOP_WIDGET_HEIGHT}px`,
-                                    width: '100%',
-                                    minWidth: '100%',
-                                    maxWidth: `${DESKTOP_WIDGET_WIDTH}px`,
+                                    ...widgetStyles,
                                     backgroundColor: '#fafafa',
+                                    padding: 0,
                                 }}
                             />
-                        {/* </div> */}
+                        </div>
                     </div>
                 </div>
             </div>

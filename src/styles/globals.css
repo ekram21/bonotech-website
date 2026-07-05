@@ -233,3 +233,30 @@ html {
 body {
     @apply bg-surface-neutral text-content-primary antialiased font-sans;
 }
+
+/* Calendly scheduling section loader */
+.calendly-loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+        radial-gradient(farthest-side, #8269cf 94%, #0000) top / 8px 8px no-repeat,
+        conic-gradient(#0000 30%, #8269cf);
+    -webkit-mask: radial-gradient(
+        farthest-side,
+        #0000 calc(100% - 8px),
+        #000 0
+    );
+    mask: radial-gradient(
+        farthest-side,
+        #0000 calc(100% - 8px),
+        #000 0
+    );
+    animation: calendly-loader-spin 1s infinite linear;
+}
+
+@keyframes calendly-loader-spin {
+    100% {
+        transform: rotate(1turn);
+    }
+}
