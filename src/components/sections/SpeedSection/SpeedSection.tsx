@@ -55,6 +55,14 @@ const itemVariants = {
     },
 }
 
+const cardHoverVariants = {
+    rest: { scale: 1 },
+    hover: {
+        scale: 1.01,
+        transition: { type: 'spring' as const, stiffness: 400, damping: 25 },
+    },
+}
+
 export function SpeedSection({ className }: SpeedSectionProps) {
     return (
         <section
@@ -102,7 +110,13 @@ export function SpeedSection({ className }: SpeedSectionProps) {
                                 const Icon = item.icon
                                 return (
                                     <motion.li key={item.title} variants={itemVariants}>
-                                        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-[#8269CF]/25 bg-[#8269CF]/10 px-4 py-4 backdrop-blur-sm sm:gap-4 sm:px-5">
+                                        <motion.div
+                                            className="group flex cursor-pointer flex-wrap items-center gap-3 overflow-hidden rounded-2xl border border-[#8269CF]/25 bg-[#8269CF]/10 px-4 py-4 backdrop-blur-sm sm:gap-4 sm:px-5"
+                                            variants={cardHoverVariants}
+                                            initial="rest"
+                                            whileHover="hover"
+                                            animate="rest"
+                                        >
                                             <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white">
                                                 <Icon className="h-6 w-6" />
                                             </div>
@@ -111,10 +125,10 @@ export function SpeedSection({ className }: SpeedSectionProps) {
                                                 {item.title}
                                             </span>
 
-                                            <span className="rounded-full bg-[#8269CF] px-4 py-2 font-body text-[12px] leading-[1.35] text-white">
+                                            <span className="inline-flex max-w-0 translate-x-2 overflow-hidden whitespace-nowrap rounded-full bg-[#8269CF] py-2 pl-0 pr-0 font-body text-[12px] leading-[1.35] text-white opacity-0 transition-all duration-300 ease-out group-hover:max-w-xs group-hover:translate-x-0 group-hover:pl-4 group-hover:pr-4 group-hover:opacity-100 sm:group-hover:max-w-sm">
                                                 {item.tag}
                                             </span>
-                                        </div>
+                                        </motion.div>
                                     </motion.li>
                                 )
                             })}
