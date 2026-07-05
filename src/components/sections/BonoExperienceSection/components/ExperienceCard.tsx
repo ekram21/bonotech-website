@@ -36,16 +36,16 @@ export function ExperienceCard({ card }: ExperienceCardProps) {
             <div className="relative z-10 flex flex-1 flex-col">
                 <h3
                     className={[
-                        'font-display text-[22px] font-semibold leading-[1.2] sm:text-[24px]',
-                        isHighlighted ? 'text-white' : 'text-[#313233]',
+                        'font-display text-[24px] font-bold leading-none',
+                        isHighlighted ? 'text-white' : 'text-[#272829]',
                     ].join(' ')}
                 >
                     {card.title}
                 </h3>
                 <p
                     className={[
-                        'mt-3 max-w-[34ch] font-body text-[15px] leading-[1.6] sm:text-[16px]',
-                        isHighlighted ? 'text-white/85' : 'text-[#75777A]',
+                        'mt-3 max-w-[34ch] font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px]',
+                        isHighlighted ? 'text-white' : 'text-[#444547]',
                     ].join(' ')}
                 >
                     {card.description}
