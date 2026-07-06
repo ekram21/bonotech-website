@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import speedBg from '@/assets/speed/speed-bg.png'
+import speedLightning from '@/assets/speed/speed-lightning.png'
 import {
     DeployableIcon,
     EvolvedIcon,
@@ -75,10 +76,11 @@ export function SpeedSection({ className }: SpeedSectionProps) {
                 alt=""
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+                draggable={false}
             />
 
             <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
-                <div className="grid grid-cols-1 items-center lg:grid-cols-2">
+                <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-2 lg:gap-8">
                     <div className="max-w-[640px]">
                         <div className="inline-flex items-center gap-2 rounded-full border border-[#8269CF]/40 bg-[#8269CF]/20 px-4 py-1.5">
                             <div className="h-2 w-2 shrink-0 rounded-full bg-[#C4B5FD]" aria-hidden="true" />
@@ -135,7 +137,15 @@ export function SpeedSection({ className }: SpeedSectionProps) {
                         </motion.ul>
                     </div>
 
-                    <div className="hidden lg:block" aria-hidden="true" />
+                    <div className="relative flex h-full min-h-[280px] items-center justify-center lg:min-h-0 lg:justify-end">
+                        <img
+                            src={speedLightning}
+                            alt=""
+                            aria-hidden="true"
+                            className="h-full w-auto max-w-full object-contain"
+                            draggable={false}
+                        />
+                    </div>
                 </div>
             </div>
         </section>
