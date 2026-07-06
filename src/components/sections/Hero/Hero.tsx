@@ -9,7 +9,7 @@ export function Hero({
   title = "Enterprise\nSoftware Development",
   subtitle = "AI- Native, Expert-Led, Market-Ready Product Development",
   ctaLabel = "Book a free consultation with us today",
-  ctaHref = "#contact",
+  ctaHref = "#schedule",
 }: HeroProps) {
   return (
     <section

@@ -73,19 +73,19 @@ const TIMELINE_DATA = [
     {
         days: '3 Days',
         icon: <WebsiteIcon />,
-        title: 'Website Development Timeline start from 3 days',
+        title: 'Website Development Timeline Starts From 3 Days',
         subtitle: 'Fast preview, focused content, and launch-ready structure.',
     },
     {
         days: '30 Days',
         icon: <MobileIcon />,
-        title: 'Mobile app launched in IOS and Android app store',
+        title: 'Mobile app Launched in IOS and Android App Store Timeline Start From 30 Days',
         subtitle: 'App interface, engineering, testing, and deployment readiness.',
     },
     {
         days: '60 Days',
         icon: <EnterpriseIcon />,
-        title: 'Enterprise Software timeline starts from 60 days',
+        title: 'Enterprise Software Development Timeline Starts From 60 Days',
         subtitle: 'Scalable architecture, integrations, dashboards, and governance.',
     },
 ]

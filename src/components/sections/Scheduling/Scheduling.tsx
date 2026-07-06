@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { InlineWidget } from 'react-calendly'
+import { InlineWidget, useCalendlyEventListener } from 'react-calendly'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { CalendlyLoader } from './CalendlyLoader'
@@ -12,27 +12,25 @@ const MOBILE_BREAKPOINT = 1024
 const MOBILE_WIDGET_HEIGHT = 760
 const DESKTOP_WIDGET_HEIGHT = 700
 
-// Calendly's desktop booking page (measured Jul 2026) renders 68px of
-// whitespace above the card, and the card itself:
-//  - iframe width 760-999px: fixed 678px-wide card, centered, stable
-//    across month/time-picker states -> crop the sides exactly
-//  - iframe width <= 700px: card goes full-bleed -> nothing to crop
-// The >= 1000px two-panel layout can't be used: its card grows when a
-// date is picked, so any tight crop would clip the time slots.
-// We pin the iframe into the stable zones and hide the rest with an
-// overflow-hidden wrapper. On mobile Calendly has no whitespace at all.
-const CARD_TOP_GAP = 68
+// Calendly's desktop booking page renders a fixed-width card centered
+// inside a wider iframe. Crop the sides on wide wrappers; on narrower
+// desktops the card is full-bleed and needs no horizontal crop.
+const CARD_TOP_GAP = 0
 const CARD_WIDTH = 678 // must match the lg:max-w-[678px] on the wrapper below
 const WIDE_IFRAME_WIDTH = 880
-const SIDE_CROP = (WIDE_IFRAME_WIDTH - CARD_WIDTH) / 2
 
 const CALENDLY_PAGE_SETTINGS = {
     backgroundColor: 'fafafa',
     hideLandingPageDetails: true,
     primaryColor: '8269CF',
     textColor: '272829',
-    hideGdprBanner: false,
+    hideGdprBanner: true,
 } as const
+
+function disableIframeScroll(iframe: HTMLIFrameElement) {
+    iframe.setAttribute('scrolling', 'no')
+    iframe.style.overflow = 'hidden'
+}
 
 export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: SchedulingProps) {
     const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT)
@@ -41,6 +39,9 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
     // false on narrower desktops where the full-bleed layout is used
     const [fitsCard, setFitsCard] = useState(true)
     const [showCalendlyLoader, setShowCalendlyLoader] = useState(true)
+    const [calendlyPageHeight, setCalendlyPageHeight] = useState<number | null>(null)
+
+    const visibleHeight = isMobile ? MOBILE_WIDGET_HEIGHT : DESKTOP_WIDGET_HEIGHT
 
     useEffect(() => {
         const handleResize = () => {
@@ -61,37 +62,31 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
         return () => observer.disconnect()
     }, [])
 
+    useCalendlyEventListener({
+        onPageHeightResize: (event) => {
+            const height = event.data?.payload?.height
+            if (typeof height === 'number' && height > 0) {
+                setCalendlyPageHeight(height)
+            }
+        },
+        onProfilePageViewed: () => {
+            window.setTimeout(() => setShowCalendlyLoader(false), 300)
+        },
+        onEventTypeViewed: () => {
+            window.setTimeout(() => setShowCalendlyLoader(false), 300)
+        },
+        onDateAndTimeSelected: () => {
+            window.setTimeout(() => setShowCalendlyLoader(false), 300)
+        },
+        onEventScheduled: () => setShowCalendlyLoader(false),
+    })
+
     useEffect(() => {
-        const handleCalendlyMessage = (event: MessageEvent) => {
-            if (!event.origin.includes('calendly.com')) return
-
-            const eventName = event.data?.event
-
-            if (
-                eventName === 'calendly.profile_page_viewed' ||
-                eventName === 'calendly.event_type_viewed' ||
-                eventName === 'calendly.date_and_time_selected'
-            ) {
-                window.setTimeout(() => {
-                    setShowCalendlyLoader(false)
-                }, 300)
-            }
-
-            if (eventName === 'calendly.event_scheduled') {
-                setShowCalendlyLoader(false)
-            }
-        }
-
-        window.addEventListener('message', handleCalendlyMessage)
-
         const fallbackTimer = window.setTimeout(() => {
             setShowCalendlyLoader(false)
         }, 4500)
 
-        return () => {
-            window.removeEventListener('message', handleCalendlyMessage)
-            window.clearTimeout(fallbackTimer)
-        }
+        return () => window.clearTimeout(fallbackTimer)
     }, [])
 
     useEffect(() => {
@@ -118,6 +113,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
             }
 
             currentIframe = iframe
+            disableIframeScroll(currentIframe)
             currentIframe.addEventListener('load', handleLoad)
         }
 
@@ -139,21 +135,33 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                 currentIframe.removeEventListener('load', handleLoad)
             }
         }
-    }, [])
+    }, [calendlyPageHeight, isMobile, fitsCard])
+
+    const iframeHeight = calendlyPageHeight ?? visibleHeight
 
     const widgetStyles = isMobile
-        ? // mobile page has no internal whitespace; nothing to crop
-          { width: '100%', height: `${MOBILE_WIDGET_HEIGHT}px` }
+        ? {
+              position: 'absolute' as const,
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${iframeHeight}px`,
+          }
         : fitsCard
           ? {
+                position: 'absolute' as const,
+                top: -CARD_TOP_GAP,
+                left: '50%',
+                transform: 'translateX(-50%)',
                 width: `${WIDE_IFRAME_WIDTH}px`,
-                height: `${DESKTOP_WIDGET_HEIGHT + CARD_TOP_GAP}px`,
-                margin: `-${CARD_TOP_GAP}px -${SIDE_CROP}px 0`,
+                height: `${iframeHeight}px`,
             }
           : {
+                position: 'absolute' as const,
+                top: -CARD_TOP_GAP,
+                left: 0,
                 width: '100%',
-                height: `${DESKTOP_WIDGET_HEIGHT + CARD_TOP_GAP}px`,
-                margin: `-${CARD_TOP_GAP}px 0 0`,
+                height: `${iframeHeight}px`,
             }
 
     return (
@@ -165,7 +173,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
             <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
                 <div className="flex flex-col lg:flex-row lg:center gap-12 lg:gap-10 xl:gap-14 w-full">
                     {/* ─── Left Content ─── */}
-                    <div className="w-full lg:w-[340px] xl:w-[480px] lg:shrink-0 flex flex-col gap-12 lg:justify-between lg:min-h-[500px] py-16">
+                    <div className="w-full lg:w-[340px] xl:w-[480px] lg:shrink-0 flex flex-col gap-12 lg:justify-between lg:min-h-[700px] py-16">
                         <div>
                             <h2
                                 id="schedule-heading"
@@ -204,10 +212,10 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                     <Phone size={16} />
                                 </div>
                                 <a
-                                    href="tel:+6565156515"
+                                    href="tel:+447551829217"
                                     className="font-body text-[16px] text-[#272829] hover:underline"
                                 >
-                                    +6565156515
+                                    +44 7551 829217
                                 </a>
                             </div>
 
@@ -227,10 +235,10 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                     </div>
 
                     {/* ─── Right: Calendly Widget ─── */}
-                    <div className="w-full lg:flex-1 lg:min-w-0">
+                    <div className="w-full lg:flex-1 lg:min-w-0 lg:max-h-[700px] lg:overflow-hidden">
                         <div
                             ref={wrapperRef}
-                            className="relative w-full overflow-hidden lg:ml-auto lg:max-w-[678px]"
+                            className="schedule-calendly-host relative w-full overflow-hidden lg:ml-auto lg:max-w-[678px] h-[760px] lg:h-[700px] max-h-[760px] lg:max-h-[700px]"
                         >
                             {showCalendlyLoader && (
                                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#fafafa]">
@@ -242,7 +250,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                 url={calendlyUrl}
                                 pageSettings={{
                                     ...CALENDLY_PAGE_SETTINGS,
-                                    hideEventTypeDetails: isMobile,
+                                    hideEventTypeDetails: true,
                                 }}
                                 iframeTitle="Schedule a discovery call with Bonotech"
                                 LoadingSpinner={CalendlyLoader}

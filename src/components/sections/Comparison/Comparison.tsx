@@ -67,15 +67,15 @@ const BONOTECH_STEPS: TimelineStep[] = [
 function DurationBlock({ label, value }: { label: string; value: number }) {
     return (
         <div className="flex shrink-0 flex-col items-start gap-2">
-            <span className="text-left font-display text-[18px] font-bold leading-none text-[#8269CF]">
+            <span className="text-left font-display text-[18px] font-semibold leading-none tracking-[-0.005em] text-content-primary">
                 {label}
             </span>
             <div
-                className="h-[6px] w-[120px] overflow-hidden rounded-full bg-[#8269CF]/20"
+                className="h-[6px] w-[120px] overflow-hidden rounded-full bg-[#272829]/20"
                 role="presentation"
             >
                 <motion.div
-                    className="h-full rounded-full bg-[#8269CF]"
+                    className="h-full rounded-full bg-[#272829]"
                     initial={{ width: '0%' }}
                     animate={{ width: [`0%`, `${value}%`] }}
                     transition={{
@@ -167,7 +167,7 @@ export function Comparison({ className }: ComparisonProps) {
                         aria-hidden="true"
                     />
                     <span className="font-display text-[12px] font-medium uppercase leading-[140%] tracking-[0.05em] text-[#8269CF]">
-                        Comparison
+                        What we do better
                     </span>
                 </div>
 
@@ -179,16 +179,22 @@ export function Comparison({ className }: ComparisonProps) {
                 </h2>
 
                 <p className="mb-12 text-center font-body text-[16px] leading-[1.5] text-[#75777A] md:mb-16 md:text-[18px]">
-                    How Bonotech does it better
+                    {/* How Bonotech does it better */}
+                    Comparison
                 </p>
 
                 <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
                     {/* Traditional Product Cycle */}
                     <div className="flex flex-col rounded-[24px] bg-[#F5F3FB] p-6 md:p-8">
                         <div className="mb-6 flex items-start justify-between gap-4">
-                            <h3 className="font-display text-[22px] font-semibold leading-tight text-[#272829] sm:text-[24px]">
-                                Traditional Product Cycle
-                            </h3>
+                            <div>
+                                <h3 className="font-display text-[22px] font-semibold leading-tight text-[#272829] sm:text-[24px]">
+                                    Traditional Product Cycle
+                                </h3>
+                                <p className="mt-1 font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px] text-content-tertiary">
+                                    Slow and linear
+                                </p>
+                            </div>
                             <DurationBlock label="10 Month" value={82} />
                         </div>
 
@@ -200,17 +206,22 @@ export function Comparison({ className }: ComparisonProps) {
                     {/* BONOTECH */}
                     <div className="flex flex-col rounded-[24px] bg-[#F5F3FB] p-6 md:p-8">
                         <div className="mb-6 flex items-start justify-between gap-4">
-                            <div className="flex items-center gap-2.5">
-                                <img
-                                    src={bonotechMark}
-                                    alt=""
-                                    aria-hidden="true"
-                                    className="h-8 w-auto object-contain"
-                                    draggable={false}
-                                />
-                                <span className="font-display text-[22px] font-semibold tracking-[0.08em] text-[#272829] sm:text-[24px]">
-                                    BONOTECH
-                                </span>
+                            <div>
+                                <div className="flex items-center gap-2.5">
+                                    <img
+                                        src={bonotechMark}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className="h-8 w-auto object-contain"
+                                        draggable={false}
+                                    />
+                                    <span className="font-display text-[22px] font-semibold tracking-[0.08em] text-[#272829] sm:text-[24px]">
+                                        BONOTECH
+                                    </span>
+                                </div>
+                                <p className="mt-1 font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px] text-content-tertiary">
+                                    Agile and AI-accelerated
+                                </p>
                             </div>
                             <DurationBlock label="2 Weeks" value={90} />
                         </div>

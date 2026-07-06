@@ -67,14 +67,13 @@ export function WhatWeDo({ className }: WhatWeDoProps) {
             {/* Content */}
             <div className="relative z-10 mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) py-16 md:py-28 flex flex-col items-center">
                 {/* Top Pill Badge */}
-                <div className="flex items-center gap-2 mb-3 py-1.5 px-4 rounded-full bg-[#2A3946] border-[0.5px] border-[#374B5C]">
-                    {/* Orange dot */}
+                <div className="mb-3 flex items-center gap-2 rounded-full border-[0.5px] border-[#374B5C] bg-[#2A3946] px-4 py-1.5">
                     <div
-                        className="w-2 h-2 rounded-full shrink-0 bg-[#FFAB50]"
+                        className="h-2 w-2 shrink-0 rounded-full bg-[#8269CF]"
                         aria-hidden="true"
                     />
-                    <span className="font-display font-medium text-[13px] leading-[140%] text-content-white">
-                        What We Do
+                    <span className="font-display text-[12px] font-semibold leading-none tracking-[0] text-content-white">
+                        How we help
                     </span>
                 </div>
 
@@ -85,7 +84,7 @@ export function WhatWeDo({ className }: WhatWeDoProps) {
                 >
                     Blazing Fast Execution
                     <br />
-                    <span className="text-[#FFAC4D]">Unbeatable Prices</span>
+                    <span className="text-[#B0E0E6]">Unbeatable Prices</span>
                 </h2>
 
                 {/* Cards Grid */}

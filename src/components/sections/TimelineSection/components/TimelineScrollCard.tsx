@@ -20,10 +20,10 @@ export function TimelineScrollCard({ item, onImageLoad }: TimelineScrollCardProp
             </div>
 
             <div className="rounded-xl bg-white px-6 py-6 sm:px-8 sm:py-7">
-                <h3 className="font-display text-[20px] font-semibold leading-[1.3] text-[#272829] sm:text-[22px]">
+                <h3 className="normal-case font-display text-[24px] font-bold leading-none text-content-secondary">
                     {item.title}
                 </h3>
-                <p className="mt-3 font-body text-[15px] leading-[1.6] text-[#75777A] sm:text-[16px]">
+                <p className="mt-3 font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px] text-content-secondary">
                     {item.subtitle}
                 </p>
             </div>

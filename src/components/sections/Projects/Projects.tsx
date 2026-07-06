@@ -187,8 +187,8 @@ const SectionHeading = ({ id }: { id?: string }) => (
         className="w-2 h-2 rounded-full shrink-0 bg-[#8269CF]"
         aria-hidden="true"
       />
-      <span className="font-display font-medium text-[12px] leading-[140%] uppercase tracking-[0.05em] text-[#8269CF]">
-        PROJECTS
+      <span className="font-display text-[12px] font-medium leading-[140%] tracking-[0.05em] text-[#8269CF]">
+        What we build
       </span>
     </div>
 

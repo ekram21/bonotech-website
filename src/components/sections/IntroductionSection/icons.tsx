@@ -1,85 +1,70 @@
+import { cn } from '@/lib/utils'
+import speedIconPoster from '@/assets/introduction/speed-icon.png'
+import speedIconVideo from '@/assets/introduction/speed-icon.mp4'
+import securityIconPoster from '@/assets/introduction/security-icon.png'
+import securityIconVideo from '@/assets/introduction/security-icon.mp4'
+import outcomeIconPoster from '@/assets/introduction/outcome-icon.png'
+import outcomeIconVideo from '@/assets/introduction/outcome-icon.mp4'
+
 export function SpeedIcon({ className }: { className?: string }) {
     return (
-        <svg
-            width="34"
-            height="27"
-            viewBox="0 0 34 27"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={className}
+        <video
+            className={cn('h-12 w-12 rounded-[4px] object-contain', className)}
+            width={256}
+            height={256}
+            preload="none"
+            style={{
+                background: `transparent url(${speedIconPoster}) 50% 50% / contain no-repeat`,
+            }}
+            autoPlay
+            loop
+            muted
+            playsInline
             aria-hidden="true"
         >
-            <path
-                opacity="0.4"
-                d="M26.6667 26.6667L6.66667 26.6667C2.98477 26.6667 0 23.6819 0 20L0 16.6667C0 7.46192 7.46192 0 16.6667 0C25.8714 0 33.3333 7.46192 33.3333 16.6667V20C33.3333 23.6819 30.3486 26.6667 26.6667 26.6667Z"
-                fill="#8269CF"
-            />
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M16.6666 6.25C12.5998 6.25 10.2369 8.24514 8.66189 10.6791C8.28683 11.2587 7.51294 11.4245 6.93335 11.0494C6.35376 10.6744 6.18796 9.90048 6.56302 9.3209C8.4746 6.36687 11.5461 3.75 16.6666 3.75C21.787 3.75 24.8585 6.36687 26.7701 9.3209C27.1452 9.90048 26.9794 10.6744 26.3998 11.0494C25.8202 11.4245 25.0463 11.2587 24.6712 10.6791C23.0962 8.24514 20.7333 6.25 16.6666 6.25Z"
-                fill="#8269CF"
-            />
-            <path
-                d="M20.5488 12.7745C20.8575 12.1571 21.6082 11.9065 22.2256 12.2149C22.8431 12.5236 23.0939 13.2752 22.7852 13.8926L18.6846 22.0918C20.4408 22.8675 21.667 24.6237 21.667 26.667H11.667C11.667 24.1025 13.5978 21.9896 16.085 21.7012L20.5488 12.7745Z"
-                fill="#8269CF"
-            />
-        </svg>
+            <source src={speedIconVideo} type="video/mp4" />
+        </video>
     )
 }
 
 export function SecurityIcon({ className }: { className?: string }) {
     return (
-        <svg
-            width="30"
-            height="32"
-            viewBox="0 0 30 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={className}
+        <video
+            className={cn('h-12 w-12 object-contain', className)}
+            width={256}
+            height={256}
+            preload="none"
+            style={{
+                background: `transparent url(${securityIconPoster}) 50% 50% / contain no-repeat`,
+            }}
+            autoPlay
+            loop
+            muted
+            playsInline
             aria-hidden="true"
         >
-            <path
-                opacity="0.4"
-                d="M12.1859 0.57459L3.85623 4.27668C1.44686 5.34751 -0.143124 7.74558 0.0101926 10.3777C0.60958 20.6681 3.62299 25.1983 11.4532 30.4995C13.5275 31.9038 16.2618 31.9072 18.3346 30.5006C26.1889 25.1706 29.0944 20.5764 29.7465 10.4134C29.9165 7.76382 28.324 5.3403 25.8978 4.262L17.6011 0.574589C15.8773 -0.191531 13.9097 -0.191529 12.1859 0.57459Z"
-                fill="#8269CF"
-            />
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M20.7158 11.7638C21.2353 12.2184 21.2879 13.0081 20.8333 13.5276L16.0502 18.9941C15.0223 20.1688 13.2519 20.326 12.0331 19.351L9.11176 17.0139C8.57268 16.5826 8.48528 15.796 8.91654 15.2569C9.3478 14.7179 10.1344 14.6305 10.6735 15.0617L13.5949 17.3988C13.769 17.5381 14.0219 17.5156 14.1687 17.3478L18.9519 11.8814C19.4065 11.3618 20.1962 11.3092 20.7158 11.7638Z"
-                fill="#8269CF"
-            />
-        </svg>
+            <source src={securityIconVideo} type="video/mp4" />
+        </video>
     )
 }
 
 export function OutcomeIcon({ className }: { className?: string }) {
     return (
-        <svg
-            width="24"
-            height="34"
-            viewBox="0 0 24 34"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={className}
+        <video
+            className={cn('h-12 w-12 rounded-[12px] object-contain', className)}
+            width={256}
+            height={256}
+            preload="none"
+            style={{
+                background: `transparent url(${outcomeIconPoster}) 50% 50% / contain no-repeat`,
+            }}
+            autoPlay
+            loop
+            muted
+            playsInline
             aria-hidden="true"
         >
-            <path
-                d="M5 26.6667L18.3333 26.6667V29.3334C18.3333 31.5425 16.5425 33.3334 14.3333 33.3334H9C6.79086 33.3334 5 31.5425 5 29.3334V26.6667Z"
-                fill="#8269CF"
-            />
-            <path
-                opacity="0.4"
-                d="M5 26.6667L18.3333 26.6667V22.2856C18.3333 21.6318 18.6606 21.0282 19.1615 20.6079C21.7119 18.4678 23.3333 15.2566 23.3333 11.6667C23.3333 5.22334 18.11 0 11.6667 0C5.22334 0 0 5.22334 0 11.6667C0 15.2566 1.62142 18.4678 4.17188 20.6079C4.67272 21.0282 5 21.6318 5 22.2856L5 26.6667Z"
-                fill="#8269CF"
-            />
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M7.4501 10.7828C7.93826 10.2946 8.72971 10.2946 9.21787 10.7828L11.6673 13.2323L14.1168 10.7828C14.6049 10.2946 15.3964 10.2946 15.8845 10.7828C16.3727 11.271 16.3727 12.0624 15.8845 12.5506L12.9173 15.5178L12.9173 28.3334C12.9173 29.0237 12.3577 29.5834 11.6673 29.5834C10.977 29.5834 10.4173 29.0237 10.4173 28.3334L10.4173 15.5178L7.4501 12.5506C6.96195 12.0624 6.96195 11.271 7.4501 10.7828Z"
-                fill="#8269CF"
-            />
-        </svg>
+            <source src={outcomeIconVideo} type="video/mp4" />
+        </video>
     )
 }

@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type MouseEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ArrowRight, X } from 'lucide-react'
+import { handleHashLinkClick } from '@/lib/scroll'
 import { cn } from '@/lib/utils'
 import bonotechLogo from '@/assets/bonotech-logo-mono.png'
 import menuIcon from '@/assets/icons/menu-line-horizontal.svg'
 import type { NavbarProps, NavLink } from './Navbar.types'
 
 const DEFAULT_LINKS: NavLink[] = [
-    { label: 'About', href: '#what-we-do' },
-    { label: 'Testimonials', href: '#testimonials' },
+    { label: 'About', href: '#introduction' },
+    { label: 'Services', href: '#what-we-do' },
     { label: 'Portfolio', href: '#projects' },
+    { label: 'Testimonials', href: '#testimonials' },
     { label: 'FAQs', href: '#faq' },
 ]
 
@@ -23,6 +25,12 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const navHref = (hashLink: string) => (isHome ? hashLink : `/${hashLink}`)
 
     const closeMenu = () => setMobileMenuOpen(false)
+
+    const handleNavLinkClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (!isHome || !href.startsWith('#')) return
+        handleHashLinkClick(event, href)
+        closeMenu()
+    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -81,6 +89,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                             <a
                                 key={link.label}
                                 href={navHref(link.href)}
+                                onClick={(event) => handleNavLinkClick(event, link.href)}
                                 className="text-[17px] font-semibold leading-[1.4] text-white transition-colors duration-200 hover:text-white/75"
                             >
                                 {link.label}
@@ -90,6 +99,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
 
                     <a
                         href={navHref('#schedule')}
+                        onClick={(event) => handleNavLinkClick(event, '#schedule')}
                         className={cn(
                             "group hidden h-[49px] items-center gap-3 rounded-full py-[6px] pl-[25px] pr-[7px] text-[17px] font-semibold leading-[1.4] text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] lg:inline-flex",
                             isScrolled ? "bg-white/10 hover:bg-white/20" : "bg-white/13 hover:bg-white/20"
@@ -149,7 +159,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                             <a
                                 key={link.label}
                                 href={navHref(link.href)}
-                                onClick={closeMenu}
+                                onClick={(event) => handleNavLinkClick(event, link.href)}
                                 className="text-white/90 font-semibold text-center hover:text-white transition-colors duration-200"
                                 style={{
                                     fontSize: 'clamp(1.75rem, 6vw, 2.5rem)',
@@ -174,7 +184,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     >
                         <a
                             href={navHref('#schedule')}
-                            onClick={closeMenu}
+                            onClick={(event) => handleNavLinkClick(event, '#schedule')}
                             className="inline-flex items-center gap-3 bg-white text-[#131314] rounded-full pl-[24px] pr-[6px] py-[6px] text-label-lg hover:bg-white/90 transition-all duration-300"
                         >
                             Contact Us
