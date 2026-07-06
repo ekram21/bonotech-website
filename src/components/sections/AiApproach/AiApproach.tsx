@@ -13,7 +13,7 @@ import {
     Zap,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import bonotechPillLogo from '@/assets/ai-approach/bonotech-pill-logo.png'
+import bonotechPillWordmark from '@/assets/ai-approach/bonotech-pill-wordmark.png'
 import type { AiApproachProps, StatusVariant } from './AiApproach.types'
 import {
     ContractIcon,
@@ -312,12 +312,44 @@ export function AiApproach({ className }: AiApproachProps) {
                         </div>
 
                         <div className="mt-2 flex items-center justify-center gap-2.5 rounded-full bg-[#8269CF] px-5 py-3 text-center">
-                            <img
-                                src={bonotechPillLogo}
-                                alt="BONOTECH"
-                                className="h-[22px] w-auto shrink-0 object-contain"
-                                draggable={false}
-                            />
+                            <div className="flex shrink-0 items-center gap-2">
+                                <svg
+                                    width="21"
+                                    height="32"
+                                    viewBox="0 0 21 32"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-[22px] w-auto shrink-0"
+                                    aria-hidden="true"
+                                >
+                                    <g clipPath="url(#bonotech-pill-logo-clip)">
+                                        <path
+                                            d="M7.27557 5.7325V25.9465C3.6378 29.8512 0.469245 26.9242 0.0347985 24.4069C0.0113266 24.2205 -0.000281116 24.0328 4.4256e-05 23.8449V1.22488C-0.00186463 1.00032 0.0580125 0.779637 0.172992 0.587464C0.287971 0.395292 0.453528 0.239188 0.65119 0.136577C0.848852 0.0339651 1.07084 -0.0111151 1.29238 0.00636104C1.51392 0.0238372 1.7263 0.103185 1.90582 0.235549L5.98382 3.18599C6.38464 3.47543 6.71106 3.85764 6.93579 4.30066C7.16052 4.74369 7.27702 5.23465 7.27557 5.7325Z"
+                                            fill="white"
+                                        />
+                                        <path
+                                            d="M17.3888 27.5094C17.3888 27.5094 11.9727 30.9516 11.7873 31.0452C11.767 31.0551 11.7476 31.0669 11.7294 31.0803C6.62611 33.7791 0.399048 30.2374 0.0283203 24.4067C0.352707 25.2556 2.52494 28.247 7.26909 25.9463C7.89469 25.6419 16.6937 20.0396 16.6937 20.0396C15.5294 15.5905 18.4025 14.4607 18.4025 14.4607C22.0576 17.9439 21.4378 24.9394 17.3888 27.5094Z"
+                                            fill="white"
+                                        />
+                                        <path
+                                            d="M16.7002 20.0395L11.4695 17.7272C10.9105 17.4804 10.4347 17.0744 10.1003 16.5587C9.766 16.043 9.58759 15.4401 9.58691 14.8236V11.7561C9.58691 10.7667 10.5717 10.2223 11.4811 10.5677C14.7481 11.8087 17.6502 13.8401 18.4091 14.4665C18.4091 14.4665 20.2917 17.4052 16.7002 20.0454V20.0395Z"
+                                            fill="white"
+                                        />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="bonotech-pill-logo-clip">
+                                            <rect width="20.8175" height="32" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <img
+                                    src={bonotechPillWordmark}
+                                    alt=""
+                                    aria-hidden="true"
+                                    className="h-[12px] w-auto shrink-0 object-contain"
+                                    draggable={false}
+                                />
+                            </div>
                             <span className="font-display text-[13px] font-semibold tracking-[0.04em] text-white sm:text-[14px]">
                                 Connects Every System
                             </span>
