@@ -132,11 +132,11 @@ export function BonoExperienceSection({ className }: BonoExperienceSectionProps)
                     </div>
                 </motion.div>
 
-                <div className="mx-auto mt-10 w-full max-w-[817px] md:mt-12">
+                <div className="ml-auto mt-10 w-full max-w-[817px] md:mt-12">
                     <img
                         src={experienceBanner}
                         alt=""
-                        className="block h-[150px] w-full object-cover object-[center_right]"
+                        className="block h-[150px] w-full object-cover object-right"
                         loading="lazy"
                         draggable={false}
                     />
