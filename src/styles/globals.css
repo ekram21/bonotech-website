@@ -260,3 +260,14 @@ body {
         transform: rotate(1turn);
     }
 }
+
+/* Calendly inline embed: fixed-height host clips overflow; iframe must not scroll */
+.schedule-calendly-host .calendly-inline-widget {
+    overflow: hidden;
+}
+
+.schedule-calendly-host .calendly-inline-widget iframe {
+    display: block;
+    border: 0;
+    overflow: hidden;
+}
