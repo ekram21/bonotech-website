@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type MouseEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ArrowRight, X } from 'lucide-react'
+import { handleHashLinkClick } from '@/lib/scroll'
 import { cn } from '@/lib/utils'
 import bonotechLogo from '@/assets/bonotech-logo-mono.png'
 import menuIcon from '@/assets/icons/menu-line-horizontal.svg'
@@ -23,6 +24,12 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const navHref = (hashLink: string) => (isHome ? hashLink : `/${hashLink}`)
 
     const closeMenu = () => setMobileMenuOpen(false)
+
+    const handleScheduleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+        if (!isHome) return
+        handleHashLinkClick(event, '#schedule')
+        closeMenu()
+    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -90,6 +97,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
 
                     <a
                         href={navHref('#schedule')}
+                        onClick={handleScheduleClick}
                         className={cn(
                             "group hidden h-[49px] items-center gap-3 rounded-full py-[6px] pl-[25px] pr-[7px] text-[17px] font-semibold leading-[1.4] text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] lg:inline-flex",
                             isScrolled ? "bg-white/10 hover:bg-white/20" : "bg-white/13 hover:bg-white/20"
@@ -174,7 +182,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     >
                         <a
                             href={navHref('#schedule')}
-                            onClick={closeMenu}
+                            onClick={handleScheduleClick}
                             className="inline-flex items-center gap-3 bg-white text-[#131314] rounded-full pl-[24px] pr-[6px] py-[6px] text-label-lg hover:bg-white/90 transition-all duration-300"
                         >
                             Contact Us
