@@ -11,7 +11,7 @@ const LINK_GROUPS: FooterLinkGroup[] = [
     {
         title: 'Company',
         links: [
-            { label: 'About', href: '#about' },
+            { label: 'About', href: '#introduction' },
             { label: 'Contact', href: '#contact' },
             { label: 'Schedule a Call', href: '#schedule' },
             { label: 'FAQs', href: '#faqs' },
