@@ -54,7 +54,7 @@ export function CalendarWidget({ daysLabel }: { daysLabel: string }) {
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: -10, scale: 0.97 }}
                                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                                className="font-display text-[44px] font-semibold leading-none text-[#8269CF] sm:text-[52px]"
+                                className="text-center font-display text-[clamp(56px,20vw,96px)] font-semibold leading-[1.2] tracking-[0] text-[#8269CF]"
                             >
                                 {daysLabel}
                             </motion.p>
