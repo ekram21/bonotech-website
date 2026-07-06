@@ -212,10 +212,10 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                     <Phone size={16} />
                                 </div>
                                 <a
-                                    href="tel:+6565156515"
+                                    href="tel:+447551829217"
                                     className="font-body text-[16px] text-[#272829] hover:underline"
                                 >
-                                    +6565156515
+                                    +44 7551 829217
                                 </a>
                             </div>
 
