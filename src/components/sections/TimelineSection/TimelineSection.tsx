@@ -11,22 +11,22 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
     {
         days: 3,
         daysLabel: '3 Days',
-        title: 'Website Development Timeline starts from 3 days',
+        title: 'Website Development Timeline Starts From 3 Days',
         subtitle: 'Fast preview, focused content, and launch-ready structure.',
         image: websiteWireframe,
     },
     {
         days: 30,
         daysLabel: '30 Days',
-        title: 'Mobile app launched in IOS and Android app store timeline start from 30 days',
+        title: 'Mobile app Launched in IOS and Android App Store Timeline Start From 30 Days',
         subtitle: 'App interface, engineering, testing, and deployment readiness.',
         image: mobileWireframe,
     },
     {
         days: 60,
         daysLabel: '60 Days',
-        title: 'Enterprise Software development timeline starts from 60 days',
-        subtitle: "Scalable architecture, integration's, dashboards, and governance.",
+        title: 'Enterprise Software Development Timeline Starts From 60 Days',
+        subtitle: "Scalable architecture, integrations, dashboards, and governance.",
         image: enterpriseWireframe,
     },
 ]
