@@ -137,7 +137,7 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
                                     className="flex h-[56px] w-[56px] items-center justify-center rounded-[12px] bg-[#FFFFFF]"
                                     aria-hidden="true"
                                 >
-                                    <Icon className="h-8 w-8" />
+                                    <Icon className="h-12 w-12" />
                                 </div>
 
                                 <div className="mt-8">
