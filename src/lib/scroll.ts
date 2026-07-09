@@ -3,12 +3,43 @@ const SCROLL_PADDING_TOP = 80
 
 const LAYOUT_SETTLE_DELAYS_MS = [150, 500] as const
 
-function scrollToElement(id: string, behavior: ScrollBehavior) {
+type ScrollAlign = 'start' | 'center'
+
+const SECTION_SCROLL_ALIGN: Partial<Record<string, ScrollAlign>> = {
+    introduction: 'center',
+    schedule: 'center',
+    'what-we-do': 'center',
+    testimonials: 'center',
+    faq: 'center',
+}
+
+function getScrollTop(el: HTMLElement, align: ScrollAlign) {
+    const elementTop = el.getBoundingClientRect().top + window.scrollY
+    const elementHeight = el.offsetHeight
+    const viewportHeight = window.innerHeight
+    const maxScrollTop = document.documentElement.scrollHeight - viewportHeight
+
+    if (align === 'start') {
+        return Math.min(elementTop - SCROLL_PADDING_TOP, maxScrollTop)
+    }
+
+    const centeredTop = elementTop + elementHeight / 2 - viewportHeight / 2
+
+    if (elementHeight <= viewportHeight) {
+        return Math.max(0, Math.min(centeredTop, maxScrollTop))
+    }
+
+    const minTop = elementTop - SCROLL_PADDING_TOP
+    const maxTop = Math.min(elementTop + elementHeight - viewportHeight, maxScrollTop)
+
+    return Math.max(minTop, Math.min(centeredTop, maxTop))
+}
+
+function scrollToElement(id: string, behavior: ScrollBehavior, align: ScrollAlign = 'start') {
     const el = document.getElementById(id)
     if (!el) return false
 
-    const top = el.getBoundingClientRect().top + window.scrollY - SCROLL_PADDING_TOP
-    window.scrollTo({ top, behavior })
+    window.scrollTo({ top: getScrollTop(el, align), behavior })
     return true
 }
 
@@ -18,16 +49,17 @@ function scrollToElement(id: string, behavior: ScrollBehavior) {
  * on the wrong block on the first click.
  */
 export function scrollToSection(id: string, behavior: ScrollBehavior = 'smooth') {
-    if (!scrollToElement(id, behavior)) return
+    const align = SECTION_SCROLL_ALIGN[id] ?? 'start'
+    if (!scrollToElement(id, behavior, align)) return
 
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            scrollToElement(id, 'auto')
+            scrollToElement(id, 'auto', align)
         })
     })
 
     for (const delay of LAYOUT_SETTLE_DELAYS_MS) {
-        window.setTimeout(() => scrollToElement(id, 'auto'), delay)
+        window.setTimeout(() => scrollToElement(id, 'auto', align), delay)
     }
 }
 
