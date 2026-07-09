@@ -6,6 +6,10 @@ import appStoreImg from '@/assets/apple-store.png'
 
 const DEFAULT_BULLET_COLOR = '#8269CF'
 
+function logoClampSize(px: number) {
+    return `clamp(${(px * 0.5).toFixed(1)}px, ${(px / 1280 * 100).toFixed(2)}vw, ${px}px)`
+}
+
 function openExternalUrl(url: string) {
     window.open(url, '_blank', 'noopener,noreferrer')
 }
@@ -137,51 +141,59 @@ export function ProjectCard({ project }: ProjectCardProps) {
             >
                 {/* Logo — uses clamp() only for its pixel-spec'd dimensions */}
                 {project.logoSrc && (
-                    <div className="flex items-center gap-3">
-                        {project.logoMarkSrc && (
+                    project.logoMarkSrc ? (
+                        <div className="inline-flex items-center gap-2 xl:gap-2.5">
                             <img
                                 src={project.logoMarkSrc}
                                 alt=""
                                 aria-hidden="true"
-                                className="shrink-0"
+                                className="block shrink-0"
                                 style={{
-                                    width: project.logoMarkWidth
-                                        ? `clamp(${(project.logoMarkWidth * 0.5).toFixed(1)}px, ${(project.logoMarkWidth / 1280 * 100).toFixed(2)}vw, ${project.logoMarkWidth}px)`
+                                    height: logoClampSize(project.logoMarkHeight ?? 58),
+                                    width: 'auto',
+                                    objectFit: 'contain',
+                                }}
+                            />
+                            <img
+                                src={project.logoSrc}
+                                alt={project.logoAlt || ''}
+                                className="block shrink-0"
+                                style={{
+                                    height: logoClampSize(
+                                        project.logoWordmarkHeight ?? project.logoHeight ?? 52,
+                                    ),
+                                    width: 'auto',
+                                    objectFit: 'contain',
+                                    ...(project.logoBlendMode
+                                        ? { mixBlendMode: project.logoBlendMode }
+                                        : {}),
+                                    ...(project.logoWordmarkOffsetY
+                                        ? { transform: `translateY(${project.logoWordmarkOffsetY}px)` }
+                                        : {}),
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        <div className="flex items-center">
+                            <img
+                                src={project.logoSrc}
+                                alt={project.logoAlt || ''}
+                                style={{
+                                    ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
+                                    ...(project.logoBlendMode
+                                        ? { mixBlendMode: project.logoBlendMode }
+                                        : {}),
+                                    width: project.logoWidth
+                                        ? logoClampSize(project.logoWidth)
                                         : undefined,
-                                    height: project.logoMarkHeight
-                                        ? `clamp(${(project.logoMarkHeight * 0.5).toFixed(1)}px, ${(project.logoMarkHeight / 1280 * 100).toFixed(2)}vw, ${project.logoMarkHeight}px)`
+                                    height: project.logoHeight
+                                        ? logoClampSize(project.logoHeight)
                                         : '3rem',
                                     objectFit: 'contain',
                                 }}
                             />
-                        )}
-                        <img
-                            src={project.logoSrc}
-                            alt={project.logoAlt || ''}
-                            style={{
-                                ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
-                                ...(project.logoBlendMode
-                                    ? { mixBlendMode: project.logoBlendMode }
-                                    : {}),
-                                /*
-                                 * Logos have spec'd pixel dimensions; we use clamp() so
-                                 * they scale down proportionally between breakpoints but
-                                 * always reach their full original size at 1280 px (xl).
-                                 *
-                                 * Formula: clamp(floor * spec, spec/1280 * 100vw, spec)
-                                 * → at ≥1280 px the `max` wins, capping at the original spec.
-                                 * → below 1280 px the vw term shrinks them proportionally.
-                                 */
-                                width: project.logoWidth
-                                    ? `clamp(${(project.logoWidth * 0.5).toFixed(1)}px, ${(project.logoWidth / 1280 * 100).toFixed(2)}vw, ${project.logoWidth}px)`
-                                    : undefined,
-                                height: project.logoHeight
-                                    ? `clamp(${(project.logoHeight * 0.5).toFixed(1)}px, ${(project.logoHeight / 1280 * 100).toFixed(2)}vw, ${project.logoHeight}px)`
-                                    : '3rem',
-                                objectFit: 'contain',
-                            }}
-                        />
-                    </div>
+                        </div>
+                    )
                 )}
 
                 {/* Store Badges — original h-10 at xl */}

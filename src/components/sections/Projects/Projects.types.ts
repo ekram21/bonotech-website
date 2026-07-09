@@ -21,8 +21,9 @@ export interface ProjectCardData {
     logoSrc: string
     logoAlt: string
     logoMarkSrc?: string
-    logoMarkWidth?: number
     logoMarkHeight?: number
+    logoWordmarkHeight?: number
+    logoWordmarkOffsetY?: number
     logoDark?: boolean
     logoWidth?: number
     logoHeight?: number
