@@ -13,6 +13,10 @@ import olmoLogo from "@/assets/projects/olmo-logo.png";
 import milioMockup from "@/assets/projects/milio-mockup.png";
 import getMyGrailIcon from "@/assets/projects/get-my-grail-icon.png";
 import getMyGrailLogo from "@/assets/projects/get-my-grail-logo.png";
+import evoGradingBg from "@/assets/projects/evo-grading-bg.png";
+import evoGradingMockup from "@/assets/projects/evo-grading-mockup.png";
+import evoGradingMark from "@/assets/projects/evo-grading-mark.png";
+import evoGradingLogo from "@/assets/projects/evo-grading-logo.png";
 import polysignalsMockup from "@/assets/projects/polysignals-mockup.png";
 import polysignalsIcon from "@/assets/projects/polysignals-icon.png";
 import polysignalsLogo from "@/assets/projects/polysignals-logo.png";
@@ -46,7 +50,7 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=com.ekram211.zen",
     appStoreHref: "https://apps.apple.com/ae/app/gustav/id6738002227",
-    learnMoreHref: "#",
+    learnMoreHref: "https://gustav.club/",
     opacity: 90,
   },
   {
@@ -74,7 +78,7 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=com.bonoholdings.proptech",
     appStoreHref: "https://apps.apple.com/gb/app/olmo-homes/id6747893455",
-    learnMoreHref: "#",
+    learnMoreHref: "https://olmo.homes/",
     opacity: 100,
   },
   {
@@ -100,9 +104,7 @@ const PROJECTS: ProjectCardData[] = [
     logoAlt: "Get My Grail logo",
     logoWidth: 170,
     logoHeight: 79,
-    playStoreHref: "#",
-    appStoreHref: "#",
-    learnMoreHref: "#",
+    learnMoreHref: "https://divc-milio.web.app/",
     opacity: 35,
   },
   {
@@ -130,7 +132,7 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=app.zenythlabs.polysignals",
     appStoreHref: "https://apps.apple.com/ua/app/polysignals/id6758582770",
-    learnMoreHref: "#",
+    learnMoreHref: "https://www.polysignals.app/",
     opacity: 90,
   },
   {
@@ -159,8 +161,40 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=com.ekram21112.edutechsstudentapp2024",
     appStoreHref: "https://apps.apple.com/ua/app/edutechs/id6602895268",
-    learnMoreHref: "#",
+    learnMoreHref: "https://edutechs.app/",
     opacity: 90,
+  },
+  {
+    id: "evo-grading",
+    category: "GRADING",
+    title: "Prep It, Send It, Track It, Collect It",
+    features: [
+      "Professional Card Prep",
+      "Advanced Slab Inspection",
+      "Tier-by-Tier Tracking",
+      "Multi-Sport Verification",
+      "Secure Submissions Vault",
+      "Professional Grading Logistics",
+      "Graded Return Dashboards",
+    ],
+    backgroundColor: "#F7F5EE",
+    borderColor: "#D2CBC5",
+    buttonColor: "#C0A080",
+    bulletColor: "#C0A080",
+    mockupSrc: evoGradingMockup,
+    mockupScale: 1.65,
+    mockupBlendMode: "screen",
+    iconSrc: evoGradingBg,
+    iconCover: true,
+    logoMarkSrc: evoGradingMark,
+    logoMarkHeight: 58,
+    logoSrc: evoGradingLogo,
+    logoAlt: "EVO Grading logo",
+    logoWordmarkHeight: 50,
+    logoWordmarkOffsetY: 1,
+    logoBlendMode: "screen",
+    learnMoreHref: "https://evanevograding.web.app/",
+    opacity: 100,
   },
 ];
 
@@ -202,7 +236,7 @@ const SectionHeading = ({ id }: { id?: string }) => (
 
     {/* Subtitle */}
     <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A] mb-20">
-      Bonotech is focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, and verification systems.
+      Bonotech is focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, verification systems, and professional grading.
     </p>
   </div>
 );
@@ -301,8 +335,20 @@ export function Projects({ className }: ProjectsProps) {
       /* progress = how many px the runway has scrolled past the card pin point */
       const progress = Math.max(0, CARD_PIN_TOP - rect.top);
 
+      let activeIndex = 0;
+      for (let j = PROJECTS.length - 1; j >= 0; j--) {
+        if (j === 0) break;
+        const animStart = (j - 1) * effectiveScrollPerCard;
+        if (progress >= animStart) {
+          activeIndex = j;
+          break;
+        }
+      }
+
       cardEls.current.forEach((el, i) => {
         if (!el) return;
+
+        el.style.pointerEvents = i === activeIndex ? "auto" : "none";
 
         /* First card is always pinned at the top */
         if (i === 0) {

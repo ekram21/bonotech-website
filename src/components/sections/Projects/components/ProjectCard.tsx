@@ -6,13 +6,22 @@ import appStoreImg from '@/assets/apple-store.png'
 
 const DEFAULT_BULLET_COLOR = '#8269CF'
 
+function logoClampSize(px: number) {
+    return `clamp(${(px * 0.5).toFixed(1)}px, ${(px / 1280 * 100).toFixed(2)}vw, ${px}px)`
+}
+
+function openExternalUrl(url: string) {
+    window.open(url, '_blank', 'noopener,noreferrer')
+}
+
 export function ProjectCard({ project }: ProjectCardProps) {
     const bulletColor = project.bulletColor ?? DEFAULT_BULLET_COLOR
 
     return (
         <div
             className={[
-                'relative w-full overflow-hidden',
+                'relative w-full',
+                project.mockupScale ? 'overflow-visible' : 'overflow-hidden',
                 'flex flex-col md:flex-row items-center',
                 // max-width & border-radius — unchanged from original
                 'max-w-328 rounded-4xl border',
@@ -104,13 +113,25 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
 
             {/* Center Mockup — scales to original w-77.5 at xl */}
-            <div className="relative z-10 flex items-center justify-center shrink-0 order-1 md:order-2">
-                <img
-                    src={project.mockupSrc}
-                    alt={`${project.title} mockup`}
-                    className="h-auto drop-shadow-[0px_0px_120px_rgba(0,0,0,0.3)]
-                               w-60 md:w-44 lg:w-56 xl:w-77.5"
-                />
+            <div className="relative z-10 flex items-center justify-center shrink-0 order-1 md:order-2 overflow-visible">
+                <div className="relative flex items-center justify-center w-60 md:w-44 lg:w-56 xl:w-77.5 overflow-visible">
+                    <img
+                        src={project.mockupSrc}
+                        alt={`${project.title} mockup`}
+                        className="h-auto w-full drop-shadow-[0px_0px_120px_rgba(0,0,0,0.3)]"
+                        style={{
+                            ...(project.mockupScale
+                                ? {
+                                      transform: `scale(${project.mockupScale})`,
+                                      transformOrigin: 'center center',
+                                  }
+                                : {}),
+                            ...(project.mockupBlendMode
+                                ? { mixBlendMode: project.mockupBlendMode }
+                                : {}),
+                        }}
+                    />
+                </div>
             </div>
 
             {/* Right Content */}
@@ -120,31 +141,59 @@ export function ProjectCard({ project }: ProjectCardProps) {
             >
                 {/* Logo — uses clamp() only for its pixel-spec'd dimensions */}
                 {project.logoSrc && (
-                    <div className="flex items-center">
-                        <img
-                            src={project.logoSrc}
-                            alt={project.logoAlt || ''}
-                            style={{
-                                ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
-                                /*
-                                 * Logos have spec'd pixel dimensions; we use clamp() so
-                                 * they scale down proportionally between breakpoints but
-                                 * always reach their full original size at 1280 px (xl).
-                                 *
-                                 * Formula: clamp(floor * spec, spec/1280 * 100vw, spec)
-                                 * → at ≥1280 px the `max` wins, capping at the original spec.
-                                 * → below 1280 px the vw term shrinks them proportionally.
-                                 */
-                                width: project.logoWidth
-                                    ? `clamp(${(project.logoWidth * 0.5).toFixed(1)}px, ${(project.logoWidth / 1280 * 100).toFixed(2)}vw, ${project.logoWidth}px)`
-                                    : undefined,
-                                height: project.logoHeight
-                                    ? `clamp(${(project.logoHeight * 0.5).toFixed(1)}px, ${(project.logoHeight / 1280 * 100).toFixed(2)}vw, ${project.logoHeight}px)`
-                                    : '3rem',
-                                objectFit: 'contain',
-                            }}
-                        />
-                    </div>
+                    project.logoMarkSrc ? (
+                        <div className="inline-flex items-center gap-2 xl:gap-2.5">
+                            <img
+                                src={project.logoMarkSrc}
+                                alt=""
+                                aria-hidden="true"
+                                className="block shrink-0"
+                                style={{
+                                    height: logoClampSize(project.logoMarkHeight ?? 58),
+                                    width: 'auto',
+                                    objectFit: 'contain',
+                                }}
+                            />
+                            <img
+                                src={project.logoSrc}
+                                alt={project.logoAlt || ''}
+                                className="block shrink-0"
+                                style={{
+                                    height: logoClampSize(
+                                        project.logoWordmarkHeight ?? project.logoHeight ?? 52,
+                                    ),
+                                    width: 'auto',
+                                    objectFit: 'contain',
+                                    ...(project.logoBlendMode
+                                        ? { mixBlendMode: project.logoBlendMode }
+                                        : {}),
+                                    ...(project.logoWordmarkOffsetY
+                                        ? { transform: `translateY(${project.logoWordmarkOffsetY}px)` }
+                                        : {}),
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        <div className="flex items-center">
+                            <img
+                                src={project.logoSrc}
+                                alt={project.logoAlt || ''}
+                                style={{
+                                    ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
+                                    ...(project.logoBlendMode
+                                        ? { mixBlendMode: project.logoBlendMode }
+                                        : {}),
+                                    width: project.logoWidth
+                                        ? logoClampSize(project.logoWidth)
+                                        : undefined,
+                                    height: project.logoHeight
+                                        ? logoClampSize(project.logoHeight)
+                                        : '3rem',
+                                    objectFit: 'contain',
+                                }}
+                            />
+                        </div>
+                    )
                 )}
 
                 {/* Store Badges — original h-10 at xl */}
@@ -185,6 +234,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 {project.learnMoreHref && (
                     <a
                         href={project.learnMoreHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) => {
+                            event.stopPropagation()
+                            event.preventDefault()
+                            openExternalUrl(project.learnMoreHref!)
+                        }}
                         className="hidden md:inline-flex items-center gap-1.5 font-body font-medium leading-[1.4] text-content-accent
                                    text-xs xl:text-sm"
                     >
@@ -198,6 +254,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {project.learnMoreHref && (
                 <a
                     href={project.learnMoreHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(event) => {
+                        event.stopPropagation()
+                        event.preventDefault()
+                        openExternalUrl(project.learnMoreHref!)
+                    }}
                     className="md:hidden w-full flex items-center justify-center font-body text-sm font-medium leading-[1.4] text-content-accent order-4"
                 >
                     Learn More

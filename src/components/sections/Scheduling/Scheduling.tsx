@@ -6,7 +6,7 @@ import { CalendlyLoader } from './CalendlyLoader'
 import type { SchedulingProps } from './Scheduling.types'
 
 const DEFAULT_CALENDLY_URL =
-    import.meta.env.VITE_CALENDLY_URL ?? 'https://calendly.com/shahedantu/30min'
+    import.meta.env.VITE_CALENDLY_URL ?? 'https://calendly.com/meetingsbonotech/30min'
 
 const MOBILE_BREAKPOINT = 1024
 const MOBILE_WIDGET_HEIGHT = 760
@@ -20,9 +20,9 @@ const CARD_WIDTH = 678 // must match the lg:max-w-[678px] on the wrapper below
 const WIDE_IFRAME_WIDTH = 880
 
 const CALENDLY_PAGE_SETTINGS = {
-    backgroundColor: 'fafafa',
+    backgroundColor: 'ffffff',
     hideLandingPageDetails: true,
-    primaryColor: '8269CF',
+    primaryColor: '1B4BA9',
     textColor: '272829',
     hideGdprBanner: true,
 } as const
