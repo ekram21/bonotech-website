@@ -13,22 +13,30 @@ const TESTIMONIALS: TestimonialData[] = [
     authorRole: "Generalist-Human Resources, Mermaid Beach Resort",
     backgroundColor: "#8269CF",
   },
-  // {
-  //   id: "testimonial-2",
-  //   quote:
-  //     "Created by my ex-students. They have made my classroom management much easier and have created all advanced custom features that I have asked for.",
-  //   authorName: "Engr. Md. Nadim",
-  //   authorRole: "Teacher, Edbase",
-  //   backgroundColor: "#131314",
-  // },
-  // {
-  //   id: "testimonial-3",
-  //   quote:
-  //     "Working with Bonotech was a game-changer for our business. They transformed our vision into a beautiful, functional application that our users love.",
-  //   authorName: "James Wilson",
-  //   authorRole: "Founder, BrightPath",
-  //   backgroundColor: "#F59E0B",
-  // },
+  {
+    id: "testimonial-2",
+    quote:
+      "I couldn't believe my eyes when I first saw what the team had built out for me. Looks so good. There's massive companies in the space who still haven't been able to modernize a proper web based application form so excited to be the first one to launch a modern web application for card prep & cleaning.",
+    authorName: "Evan Milho",
+    authorRole: "CEO, EVO Grading",
+    backgroundColor: "#131314",
+  },
+  {
+    id: "testimonial-3",
+    quote:
+      "Super impressive team with a can-do attitude. No requests that I have made has ever been met with not possible or can't do. Pretty much they can build any and everything!",
+    authorName: "Dan Iqbal",
+    authorRole: "CEO, Get My Grail",
+    backgroundColor: "#FFAB51",
+  },
+  {
+    id: "testimonial-4",
+    quote:
+      "Polysignals is the highest quality app built in the shortest possible time that I have seen in quite some time. Speaking as someone who works with the highest level of engineers on a daily basis, Bonotech is the real deal!",
+    authorName: "Nafis Abrar",
+    authorRole: "ML Engineer at Meta Facebook",
+    backgroundColor: "#3D8B5F",
+  },
 ];
 
 /** Stack visual config — per-layer overrides for a natural deck look */
@@ -40,7 +48,7 @@ const STACK_LAYERS = [
   // layer 2 = second card behind (peeking out further)
   { rotation: -1, scale: 0.82, yOffset: -130, xOffset: 10 },
 ];
-const STACK_TOP_OFFSET = 48; // px — desired space under title
+const STACK_TOP_OFFSET = 100; // px — space under title; must clear stacked card peek (up to ~130px)
 
 function QuoteIcon() {
   return (
