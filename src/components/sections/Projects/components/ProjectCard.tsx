@@ -17,6 +17,24 @@ function openExternalUrl(url: string) {
 
 export function ProjectCard({ project }: ProjectCardProps) {
     const bulletColor = project.bulletColor ?? DEFAULT_BULLET_COLOR
+    const hasStoreBadges = !!(project.playStoreHref || project.appStoreHref)
+
+    const learnMoreDesktop = project.learnMoreHref ? (
+        <a
+            href={project.learnMoreHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(event) => {
+                event.stopPropagation()
+                event.preventDefault()
+                openExternalUrl(project.learnMoreHref!)
+            }}
+            className="hidden md:inline-flex items-center gap-1.5 self-start font-body font-medium leading-[1.4] text-content-accent text-xs xl:text-sm"
+        >
+            Learn More
+            <ArrowRight className="w-4 h-4" />
+        </a>
+    ) : null
 
     return (
         <div
@@ -150,15 +168,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
             {/* Right Content */}
             <div
-                className={`relative z-10 flex flex-col items-center md:items-start justify-end shrink-0 flex-1 self-stretch order-3 ${project.logoSrc ? 'gap-6 md:gap-5 xl:gap-8' : 'gap-4'
-                    }`}
+                className={cn(
+                    'relative z-10 flex flex-col items-center md:items-start justify-end shrink-0 flex-1 self-stretch order-3',
+                    hasStoreBadges ? 'gap-6 md:gap-5 xl:gap-8' : 'gap-4',
+                )}
             >
-                {/* Logo — uses clamp() only for its pixel-spec'd dimensions */}
                 {project.logoSrc && (
-                    <div className="flex items-center">
+                    <div
+                        className={cn(
+                            'flex flex-col items-center md:items-start',
+                            !hasStoreBadges && project.learnMoreHref && 'gap-3 xl:gap-4',
+                        )}
+                    >
                         <img
                             src={project.logoSrc}
                             alt={project.logoAlt || ''}
+                            className="block shrink-0"
                             style={{
                                 ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
                                 ...(project.logoBlendMode
@@ -166,18 +191,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                     : {}),
                                 width: project.logoWidth
                                     ? logoClampSize(project.logoWidth)
-                                    : undefined,
+                                    : 'auto',
                                 height: project.logoHeight
                                     ? logoClampSize(project.logoHeight)
                                     : '3rem',
                                 objectFit: 'contain',
                             }}
                         />
+                        {!hasStoreBadges && learnMoreDesktop}
                     </div>
                 )}
 
                 {/* Store Badges — original h-10 at xl */}
-                {(project.playStoreHref || project.appStoreHref) && (
+                {hasStoreBadges && (
                     <div className="flex items-center flex-wrap gap-2">
                         {project.playStoreHref && (
                             <a
@@ -210,24 +236,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     </div>
                 )}
 
-                {/* Learn More — Desktop only; original text-sm at xl */}
-                {project.learnMoreHref && (
-                    <a
-                        href={project.learnMoreHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(event) => {
-                            event.stopPropagation()
-                            event.preventDefault()
-                            openExternalUrl(project.learnMoreHref!)
-                        }}
-                        className="hidden md:inline-flex items-center gap-1.5 font-body font-medium leading-[1.4] text-content-accent
-                                   text-xs xl:text-sm"
-                    >
-                        Learn More
-                        <ArrowRight className="w-4 h-4" />
-                    </a>
-                )}
+                {hasStoreBadges && learnMoreDesktop}
             </div>
 
             {/* Learn More — Mobile only, at bottom */}
