@@ -186,7 +186,7 @@ const PROJECTS: ProjectCardData[] = [
     iconCover: true,
     logoSrc: evoGradingLogo,
     logoAlt: "EVO Grading logo",
-    logoHeight: 56,
+    logoHeight: 48,
     learnMoreHref: "https://evanevograding.web.app/",
     opacity: 100,
   },
