@@ -73,7 +73,7 @@ export function WhatWeDo({ className }: WhatWeDoProps) {
                         aria-hidden="true"
                     />
                     <span className="font-display text-[12px] font-semibold leading-none tracking-[0] text-content-white">
-                        How we help
+                        HOW WE HELP
                     </span>
                 </div>
 

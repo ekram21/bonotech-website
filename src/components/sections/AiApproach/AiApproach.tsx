@@ -45,13 +45,13 @@ const LEFT_STATUSES: StatusVariant[] = [
 ]
 
 const PLUG_WORKFLOW = [
-    { label: 'Misses exceptions', icon: Sparkles },
-    { label: 'Low adoption', icon: Gauge },
-    { label: 'No clear ROI', icon: Target },
+    { label: 'Misses Exceptions', icon: Sparkles },
+    { label: 'Low Adoption', icon: Gauge },
+    { label: 'No Clear ROI', icon: Target },
 ] as const
 
 const BONOTECH_WORKFLOW = [
-    { label: 'Understand workflows', icon: Search },
+    { label: 'Understand Workflows', icon: Search },
     { label: 'Map Operational DNA', icon: Map },
     { label: 'Build Custom AI System', icon: Blocks },
     { label: 'Automate Supplier Work', icon: Zap },
@@ -279,7 +279,7 @@ export function AiApproach({ className }: AiApproachProps) {
                             <GenericAiChipIcon className="h-[22px] w-[22px] shrink-0" />
                             <span className="font-body text-[13px] text-[#444547] sm:text-[14px]">
                                 <span className="font-semibold text-[#272829]">Generic AI</span>
-                                <span className="font-normal"> Can&apos;t reach your real workflow</span>
+                                <span className="font-normal"> Can&apos;t Reach Your Real Workflow</span>
                             </span>
                         </div>
 
@@ -300,7 +300,7 @@ export function AiApproach({ className }: AiApproachProps) {
                     {/* Bonotech approach */}
                     <div className="lg:pl-10 xl:pl-14">
                         <h2 className="text-center font-display text-[28px] font-semibold leading-[1.15] text-[#272829] sm:text-[32px]">
-                            Bonotech approach
+                            Bonotech Approach
                         </h2>
                         <p className="mx-auto mt-3 max-w-[420px] text-center font-body text-[15px] leading-[1.6] text-[#75777A] sm:text-[16px]">
                             Plugs into every system and learns how they connect — then builds AI

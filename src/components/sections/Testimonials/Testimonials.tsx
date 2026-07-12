@@ -8,7 +8,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-1",
     quote:
-      "Gustav is a user-friendly, visually appealing all-in-one cloud PMS. Intuitive, time-saving, and reliable—with excellent reports and friendly support for effortless hotel management.",
+      "Gustav Is a User-Friendly, Visually Appealing All-in-One Cloud PMS. Intuitive, Time-Saving, and Reliable—With Excellent Reports and Friendly Support for Effortless Hotel Management.",
     authorName: "MD. Shohiduzzaman Shakil",
     authorRole: "Generalist-Human Resources, Mermaid Beach Resort",
     backgroundColor: "#8269CF",
@@ -16,7 +16,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-2",
     quote:
-      "I couldn't believe my eyes when I first saw what the team had built out for me. Looks so good. There's massive companies in the space who still haven't been able to modernize a proper web based application form so excited to be the first one to launch a modern web application for card prep & cleaning.",
+      "I Couldn't Believe My Eyes When I First Saw What the Team Had Built Out for Me. Looks So Good. There's Massive Companies in the Space Who Still Haven't Been Able to Modernize a Proper Web Based Application Form So Excited to Be the First One to Launch a Modern Web Application for Card Prep & Cleaning.",
     authorName: "Evan Milho",
     authorRole: "CEO, EVO Grading",
     backgroundColor: "#131314",
@@ -24,7 +24,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-3",
     quote:
-      "Super impressive team with a can-do attitude. No requests that I have made has ever been met with not possible or can't do. Pretty much they can build any and everything!",
+      "Super Impressive Team With a Can-Do Attitude. No Requests That I Have Made Has Ever Been Met With Not Possible or Can't Do. Pretty Much They Can Build Any and Everything!",
     authorName: "Dan Iqbal",
     authorRole: "CEO, Get My Grail",
     backgroundColor: "#FFAB51",
@@ -32,7 +32,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-4",
     quote:
-      "Polysignals is the highest quality app built in the shortest possible time that I have seen in quite some time. Speaking as someone who works with the highest level of engineers on a daily basis, Bonotech is the real deal!",
+      "Polysignals Is the Highest Quality App Built in the Shortest Possible Time That I Have Seen in Quite Some Time. Speaking as Someone Who Works With the Highest Level of Engineers on a Daily Basis, Bonotech Is the Real Deal!",
     authorName: "Nafis Abrar",
     authorRole: "ML Engineer at Meta Facebook",
     backgroundColor: "#3D8B5F",

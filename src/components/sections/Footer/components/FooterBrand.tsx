@@ -37,14 +37,16 @@ export function FooterBrand() {
             </a>
 
             <p className="font-body text-sm leading-7 font-normal text-white opacity-50 max-w-[300px]"> BONOTECH HOLDINGS PTE. LTD. <br />111 SOMERSET ROAD #08-10A <br /> Singapore 238164</p>
-            <p className="font-body text-sm leading-7 font-normal text-white opacity-50 max-w-[300px]">
-                <span className="inline-flex items-center gap-2">
+            <a
+                href="tel:+447551829217"
+                className="group font-body text-sm leading-7 font-normal text-white opacity-50 max-w-[300px] no-underline inline-flex items-center gap-2 transition-(--transition-base) hover:opacity-70"
+            >
                 <Phone
                     size={15}
-                    className="opacity-60 group-hover:opacity-100 transition-(--transition-base) mr-1"
+                    className="opacity-60 group-hover:opacity-100 transition-(--transition-base)"
                 />
-                </span> 
-                 +65 6515 6515</p>
+                +44 7551 829217
+            </a>
         </div>
     )
 }

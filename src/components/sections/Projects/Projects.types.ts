@@ -10,9 +10,11 @@ export interface ProjectCardData {
     backgroundColor: string
     borderColor: string
     buttonColor: string
+    categoryTextColor?: string
     bulletColor?: string
     mockupSrc: string
     mockupScale?: number
+    mockupWidth?: number
     mockupBlendMode?: React.CSSProperties['mixBlendMode']
     iconSrc?: string
     iconWidth?: number
@@ -20,10 +22,6 @@ export interface ProjectCardData {
     iconCover?: boolean
     logoSrc: string
     logoAlt: string
-    logoMarkSrc?: string
-    logoMarkHeight?: number
-    logoWordmarkHeight?: number
-    logoWordmarkOffsetY?: number
     logoDark?: boolean
     logoWidth?: number
     logoHeight?: number
@@ -32,6 +30,8 @@ export interface ProjectCardData {
     appStoreHref?: string
     learnMoreHref?: string
     opacity?: number
+    builtInDays?: string
+    builtInDaysColor?: string
 }
 
 export interface ProjectCardProps {
