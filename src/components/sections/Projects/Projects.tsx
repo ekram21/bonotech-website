@@ -15,7 +15,6 @@ import getMyGrailIcon from "@/assets/projects/get-my-grail-icon.png";
 import getMyGrailLogo from "@/assets/projects/get-my-grail-logo.png";
 import evoGradingBg from "@/assets/projects/evo-grading-bg.png";
 import evoGradingMockup from "@/assets/projects/evo-grading-mockup.png";
-import evoGradingMark from "@/assets/projects/evo-grading-mark.png";
 import evoGradingLogo from "@/assets/projects/evo-grading-logo.png";
 import polysignalsMockup from "@/assets/projects/polysignals-mockup.png";
 import polysignalsIcon from "@/assets/projects/polysignals-icon.png";
@@ -182,17 +181,13 @@ const PROJECTS: ProjectCardData[] = [
     buttonColor: "#C0A080",
     bulletColor: "#C0A080",
     mockupSrc: evoGradingMockup,
-    mockupScale: 1.65,
-    mockupBlendMode: "screen",
+    mockupWidth: 520,
     iconSrc: evoGradingBg,
     iconCover: true,
-    logoMarkSrc: evoGradingMark,
-    logoMarkHeight: 58,
     logoSrc: evoGradingLogo,
     logoAlt: "EVO Grading logo",
-    logoWordmarkHeight: 50,
-    logoWordmarkOffsetY: 1,
-    logoBlendMode: "screen",
+    logoWidth: 260,
+    logoHeight: 60,
     learnMoreHref: "https://evanevograding.web.app/",
     opacity: 100,
   },

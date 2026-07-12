@@ -13,6 +13,7 @@ export interface ProjectCardData {
     bulletColor?: string
     mockupSrc: string
     mockupScale?: number
+    mockupWidth?: number
     mockupBlendMode?: React.CSSProperties['mixBlendMode']
     iconSrc?: string
     iconWidth?: number
@@ -20,10 +21,6 @@ export interface ProjectCardData {
     iconCover?: boolean
     logoSrc: string
     logoAlt: string
-    logoMarkSrc?: string
-    logoMarkHeight?: number
-    logoWordmarkHeight?: number
-    logoWordmarkOffsetY?: number
     logoDark?: boolean
     logoWidth?: number
     logoHeight?: number

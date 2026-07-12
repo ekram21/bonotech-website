@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import type { ProjectCardProps } from '../Projects.types'
 
 import playStoreImg from '@/assets/playstore.png'
@@ -20,8 +21,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     return (
         <div
             className={[
-                'relative w-full',
-                project.mockupScale ? 'overflow-visible' : 'overflow-hidden',
+                'relative w-full overflow-hidden',
                 'flex flex-col md:flex-row items-center',
                 // max-width & border-radius — unchanged from original
                 'max-w-328 rounded-4xl border',
@@ -45,7 +45,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 <div
                     className={
                         project.iconCover
-                            ? 'pointer-events-none absolute inset-0'
+                            ? 'pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]'
                             : 'absolute inset-0 flex items-center justify-center pointer-events-none'
                     }
                     aria-hidden="true"
@@ -53,7 +53,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     <img
                         src={project.iconSrc}
                         alt=""
-                        className={project.iconCover ? 'h-full w-full object-cover' : 'object-contain'}
+                        className={
+                            project.iconCover
+                                ? 'h-full w-full object-cover rounded-[inherit]'
+                                : 'object-contain'
+                        }
                         style={
                             project.iconCover
                                 ? { opacity: project.opacity ? project.opacity / 100 : 1 }
@@ -114,7 +118,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
             {/* Center Mockup — scales to original w-77.5 at xl */}
             <div className="relative z-10 flex items-center justify-center shrink-0 order-1 md:order-2 overflow-visible">
-                <div className="relative flex items-center justify-center w-60 md:w-44 lg:w-56 xl:w-77.5 overflow-visible">
+                <div
+                    className={cn(
+                        'relative flex items-center justify-center overflow-visible',
+                        project.mockupWidth ? 'w-auto' : 'w-60 md:w-44 lg:w-56 xl:w-77.5',
+                    )}
+                    style={
+                        project.mockupWidth
+                            ? { width: logoClampSize(project.mockupWidth) }
+                            : undefined
+                    }
+                >
                     <img
                         src={project.mockupSrc}
                         alt={`${project.title} mockup`}
@@ -141,59 +155,25 @@ export function ProjectCard({ project }: ProjectCardProps) {
             >
                 {/* Logo — uses clamp() only for its pixel-spec'd dimensions */}
                 {project.logoSrc && (
-                    project.logoMarkSrc ? (
-                        <div className="inline-flex items-center gap-2 xl:gap-2.5">
-                            <img
-                                src={project.logoMarkSrc}
-                                alt=""
-                                aria-hidden="true"
-                                className="block shrink-0"
-                                style={{
-                                    height: logoClampSize(project.logoMarkHeight ?? 58),
-                                    width: 'auto',
-                                    objectFit: 'contain',
-                                }}
-                            />
-                            <img
-                                src={project.logoSrc}
-                                alt={project.logoAlt || ''}
-                                className="block shrink-0"
-                                style={{
-                                    height: logoClampSize(
-                                        project.logoWordmarkHeight ?? project.logoHeight ?? 52,
-                                    ),
-                                    width: 'auto',
-                                    objectFit: 'contain',
-                                    ...(project.logoBlendMode
-                                        ? { mixBlendMode: project.logoBlendMode }
-                                        : {}),
-                                    ...(project.logoWordmarkOffsetY
-                                        ? { transform: `translateY(${project.logoWordmarkOffsetY}px)` }
-                                        : {}),
-                                }}
-                            />
-                        </div>
-                    ) : (
-                        <div className="flex items-center">
-                            <img
-                                src={project.logoSrc}
-                                alt={project.logoAlt || ''}
-                                style={{
-                                    ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
-                                    ...(project.logoBlendMode
-                                        ? { mixBlendMode: project.logoBlendMode }
-                                        : {}),
-                                    width: project.logoWidth
-                                        ? logoClampSize(project.logoWidth)
-                                        : undefined,
-                                    height: project.logoHeight
-                                        ? logoClampSize(project.logoHeight)
-                                        : '3rem',
-                                    objectFit: 'contain',
-                                }}
-                            />
-                        </div>
-                    )
+                    <div className="flex items-center">
+                        <img
+                            src={project.logoSrc}
+                            alt={project.logoAlt || ''}
+                            style={{
+                                ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
+                                ...(project.logoBlendMode
+                                    ? { mixBlendMode: project.logoBlendMode }
+                                    : {}),
+                                width: project.logoWidth
+                                    ? logoClampSize(project.logoWidth)
+                                    : undefined,
+                                height: project.logoHeight
+                                    ? logoClampSize(project.logoHeight)
+                                    : '3rem',
+                                objectFit: 'contain',
+                            }}
+                        />
+                    </div>
                 )}
 
                 {/* Store Badges — original h-10 at xl */}
