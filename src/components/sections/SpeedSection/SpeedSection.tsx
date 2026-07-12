@@ -1,7 +1,13 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import speedBg from '@/assets/speed/speed-bg.png'
 import speedLightning from '@/assets/speed/speed-lightning.png'
+import speedWaves from '@/assets/speed/speed-waves.png'
+import speedAnalytics from '@/assets/speed/speed-analytics.png'
+import speedExpertLed from '@/assets/speed/speed-expert-led.png'
+import speedEvolved from '@/assets/speed/speed-evolved.png'
+import speedDeployable from '@/assets/speed/speed-deployable.png'
 import {
     DeployableIcon,
     EvolvedIcon,
@@ -9,35 +15,76 @@ import {
     ProductFocusedIcon,
     SwiftIcon,
 } from './icons'
-import type { SpeedSectionProps } from './SpeedSection.types'
+import { SpeedFeatureModal } from './components/SpeedFeatureModal'
+import type { SpeedFeatureItem, SpeedSectionProps } from './SpeedSection.types'
 
-const FEATURE_ITEMS = [
+const FEATURE_ITEMS: SpeedFeatureItem[] = [
     {
+        id: 'swift',
         title: 'Swift',
         tag: 'Rapid MVPs',
         icon: SwiftIcon,
+        modal: {
+            title: 'Launch Rapid MVPs Faster With AI Assisted Product Delivery Systems',
+            description:
+                'Move from idea to working prototype quickly using focused sprints, reusable components, and intelligent delivery workflows.',
+            imageSrc: speedWaves,
+            imageAlt: 'Abstract liquid metal waves in cyan and magenta',
+        },
     },
     {
+        id: 'product-focused',
         title: 'Product Focused',
         tag: 'Real user Outcome focused',
         icon: ProductFocusedIcon,
+        modal: {
+            title: 'Build Every Feature Around Real Users And Measurable Product Outcomes',
+            description:
+                'Prioritize the right workflows by validating needs, reducing waste, and aligning design with business goals clearly.',
+            imageSrc: speedAnalytics,
+            imageAlt: 'Analytics dashboard showing user engagement and performance metrics',
+        },
     },
     {
+        id: 'expert-led',
         title: 'Expert-Led',
         tag: 'Guided, structured, and driven by experts',
         icon: ExpertLedIcon,
+        modal: {
+            title: 'Work With Senior Experts Who Guide Strategy Design And Delivery',
+            description:
+                'Experienced specialists guide decisions, unblock teams, and keep every sprint structured, practical, measurable, and consistently accountable.',
+            imageSrc: speedExpertLed,
+            imageAlt: 'Team collaborating in a modern office with a sprint planning whiteboard',
+        },
     },
     {
+        id: 'evolved',
         title: 'Evolved',
         tag: 'AI-accelerated and always evolving',
         icon: EvolvedIcon,
+        modal: {
+            title: 'Continuously Improve Products With AI Accelerated Learning And Scalable Systems',
+            description:
+                'Adapt faster with automated insights, modern architecture, and product systems designed to evolve beyond launch successfully.',
+            imageSrc: speedEvolved,
+            imageAlt: 'Metallic brain on a glowing circuit board representing AI evolution',
+        },
     },
     {
+        id: 'deployable',
         title: 'Deployable',
         tag: 'Shorter product cycles',
         icon: DeployableIcon,
+        modal: {
+            title: 'Ship Shorter Product Cycles With Production Ready Release Confidence Faster',
+            description:
+                'Release stable versions confidently through tested builds, clean handoff, deployment planning, and reliable launch support processes.',
+            imageSrc: speedDeployable,
+            imageAlt: 'Laptop screen showing production-ready application code',
+        },
     },
-] as const
+]
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -65,6 +112,9 @@ const cardHoverVariants = {
 }
 
 export function SpeedSection({ className }: SpeedSectionProps) {
+    const [activeModalId, setActiveModalId] = useState<string | null>(null)
+    const activeFeature = FEATURE_ITEMS.find((item) => item.id === activeModalId)
+
     return (
         <section
             id="speed"
@@ -110,14 +160,36 @@ export function SpeedSection({ className }: SpeedSectionProps) {
                         >
                             {FEATURE_ITEMS.map((item) => {
                                 const Icon = item.icon
+                                const hasModal = Boolean(item.modal)
+
                                 return (
-                                    <motion.li key={item.title} variants={itemVariants}>
+                                    <motion.li key={item.id} variants={itemVariants}>
                                         <motion.div
                                             className="group flex cursor-pointer flex-wrap items-center gap-3 overflow-hidden rounded-2xl border border-[#8269CF]/25 bg-[#8269CF]/10 px-4 py-4 backdrop-blur-sm sm:gap-4 sm:px-5"
                                             variants={cardHoverVariants}
                                             initial="rest"
                                             whileHover="hover"
                                             animate="rest"
+                                            role={hasModal ? 'button' : undefined}
+                                            tabIndex={hasModal ? 0 : undefined}
+                                            onClick={
+                                                hasModal
+                                                    ? () => setActiveModalId(item.id)
+                                                    : undefined
+                                            }
+                                            onKeyDown={
+                                                hasModal
+                                                    ? (event) => {
+                                                          if (
+                                                              event.key === 'Enter' ||
+                                                              event.key === ' '
+                                                          ) {
+                                                              event.preventDefault()
+                                                              setActiveModalId(item.id)
+                                                          }
+                                                      }
+                                                    : undefined
+                                            }
                                         >
                                             <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white">
                                                 <Icon className="h-6 w-6" />
@@ -148,6 +220,18 @@ export function SpeedSection({ className }: SpeedSectionProps) {
                     </div>
                 </div>
             </div>
+
+            {activeFeature?.modal && (
+                <SpeedFeatureModal
+                    open={activeModalId === activeFeature.id}
+                    onClose={() => setActiveModalId(null)}
+                    icon={activeFeature.icon}
+                    title={activeFeature.modal.title}
+                    description={activeFeature.modal.description}
+                    imageSrc={activeFeature.modal.imageSrc}
+                    imageAlt={activeFeature.modal.imageAlt}
+                />
+            )}
         </section>
     )
 }
