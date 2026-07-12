@@ -18,7 +18,7 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
     {
         days: 30,
         daysLabel: '30 Days',
-        title: 'Mobile app Launched in IOS and Android App Store Timeline Start From 30 Days',
+        title: 'Mobile App Launched in IOS and Android App Store Timeline Start From 30 Days',
         subtitle: 'App interface, engineering, testing, and deployment readiness.',
         image: mobileWireframe,
     },

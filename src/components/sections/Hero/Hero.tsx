@@ -8,7 +8,7 @@ export function Hero({
   pillText = "POWERED BY SPEED",
   title = "Enterprise\nSoftware Development",
   subtitle = "AI- Native, Expert-Led, Market-Ready Product Development",
-  ctaLabel = "Book a free consultation with us today",
+  ctaLabel = "Book a Free Consultation With Us Today",
   ctaHref = "#schedule",
 }: HeroProps) {
   return (
