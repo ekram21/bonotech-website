@@ -10,6 +10,7 @@ export interface ProjectCardData {
     backgroundColor: string
     borderColor: string
     buttonColor: string
+    categoryTextColor?: string
     bulletColor?: string
     mockupSrc: string
     mockupScale?: number
@@ -29,6 +30,8 @@ export interface ProjectCardData {
     appStoreHref?: string
     learnMoreHref?: string
     opacity?: number
+    builtInDays?: string
+    builtInDaysColor?: string
 }
 
 export interface ProjectCardProps {
