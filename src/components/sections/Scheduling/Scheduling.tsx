@@ -173,7 +173,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                 id="schedule-heading"
                                 className="font-display font-semibold text-[#131314] text-[40px] sm:text-[48px] leading-[1.15] tracking-tight mb-4"
                             >
-                                Schedule a free discovery call
+                                Schedule a Free Discovery Call
                             </h2>
                             <p className="font-body text-[#444547] text-[18px] leading-[1.6] max-w-xl">
                                 Schedule a 30-min free discovery call with our Bono-Pros. Our
