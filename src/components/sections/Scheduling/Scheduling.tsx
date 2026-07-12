@@ -12,6 +12,8 @@ const MOBILE_BREAKPOINT = 1024
 const MOBILE_WIDGET_HEIGHT = 760
 const DESKTOP_WIDGET_HEIGHT = 700
 
+type BookingStep = 'calendar' | 'details'
+
 // Calendly's desktop booking page renders a fixed-width card centered
 // inside a wider iframe. Crop the sides on wide wrappers; on narrower
 // desktops the card is full-bleed and needs no horizontal crop.
@@ -20,17 +22,12 @@ const CARD_WIDTH = 678 // must match the lg:max-w-[678px] on the wrapper below
 const WIDE_IFRAME_WIDTH = 880
 
 const CALENDLY_PAGE_SETTINGS = {
-    backgroundColor: 'ffffff',
+    // backgroundColor: 'ffffff',
     hideLandingPageDetails: true,
-    primaryColor: '1B4BA9',
-    textColor: '272829',
+    // primaryColor: 'C1B4E7',
+    // textColor: '272829',
     hideGdprBanner: true,
 } as const
-
-function disableIframeScroll(iframe: HTMLIFrameElement) {
-    iframe.setAttribute('scrolling', 'no')
-    iframe.style.overflow = 'hidden'
-}
 
 export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: SchedulingProps) {
     const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT)
@@ -40,6 +37,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
     const [fitsCard, setFitsCard] = useState(true)
     const [showCalendlyLoader, setShowCalendlyLoader] = useState(true)
     const [calendlyPageHeight, setCalendlyPageHeight] = useState<number | null>(null)
+    const [bookingStep, setBookingStep] = useState<BookingStep>('calendar')
 
     const visibleHeight = isMobile ? MOBILE_WIDGET_HEIGHT : DESKTOP_WIDGET_HEIGHT
 
@@ -73,9 +71,11 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
             window.setTimeout(() => setShowCalendlyLoader(false), 300)
         },
         onEventTypeViewed: () => {
+            setBookingStep('calendar')
             window.setTimeout(() => setShowCalendlyLoader(false), 300)
         },
         onDateAndTimeSelected: () => {
+            setBookingStep('details')
             window.setTimeout(() => setShowCalendlyLoader(false), 300)
         },
         onEventScheduled: () => setShowCalendlyLoader(false),
@@ -113,7 +113,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
             }
 
             currentIframe = iframe
-            disableIframeScroll(currentIframe)
+            currentIframe.setAttribute('scrolling', 'yes')
             currentIframe.addEventListener('load', handleLoad)
         }
 
@@ -135,34 +135,28 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                 currentIframe.removeEventListener('load', handleLoad)
             }
         }
-    }, [calendlyPageHeight, isMobile, fitsCard])
+    }, [isMobile, fitsCard])
 
-    const iframeHeight = calendlyPageHeight ?? visibleHeight
+    const iframeHeight = Math.max(visibleHeight, calendlyPageHeight ?? visibleHeight)
+    const useWideCrop = !isMobile && fitsCard && bookingStep === 'calendar'
 
-    const widgetStyles = isMobile
-        ? {
-              position: 'absolute' as const,
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: `${iframeHeight}px`,
-          }
-        : fitsCard
-          ? {
-                position: 'absolute' as const,
-                top: -CARD_TOP_GAP,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: `${WIDE_IFRAME_WIDTH}px`,
-                height: `${iframeHeight}px`,
-            }
-          : {
-                position: 'absolute' as const,
-                top: -CARD_TOP_GAP,
-                left: 0,
-                width: '100%',
-                height: `${iframeHeight}px`,
-            }
+    const widgetStyles =
+        isMobile || !useWideCrop
+            ? {
+                  position: 'absolute' as const,
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: `${iframeHeight}px`,
+              }
+            : {
+                  position: 'absolute' as const,
+                  top: -CARD_TOP_GAP,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: `${WIDE_IFRAME_WIDTH}px`,
+                  height: `${iframeHeight}px`,
+              }
 
     return (
         <section
@@ -235,10 +229,14 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                     </div>
 
                     {/* ─── Right: Calendly Widget ─── */}
-                    <div className="w-full lg:flex-1 lg:min-w-0 lg:max-h-[700px] lg:overflow-hidden">
+                    <div className="w-full lg:flex-1 lg:min-w-0">
                         <div
                             ref={wrapperRef}
-                            className="schedule-calendly-host relative w-full overflow-hidden lg:ml-auto lg:max-w-[678px] h-[760px] lg:h-[700px] max-h-[760px] lg:max-h-[700px]"
+                            className="schedule-calendly-host relative w-full overflow-x-hidden lg:ml-auto lg:max-w-[678px]"
+                            style={{
+                                minHeight: visibleHeight,
+                                height: iframeHeight,
+                            }}
                         >
                             {showCalendlyLoader && (
                                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#fafafa]">
