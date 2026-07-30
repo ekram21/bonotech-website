@@ -32,6 +32,7 @@ export interface ProjectCardData {
     opacity?: number
     builtInDays?: string
     builtInDaysColor?: string
+    radiusColor?: string
 }
 
 export interface ProjectCardProps {
