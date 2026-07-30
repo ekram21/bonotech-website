@@ -175,7 +175,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                             >
                                 Schedule a Free Discovery Call
                             </h2>
-                            <p className="font-body text-[#444547] text-[18px] leading-[1.6] max-w-xl">
+                            <p className="font-body text-[16px] font-normal leading-[150%] tracking-[-0.25px] text-[#313233] max-w-xl">
                                 Schedule a 30-min free discovery call with our Bono-Pros. Our
                                 experts will evaluate your business needs and goals to translate
                                 them into market-ready business products.
