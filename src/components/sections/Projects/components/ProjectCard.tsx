@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Calendar } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { ProjectCardProps } from '../Projects.types'
 
@@ -227,6 +227,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     hasStoreBadges ? 'gap-6 md:gap-5 xl:gap-8' : 'gap-4',
                 )}
             >
+                <div className={`flex gap-3 font-bold`} style={{ color: project.buildColor }}>
+                    <Calendar
+                    color={project.buildColor}
+                    strokeWidth={2}
+                    />
+                    <p>Build In 60 Days</p>
+                </div>
                 {project.logoSrc && (
                     <div
                         className={cn(
