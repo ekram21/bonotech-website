@@ -129,7 +129,7 @@ export function Industries({ className }: { className?: string }) {
                     We build across industries, constantly expanding our portfolio as we take on new challenges and create new solutions.
                 </p>
 
-                <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-[10px] w-full md:max-w-none">
+                <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-[10px] max-w-[1250px] md:max-w-none">
                     {INDUSTRY_CARDS.map((card) => (
                         <IndustryCardItem key={card.title} card={card} />
                     ))}
