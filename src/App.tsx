@@ -17,6 +17,7 @@ export default function App() {
     const [showSplash, setShowSplash] = useState(true)
     const handleSplashComplete = useCallback(() => {
         setShowSplash(false)
+        window.dispatchEvent(new Event('bonotech:splash-complete'))
         // Let Projects (sticky stack) remeasure after splash unmounts.
         requestAnimationFrame(() => {
             window.dispatchEvent(new Event('resize'))
