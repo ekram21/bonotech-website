@@ -52,7 +52,6 @@ const PROJECTS: ProjectCardData[] = [
     appStoreHref: "https://apps.apple.com/ae/app/gustav/id6738002227",
     learnMoreHref: "https://gustav.club/",
     opacity: 90,
-    buildColor: "#B69A6B",
     radiusColor: "#BA9B7C",
   },
   {
@@ -86,7 +85,6 @@ const PROJECTS: ProjectCardData[] = [
     appStoreHref: "https://apps.apple.com/gb/app/olmo-homes/id6747893455",
     learnMoreHref: "https://olmo.homes/",
     opacity: 100,
-    buildColor: "#30A6D9",
     radiusColor: "#ADD7E9",
   },
   {
@@ -116,7 +114,6 @@ const PROJECTS: ProjectCardData[] = [
     logoHeight: 79,
     learnMoreHref: "https://divc-milio.web.app/",
     opacity: 35,
-    buildColor: "#2D343C",
     radiusColor: "#8269CF",
   },
   {
@@ -149,7 +146,6 @@ const PROJECTS: ProjectCardData[] = [
     appStoreHref: "https://apps.apple.com/ua/app/polysignals/id6758582770",
     learnMoreHref: "https://www.polysignals.app/",
     opacity: 100,
-    buildColor: "#8A5BF4",
     radiusColor: "#8269CF",
   },
   {
@@ -182,7 +178,6 @@ const PROJECTS: ProjectCardData[] = [
     appStoreHref: "https://apps.apple.com/ua/app/edutechs/id6602895268",
     learnMoreHref: "https://edutechs.app/",
     opacity: 90,
-    buildColor: "#038EDD",
     radiusColor: "#038CD9",
   },
   {
@@ -213,7 +208,6 @@ const PROJECTS: ProjectCardData[] = [
     logoHeight: 48,
     learnMoreHref: "https://evanevograding.web.app/",
     opacity: 100,
-    buildColor: "#C79F44",
     radiusColor: "#C29B43",
   },
 ];

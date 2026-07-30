@@ -151,16 +151,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {project.category}
                 </span>
 
-                {project.builtInDays && (
-                    <div
-                        className="inline-flex items-center gap-2 font-body text-[18px] font-semibold leading-none tracking-[-0.005em]"
-                        style={{ color: project.builtInDaysColor ?? '#B69A6B' }}
-                    >
-                        <BuildDaysIcon />
-                        <span>{project.builtInDays}</span>
-                    </div>
-                )}
-
                 {/* Title — scales to original 28 px at xl */}
                 <h3 className="font-body font-semibold leading-[1.2] tracking-[-0.005em] text-content-accent
                                text-[22px] lg:text-[25px] xl:text-[28px]">
@@ -227,13 +217,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     hasStoreBadges ? 'gap-6 md:gap-5 xl:gap-8' : 'gap-4',
                 )}
             >
-                <div className={`flex gap-3 font-bold`} style={{ color: project.buildColor }}>
-                    <Calendar
-                    color={project.buildColor}
-                    strokeWidth={2}
-                    />
-                    <p>Build In 60 Days</p>
-                </div>
+                {project.builtInDays && (
+                    <div
+                        className="inline-flex items-center gap-2 font-body text-[18px] font-semibold leading-none tracking-[-0.005em]"
+                        style={{ color: project.builtInDaysColor ?? '#B69A6B' }}
+                    >
+                        <BuildDaysIcon />
+                        <span>{project.builtInDays}</span>
+                    </div>
+                )}
                 {project.logoSrc && (
                     <div
                         className={cn(
