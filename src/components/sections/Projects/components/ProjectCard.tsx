@@ -170,7 +170,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             <span>{feature}</span>
                             <span
                                 className="w-2 h-2 shrink-0 rounded-full"
-                                style={{ backgroundColor: bulletColor }}
+                                style={{ backgroundColor: project.radiusColor }}
                                 aria-hidden="true"
                             />
                         </li>
