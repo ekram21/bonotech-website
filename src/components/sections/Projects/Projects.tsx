@@ -214,7 +214,7 @@ const PROJECTS: ProjectCardData[] = [
     learnMoreHref: "https://evanevograding.web.app/",
     opacity: 100,
     buildColor: "#C79F44",
-    radiusColor: "#C29B43",,
+    radiusColor: "#C29B43",
   },
 ];
 
