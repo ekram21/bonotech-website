@@ -11,7 +11,7 @@ const DEFAULT_LINKS: NavLink[] = [
     { label: 'About', href: '#introduction' },
     { label: 'Services', href: '#what-we-do' },
     { label: 'Portfolio', href: '#projects' },
-    { label: 'Bono-Xperience', href: '#bono-xperience' },
+    { label: 'Bono-Xperience', href: '#experience' },
     { label: 'Testimonials', href: '#testimonials' },
     { label: 'FAQs', href: '#faq' },
 ]
