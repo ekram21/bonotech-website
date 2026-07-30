@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import robotArt from '@/assets/robot-img.png'
@@ -40,19 +41,89 @@ const cardVariants = {
     },
 }
 
-const robotVariants = {
-    hidden: { opacity: 0, y: 28, scale: 0.96 },
+const robotEntranceVariants = {
+    hidden: {
+        opacity: 0,
+        y: -160,
+        scale: 0.82,
+        rotate: -8,
+        filter: 'blur(12px)',
+    },
     visible: {
         opacity: 1,
         y: 0,
         scale: 1,
-        transition: { type: 'spring' as const, stiffness: 110, damping: 18, delay: 0.1 },
+        rotate: 0,
+        filter: 'blur(0px)',
+        transition: {
+            type: 'spring' as const,
+            stiffness: 42,
+            damping: 16,
+            mass: 1.45,
+            opacity: { duration: 0.85, ease: 'easeOut' as const },
+            filter: { duration: 0.9, ease: 'easeOut' as const },
+            delay: 0.2,
+        },
     },
 }
 
+const glowVariants = {
+    hidden: { opacity: 0, scale: 0.6 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 1.2, delay: 0.7, ease: 'easeOut' as const },
+    },
+}
+
+/** Survives remounts so Home can animate after splash already finished. */
+let splashHasCompleted = false
+
 export function IntroductionSection({ className }: IntroductionSectionProps) {
+    const sectionRef = useRef<HTMLElement>(null)
+    const [splashDone, setSplashDone] = useState(splashHasCompleted)
+    const [sectionInView, setSectionInView] = useState(false)
+    const playRobotEntrance = splashDone && sectionInView
+
+    useEffect(() => {
+        if (splashHasCompleted) {
+            setSplashDone(true)
+            return
+        }
+
+        const onSplashComplete = () => {
+            splashHasCompleted = true
+            setSplashDone(true)
+        }
+
+        window.addEventListener('bonotech:splash-complete', onSplashComplete)
+        return () => window.removeEventListener('bonotech:splash-complete', onSplashComplete)
+    }, [])
+
+    // Only start watching the viewport after splash — so the drop-in
+    // plays when the user actually scrolls to this section.
+    useEffect(() => {
+        if (!splashDone || sectionInView) return
+
+        const node = sectionRef.current
+        if (!node) return
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry?.isIntersecting) return
+                setSectionInView(true)
+                observer.disconnect()
+            },
+            { threshold: 0.35, rootMargin: '0px 0px -10% 0px' },
+        )
+
+        observer.observe(node)
+        return () => observer.disconnect()
+    }, [splashDone, sectionInView])
+
     return (
         <section
+            ref={sectionRef}
             id="introduction"
             aria-labelledby="introduction-heading"
             className={cn('w-full overflow-hidden bg-white', className)}
@@ -98,15 +169,20 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
 
                     <motion.div
                         className="order-2 relative z-10 mx-auto flex w-full items-end justify-center"
-                        variants={robotVariants}
+                        variants={robotEntranceVariants}
                         initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: '-80px' }}
+                        animate={playRobotEntrance ? 'visible' : 'hidden'}
                     >
+                        <motion.div
+                            className="pointer-events-none absolute bottom-[8%] left-1/2 h-[40%] w-[70%] -translate-x-1/2 rounded-full bg-[#8269CF]/35 blur-[48px]"
+                            variants={glowVariants}
+                            aria-hidden="true"
+                        />
+
                         <img
                             src={robotArt}
                             alt="Bonotech robot mascot"
-                            className="h-auto w-full max-w-[240px] -mb-[30px] object-contain object-bottom sm:max-w-[280px] md:max-w-[320px] md:-mb-[36px] lg:max-w-[360px] lg:-mb-[40px] xl:max-w-[400px]"
+                            className="relative z-10 h-auto w-full max-w-[240px] -mb-[30px] object-contain object-bottom sm:max-w-[280px] md:max-w-[320px] md:-mb-[36px] lg:max-w-[360px] lg:-mb-[40px] xl:max-w-[400px]"
                             draggable={false}
                         />
                     </motion.div>
