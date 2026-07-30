@@ -4,6 +4,7 @@ import type { ProjectCardProps } from '../Projects.types'
 
 import playStoreImg from '@/assets/playstore.png'
 import appStoreImg from '@/assets/apple-store.png'
+import CalendarImage from '@/assets/calendar.svg'
 
 const DEFAULT_BULLET_COLOR = '#8269CF'
 
@@ -111,6 +112,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 className={`relative z-10 flex flex-col items-center md:items-start justify-end shrink-0 flex-1 self-stretch order-3 ${project.logoSrc ? 'gap-6 md:gap-5 xl:gap-8' : 'gap-4'
                     }`}
             >
+                <div className='flex gap-3 text-[#B69A6B] font-bold'>
+                    <img
+                        src={CalendarImage}
+                        alt="App Store"
+                    />
+                    <p className=''>Build In 60 Days</p>
+                </div>
                 {/* Logo — uses clamp() only for its pixel-spec'd dimensions */}
                 {project.logoSrc && (
                     <div className="flex items-center">
@@ -171,19 +179,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                 />
                             </a>
                         )}
-                    </div>
-                )}
-
-                {/* Learn More — Desktop only; original text-sm at xl */}
-                {project.learnMoreHref && (
-                    <a
-                        href={project.learnMoreHref}
-                        className="hidden md:inline-flex items-center gap-1.5 font-body font-medium leading-[1.4] text-content-accent
+                        {/* Learn More — Desktop only; original text-sm at xl */}
+                        {project.learnMoreHref && (
+                            <a
+                                href={project.learnMoreHref}
+                                className="hidden md:inline-flex items-center gap-1.5 font-body font-medium leading-[1.4] text-content-accent
                                    text-xs xl:text-sm"
-                    >
-                        Learn More
-                        <ArrowRight className="w-4 h-4" />
-                    </a>
+                            >
+                                Learn More
+                                <ArrowRight className="w-4 h-4" />
+                            </a>
+                        )}
+                    </div>
                 )}
             </div>
 
