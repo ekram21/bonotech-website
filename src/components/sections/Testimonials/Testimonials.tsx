@@ -1,8 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { TestimonialsProps, TestimonialData } from "./Testimonials.types";
+import Shakil from "@/assets/testimonials/Shakil.png";
+import Nafis from "@/assets/testimonials/Nafis.png";
+import Evan from "@/assets/testimonials/Evan.png";
+
 
 const TESTIMONIALS: TestimonialData[] = [
   {
@@ -12,6 +16,7 @@ const TESTIMONIALS: TestimonialData[] = [
     authorName: "MD. Shohiduzzaman Shakil",
     authorRole: "Generalist-Human Resources, Mermaid Beach Resort",
     backgroundColor: "#8269CF",
+     image: Shakil,
   },
   {
     id: "testimonial-2",
@@ -20,6 +25,7 @@ const TESTIMONIALS: TestimonialData[] = [
     authorName: "Evan Milho",
     authorRole: "CEO, EVO Grading",
     backgroundColor: "#131314",
+    image: Evan
   },
   {
     id: "testimonial-3",
@@ -28,6 +34,7 @@ const TESTIMONIALS: TestimonialData[] = [
     authorName: "Dan Iqbal",
     authorRole: "CEO, Get My Grail",
     backgroundColor: "#FFAB51",
+    image: ""
   },
   {
     id: "testimonial-4",
@@ -36,6 +43,7 @@ const TESTIMONIALS: TestimonialData[] = [
     authorName: "Nafis Abrar",
     authorRole: "ML Engineer at Meta Facebook",
     backgroundColor: "#3D8B5F",
+    image: Nafis
   },
 ];
 
@@ -102,11 +110,18 @@ interface TestimonialCardProps {
 }
 
 function TestimonialCard({ testimonial }: TestimonialCardProps) {
-  const colors = getTextColor(testimonial.backgroundColor);
+  const colors = getTextColor(testimonial.backgroundColor)
+  const [imageError, setImageError] = useState(false)
+
+  useEffect(() => {
+    setImageError(false)
+  }, [testimonial.image])
+
+  const showImage = Boolean(testimonial.image) && !imageError
 
   return (
     <div
-      className="w-full max-w-300 md:min-h-99.25 rounded-3xl p-8 md:p-16 flex flex-col gap-5 md:gap-12"
+      className="flex w-full max-w-300 flex-col gap-5 rounded-3xl p-8 md:min-h-99.25 md:gap-12 md:p-16"
       style={{
         backgroundColor: testimonial.backgroundColor,
         color: colors.primary,
@@ -116,27 +131,50 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
       <QuoteIcon />
 
       {/* Quote text */}
-      <p className="font-body font-medium text-base md:font-semibold md:text-[28px] leading-snug md:leading-none tracking-[-0.005em]">
+      <p className="font-body text-base font-medium leading-snug tracking-[-0.005em] md:text-[28px] md:font-semibold md:leading-none">
         {testimonial.quote}
       </p>
 
       {/* Author */}
-      <div className="flex flex-col gap-1">
-        <span
-          className="font-body font-bold text-base md:text-xl leading-[1.4]"
-          style={{ color: colors.primary }}
-        >
-          {testimonial.authorName}
-        </span>
-        <span
-          className="font-body font-normal text-sm md:text-lg leading-[1.4]"
-          style={{ color: colors.secondary }}
-        >
-          {testimonial.authorRole}
-        </span>
+      <div className="flex items-center gap-4 md:gap-5">
+        {showImage ? (
+          <img
+            src={testimonial.image}
+            alt={testimonial.authorName}
+            onError={() => setImageError(true)}
+            className="h-14 w-14 shrink-0 rounded-full object-cover md:h-[72px] md:w-[72px]"
+          />
+        ) : (
+          <div
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/20 md:h-[72px] md:w-[72px]"
+            aria-hidden="true"
+          >
+            <UserRound
+              className="h-7 w-7 md:h-9 md:w-9"
+              strokeWidth={1.8}
+              style={{ color: colors.primary }}
+            />
+          </div>
+        )}
+
+        <div className="flex min-w-0 flex-col gap-1">
+          <span
+            className="font-body text-base font-bold leading-[1.4] md:text-xl"
+            style={{ color: colors.primary }}
+          >
+            {testimonial.authorName}
+          </span>
+
+          <span
+            className="font-body text-sm font-normal leading-[1.4] md:text-lg"
+            style={{ color: colors.secondary }}
+          >
+            {testimonial.authorRole}
+          </span>
+        </div>
       </div>
     </div>
-  );
+  )
 }
 
 export function Testimonials({ className }: TestimonialsProps) {
