@@ -85,12 +85,12 @@ export function SpeedFeatureModal({
 
                             <h3
                                 id="speed-feature-modal-title"
-                                className="pr-10 font-display text-[22px] font-semibold leading-[1.2] text-white sm:text-[26px]"
+                                className="pr-10 font-display text-[20px] font-bold leading-none tracking-[0] text-white"
                             >
                                 {title}
                             </h3>
 
-                            <p className="mt-3 font-body text-[15px] leading-[1.65] text-[#C9C9CC] sm:text-[16px]">
+                            <p className="mt-3 font-body text-[16px] font-normal leading-[150%] tracking-[-0.25px] text-white">
                                 {description}
                             </p>
                         </div>

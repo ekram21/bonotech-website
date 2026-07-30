@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import speedBg from '@/assets/speed/speed-bg.png'
 import speedLightning from '@/assets/speed/speed-lightning.png'
-import speedWaves from '@/assets/speed/speed-waves.png'
+import speedWireframeSketch from '@/assets/speed/speed-wireframe-sketch.png'
 import speedAnalytics from '@/assets/speed/speed-analytics.png'
-import speedExpertLed from '@/assets/speed/speed-expert-led.png'
-import speedEvolved from '@/assets/speed/speed-evolved.png'
+import speedExpertLed from '@/assets/speed/speed-expert-led-team.png'
+import speedEvolved from '@/assets/speed/speed-evolved-brain.png'
 import speedDeployable from '@/assets/speed/speed-deployable.png'
 import {
     DeployableIcon,
@@ -28,8 +28,8 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
             title: 'Launch Rapid MVPs Faster With AI Assisted Product Delivery Systems',
             description:
                 'Move from idea to working prototype quickly using focused sprints, reusable components, and intelligent delivery workflows.',
-            imageSrc: speedWaves,
-            imageAlt: 'Abstract liquid metal waves in cyan and magenta',
+            imageSrc: speedWireframeSketch,
+            imageAlt: 'Hand sketching mobile app wireframes on paper',
         },
     },
     {
