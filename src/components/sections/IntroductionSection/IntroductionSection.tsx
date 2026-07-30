@@ -72,7 +72,7 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
 
                         <h2
                             id="introduction-heading"
-                            className="mt-4 font-display text-[40px] font-semibold leading-[1.08] tracking-[-0.02em] text-[#272829] sm:text-[48px] md:text-[56px]"
+                            className="mt-4 font-display text-[40px] font-semibold leading-[1.08] tracking-[-0.02em] text-[#272829] sm:text-[40px] md:text-[48px]"
                         >
                             Better. Faster.
                             <br />
