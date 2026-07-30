@@ -33,7 +33,7 @@ export function ExperienceCard({ card }: ExperienceCardProps) {
                 />
             )}
 
-            <div className="relative z-10 flex flex-1 flex-col">
+            <div className="relative z-10 flex flex-1 flex-col text-center">
                 <h3
                     className={[
                         'font-display text-[24px] font-bold leading-none',
@@ -44,7 +44,7 @@ export function ExperienceCard({ card }: ExperienceCardProps) {
                 </h3>
                 <p
                     className={[
-                        'mt-3 max-w-[34ch] font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px]',
+                        'mx-auto mt-3 max-w-[34ch] font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px]',
                         isHighlighted ? 'text-white' : 'text-[#444547]',
                     ].join(' ')}
                 >
