@@ -1,18 +1,18 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import bonotechMark from '@/assets/bonotech-splash-mark.png'
+import bonotechLogo from '@/assets/bonotech-logo.png'
 import type { ComparisonProps, TimelineStep } from './Comparison.types'
 
 const TRADITIONAL_STEPS: TimelineStep[] = [
     {
         number: 1,
         title: 'Month 1-2',
-        description: 'Discovery and requirements',
+        description: 'Discovery And Requirements',
     },
     {
         number: 2,
         title: 'Month 3',
-        description: 'Product scoping',
+        description: 'Product Scoping',
     },
     {
         number: 3,
@@ -26,18 +26,8 @@ const TRADITIONAL_STEPS: TimelineStep[] = [
     },
     {
         number: 5,
-        title: 'Month 8',
-        description: 'QA and revisions',
-    },
-    {
-        number: 6,
-        title: 'Month 9',
-        description: 'Launch prep',
-    },
-    {
-        number: 7,
-        title: 'Month 10',
-        description: 'Launch',
+        title: 'Month 8-10',
+        description: 'QA, Revisions, Launch Prep And Launch',
     },
 ]
 
@@ -64,18 +54,31 @@ const BONOTECH_STEPS: TimelineStep[] = [
     },
 ]
 
-function DurationBlock({ label, value }: { label: string; value: number }) {
+function DurationBlock({
+    label,
+    value,
+    accent = '#272829',
+}: {
+    label: string
+    value: number
+    accent?: string
+}) {
     return (
         <div className="flex shrink-0 flex-col items-start gap-2">
-            <span className="text-left font-display text-[18px] font-semibold leading-none tracking-[-0.005em] text-content-primary">
+            <span
+                className="text-left font-display text-[18px] font-semibold leading-none tracking-[-0.005em]"
+                style={{ color: accent }}
+            >
                 {label}
             </span>
             <div
-                className="h-[6px] w-[120px] overflow-hidden rounded-full bg-[#272829]/20"
+                className="h-[6px] w-[120px] overflow-hidden rounded-full"
+                style={{ backgroundColor: `${accent}33` }}
                 role="presentation"
             >
                 <motion.div
-                    className="h-full rounded-full bg-[#272829]"
+                    className="h-full rounded-full"
+                    style={{ backgroundColor: accent }}
                     initial={{ width: '0%' }}
                     animate={{ width: [`0%`, `${value}%`] }}
                     transition={{
@@ -173,15 +176,10 @@ export function Comparison({ className }: ComparisonProps) {
 
                 <h2
                     id="comparison-heading"
-                    className="mb-3 max-w-[700px] text-center font-display text-[32px] font-semibold leading-[1.15] text-[#272829] md:text-[48px]"
+                    className="mb-12 max-w-[700px] text-center font-display text-[32px] font-semibold leading-[1.15] text-[#272829] md:mb-16 md:text-[48px]"
                 >
                     From Slow Vendor Cycle to Marketable Products
                 </h2>
-
-                <p className="mb-12 text-center font-body text-[16px] leading-[1.5] text-[#75777A] md:mb-16 md:text-[18px]">
-                    {/* How Bonotech does it better */}
-                    Comparison
-                </p>
 
                 <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
                     {/* Traditional Product Cycle */}
@@ -192,7 +190,7 @@ export function Comparison({ className }: ComparisonProps) {
                                     Traditional Product Cycle
                                 </h3>
                                 <p className="mt-1 font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px] text-content-tertiary">
-                                    Slow and linear
+                                    Slow And Linear
                                 </p>
                             </div>
                             <DurationBlock label="10 Month" value={82} />
@@ -207,23 +205,17 @@ export function Comparison({ className }: ComparisonProps) {
                     <div className="flex flex-col rounded-[24px] bg-[#F5F3FB] p-6 md:p-8">
                         <div className="mb-6 flex items-start justify-between gap-4">
                             <div>
-                                <div className="flex items-center gap-2.5">
-                                    <img
-                                        src={bonotechMark}
-                                        alt=""
-                                        aria-hidden="true"
-                                        className="h-8 w-auto object-contain"
-                                        draggable={false}
-                                    />
-                                    <span className="font-display text-[22px] font-semibold tracking-[0.08em] text-[#272829] sm:text-[24px]">
-                                        BONOTECH
-                                    </span>
-                                </div>
+                                <img
+                                    src={bonotechLogo}
+                                    alt="Bonotech"
+                                    className="h-8 w-auto object-contain object-left sm:h-9"
+                                    draggable={false}
+                                />
                                 <p className="mt-1 font-body text-[16px] font-normal leading-[1.5] tracking-[-0.25px] text-content-tertiary">
-                                    Agile and AI-accelerated
+                                    Agile And AI-Accelerated
                                 </p>
                             </div>
-                            <DurationBlock label="2 Weeks" value={90} />
+                            <DurationBlock label="2 Weeks" value={90} accent="#8269CF" />
                         </div>
 
                         <div className="relative flex-1 overflow-hidden rounded-[16px] bg-[#8269CF] p-6 md:p-8">
