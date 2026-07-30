@@ -250,7 +250,7 @@ const SectionHeading = ({ id }: { id?: string }) => (
 
     {/* Subtitle */}
     <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A] mb-20">
-      Bonotech is focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, verification systems.
+      Bonotech’s focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, and verification systems.
     </p>
   </div>
 );
