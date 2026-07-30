@@ -95,10 +95,10 @@ const PROJECTS: ProjectCardData[] = [
     builtInDaysColor: "#2D343C",
     features: [
       "Marketplace Flow",
-      "Inventory Like system",
-      "User accounts",
+      "Inventory Like System",
+      "User Accounts",
       "Listings",
-      "Buyer seller workflow",
+      "Buyer Seller Workflow",
       "Digital Commerce",
       "Community Driven Platforms",
     ],
@@ -250,7 +250,7 @@ const SectionHeading = ({ id }: { id?: string }) => (
 
     {/* Subtitle */}
     <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A] mb-20">
-      Bonotech is focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, verification systems, and professional grading.
+      Bonotech is focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, verification systems.
     </p>
   </div>
 );
