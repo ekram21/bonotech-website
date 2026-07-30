@@ -231,6 +231,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         className={cn(
                             'flex flex-col items-center md:items-start',
                             !hasStoreBadges && project.learnMoreHref && 'gap-3 xl:gap-4',
+                            project.id === 'olmo' && 'scale-75 origin-center md:origin-left',
                         )}
                     >
                         <img
