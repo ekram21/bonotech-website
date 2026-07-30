@@ -1,65 +1,84 @@
 import { AnimatePresence, motion } from 'framer-motion'
 
-const RING_COUNT = 15
-const GRID_COLS = 7
-const GRID_ROWS = 5
+const SCALE_MARKS = [3, 30, 60] as const
+const SCALE_MAX = 60
 
-function SpiralRings() {
-    return (
-        <div
-            className="relative z-10 flex justify-center gap-[5px] px-10"
-            aria-hidden="true"
-        >
-            {Array.from({ length: RING_COUNT }).map((_, index) => (
-                <div
-                    key={index}
-                    className="h-[26px] w-[11px] rounded-full bg-gradient-to-b from-[#FFC98A] via-[#FFAB50] to-[#F5923A] shadow-[0_1px_2px_rgba(245,146,58,0.35)]"
-                />
-            ))}
-        </div>
-    )
-}
+export function CalendarWidget({
+    days,
+    badge,
+}: {
+    days: number
+    badge: string
+}) {
+    const fillPercent = Math.min(100, Math.max((days / SCALE_MAX) * 100, 4))
 
-function CalendarGrid() {
-    return (
-        <div className="grid h-full w-full grid-cols-7 grid-rows-5">
-            {Array.from({ length: GRID_COLS * GRID_ROWS }).map((_, index) => (
-                <div
-                    key={index}
-                    className="border border-[#ECEEF3] bg-[#F8F9FC]"
-                />
-            ))}
-        </div>
-    )
-}
-
-export function CalendarWidget({ daysLabel }: { daysLabel: string }) {
     return (
         <div className="w-full max-w-[440px]">
-            <SpiralRings />
+            <div className="flex items-start gap-3">
+                <AnimatePresence mode="wait">
+                    <motion.span
+                        key={days}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -12 }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        className="font-display text-[96px] font-semibold leading-none tracking-[-0.04em] text-[#272829] sm:text-[112px]"
+                    >
+                        {days}
+                    </motion.span>
+                </AnimatePresence>
 
-            <div className="-mt-3 overflow-hidden rounded-[24px] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
-                <div className="border-b-2 border-[#3B82F6] bg-[#8269CF] px-6 py-[14px] text-center">
-                    <span className="font-display text-[20px] font-medium text-white">Timeline</span>
+                <div className="flex flex-col items-start gap-2 pt-3 sm:pt-4">
+                    <span className="font-body text-[18px] font-medium leading-none text-[#272829] sm:text-[20px]">
+                        Days
+                    </span>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={badge}
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.96 }}
+                            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                            className="inline-flex items-center gap-2 rounded-md bg-[#8269CF] px-3 py-1.5"
+                        >
+                            <span
+                                className="h-1.5 w-1.5 shrink-0 rounded-full bg-white"
+                                aria-hidden="true"
+                            />
+                            <span className="font-display text-[12px] font-semibold uppercase tracking-[0.06em] text-white">
+                                {badge}
+                            </span>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+            </div>
+
+            <div className="mt-6">
+                <div
+                    className="relative h-[3px] w-full overflow-hidden rounded-full bg-[#E8E9EB]"
+                    role="presentation"
+                >
+                    <motion.div
+                        className="absolute inset-y-0 left-0 rounded-full bg-[#8269CF]"
+                        initial={false}
+                        animate={{ width: `${fillPercent}%` }}
+                        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    />
                 </div>
 
-                <div className="relative aspect-[7/5] min-h-[240px] bg-[#F8F9FC] sm:min-h-[280px]">
-                    <CalendarGrid />
-
-                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-4">
-                        <AnimatePresence mode="wait">
-                            <motion.p
-                                key={daysLabel}
-                                initial={{ opacity: 0, y: 10, scale: 0.97 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: -10, scale: 0.97 }}
-                                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                                className="text-center font-display text-[clamp(56px,20vw,96px)] font-semibold leading-[1.2] tracking-[0] text-[#8269CF]"
-                            >
-                                {daysLabel}
-                            </motion.p>
-                        </AnimatePresence>
-                    </div>
+                <div className="mt-2 flex justify-between">
+                    {SCALE_MARKS.map((mark) => (
+                        <span
+                            key={mark}
+                            className={
+                                mark === days
+                                    ? 'font-body text-[14px] font-semibold text-[#8269CF]'
+                                    : 'font-body text-[14px] font-medium text-[#75777A]'
+                            }
+                        >
+                            {mark}
+                        </span>
+                    ))}
                 </div>
             </div>
         </div>

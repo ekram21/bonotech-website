@@ -11,6 +11,7 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
     {
         days: 3,
         daysLabel: '3 Days',
+        badge: 'Website',
         title: 'Website Development Timeline Starts From 3 Days',
         subtitle: 'Fast preview, focused content, and launch-ready structure.',
         image: websiteWireframe,
@@ -18,6 +19,7 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
     {
         days: 30,
         daysLabel: '30 Days',
+        badge: 'Mobile',
         title: 'Mobile App Launched in IOS and Android App Store Timeline Start From 30 Days',
         subtitle: 'App interface, engineering, testing, and deployment readiness.',
         image: mobileWireframe,
@@ -25,6 +27,7 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
     {
         days: 60,
         daysLabel: '60 Days',
+        badge: 'Enterprise',
         title: 'Enterprise Software Development Timeline Starts From 60 Days',
         subtitle: "Scalable architecture, integrations, dashboards, and governance.",
         image: enterpriseWireframe,
@@ -200,7 +203,7 @@ export function TimelineSection({ className }: TimelineSectionProps) {
         return () => observer.disconnect()
     }, [isDesktop])
 
-    const activeDaysLabel = TIMELINE_ITEMS[activeIndex]?.daysLabel ?? TIMELINE_ITEMS[0].daysLabel
+    const activeItem = TIMELINE_ITEMS[activeIndex] ?? TIMELINE_ITEMS[0]
 
     return (
         <section
@@ -213,7 +216,7 @@ export function TimelineSection({ className }: TimelineSectionProps) {
                     <div className="mb-10">
                         <TimelineHeading id="timeline-heading" />
                         <div className="mt-10">
-                            <CalendarWidget daysLabel={activeDaysLabel} />
+                            <CalendarWidget days={activeItem.days} badge={activeItem.badge} />
                         </div>
                     </div>
                 )}
@@ -226,7 +229,7 @@ export function TimelineSection({ className }: TimelineSectionProps) {
                         >
                             <TimelineHeading id="timeline-heading" />
                             <div className="mt-12">
-                                <CalendarWidget daysLabel={activeDaysLabel} />
+                                <CalendarWidget days={activeItem.days} badge={activeItem.badge} />
                             </div>
                         </div>
                     )}
