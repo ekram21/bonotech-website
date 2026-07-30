@@ -35,22 +35,22 @@ const BONOTECH_STEPS: TimelineStep[] = [
     {
         number: 1,
         title: 'Week 1',
-        description: 'SME-led product understanding & AI-assisted requirement mapping',
+        description: 'SME-Led Product Understanding & AI-Assisted Requirement Mapping',
     },
     {
         number: 2,
         title: 'Week 2',
-        description: 'UX prototype, architecture, and sprint backlog',
+        description: 'UX Prototype, Architecture, And Sprint Backlog',
     },
     {
         number: 3,
         title: 'Week 3-6',
-        description: 'AI-assisted development and rapid iteration',
+        description: 'AI-Assisted Development And Rapid Iteration',
     },
     {
         number: 4,
         title: 'Week 7-8',
-        description: 'QA, hardening, deployment, analytics, and launch readiness',
+        description: 'QA, Hardening, Deployment, Analytics, And Launch Readiness',
     },
 ]
 
@@ -143,8 +143,8 @@ function TimelineList({
                         </h4>
                         <p
                             className={cn(
-                                'mt-1 text-[14px] font-normal leading-[1.4]',
-                                isPurple ? 'text-white/95' : 'text-[#444547]',
+                                'mt-1 font-body text-[12px] font-normal leading-[150%] tracking-[0]',
+                                isPurple ? 'text-white' : 'text-[#444547]',
                             )}
                         >
                             {step.description}

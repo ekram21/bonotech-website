@@ -241,7 +241,7 @@ function CoverageCard({
                 trackColor={trackColor}
             />
             <p className="text-left font-display text-[18px] font-semibold leading-[1.25] text-[#272829] sm:text-[20px]">
-                Coverage of real workflow
+                Coverage Of Real Workflow
             </p>
         </div>
     )
