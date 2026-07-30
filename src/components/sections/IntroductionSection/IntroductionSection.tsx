@@ -9,17 +9,17 @@ const FEATURE_CARDS = [
     {
         icon: SpeedIcon,
         title: 'Speed',
-        text: 'Faster product cycles.',
+        text: 'Faster Product Cycles.',
     },
     {
         icon: SecurityIcon,
         title: 'Security',
-        text: 'Enterprise ready architecture and governance.',
+        text: 'Enterprise Ready Architecture And Governance.',
     },
     {
         icon: OutcomeIcon,
         title: 'Outcome',
-        text: 'Business metrics tied to every sprint.',
+        text: 'Business Metrics Tied To Every Sprint.',
     },
 ] as const
 
@@ -58,7 +58,7 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
             className={cn('w-full overflow-hidden bg-white', className)}
         >
             <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) pt-16 md:pt-24">
-                <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(240px,340px)_minmax(0,360px)] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(280px,380px)_minmax(0,392px)] xl:gap-12">
+                <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(240px,340px)_minmax(0,360px)] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(280px,380px)_minmax(0,392px)] xl:gap-12 pt-6">
                     <div className="order-1 self-end mb-8">
                         <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#E8E9EB]/50 bg-[#F4F0FA] px-4 py-1.5">
                             <span
