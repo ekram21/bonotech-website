@@ -52,7 +52,7 @@ function IndustryCardItem({ card }: { card: IndustryCard }) {
 
     return (
         <div
-            className="relative w-full md:w-[296px]"
+            className="relative w-full sm:w-auto md:w-[296px]"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -129,7 +129,7 @@ export function Industries({ className }: { className?: string }) {
                     We build across industries, constantly expanding our portfolio as we take on new challenges and create new solutions.
                 </p>
 
-                <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-[10px] max-w-[1250px] md:max-w-none">
+                <div className="grid w-full max-w-[1200px] grid-cols-1 gap-[10px] sm:grid-cols-2 md:flex md:flex-wrap md:justify-center">
                     {INDUSTRY_CARDS.map((card) => (
                         <IndustryCardItem key={card.title} card={card} />
                     ))}

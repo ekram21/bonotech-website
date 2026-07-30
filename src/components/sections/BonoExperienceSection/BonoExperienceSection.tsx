@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import experienceArt from '@/assets/bono-experience/experience-art.png'
-import experienceBanner from '@/assets/bono-experience/experience-banner.png'
 import type { BonoExperienceSectionProps, ExperienceCardData } from './BonoExperienceSection.types'
 import { ExperienceCard } from './components/ExperienceCard'
 
@@ -11,17 +10,17 @@ const EXPERIENCE_CARDS: ExperienceCardData[] = [
         description:
             'Subject matter experts, product consultants, technical architects, and AI planning layer align the opportunity.',
         labels: [
-            'Subject matter expert',
-            'Product consultant',
-            'Technical architect',
-            'AI planning layer',
+            'Subject Matter Expert',
+            'Product Consultant',
+            'Technical Architect',
+            'AI Planning Layer',
         ],
     },
     {
         title: 'AI Blueprinting',
         description:
             'Product goals are transformed into user journeys, architecture, risks, and sprint backlog',
-        labels: ['Business goals', 'User journeys', 'Architecture', 'Sprint backlog'],
+        labels: ['Business Goals', 'User Journeys', 'Architecture', 'Sprint Backlog'],
         isHighlighted: true,
     },
     {
@@ -29,23 +28,23 @@ const EXPERIENCE_CARDS: ExperienceCardData[] = [
         description:
             'Interactive prototypes help stakeholders validate user flows and approve direction faster.',
         labels: [
-            'Interactive prototype',
-            'Stakeholder reviews',
-            'User-flow validation',
-            'Executive signoff',
+            'Interactive Prototype',
+            'Stakeholder Reviews',
+            'User-Flow Validation',
+            'Executive Signoff',
         ],
     },
     {
         title: 'Bono Fit Governance',
         description:
             'Every sprint stays accountable through checkpoints, dashboards, shared backlog, and reviews.',
-        labels: ['Executive checkpoint', 'Sprint review', 'Shared backlog', 'KPI dashboard'],
+        labels: ['Executive Checkpoint', 'Sprint Review', 'Shared Backlog', 'KPI Dashboard'],
     },
     {
         title: 'AI Assistant Engineering',
         description:
             'Engineering gets faster with code generation, testing, documentation, refactoring, and QA automation.',
-        labels: ['Code generation', 'Test generation', 'API integration', 'QA automation'],
+        labels: ['Code Generation', 'Test Generation', 'API Integration', 'QA Automation'],
     },
 ]
 
@@ -121,8 +120,8 @@ export function BonoExperienceSection({ className }: BonoExperienceSectionProps)
                         >
                             <img
                                 src={experienceArt}
-                                alt=""
-                                className="h-auto max-h-[280px] w-full max-w-[280px] object-contain"
+                                alt="Bonotech robot reviewing the SPEED Engine product blueprint"
+                                className="h-auto w-full object-contain"
                                 loading="lazy"
                                 draggable={false}
                             />
@@ -131,16 +130,6 @@ export function BonoExperienceSection({ className }: BonoExperienceSectionProps)
                         <ExperienceCard card={row2Right} />
                     </div>
                 </motion.div>
-
-                <div className="ml-auto mt-10 w-full max-w-[817px] md:mt-12">
-                    <img
-                        src={experienceBanner}
-                        alt=""
-                        className="block h-[150px] w-full object-cover object-right"
-                        loading="lazy"
-                        draggable={false}
-                    />
-                </div>
             </div>
         </section>
     )

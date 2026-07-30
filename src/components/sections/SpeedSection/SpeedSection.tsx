@@ -66,7 +66,7 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
         modal: {
             title: 'Continuously Improve Products With AI Accelerated Learning And Scalable Systems',
             description:
-                'Adapt faster with automated insights, modern architecture, and product systems designed to evolve beyond launch successfully.',
+                'Adapt faster with automated insights, modern architecture, and product systems designed to evolve successfully beyond launch.',
             imageSrc: speedEvolved,
             imageAlt: 'Metallic brain on a glowing circuit board representing AI evolution',
         },
@@ -135,7 +135,7 @@ export function SpeedSection({ className }: SpeedSectionProps) {
                         <div className="inline-flex items-center gap-2 rounded-full border border-[#8269CF]/40 bg-[#8269CF]/20 px-4 py-1.5">
                             <div className="h-2 w-2 shrink-0 rounded-full bg-[#C4B5FD]" aria-hidden="true" />
                             <span className="font-display text-[11px] font-medium uppercase tracking-[0.06em] text-[#DDD6FE] sm:text-[12px]">
-                                Speed — The #1 SME Product Engine
+                                Speed — The AI SME Product Engine
                             </span>
                         </div>
 
