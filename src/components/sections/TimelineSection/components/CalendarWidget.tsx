@@ -1,7 +1,41 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import {
+    AnimatePresence,
+    animate,
+    motion,
+    useMotionValue,
+    useMotionValueEvent,
+} from 'framer-motion'
 
 const SCALE_MARKS = [3, 30, 60] as const
 const SCALE_MAX = 60
+
+function CountingNumber({ value }: { value: number }) {
+    const motionValue = useMotionValue(value)
+    const [display, setDisplay] = useState(value)
+
+    useMotionValueEvent(motionValue, 'change', (latest) => {
+        setDisplay(Math.round(latest))
+    })
+
+    useEffect(() => {
+        const distance = Math.abs(value - motionValue.get())
+        const duration = Math.min(1.4, Math.max(0.55, distance / 50))
+
+        const controls = animate(motionValue, value, {
+            duration,
+            ease: [0.22, 1, 0.36, 1],
+        })
+
+        return () => controls.stop()
+    }, [value, motionValue])
+
+    return (
+        <span className="font-display text-[96px] font-semibold leading-none tracking-[-0.04em] text-[#272829] sm:text-[112px] tabular-nums">
+            {display}
+        </span>
+    )
+}
 
 export function CalendarWidget({
     days,
@@ -14,21 +48,10 @@ export function CalendarWidget({
 
     return (
         <div className="w-full max-w-[440px]">
-            <div className="flex items-start gap-3">
-                <AnimatePresence mode="wait">
-                    <motion.span
-                        key={days}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                        className="font-display text-[96px] font-semibold leading-none tracking-[-0.04em] text-[#272829] sm:text-[112px]"
-                    >
-                        {days}
-                    </motion.span>
-                </AnimatePresence>
+            <div className="flex items-end gap-5">
+                <CountingNumber value={days} />
 
-                <div className="flex flex-col items-start gap-2 pt-3 sm:pt-4">
+                <div className="flex flex-col items-start gap-2 pb-2 sm:pb-3 mb-3">
                     <span className="font-body text-[18px] font-medium leading-none text-[#272829] sm:text-[20px]">
                         Days
                     </span>
@@ -39,7 +62,7 @@ export function CalendarWidget({
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.96 }}
                             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                            className="inline-flex items-center gap-2 rounded-md bg-[#8269CF] px-3 py-1.5"
+                            className="inline-flex items-center gap-2 rounded-full bg-[#8269CF] px-3 py-1.5"
                         >
                             <span
                                 className="h-1.5 w-1.5 shrink-0 rounded-full bg-white"
@@ -62,7 +85,7 @@ export function CalendarWidget({
                         className="absolute inset-y-0 left-0 rounded-full bg-[#8269CF]"
                         initial={false}
                         animate={{ width: `${fillPercent}%` }}
-                        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                     />
                 </div>
 
