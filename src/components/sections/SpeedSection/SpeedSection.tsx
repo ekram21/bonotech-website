@@ -77,7 +77,7 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
         tag: 'Shorter product cycles',
         icon: DeployableIcon,
         modal: {
-            title: 'Ship Shorter Product Cycles With Production Ready Release Confidence Faster',
+            title: 'Ship Shorter Product Cycles With Production Ready Releases Faster',
             description:
                 'Release stable versions confidently through tested builds, clean handoff, deployment planning, and reliable launch support processes.',
             imageSrc: speedDeployable,
