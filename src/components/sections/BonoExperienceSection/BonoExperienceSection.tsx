@@ -35,13 +35,13 @@ const EXPERIENCE_CARDS: ExperienceCardData[] = [
         ],
     },
     {
-        title: 'Bono Fit Governance',
+        title: 'Bono-Fit Governance',
         description:
             'Every sprint stays accountable through checkpoints, dashboards, shared backlog, and reviews.',
         labels: ['Executive Checkpoint', 'Sprint Review', 'Shared Backlog', 'KPI Dashboard'],
     },
     {
-        title: 'AI Assistant Engineering',
+        title: 'AI-Assisted Engineering',
         description:
             'Engineering gets faster with code generation, testing, documentation, refactoring, and QA automation.',
         labels: ['Code Generation', 'Test Generation', 'API Integration', 'QA Automation'],

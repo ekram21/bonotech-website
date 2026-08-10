@@ -204,10 +204,10 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
                                     className="flex items-center gap-6 rounded-2xl bg-[#F5F3FB] p-5"
                                 >
                                     <div
-                                        className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-[12px] bg-white"
+                                        className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-[12px] bg-white"
                                         aria-hidden="true"
                                     >
-                                        <Icon className="h-12 w-12" />
+                                        <Icon className="h-14 w-14" />
                                     </div>
 
                                     <div>

@@ -62,7 +62,7 @@ function TimelineHeading({ id }: { id?: string }) {
             </h2>
             <p className="mt-4 max-w-[500px] font-body text-[16px] leading-[1.6] text-[#75777A] lg:text-[17px]">
                 Bonotech is built to deliver shorter product cycles and faster results, without
-                compromising on quality or efficiency
+                compromising on quality or efficiency.
             </p>
         </div>
     )
