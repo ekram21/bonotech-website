@@ -1,7 +1,8 @@
 /** Matches `--navbar-scroll-offset` / `scroll-padding-top` on `html` in globals.css */
 const SCROLL_PADDING_TOP = 96
 
-const LAYOUT_SETTLE_DELAYS_MS = [150, 500] as const
+/** How long a typical smooth window.scrollTo takes before we optionally nudge. */
+const SMOOTH_SETTLE_MS = 700
 
 type ScrollAlign = 'start' | 'center'
 
@@ -9,9 +10,11 @@ const SECTION_SCROLL_ALIGN: Partial<Record<string, ScrollAlign>> = {
     introduction: 'center',
     schedule: 'center',
     'what-we-do': 'center',
-    'our-clients': 'center',
-    'delivery-times': 'center',
     faq: 'center',
+}
+
+function prefersReducedMotion(): boolean {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 function getScrollTop(el: HTMLElement, align: ScrollAlign) {
@@ -21,7 +24,7 @@ function getScrollTop(el: HTMLElement, align: ScrollAlign) {
     const maxScrollTop = document.documentElement.scrollHeight - viewportHeight
 
     if (align === 'start') {
-        return Math.min(elementTop - SCROLL_PADDING_TOP, maxScrollTop)
+        return Math.min(Math.max(0, elementTop - SCROLL_PADDING_TOP), maxScrollTop)
     }
 
     const centeredTop = elementTop + elementHeight / 2 - viewportHeight / 2
@@ -36,10 +39,6 @@ function getScrollTop(el: HTMLElement, align: ScrollAlign) {
     return Math.max(minTop, Math.min(centeredTop, maxTop))
 }
 
-function setSectionScrolling(active: boolean) {
-    document.documentElement.classList.toggle('is-section-scrolling', active)
-}
-
 function scrollToElement(id: string, behavior: ScrollBehavior, align: ScrollAlign = 'start') {
     const el = document.getElementById(id)
     if (!el) return false
@@ -48,29 +47,40 @@ function scrollToElement(id: string, behavior: ScrollBehavior, align: ScrollAlig
     return true
 }
 
+let settleTimer: number | undefined
+
 /**
- * Scroll to a page section by id. Re-aligns after short delays so sticky
- * sections (e.g. Projects) that remeasure on mount don't leave the viewport
- * on the wrong block on the first click.
+ * Scroll to a page section by id. Uses smooth scrolling for in-page nav
+ * (unless the user prefers reduced motion).
  */
 export function scrollToSection(id: string, behavior: ScrollBehavior = 'smooth') {
+    const el = document.getElementById(id)
+    if (!el) return
+
     const align = SECTION_SCROLL_ALIGN[id] ?? 'start'
-    if (!document.getElementById(id)) return
+    const useSmooth = behavior === 'smooth' && !prefersReducedMotion()
+    const resolvedBehavior: ScrollBehavior = useSmooth ? 'smooth' : 'auto'
 
-    setSectionScrolling(true)
-    scrollToElement(id, behavior, align)
-
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            scrollToElement(id, 'auto', align)
-        })
-    })
-
-    for (const delay of LAYOUT_SETTLE_DELAYS_MS) {
-        window.setTimeout(() => scrollToElement(id, 'auto', align), delay)
+    if (settleTimer !== undefined) {
+        window.clearTimeout(settleTimer)
+        settleTimer = undefined
     }
 
-    window.setTimeout(() => setSectionScrolling(false), 600)
+    scrollToElement(id, resolvedBehavior, align)
+
+    // After a smooth scroll finishes, nudge once if layout shifted — without
+    // interrupting the animation with an immediate jump.
+    if (useSmooth) {
+        settleTimer = window.setTimeout(() => {
+            const target = document.getElementById(id)
+            if (!target) return
+            const intended = getScrollTop(target, align)
+            if (Math.abs(window.scrollY - intended) > 8) {
+                window.scrollTo({ top: intended, behavior: 'auto' })
+            }
+            settleTimer = undefined
+        }, SMOOTH_SETTLE_MS)
+    }
 }
 
 /** Intercept in-page hash links so layout-settle re-scroll runs. */
@@ -84,12 +94,12 @@ export function handleHashLinkClick(
     if (!document.getElementById(id)) return false
 
     event.preventDefault()
-    scrollToSection(id)
+    scrollToSection(id, 'smooth')
     window.history.pushState(null, '', href)
     return true
 }
 
-/** Honor `#section` on first paint / hard refresh (native hash + snap can undershoot). */
+/** Honor `#section` on first paint / hard refresh (instant, no animation). */
 export function scrollToHashOnLoad() {
     const hash = window.location.hash
     if (!hash || hash.length < 2) return

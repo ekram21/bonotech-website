@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import projectsBackground from "@/assets/about/projects-background.mp4";
-import ludovicoMassari from "@/assets/about/ludovico-massari.jpeg";
+import commitmentPortrait from "@/assets/about/stefano-portrait.jpg";
 import divcLogo from "@/assets/about/divc.svg";
 import dataMotion from "@/assets/about/data-motion.mp4";
 import { scrollToSection } from "@/lib/scroll";
@@ -277,10 +277,10 @@ const AboutImpactSection = () => {
                 >
                     <img
                         className="testimonial-photo"
-                        src={ludovicoMassari}
-                        alt="Ludovico Massari beside a mountain river"
-                        width={640}
-                        height={640}
+                        src={commitmentPortrait}
+                        alt="Stefano Murdaca"
+                        width={818}
+                        height={1024}
                         loading="lazy"
                         decoding="async"
                     />
@@ -305,10 +305,10 @@ const AboutImpactSection = () => {
                         <figcaption>
                             <div className="testimonial-identity">
                                 <span className="testimonial-name">
-                                    Ludovico Massari
+                                    Stefano Murdaca
                                 </span>
                                 <span className="testimonial-role">
-                                    Head of Marketing
+                                    Head of Finance
                                 </span>
                             </div>
                             <img

@@ -62,7 +62,7 @@ const testimonials: Testimonial[] = [
         role: "Founder and CEO, Zatiq",
         handle: "@zatiqglobal",
         quote:
-            "Bonotech brought a thoughtful product perspective to the table. Their consultancy helped us look at the experience more strategically, and I especially loved the UI/UX suggestions \u2014 it gives users a quick, engaging win while making the product easier to understand from the start.",
+            "Bonotech brought a thoughtful product perspective to the table. Their consultancy helped us look at the experience more strategically, and I especially loved the UI/UX suggestions \u2014 they give users a quick, engaging win while making the product easier to understand from the start.",
         logo: zatiqLogo,
         logoClassName: "testimonial-logo testimonial-logo-zatiq",
         portrait: sultanMoni,

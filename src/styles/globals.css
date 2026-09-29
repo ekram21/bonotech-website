@@ -268,10 +268,6 @@ html {
     }
 }
 
-html.is-section-scrolling {
-    scroll-behavior: auto !important;
-}
-
 body {
     @apply antialiased font-sans;
     margin: 0;

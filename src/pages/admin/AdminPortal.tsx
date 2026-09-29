@@ -18,6 +18,8 @@ import {
 } from "./AdminCharts";
 import "./admin-portal.css";
 
+const SHOW_ZOOMINFO_PANEL = false;
+
 const RANGES = [
   { key: "1d", label: "24h" },
   { key: "7d", label: "7 days" },
@@ -224,7 +226,7 @@ export function AdminPortal() {
             </article>
           </section>
 
-          {overview.zoominfo ? (
+          {SHOW_ZOOMINFO_PANEL && overview.zoominfo ? (
             <section className="admin-panel admin-panel-wide admin-zoominfo">
               <div className="admin-zoominfo-head">
                 <div>
