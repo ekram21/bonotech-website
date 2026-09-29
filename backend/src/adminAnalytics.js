@@ -23,28 +23,42 @@ function getJwtSecret() {
   return process.env.ADMIN_JWT_SECRET?.trim() || "";
 }
 
-function getAdminEmail() {
-  return (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
-}
+/**
+ * Admins come from ADMIN_EMAIL + ADMIN_PASSWORD_HASH plus ADMIN_USERS,
+ * a comma-separated list of `email=bcryptHash` pairs.
+ */
+function getAdminUsers() {
+  const users = new Map();
 
-function getAdminPasswordHash() {
-  return process.env.ADMIN_PASSWORD_HASH?.trim() || "";
+  const primaryEmail = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+  const primaryHash = process.env.ADMIN_PASSWORD_HASH?.trim() || "";
+  if (primaryEmail && primaryHash) users.set(primaryEmail, primaryHash);
+
+  for (const entry of (process.env.ADMIN_USERS || "").split(",")) {
+    const separator = entry.indexOf("=");
+    if (separator <= 0) continue;
+    const email = entry.slice(0, separator).trim().toLowerCase();
+    const hash = entry.slice(separator + 1).trim();
+    if (email && hash) users.set(email, hash);
+  }
+
+  return users;
 }
 
 export function isAdminAuthConfigured() {
-  return Boolean(getAdminEmail() && getAdminPasswordHash() && getJwtSecret());
+  return Boolean(getAdminUsers().size > 0 && getJwtSecret());
 }
 
 export async function verifyAdminLogin(email, password) {
-  const expectedEmail = getAdminEmail();
-  const hash = getAdminPasswordHash();
+  const users = getAdminUsers();
 
-  if (!expectedEmail || !hash || !getJwtSecret()) {
+  if (users.size === 0 || !getJwtSecret()) {
     return { ok: false, error: "Admin auth is not configured on the server." };
   }
 
   const normalized = String(email || "").trim().toLowerCase();
-  if (normalized !== expectedEmail) {
+  const hash = users.get(normalized);
+  if (!hash) {
     return { ok: false, error: "Invalid email or password." };
   }
 
@@ -54,12 +68,12 @@ export async function verifyAdminLogin(email, password) {
   }
 
   const token = jwt.sign(
-    { role: "admin", email: expectedEmail },
+    { role: "admin", email: normalized },
     getJwtSecret(),
     { expiresIn: "7d" },
   );
 
-  return { ok: true, token, email: expectedEmail };
+  return { ok: true, token, email: normalized };
 }
 
 export function requireAdmin(req, res, next) {
