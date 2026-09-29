@@ -19,6 +19,31 @@ const RANGE_DAYS = {
   "90d": 90,
 };
 
+const ANALYTICS_TIME_ZONE = "Asia/Dhaka";
+
+/** Homepage sections in scroll order, for the reach funnel. */
+const HOME_SECTION_ORDER = [
+  { id: "home", label: "Hero" },
+  { id: "sprint-numbers", label: "Sprint numbers" },
+  { id: "our-clients", label: "Clients" },
+  { id: "about-bonotech", label: "About" },
+  { id: "ways-in", label: "Service scope" },
+  { id: "delivery-times", label: "Delivery times" },
+  { id: "our-technology", label: "Technology" },
+  { id: "client-testimonials", label: "Testimonials" },
+  { id: "discovery-call", label: "Discovery call" },
+  { id: "footer", label: "Footer" },
+];
+
+const SESSION_LENGTH_BUCKETS = [
+  { label: "<10s", min: 0, max: 10 },
+  { label: "10–30s", min: 10, max: 30 },
+  { label: "30s–1m", min: 30, max: 60 },
+  { label: "1–3m", min: 60, max: 180 },
+  { label: "3–10m", min: 180, max: 600 },
+  { label: "10m+", min: 600, max: Infinity },
+];
+
 function getJwtSecret() {
   return process.env.ADMIN_JWT_SECRET?.trim() || "";
 }
@@ -184,6 +209,20 @@ function topCounts(items, key, limit = 8) {
     .map(([name, count]) => ({ name, count }));
 }
 
+function uniqueSessionCounts(items, key, limit = 8) {
+  const map = new Map();
+  for (const item of items) {
+    const value = String(item[key] || "").trim();
+    if (!value || !item.sessionId) continue;
+    if (!map.has(value)) map.set(value, new Set());
+    map.get(value).add(item.sessionId);
+  }
+  return [...map.entries()]
+    .map(([name, set]) => ({ name, count: set.size }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
+}
+
 function dayKey(iso) {
   return String(iso || "").slice(0, 10);
 }
@@ -217,7 +256,14 @@ export async function buildAnalyticsOverview(dataDir, rangeKey = "7d") {
   for (let i = days - 1; i >= 0; i -= 1) {
     const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
     const key = d.toISOString().slice(0, 10);
-    byDayMap.set(key, { date: key, visitors: new Set(), pageViews: 0 });
+    byDayMap.set(key, {
+      date: key,
+      visitors: new Set(),
+      pageViews: 0,
+      sectionViews: 0,
+      ctaClicks: 0,
+      conversions: 0,
+    });
   }
   for (const event of events) {
     const key = dayKey(event.ts);
@@ -225,13 +271,92 @@ export async function buildAnalyticsOverview(dataDir, rangeKey = "7d") {
     if (!bucket) continue;
     if (event.sessionId) bucket.visitors.add(event.sessionId);
     if (event.type === "page_view") bucket.pageViews += 1;
+    if (event.type === "section_view") bucket.sectionViews += 1;
+    if (event.type === "cta_click") bucket.ctaClicks += 1;
+    if (event.type === "discovery_submit" || event.type === "newsletter_subscribe") {
+      bucket.conversions += 1;
+    }
   }
 
   const byDay = [...byDayMap.values()].map((row) => ({
     date: row.date,
     visitors: row.visitors.size,
     pageViews: row.pageViews,
+    sectionViews: row.sectionViews,
+    ctaClicks: row.ctaClicks,
+    conversions: row.conversions,
+    conversionRate:
+      row.visitors.size === 0
+        ? 0
+        : Math.round((row.conversions / row.visitors.size) * 1000) / 10,
   }));
+
+  const hourFormatter = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    hourCycle: "h23",
+    timeZone: ANALYTICS_TIME_ZONE,
+  });
+  const byHourBuckets = Array.from({ length: 24 }, (_, hour) => ({
+    hour,
+    visitors: new Set(),
+    pageViews: 0,
+  }));
+  for (const event of events) {
+    const ts = new Date(event.ts);
+    if (Number.isNaN(ts.getTime())) continue;
+    const hour = Number(hourFormatter.format(ts)) % 24;
+    const bucket = byHourBuckets[hour];
+    if (event.sessionId) bucket.visitors.add(event.sessionId);
+    if (event.type === "page_view") bucket.pageViews += 1;
+  }
+  const byHour = byHourBuckets.map((row) => ({
+    hour: row.hour,
+    label: `${String(row.hour).padStart(2, "0")}:00`,
+    visitors: row.visitors.size,
+    pageViews: row.pageViews,
+  }));
+
+  const sessionsBySection = new Map();
+  for (const event of sectionViews) {
+    if (!event.section || !event.sessionId) continue;
+    if (!sessionsBySection.has(event.section)) {
+      sessionsBySection.set(event.section, new Set());
+    }
+    sessionsBySection.get(event.section).add(event.sessionId);
+  }
+  const sectionReach = HOME_SECTION_ORDER.map(({ id, label }) => {
+    const reached = sessionsBySection.get(id)?.size || 0;
+    return {
+      section: label,
+      visitors: reached,
+      reachRate:
+        sessions.size === 0 ? 0 : Math.round((reached / sessions.size) * 1000) / 10,
+    };
+  });
+
+  const sessionSpan = new Map();
+  for (const event of events) {
+    if (!event.sessionId) continue;
+    const ts = Date.parse(event.ts);
+    if (!Number.isFinite(ts)) continue;
+    const span = sessionSpan.get(event.sessionId);
+    if (!span) sessionSpan.set(event.sessionId, { first: ts, last: ts });
+    else {
+      span.first = Math.min(span.first, ts);
+      span.last = Math.max(span.last, ts);
+    }
+  }
+  const durations = [...sessionSpan.values()].map((s) => (s.last - s.first) / 1000);
+  const avgSessionSeconds =
+    durations.length === 0
+      ? 0
+      : Math.round(durations.reduce((sum, d) => sum + d, 0) / durations.length);
+  const sessionLengthBuckets = SESSION_LENGTH_BUCKETS.map((bucket) => ({
+    bucket: bucket.label,
+    sessions: durations.filter((d) => d >= bucket.min && d < bucket.max).length,
+  }));
+
+  const conversionsTotal = discovery.length + newsletter.length;
 
   return {
     range: `${days}d`,
@@ -247,15 +372,33 @@ export async function buildAnalyticsOverview(dataDir, rangeKey = "7d") {
         sessionsWithPage.size === 0
           ? 0
           : Math.round((bounced / sessionsWithPage.size) * 100),
+      avgSessionSeconds,
+      pagesPerSession:
+        sessionsWithPage.size === 0
+          ? 0
+          : Math.round((pageViews.length / sessionsWithPage.size) * 10) / 10,
+      conversionRate:
+        sessions.size === 0
+          ? 0
+          : Math.round((conversionsTotal / sessions.size) * 1000) / 10,
     },
+    timeZone: ANALYTICS_TIME_ZONE,
     byDay,
+    byHour,
+    sectionReach,
+    sessionLengthBuckets,
     topPages: topCounts(pageViews, "path"),
     topSections: topCounts(sectionViews, "section"),
     topCtas: topCounts(ctaClicks, "label"),
-    devices: topCounts(events, "viewport"),
+    devices: uniqueSessionCounts(events, "viewport"),
     referrers: topCounts(
       events.filter((e) => e.referrer),
       "referrer",
+      6,
+    ),
+    utmSources: uniqueSessionCounts(
+      events.filter((e) => e.utmSource),
+      "utmSource",
       6,
     ),
     recentEvents: events.slice(-25).reverse(),

@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnalyticsTracker } from '@/components/AnalyticsTracker'
 import { SplashScreen } from '@/components/SplashScreen/SplashScreen'
-import { AdminPortal } from '@/pages/admin/AdminPortal'
+
+const AdminPortal = lazy(() =>
+    import('@/pages/admin/AdminPortal').then((m) => ({ default: m.AdminPortal })),
+)
 import { TermsOfService } from '@/pages/TermsOfService'
 import { PrivacyPolicy } from '@/pages/PrivacyPolicy'
 import { HomePage } from './pages/home-page/HomePage'
@@ -57,7 +60,14 @@ export default function App() {
                         <Route path="/" element={<HomePage/>} />
                         <Route path="/terms" element={<TermsOfService />} />
                         <Route path="/privacy" element={<PrivacyPolicy />} />
-                        <Route path="/admin" element={<AdminPortal />} />
+                        <Route
+                            path="/admin"
+                            element={
+                                <Suspense fallback={null}>
+                                    <AdminPortal />
+                                </Suspense>
+                            }
+                        />
                     </Routes>
                 </div>
             </BrowserRouter>

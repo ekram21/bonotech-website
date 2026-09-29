@@ -173,13 +173,29 @@ export type AnalyticsOverview = {
     discoverySubmits: number;
     newsletterSubscribes: number;
     bounceRate: number;
+    avgSessionSeconds?: number;
+    pagesPerSession?: number;
+    conversionRate?: number;
   };
-  byDay: Array<{ date: string; visitors: number; pageViews: number }>;
+  timeZone?: string;
+  byDay: Array<{
+    date: string;
+    visitors: number;
+    pageViews: number;
+    sectionViews?: number;
+    ctaClicks?: number;
+    conversions?: number;
+    conversionRate?: number;
+  }>;
+  byHour?: Array<{ hour: number; label: string; visitors: number; pageViews: number }>;
+  sectionReach?: Array<{ section: string; visitors: number; reachRate: number }>;
+  sessionLengthBuckets?: Array<{ bucket: string; sessions: number }>;
   topPages: Array<{ name: string; count: number }>;
   topSections: Array<{ name: string; count: number }>;
   topCtas: Array<{ name: string; count: number }>;
   devices: Array<{ name: string; count: number }>;
   referrers: Array<{ name: string; count: number }>;
+  utmSources?: Array<{ name: string; count: number }>;
   recentEvents: Array<{
     ts: string;
     type: string;

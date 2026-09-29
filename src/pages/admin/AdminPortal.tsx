@@ -7,6 +7,15 @@ import {
   getAdminToken,
   type AnalyticsOverview,
 } from "@/lib/analytics";
+import {
+  CHART_COLORS,
+  ChartPanel,
+  ConversionTrendChart,
+  EngagementTrendChart,
+  HorizontalBarChart,
+  TrafficByDayChart,
+  VerticalBarChart,
+} from "./AdminCharts";
 import "./admin-portal.css";
 
 const RANGES = [
@@ -33,75 +42,12 @@ function formatWhen(iso: string): string {
   }
 }
 
-function RankList({
-  title,
-  rows,
-  empty,
-}: {
-  title: string;
-  rows: Array<{ name: string; count: number }>;
-  empty: string;
-}) {
-  return (
-    <section className="admin-panel">
-      <h2>{title}</h2>
-      {rows.length === 0 ? (
-        <p className="admin-empty">{empty}</p>
-      ) : (
-        <ul className="admin-rank">
-          {rows.map((row) => (
-            <li key={row.name}>
-              <span title={row.name}>{row.name}</span>
-              <strong>{formatNumber(row.count)}</strong>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  );
-}
-
-function MiniBars({
-  data,
-}: {
-  data: Array<{ date: string; visitors: number; pageViews: number }>;
-}) {
-  const max = Math.max(1, ...data.map((d) => Math.max(d.visitors, d.pageViews)));
-
-  return (
-    <section className="admin-panel admin-panel-wide">
-      <h2>Traffic by day</h2>
-      {data.every((d) => d.visitors === 0 && d.pageViews === 0) ? (
-        <p className="admin-empty">No traffic in this range yet.</p>
-      ) : (
-        <div className="admin-bars" role="img" aria-label="Visitors and page views by day">
-          {data.map((day) => (
-            <div key={day.date} className="admin-bar-col" title={`${day.date}: ${day.visitors} visitors, ${day.pageViews} views`}>
-              <div className="admin-bar-stack">
-                <div
-                  className="admin-bar admin-bar-views"
-                  style={{ height: `${(day.pageViews / max) * 100}%` }}
-                />
-                <div
-                  className="admin-bar admin-bar-visitors"
-                  style={{ height: `${(day.visitors / max) * 100}%` }}
-                />
-              </div>
-              <span>{day.date.slice(5)}</span>
-            </div>
-          ))}
-        </div>
-      )}
-      <div className="admin-legend">
-        <span>
-          <i className="admin-swatch admin-swatch-visitors" /> Visitors
-        </span>
-        <span>
-          <i className="admin-swatch admin-swatch-views" /> Page views
-        </span>
-      </div>
-    </section>
-  );
+function formatDuration(totalSeconds: number): string {
+  const seconds = Math.max(0, Math.round(totalSeconds));
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  return rest ? `${minutes}m ${rest}s` : `${minutes}m`;
 }
 
 export function AdminPortal() {
@@ -264,6 +210,18 @@ export function AdminPortal() {
               <span>Newsletter</span>
               <strong>{formatNumber(kpis.newsletterSubscribes)}</strong>
             </article>
+            <article>
+              <span>Conversion rate</span>
+              <strong>{kpis.conversionRate ?? 0}%</strong>
+            </article>
+            <article>
+              <span>Avg. time on site</span>
+              <strong>{formatDuration(kpis.avgSessionSeconds ?? 0)}</strong>
+            </article>
+            <article>
+              <span>Pages / session</span>
+              <strong>{kpis.pagesPerSession ?? 0}</strong>
+            </article>
           </section>
 
           {overview.zoominfo ? (
@@ -377,32 +335,174 @@ export function AdminPortal() {
           ) : null}
 
           <div className="admin-grid">
-            <MiniBars data={overview.byDay} />
-            <RankList
-              title="Top pages"
-              rows={overview.topPages}
-              empty="No page views yet."
-            />
-            <RankList
-              title="Top sections"
-              rows={overview.topSections}
-              empty="No section views yet."
-            />
-            <RankList
+            <ChartPanel
+              wide
+              title="Traffic by day"
+              subtitle="Unique visitors and total page views per day."
+              isEmpty={overview.byDay.every((d) => d.visitors === 0 && d.pageViews === 0)}
+              emptyText="No traffic in this range yet."
+            >
+              <TrafficByDayChart data={overview.byDay} />
+            </ChartPanel>
+
+            <ChartPanel
+              title="Engagement trend"
+              subtitle="Section views, CTA clicks and conversions per day."
+              isEmpty={overview.byDay.every(
+                (d) => !d.sectionViews && !d.ctaClicks && !d.conversions,
+              )}
+            >
+              <EngagementTrendChart data={overview.byDay} />
+            </ChartPanel>
+
+            <ChartPanel
+              title="Conversions"
+              subtitle="Discovery calls + newsletter signups, and share of visitors converting."
+              isEmpty={overview.byDay.every((d) => !d.conversions)}
+              emptyText="No conversions in this range yet."
+            >
+              <ConversionTrendChart data={overview.byDay} />
+            </ChartPanel>
+
+            <ChartPanel
+              wide
+              title="Visitors by hour"
+              subtitle={`When people visit, by hour of day (${overview.timeZone ?? "Asia/Dhaka"}).`}
+              isEmpty={!overview.byHour || overview.byHour.every((h) => h.visitors === 0 && h.pageViews === 0)}
+            >
+              <VerticalBarChart
+                data={overview.byHour ?? []}
+                xKey="label"
+                xLabel="Hour of day"
+                yLabel="Count"
+                series={[
+                  { key: "visitors", name: "Visitors", color: CHART_COLORS.visitors },
+                  { key: "pageViews", name: "Page views", color: CHART_COLORS.pageViews },
+                ]}
+              />
+            </ChartPanel>
+
+            <ChartPanel
+              title="Homepage section reach"
+              subtitle="How many visitors scrolled to each section, top to bottom."
+              height={360}
+              isEmpty={!overview.sectionReach || overview.sectionReach.every((s) => s.visitors === 0)}
+            >
+              <HorizontalBarChart
+                data={overview.sectionReach ?? []}
+                categoryKey="section"
+                valueKey="visitors"
+                valueName="Visitors reached"
+                xLabel="Visitors"
+                yLabel="Section"
+                color={CHART_COLORS.sectionViews}
+                extraTooltip={{ key: "reachRate", name: "of visitors", suffix: "%" }}
+              />
+            </ChartPanel>
+
+            <ChartPanel
+              title="Session length"
+              subtitle="How long visitors stayed on the site."
+              height={360}
+              isEmpty={!overview.sessionLengthBuckets || overview.sessionLengthBuckets.every((b) => b.sessions === 0)}
+            >
+              <VerticalBarChart
+                data={overview.sessionLengthBuckets ?? []}
+                xKey="bucket"
+                xLabel="Time on site"
+                yLabel="Sessions"
+                series={[{ key: "sessions", name: "Sessions", color: CHART_COLORS.visitors }]}
+              />
+            </ChartPanel>
+
+            <ChartPanel
               title="Top CTAs"
-              rows={overview.topCtas}
-              empty="No CTA clicks yet."
-            />
-            <RankList
+              subtitle="Which buttons visitors click most."
+              isEmpty={overview.topCtas.length === 0}
+              emptyText="No CTA clicks yet."
+            >
+              <HorizontalBarChart
+                data={overview.topCtas}
+                categoryKey="name"
+                valueKey="count"
+                valueName="Clicks"
+                xLabel="Clicks"
+                yLabel="CTA"
+                color={CHART_COLORS.ctaClicks}
+              />
+            </ChartPanel>
+
+            <ChartPanel
               title="Devices"
-              rows={overview.devices}
-              empty="No device data yet."
-            />
-            <RankList
+              subtitle="Visitors by screen size."
+              isEmpty={overview.devices.length === 0}
+              emptyText="No device data yet."
+            >
+              <HorizontalBarChart
+                data={overview.devices}
+                categoryKey="name"
+                valueKey="count"
+                valueName="Visitors"
+                xLabel="Visitors"
+                yLabel="Device"
+                color={CHART_COLORS.visitors}
+              />
+            </ChartPanel>
+
+            <ChartPanel
+              title="Top pages"
+              subtitle="Most viewed pages and anchors."
+              isEmpty={overview.topPages.length === 0}
+              emptyText="No page views yet."
+            >
+              <HorizontalBarChart
+                data={overview.topPages}
+                categoryKey="name"
+                valueKey="count"
+                valueName="Page views"
+                xLabel="Page views"
+                yLabel="Page"
+                color={CHART_COLORS.pageViews}
+              />
+            </ChartPanel>
+
+            <ChartPanel
               title="Referrers"
-              rows={overview.referrers}
-              empty="No referrers captured yet."
-            />
+              subtitle="Sites that sent visitors to Bonotech."
+              isEmpty={overview.referrers.length === 0}
+              emptyText="No referrers captured yet."
+            >
+              <HorizontalBarChart
+                data={overview.referrers.map((r) => ({
+                  ...r,
+                  name: r.name.replace(/^https?:\/\//, "").replace(/\/$/, ""),
+                }))}
+                categoryKey="name"
+                valueKey="count"
+                valueName="Events"
+                xLabel="Events"
+                yLabel="Referrer"
+                color={CHART_COLORS.conversions}
+              />
+            </ChartPanel>
+
+            <ChartPanel
+              wide
+              title="Campaign sources"
+              subtitle="Visitors arriving with a utm_source tag."
+              isEmpty={!overview.utmSources || overview.utmSources.length === 0}
+              emptyText="No tagged campaign traffic yet. Add ?utm_source=… to links you share."
+            >
+              <HorizontalBarChart
+                data={overview.utmSources ?? []}
+                categoryKey="name"
+                valueKey="count"
+                valueName="Visitors"
+                xLabel="Visitors"
+                yLabel="Source"
+                color={CHART_COLORS.rate}
+              />
+            </ChartPanel>
           </div>
 
           <section className="admin-panel admin-panel-wide">

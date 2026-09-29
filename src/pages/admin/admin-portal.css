@@ -148,9 +148,24 @@
   border: 1px solid rgb(255 255 255 / 14%);
 }
 
+.admin-chart-subtitle {
+  margin: -8px 0 12px;
+  color: rgb(255 255 255 / 55%);
+  font-size: 0.82rem;
+}
+
+.admin-chart {
+  width: 100%;
+  min-width: 0;
+}
+
+.admin-chart .recharts-default-tooltip {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 35%);
+}
+
 .admin-kpi-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 20px;
 }
