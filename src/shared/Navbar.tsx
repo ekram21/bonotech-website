@@ -20,15 +20,21 @@ export interface NavbarProps {
 }
 
 
+const SHOW_PORTFOLIO_LINK = false
+
 const DEFAULT_LINKS: NavLink[] = [
     { label: 'Service Scopes', href: '#ways-in' },
     { label: 'Clients', href: '#our-clients' },
     { label: 'Testimonials', href: '#client-testimonials' },
-    {
-        label: 'Download Portfolio',
-        href: '/Bonotech-Portfolio.pdf',
-        download: 'Bonotech-Portfolio-V3.pdf',
-    },
+    ...(SHOW_PORTFOLIO_LINK
+        ? [
+              {
+                  label: 'Download Portfolio',
+                  href: '/Bonotech-Portfolio.pdf',
+                  download: 'Bonotech-Portfolio-V3.pdf',
+              },
+          ]
+        : []),
 ]
 
 export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
