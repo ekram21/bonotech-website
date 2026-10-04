@@ -9,6 +9,7 @@ import {
 import "./footer.css";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SHOW_PORTFOLIO_LINK = false;
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -100,14 +101,16 @@ const Footer = () => {
                             <li>
                                 <a href="#client-testimonials">Client Testimonials</a>
                             </li>
-                            <li>
-                                <a
-                                    href="/Bonotech-Portfolio.pdf"
-                                    download="Bonotech-Portfolio-V3.pdf"
-                                >
-                                    Download Portfolio
-                                </a>
-                            </li>
+                            {SHOW_PORTFOLIO_LINK ? (
+                                <li>
+                                    <a
+                                        href="/Bonotech-Portfolio.pdf"
+                                        download="Bonotech-Portfolio-V3.pdf"
+                                    >
+                                        Download Portfolio
+                                    </a>
+                                </li>
+                            ) : null}
                             <li>
                                 <a
                                     className="footer-discovery-link"
