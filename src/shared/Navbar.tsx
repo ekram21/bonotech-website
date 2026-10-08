@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { trackCtaClick } from '@/lib/analytics'
 import { handleHashLinkClick } from '@/lib/scroll'
 import bonotechLogo from '@/assets/bonotech-logo-nav.svg'
@@ -23,6 +23,7 @@ const DEFAULT_LINKS: NavLink[] = [
     { label: 'Service Scopes', href: '#ways-in' },
     { label: 'Clients', href: '#our-clients' },
     { label: 'Solutions', href: '#service-tiers' },
+    { label: 'Portfolio', href: '/portfolio' },
     { label: 'Testimonials', href: '#client-testimonials' },
 ]
 
@@ -172,14 +173,25 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     <ul className="nav-links">
                         {links.map((link, index) => (
                             <li key={link.href}>
-                                <a
-                                    ref={index === 0 ? firstLinkRef : undefined}
-                                    href={resolveHref(link.href)}
-                                    aria-current={currentHref === link.href ? 'location' : undefined}
-                                    onClick={(event) => handleLinkClick(event, link.href)}
-                                >
-                                    {link.label}
-                                </a>
+                                {link.href.startsWith('#') ? (
+                                    <a
+                                        ref={index === 0 ? firstLinkRef : undefined}
+                                        href={resolveHref(link.href)}
+                                        aria-current={currentHref === link.href ? 'location' : undefined}
+                                        onClick={(event) => handleLinkClick(event, link.href)}
+                                    >
+                                        {link.label}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        ref={index === 0 ? firstLinkRef : undefined}
+                                        to={link.href}
+                                        aria-current={location.pathname === link.href ? 'page' : undefined}
+                                        onClick={() => setOpen(false)}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                )}
                             </li>
                         ))}
                     </ul>

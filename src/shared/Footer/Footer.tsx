@@ -6,6 +6,7 @@ import {
     EmailSendError,
     subscribeNewsletter,
 } from "@/lib/services/email";
+import { Link } from "react-router-dom";
 import "./footer.css";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -88,6 +89,9 @@ const Footer = () => {
                         <ul>
                             <li>
                                 <a href="#about-bonotech">About Bonotech</a>
+                            </li>
+                            <li>
+                                <Link to="/portfolio">Portfolio</Link>
                             </li>
                             <li>
                                 <a href="#ways-in">Our Service Scope</a>

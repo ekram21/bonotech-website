@@ -1,0 +1,3 @@
+/* Hero.css carries home-hero tuning; the portfolio hero keeps the handover's shared hero values. */
+.portfolio-hero .background-still{background:radial-gradient(ellipse 64% 33% at 50% 43%,#0e061b 0%,#160923 58%,#4b228a 85%,#8b60be 100%,transparent 125%),linear-gradient(180deg,#513866,#271237 58%,#10071e)}
+@media(max-width:740px){.portfolio-hero .background-still{background-position:50% 45%}}

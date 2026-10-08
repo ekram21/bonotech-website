@@ -6,6 +6,9 @@ import { SplashScreen } from '@/components/SplashScreen/SplashScreen'
 const AdminPortal = lazy(() =>
     import('@/pages/admin/AdminPortal').then((m) => ({ default: m.AdminPortal })),
 )
+const PortfolioPage = lazy(() =>
+    import('@/pages/portfolio-page/PortfolioPage').then((m) => ({ default: m.PortfolioPage })),
+)
 import { TermsOfService } from '@/pages/TermsOfService'
 import { PrivacyPolicy } from '@/pages/PrivacyPolicy'
 import { HomePage } from './pages/home-page/HomePage'
@@ -58,6 +61,14 @@ export default function App() {
                 <div className="min-h-screen w-full bg-[var(--ink)] text-[var(--white)]">
                     <Routes>
                         <Route path="/" element={<HomePage/>} />
+                        <Route
+                            path="/portfolio"
+                            element={
+                                <Suspense fallback={null}>
+                                    <PortfolioPage />
+                                </Suspense>
+                            }
+                        />
                         <Route path="/terms" element={<TermsOfService />} />
                         <Route path="/privacy" element={<PrivacyPolicy />} />
                         <Route
