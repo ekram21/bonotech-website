@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
 import { Navbar } from '@/shared/Navbar'
 import { PortfolioHero } from './components/PortfolioHero/PortfolioHero'
-import { ProjectStack } from './components/ProjectStack/ProjectStack'
-import { PortfolioIndex } from './components/PortfolioIndex/PortfolioIndex'
 import './portfolio.css'
+import { ProjectStack } from './components/ProjectStack/ProjectStack'
+import { EnterpriseCase } from './components/EnterpriseCase/EnterpriseCase'
+import { GustavCase } from './components/GustavCase/GustavCase'
+import { PortfolioIndex } from './components/PortfolioIndex/PortfolioIndex'
 
 const TITLE = 'Portfolio — Bonotech'
 const DESCRIPTION = 'Digital products, platforms, and transformations engineered by Bonotech.'
@@ -32,6 +34,8 @@ export function PortfolioPage() {
             <main id="main-content" tabIndex={-1}>
                 <PortfolioHero />
                 <ProjectStack />
+                <EnterpriseCase />
+                <GustavCase />
             </main>
         </div>
     )

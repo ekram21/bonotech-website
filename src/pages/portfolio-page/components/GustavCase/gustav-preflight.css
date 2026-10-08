@@ -1,0 +1,3 @@
+/* The handover relies on browser defaults here that Tailwind preflight resets. */
+.gb-radio-art p{margin-block:1em}
+.gb-clock-face svg,.gb-operation-intro svg{display:inline;vertical-align:baseline}
