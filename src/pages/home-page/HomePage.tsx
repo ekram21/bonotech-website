@@ -19,8 +19,8 @@ export function HomePage() {
                 <SprintMetricsSection />
                 <ClientShowcaseSection />
                 <AboutImpactSection />
-                <BusinessScopesSection />
                 <DeliveryTimesSection />
+                <BusinessScopesSection />
                 <TechnologyStackSection />
                 <TestimonialsSection />
                 <DiscoveryCallSection />

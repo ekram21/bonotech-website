@@ -3,7 +3,7 @@
     min-height: 100svh;
     overflow: hidden;
     padding: clamp(78px, 8vh, 110px) var(--edge) clamp(48px, 5vh, 75px);
-    background: linear-gradient(180deg, #0d0716, #10091b 28%, #12081e 100%);
+    background: linear-gradient(180deg, #09060f, #10091b 28%, #12081e 100%);
 }
 
 .technology-heading {
