@@ -88,8 +88,8 @@ const BusinessScopesSection = () => {
                         You Need It Built
                     </h3>
                     <p>
-                        We&apos;ll deploy a solid team to build across mobile, web, cloud and
-                        AI, and work in gated phases with weekly shippable increments. 5 of
+                        We will deploy a solid team to build across mobile, web, cloud and
+                        AI, to work in dated phases with weekly shippable increments. 5 of
                         our 7 platforms went live in just 30 days or less.
                     </p>
                 </article>
@@ -128,8 +128,8 @@ const BusinessScopesSection = () => {
                         End-To-End Digitization
                     </h3>
                     <p>
-                        We digitize fragmented, aging legacy systems across your
-                        enterprise into one digital flow, giving your teams and management
+                        We digitize fragmented, ageing legacy systems across your
+                        enterprise into one digital flow, giving your teams/management
                         real-time visibility, actionable insights, and the ability to
                         manage operations through simple, natural-language conversations.
                     </p>
