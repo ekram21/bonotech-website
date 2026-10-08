@@ -13,6 +13,15 @@
   max-width: 1540px;
   margin: 0 auto;
 }
+.metrics-disclaimer {
+  max-width: 1540px;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: clamp(1rem, 1.22vw, 1.125rem);
+  line-height: 1.6;
+  letter-spacing: -0.035em;
+  color: #b8abc8;
+}
 .metrics-heading {
   grid-column: 1;
   grid-row: 1 / 4;
