@@ -43,6 +43,7 @@ a.client-face:focus-visible{outline:2px solid #e0caff;outline-offset:4px}
 .client-face .logo-olmo{width:88%}
 .client-face .logo-dekko{width:86%}
 .client-face .logo-evo{height:105px;width:auto;max-width: 80%}
+.client-face .logo-zatiq{width:86%}
 .clients.is-enhanced .client-recess{display:block;position:absolute;width:74%;height:56%;left:13%;top:28%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.9) 10%,rgba(6,2,12,.6) 53%,transparent 74%);box-shadow:0 34px 55px -45px rgba(143,98,196,.2);pointer-events:none}
 .clients.is-enhanced .client-orbit{display:block;position:relative;height:clamp(270px,34vh,365px);padding:0;perspective:1000px;perspective-origin:50% 42%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 .clients.is-enhanced .client-logo{position:absolute;left:50%;top:47%;width:clamp(192px,17vw,246px);transform-origin:center;backface-visibility:hidden;will-change:transform}

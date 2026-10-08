@@ -8,6 +8,7 @@ import olmoLogo from "@/assets/clients/olmo.svg";
 import dekkoIshoLogo from "@/assets/clients/dekko-isho.svg";
 import evoLogo from "@/assets/clients/evo.svg";
 import polysignalsLogo from "@/assets/clients/polysignals.svg";
+import zatiqLogo from "@/assets/clients/zatiq.svg";
 
 type Client = {
     name: string;
@@ -91,6 +92,14 @@ const clients: Client[] = [
         width: 643,
         height: 85,
         href: "https://polysignals.app",
+    },
+    {
+        name: "Zatiq",
+        logo: zatiqLogo,
+        className: "logo-zatiq",
+        width: 109.37,
+        height: 40.64,
+        href: "https://zatiq.com",
     },
 ];
 
