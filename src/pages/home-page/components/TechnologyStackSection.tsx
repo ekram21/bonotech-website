@@ -21,7 +21,7 @@ import iosLogo from "@/assets/technology/ios.svg";
 import wordpressLogo from "@/assets/technology/wordpress.svg";
 import webflowLogo from "@/assets/technology/webflow.svg";
 import angularLogo from "@/assets/technology/angular.svg";
-import bonotechMark from "@/assets/bonotech-mark-white.svg";
+import bonotechMark from "@/assets/technology/bonotech-core-mark.svg";
 
 import "./TechnologyStackSection.css";
 
@@ -376,8 +376,8 @@ const TechnologyStackSection = () => {
                     <img
                         src={bonotechMark}
                         alt="Bonotech"
-                        width={90}
-                        height={70}
+                        width={58}
+                        height={43}
                         loading="lazy"
                         decoding="async"
                     />

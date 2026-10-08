@@ -170,7 +170,7 @@ const ClientShowcaseSection = () => {
                 card.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateY(${angle.toFixed(2)}deg)`;
 
                 if (renderedLights[index] !== light) {
-                    card.style.filter = `brightness(${light.toFixed(3)})`;
+                    card.style.setProperty("--recess-shade", (1 - light).toFixed(3));
                     renderedLights[index] = light;
                 }
 
@@ -454,7 +454,7 @@ const ClientShowcaseSection = () => {
         >
             <header className="clients-heading">
                 <p className="clients-eyebrow">
-                    BRANDS WE&apos;VE BUILT WITH
+                    BRANDS WE’VE BUILT WITH
                 </p>
 
                 <h2 id="clients-title">
@@ -499,7 +499,7 @@ const ClientShowcaseSection = () => {
                                     alt=""
                                     width={client.width}
                                     height={client.height}
-                                    loading="lazy"
+                                    loading="eager"
                                     decoding="async"
                                 />
                             </a>

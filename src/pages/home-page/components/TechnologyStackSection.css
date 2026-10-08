@@ -240,11 +240,10 @@
 
 .tech-core img {
     display: block;
-    width: 48%;
-    height: auto;
-    max-height: 42%;
+    width: 54%;
+    height: 40%;
     object-fit: contain;
-    filter: drop-shadow(0 0 10px #e7c6ff69) brightness(1.35);
+    filter: drop-shadow(0 0 10px #e7c6ff69);
 }
 
 .tech-core > span {

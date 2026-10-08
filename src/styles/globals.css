@@ -321,6 +321,7 @@ body {
 
 .home-page-background {
     background: var(--home-section-seam);
+    line-height: normal;
 }
 
 .home-section-edge {

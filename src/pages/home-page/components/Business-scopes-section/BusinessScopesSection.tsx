@@ -35,7 +35,7 @@ const BusinessScopesSection = () => {
                 <p className="ways-eyebrow">OUR SERVICE SCOPE</p>
                 <h2 id="ways-title">
                     We Offer 4 Scopes
-                    <span>Depending On Where You&apos;re Starting</span>
+                    <span>Depending On Where You’re Starting</span>
                 </h2>
                 <p className="ways-description">
                     From the first idea to enterprise-wide transformation,
