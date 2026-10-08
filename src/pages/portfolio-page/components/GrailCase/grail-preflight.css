@@ -1,0 +1,2 @@
+/* The handover relies on browser defaults here that Tailwind preflight resets. */
+.gg-app-nav button{padding:1px 6px}

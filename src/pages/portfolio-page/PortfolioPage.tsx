@@ -5,6 +5,9 @@ import './portfolio.css'
 import { ProjectStack } from './components/ProjectStack/ProjectStack'
 import { EnterpriseCase } from './components/EnterpriseCase/EnterpriseCase'
 import { GustavCase } from './components/GustavCase/GustavCase'
+import { DitechCase } from './components/DitechCase/DitechCase'
+import { GrailCase } from './components/GrailCase/GrailCase'
+import { OlmoCase } from './components/OlmoCase/OlmoCase'
 import { PortfolioIndex } from './components/PortfolioIndex/PortfolioIndex'
 
 const TITLE = 'Portfolio — Bonotech'
@@ -36,6 +39,9 @@ export function PortfolioPage() {
                 <ProjectStack />
                 <EnterpriseCase />
                 <GustavCase />
+                <DitechCase />
+                <OlmoCase />
+                <GrailCase />
             </main>
         </div>
     )
