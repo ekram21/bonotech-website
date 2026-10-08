@@ -1,0 +1,6 @@
+Assistant logos sourced from the public SVGL library (https://github.com/pheralb/svgl):
+chatgpt.svg: static/library/openai_dark.svg
+claude.svg: static/library/claude-ai-icon.svg
+
+Logos identify the assistant options in an illustrative MCP conversation.
+They do not imply an endorsement or partnership.

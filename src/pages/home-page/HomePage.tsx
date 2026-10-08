@@ -5,6 +5,7 @@ import ClientShowcaseSection from './components/client-showcase-section/ClientSh
 import AboutImpactSection from './components/AboutImpactSection'
 import BusinessScopesSection from './components/Business-scopes-section/BusinessScopesSection'
 import DeliveryTimesSection from './components/DeliveryTimesSection'
+import ServiceTiersSection from './components/service-tiers-section/ServiceTiersSection'
 import TechnologyStackSection from './components/TechnologyStackSection'
 import TestimonialsSection from './components/TestimonialsSection'
 import DiscoveryCallSection from './components/DiscoveryCallSection'
@@ -21,6 +22,7 @@ export function HomePage() {
                 <AboutImpactSection />
                 <DeliveryTimesSection />
                 <BusinessScopesSection />
+                <ServiceTiersSection />
                 <TechnologyStackSection />
                 <TestimonialsSection />
                 <DiscoveryCallSection />
