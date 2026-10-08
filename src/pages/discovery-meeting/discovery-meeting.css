@@ -1,0 +1,2 @@
+/* The section opens the page here, so its content has to clear the floating navbar. */
+.discovery-meeting-page .discovery{padding-top:calc(var(--navbar-scroll-offset) + 40px)}
