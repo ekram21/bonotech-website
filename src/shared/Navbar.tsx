@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import { trackCtaClick } from '@/lib/analytics'
 import { handleHashLinkClick } from '@/lib/scroll'
-import bonotechLogo from '@/assets/bonotech-logo-white.svg'
+import bonotechLogo from '@/assets/bonotech-logo-nav.svg'
 import './navbar.css'
 
 export interface NavLink {
