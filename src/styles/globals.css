@@ -258,8 +258,14 @@
 html {
     scroll-behavior: smooth;
     /* Clear fixed navbar on hash / programmatic section scroll */
-    --navbar-scroll-offset: 96px;
+    --navbar-scroll-offset: 110px;
     scroll-padding-top: var(--navbar-scroll-offset);
+}
+
+@media (max-width: 940px) {
+    html {
+        --navbar-scroll-offset: 98px;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

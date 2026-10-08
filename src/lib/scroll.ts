@@ -1,5 +1,10 @@
-/** Matches `--navbar-scroll-offset` / `scroll-padding-top` on `html` in globals.css */
-const SCROLL_PADDING_TOP = 96
+const FALLBACK_SCROLL_PADDING_TOP = 110
+
+/** Reads `scroll-padding-top` on `html` (set from `--navbar-scroll-offset` in globals.css). */
+function getScrollPaddingTop(): number {
+    const value = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop)
+    return Number.isFinite(value) ? value : FALLBACK_SCROLL_PADDING_TOP
+}
 
 /** How long a typical smooth window.scrollTo takes before we optionally nudge. */
 const SMOOTH_SETTLE_MS = 700
@@ -22,9 +27,10 @@ function getScrollTop(el: HTMLElement, align: ScrollAlign) {
     const elementHeight = el.offsetHeight
     const viewportHeight = window.innerHeight
     const maxScrollTop = document.documentElement.scrollHeight - viewportHeight
+    const scrollPaddingTop = getScrollPaddingTop()
 
     if (align === 'start') {
-        return Math.min(Math.max(0, elementTop - SCROLL_PADDING_TOP), maxScrollTop)
+        return Math.min(Math.max(0, elementTop - scrollPaddingTop), maxScrollTop)
     }
 
     const centeredTop = elementTop + elementHeight / 2 - viewportHeight / 2
@@ -33,7 +39,7 @@ function getScrollTop(el: HTMLElement, align: ScrollAlign) {
         return Math.max(0, Math.min(centeredTop, maxScrollTop))
     }
 
-    const minTop = elementTop - SCROLL_PADDING_TOP
+    const minTop = elementTop - scrollPaddingTop
     const maxTop = Math.min(elementTop + elementHeight - viewportHeight, maxScrollTop)
 
     return Math.max(minTop, Math.min(centeredTop, maxTop))

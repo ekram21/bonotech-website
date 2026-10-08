@@ -15,7 +15,7 @@ export function HomePage() {
     return (
         <>
             <Navbar />
-            <main className="home-page-background">
+            <main id="main-content" tabIndex={-1} className="home-page-background">
                 <Hero />
                 <SprintMetricsSection />
                 <ClientShowcaseSection />
