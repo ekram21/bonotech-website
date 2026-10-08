@@ -9,6 +9,8 @@ import { DitechCase } from './components/DitechCase/DitechCase'
 import { GrailCase } from './components/GrailCase/GrailCase'
 import { OlmoCase } from './components/OlmoCase/OlmoCase'
 import { PortfolioIndex } from './components/PortfolioIndex/PortfolioIndex'
+import DiscoveryCallSection from '@/pages/home-page/components/DiscoveryCallSection'
+import Footer from '@/shared/Footer/Footer'
 
 const TITLE = 'Portfolio — Bonotech'
 const DESCRIPTION = 'Digital products, platforms, and transformations engineered by Bonotech.'
@@ -42,7 +44,9 @@ export function PortfolioPage() {
                 <DitechCase />
                 <OlmoCase />
                 <GrailCase />
+                <DiscoveryCallSection />
             </main>
+            <Footer />
         </div>
     )
 }

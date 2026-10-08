@@ -16,6 +16,9 @@ export interface NavbarProps {
 }
 
 const COMPACT_QUERY = '(max-width: 940px)'
+const DISCOVERY_HREF = '#discovery-call'
+/** Pages that render the discovery section, so booking links can stay on the page. */
+export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio'])
 /** Distance below the header at which a section counts as the one being read. */
 const READING_LINE_OFFSET = 120
 
@@ -69,8 +72,10 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
 
     const menuOpen = compact && open
 
+    const isOnPage = (href: string) =>
+        isHome || (href === DISCOVERY_HREF && PAGES_WITH_DISCOVERY.has(location.pathname))
     // From other pages, section links go to the homepage with the hash.
-    const resolveHref = (href: string) => (isHome || !href.startsWith('#') ? href : `/${href}`)
+    const resolveHref = (href: string) => (isOnPage(href) || !href.startsWith('#') ? href : `/${href}`)
 
     useEffect(() => {
         if (!menuOpen) return
@@ -115,7 +120,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
         const wasOpen = menuOpen
         setOpen(false)
-        if (!isHome || !handleHashLinkClick(event, href)) return
+        if (!isOnPage(href) || !handleHashLinkClick(event, href)) return
 
         // Keep keyboard focus in the chosen section after the compact menu collapses.
         if (wasOpen) {
@@ -199,10 +204,10 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
 
                 <a
                     className="nav-call"
-                    href={resolveHref('#discovery-call')}
+                    href={resolveHref(DISCOVERY_HREF)}
                     onClick={(event) => {
                         trackCtaClick('nav_book_a_call')
-                        handleLinkClick(event, '#discovery-call')
+                        handleLinkClick(event, DISCOVERY_HREF)
                     }}
                 >
                     <span>Book a Call</span>

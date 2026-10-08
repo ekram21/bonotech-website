@@ -65,7 +65,8 @@ export function scrollToSection(id: string, behavior: ScrollBehavior = 'smooth')
 
     const align = SECTION_SCROLL_ALIGN[id] ?? 'start'
     const useSmooth = behavior === 'smooth' && !prefersReducedMotion()
-    const resolvedBehavior: ScrollBehavior = useSmooth ? 'smooth' : 'auto'
+    // 'auto' would follow the CSS `scroll-behavior: smooth` on html.
+    const resolvedBehavior: ScrollBehavior = useSmooth ? 'smooth' : 'instant'
 
     if (settleTimer !== undefined) {
         window.clearTimeout(settleTimer)
@@ -82,7 +83,7 @@ export function scrollToSection(id: string, behavior: ScrollBehavior = 'smooth')
             if (!target) return
             const intended = getScrollTop(target, align)
             if (Math.abs(window.scrollY - intended) > 8) {
-                window.scrollTo({ top: intended, behavior: 'auto' })
+                window.scrollTo({ top: intended, behavior: 'instant' })
             }
             settleTimer = undefined
         }, SMOOTH_SETTLE_MS)

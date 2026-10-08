@@ -1,12 +1,12 @@
 import { useState } from "react";
 import type { FormEventHandler } from "react";
-import bonotechLogo from "@/assets/bonotech-logo-white.svg";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
 import {
     EmailSendError,
     subscribeNewsletter,
 } from "@/lib/services/email";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { PAGES_WITH_DISCOVERY } from "@/shared/Navbar";
 import "./footer.css";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,6 +14,10 @@ const SHOW_PORTFOLIO_LINK = false;
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
+    const { pathname } = useLocation();
+    const isHome = pathname === "/";
+    // From other pages, homepage sections are reached through the homepage URL.
+    const homeSection = (hash: string) => (isHome ? hash : `/${hash}`);
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
         "idle",
@@ -68,10 +72,10 @@ const Footer = () => {
                     <div className="footer-brand">
                         <a
                             className="footer-brand-link"
-                            href="#home"
+                            href={isHome ? "#home" : "/"}
                             aria-label="Bonotech — back to home"
                         >
-                            <img src={bonotechLogo} alt="Bonotech" />
+                            <span className="footer-logo" aria-hidden="true" />
                         </a>
                         <p>
                             Building innovative digital products that help businesses
@@ -88,22 +92,22 @@ const Footer = () => {
                         </h2>
                         <ul>
                             <li>
-                                <a href="#about-bonotech">About Bonotech</a>
+                                <a href={homeSection("#about-bonotech")}>About Bonotech</a>
                             </li>
                             <li>
                                 <Link to="/portfolio">Portfolio</Link>
                             </li>
                             <li>
-                                <a href="#ways-in">Our Service Scope</a>
+                                <a href={homeSection("#ways-in")}>Our Service Scope</a>
                             </li>
                             <li>
-                                <a href="#delivery-times">Average Delivery Times</a>
+                                <a href={homeSection("#delivery-times")}>Average Delivery Times</a>
                             </li>
                             <li>
-                                <a href="#our-technology">Our Technology</a>
+                                <a href={homeSection("#our-technology")}>Our Technology</a>
                             </li>
                             <li>
-                                <a href="#client-testimonials">Client Testimonials</a>
+                                <a href={homeSection("#client-testimonials")}>Client Testimonials</a>
                             </li>
                             {SHOW_PORTFOLIO_LINK ? (
                                 <li>
@@ -118,7 +122,11 @@ const Footer = () => {
                             <li>
                                 <a
                                     className="footer-discovery-link"
-                                    href="#discovery-call"
+                                    href={
+                                        PAGES_WITH_DISCOVERY.has(pathname)
+                                            ? "#discovery-call"
+                                            : "/#discovery-call"
+                                    }
                                 >
                                     Book a Discovery Call{" "}
                                     <span aria-hidden="true">↗</span>
