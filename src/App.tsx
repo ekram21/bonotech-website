@@ -12,6 +12,7 @@ const PortfolioPage = lazy(() =>
 import { TermsOfService } from '@/pages/TermsOfService'
 import { PrivacyPolicy } from '@/pages/PrivacyPolicy'
 import { HomePage } from './pages/home-page/HomePage'
+import { DiscoveryMeetingPage } from '@/pages/discovery-meeting/DiscoveryMeetingPage'
 import { scrollToHashOnLoad } from '@/lib/scroll'
 
 function ScrollToTop() {
@@ -69,6 +70,7 @@ export default function App() {
                                 </Suspense>
                             }
                         />
+                        <Route path="/discovery-meeting" element={<DiscoveryMeetingPage />} />
                         <Route path="/terms" element={<TermsOfService />} />
                         <Route path="/privacy" element={<PrivacyPolicy />} />
                         <Route

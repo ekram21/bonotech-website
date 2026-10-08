@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import { Navbar } from '@/shared/Navbar'
+import { usePageMeta } from '@/lib/usePageMeta'
 import { PortfolioHero } from './components/PortfolioHero/PortfolioHero'
 import './portfolio.css'
 import { ProjectStack } from './components/ProjectStack/ProjectStack'
@@ -14,20 +14,6 @@ import Footer from '@/shared/Footer/Footer'
 
 const TITLE = 'Portfolio — Bonotech'
 const DESCRIPTION = 'Digital products, platforms, and transformations engineered by Bonotech.'
-
-function usePageMeta(title: string, description: string) {
-    useEffect(() => {
-        const previousTitle = document.title
-        const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]')
-        const previousDescription = meta?.content
-        document.title = title
-        if (meta) meta.content = description
-        return () => {
-            document.title = previousTitle
-            if (meta && previousDescription !== undefined) meta.content = previousDescription
-        }
-    }, [title, description])
-}
 
 export function PortfolioPage() {
     usePageMeta(TITLE, DESCRIPTION)

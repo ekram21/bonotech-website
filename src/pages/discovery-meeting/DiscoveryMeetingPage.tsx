@@ -1,0 +1,22 @@
+import { Navbar } from '@/shared/Navbar'
+import { usePageMeta } from '@/lib/usePageMeta'
+import DiscoveryCallSection from '@/pages/home-page/components/DiscoveryCallSection'
+import Footer from '@/shared/Footer/Footer'
+
+const TITLE = 'Book a Discovery Call — Bonotech'
+const DESCRIPTION =
+    'Schedule a free 30-minute discovery call with Bonotech to map your next build and define the right approach.'
+
+export function DiscoveryMeetingPage() {
+    usePageMeta(TITLE, DESCRIPTION)
+
+    return (
+        <>
+            <Navbar />
+            <main id="main-content" tabIndex={-1} className="home-page-background">
+                <DiscoveryCallSection />
+            </main>
+            <Footer />
+        </>
+    )
+}
