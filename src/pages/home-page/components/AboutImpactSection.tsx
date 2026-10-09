@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 
 import projectsBackground from "@/assets/about/projects-background.mp4";
-import commitmentPortrait from "@/assets/about/stefano-portrait.jpg";
-import divcLogo from "@/assets/about/divc.svg";
+import commitmentPortrait from "@/assets/testimonials/evan-milho.png";
+import evoLogo from "@/assets/clients/evo.svg";
 import dataMotion from "@/assets/about/data-motion.mp4";
 import { scrollToSection } from "@/lib/scroll";
 
@@ -278,9 +278,9 @@ const AboutImpactSection = () => {
                     <img
                         className="testimonial-photo"
                         src={commitmentPortrait}
-                        alt="Stefano Murdaca"
-                        width={818}
-                        height={1024}
+                        alt="Evan Milho"
+                        width={409}
+                        height={525}
                         loading="lazy"
                         decoding="async"
                     />
@@ -297,26 +297,29 @@ const AboutImpactSection = () => {
                     <figure className="client-testimonial">
                         <blockquote>
                             <p>
-                                “Their automation strategy completely reshaped
-                                how we work. It's efficient, intelligent, and
-                                seamless.”
+                                “I couldn’t believe my eyes when I first saw what
+                                the team had built out for me. Looks so good.
+                                There are massive companies in the space who
+                                still haven’t modernised a proper web-based
+                                application form — so excited to be the first to
+                                launch one for card prep &amp; cleaning.”
                             </p>
                         </blockquote>
                         <figcaption>
                             <div className="testimonial-identity">
                                 <span className="testimonial-name">
-                                    Stefano Murdaca
+                                    Evan Milho
                                 </span>
                                 <span className="testimonial-role">
-                                    Head of Finance
+                                    CEO, EVO Grading
                                 </span>
                             </div>
                             <img
-                                className="testimonial-company"
-                                src={divcLogo}
-                                alt="DIVC"
-                                width={144}
-                                height={46}
+                                className="testimonial-company testimonial-company-evo"
+                                src={evoLogo}
+                                alt="EVO Grading"
+                                width={118}
+                                height={138}
                                 loading="lazy"
                                 decoding="async"
                             />
