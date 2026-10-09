@@ -301,7 +301,7 @@ const AboutImpactSection = () => {
                                 the team had built out for me. Looks so good.
                                 There are massive companies in the space who
                                 still haven’t modernised a proper web-based
-                                application form — so excited to be the first to
+                                application form, so excited to be the first to
                                 launch one for card prep &amp; cleaning.”
                             </p>
                         </blockquote>
