@@ -36,7 +36,7 @@ const testimonials: Testimonial[] = [
         role: "CEO, EVO Grading",
         handle: "@evocardprep",
         quote:
-            "I couldn\u2019t believe my eyes when I first saw what the team had built out for me. Looks so good. There are massive companies in the space who still haven\u2019t modernised a proper web-based application form \u2014 so excited to be the first to launch one for card prep & cleaning.",
+            "I couldn\u2019t believe my eyes when I first saw what the team had built out for me. Looks so good. There are massive companies in the space who still haven\u2019t modernised a proper web-based application form, so excited to be the first to launch one for card prep & cleaning.",
         logo: evoLogo,
         logoClassName: "testimonial-logo testimonial-logo-evo",
         portrait: evanMilho,
