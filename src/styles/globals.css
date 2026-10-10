@@ -260,6 +260,8 @@ html {
     /* Clear fixed navbar on hash / programmatic section scroll */
     --navbar-scroll-offset: 110px;
     scroll-padding-top: var(--navbar-scroll-offset);
+    /* Rubber-band overscroll translates the page, including the hero glow. */
+    overscroll-behavior: none;
 }
 
 @media (max-width: 940px) {
@@ -279,6 +281,7 @@ body {
     margin: 0;
     background: var(--ink);
     color: var(--white);
+    overscroll-behavior: none;
 }
 
 /* Calendly scheduling section loader */

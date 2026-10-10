@@ -1,10 +1,9 @@
 /* Beam paths inspired by Dillion Verma's Animated Beam (Magic UI, MIT):
    https://21st.dev/@dillionverma/components/animated-beam */
 import { Fragment, useEffect, useRef, useState } from "react";
-import type { CSSProperties, KeyboardEvent, MouseEvent, PointerEvent } from "react";
+import type { CSSProperties, KeyboardEvent, PointerEvent } from "react";
 
 import { trackCtaClick } from "@/lib/analytics";
-import { handleHashLinkClick } from "@/lib/scroll";
 import chatgptLogo from "@/assets/service-tiers/chatgpt.svg";
 import claudeLogo from "@/assets/service-tiers/claude.svg";
 
@@ -244,9 +243,8 @@ const ServiceTiersSection = () => {
         }
     };
 
-    const handleRelationshipClick = (event: MouseEvent<HTMLAnchorElement>, index: number) => {
+    const handleRelationshipClick = (index: number) => {
         trackCtaClick(`solutions_${pad(index + 1)}_discovery`);
-        handleHashLinkClick(event, "#discovery-call");
     };
 
     const sectionClassName = [
@@ -358,7 +356,7 @@ const ServiceTiersSection = () => {
                                         <a
                                             className="tier-relationship"
                                             href="#discovery-call"
-                                            onClick={(event) => handleRelationshipClick(event, i)}
+                                            onClick={() => handleRelationshipClick(i)}
                                         >
                                             <span className="tier-link-symbol" aria-hidden="true">
                                                 ↗

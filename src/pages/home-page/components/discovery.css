@@ -1,4 +1,5 @@
 .discovery{position:relative;isolation:isolate;min-height:100svh;padding:80px var(--edge);background:#12081e;color:#f7f0ff;overflow:hidden}
+.portfolio-page .discovery{background:linear-gradient(180deg,#08060c,#12081e 220px)}
 .discovery-atmosphere{position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse at 65% 60%,#7435b863,transparent 70%);mask-image:linear-gradient(transparent,#000 30%,#000 83%,transparent)}
 .discovery-flow{display:block;width:100%;height:100%;opacity:0;transition:opacity 1s}
 .discovery-flow.ready{opacity:.65}
@@ -41,7 +42,7 @@
 .discovery-fields textarea{resize:vertical;min-height:94px;max-height:240px}
 .discovery-fields option,.discovery-schedule-options option{color:#f3eaff;background:#20122f}
 .discovery-fields input::placeholder,.discovery-fields textarea::placeholder{color:#95829f;opacity:1}
-.discovery-fields input:focus,.discovery-fields select:focus,.discovery-fields textarea:focus{outline:2px solid #c9a0f1;outline-offset:2px;border-color:#aa7ddb;background-color:#1b0e2a99}
+.discovery-fields input:focus,.discovery-fields select:focus,.discovery-fields textarea:focus{outline:none;border-color:#c9a0f1;background-color:#1b0e2a99;box-shadow:0 0 0 1px #c9a0f1}
 .discovery-field-wide{grid-column:1/-1}
 .discovery-form-note{margin:22px 0 0;font-size:12px;line-height:1.65;color:#c4b3d2;letter-spacing:-.02em}
 .discovery-form-note>span{color:#9e88b1;font-size:10px}
@@ -97,10 +98,12 @@
 .discovery-review::backdrop{background:#06020dc9;backdrop-filter:blur(8px)}
 .discovery-review-open{overflow:hidden}
 .discovery-fields [aria-invalid=true]{border-color:#ef98b1}
+.discovery-fields .discovery-field-error{display:block;margin-top:6px;font-size:11px;line-height:1.4;color:#ffc8d4}
+.discovery-review-close:disabled{opacity:.4;cursor:not-allowed}
 .discovery-review-close{position:absolute;right:16px;top:10px;width:36px;height:36px;border:0;background:transparent;color:#cbb4de;font-size:27px;cursor:pointer}
 .discovery-review .discovery-eyebrow{font-size:10px;margin-bottom:16px}
 .discovery-review h3{margin:0;font-size:30px;font-weight:400;letter-spacing:-.04em}
-.discovery-review>p:not(.discovery-eyebrow){font-size:13px;line-height:1.6;color:#bca7cd}
+.discovery-review>p:not(.discovery-eyebrow){margin:1em 0;font-size:13px;line-height:1.6;color:#bca7cd}
 .discovery-review-details{display:grid;grid-template-columns:110px minmax(0,1fr);gap:13px;padding:22px 0;margin:20px 0;border-block:1px solid #c3a0de26;font-size:12px;line-height:1.5}
 .discovery-review-details dt{color:#a88fb9}.discovery-review-details dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}
 .discovery-review-status{padding:15px;border:1px solid #c8a6df2b;border-radius:var(--card-radius);background:#c19bea0c;font-size:12px;line-height:1.6;color:#dac6e8}
@@ -117,12 +120,4 @@
 @media (pointer: coarse){.discovery-slot,.discovery-nav,.discovery-today,.discovery-view button,.discovery-clock-format button{min-height:44px}.discovery-nav{width:40px}.discovery-clock-format button{width:36px}.discovery-review-close{min-height:44px;min-width: 44px}}
 @media (prefers-reduced-motion: reduce){.discovery-flow,.discovery-submit,.discovery-fields input,.discovery-fields select,.discovery-fields textarea{transition:none}.discovery-slot-list{scroll-behavior:auto}}
 @media (prefers-reduced-motion: reduce){.discovery-submit::before,.discovery-submit>svg{transition:none}}
-.discovery-slot-buttons--stack{grid-template-columns:1fr;max-height:142px;overflow-y:auto;padding-right:4px}
-.discovery-slot-buttons--stack .discovery-slot{display:flex;align-items:center;justify-content:space-between;min-height:42px;padding:10px 12px;font-size:12px;white-space:normal}
-.discovery-slot-buttons--stack .discovery-slot span:last-child{font-size:11px;color:#65596c}
-.discovery-slot-buttons--stack .discovery-slot[aria-pressed=true] span:last-child{color:#e8dcf5}
-.discovery-review-overlay{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:#06020dc9;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.discovery-review-overlay .discovery-review{position:relative;inset:auto;margin:0}
-.discovery-review-actions .discovery-review-confirm{background:#ddc7f0;color:#2c183b;font-weight:600}
-.discovery-success-icon{display:grid;place-items:center;width:48px;height:48px;margin-bottom:24px;border:1px solid #8fd4b340;border-radius:50%;background:#8fd4b312;color:#b8efd0}
 .discovery-eyebrow{text-transform:uppercase}

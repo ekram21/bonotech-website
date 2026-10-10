@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type ComponentProps, type MouseEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { trackCtaClick } from '@/lib/analytics'
-import { handleHashLinkClick } from '@/lib/scroll'
 import bonotechLogo from '@/assets/bonotech-logo-nav.svg'
 import './navbar.css'
 
@@ -30,6 +29,15 @@ const DEFAULT_LINKS: NavLink[] = [
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Testimonials', href: '#client-testimonials' },
 ]
+
+/**
+ * Same-page hashes stay native anchors so the browser smooth-scrolls them.
+ * Anything pointing at another route goes through the router, avoiding a full reload.
+ */
+export function NavAnchor({ href, ...props }: ComponentProps<'a'> & { href: string }) {
+    if (href.startsWith('#')) return <a href={href} {...props} />
+    return <Link to={href} {...props} />
+}
 
 function useCompactLayout(onChange: (compact: boolean) => void) {
     const [compact, setCompact] = useState(() => window.matchMedia(COMPACT_QUERY).matches)
@@ -118,17 +126,16 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
         }
     }, [isHome, links])
 
-    const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const handleLinkClick = (href: string) => {
         const wasOpen = menuOpen
         setOpen(false)
-        if (!isOnPage(href) || !handleHashLinkClick(event, href)) return
+        if (!wasOpen || !isOnPage(href) || !href.startsWith('#')) return
 
         // Keep keyboard focus in the chosen section after the compact menu collapses.
-        if (wasOpen) {
-            const target = document.getElementById(href.slice(1))
-            target?.setAttribute('tabindex', '-1')
-            target?.focus({ preventScroll: true })
-        }
+        // preventScroll leaves the browser's own smooth scroll in charge.
+        const target = document.getElementById(href.slice(1))
+        target?.setAttribute('tabindex', '-1')
+        target?.focus({ preventScroll: true })
     }
 
     const handleToggleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -160,14 +167,14 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     }
                 }}
             >
-                <a
+                <NavAnchor
                     className="nav-brand"
                     href={isHome ? '#home' : '/'}
                     aria-label="Bonotech home"
-                    onClick={(event) => isHome && handleLinkClick(event, '#home')}
+                    onClick={() => isHome && handleLinkClick('#home')}
                 >
                     <img src={bonotechLogo} alt="Bonotech" width="274" height="43" />
-                </a>
+                </NavAnchor>
 
                 <nav
                     ref={navigationRef}
@@ -180,14 +187,14 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                         {links.map((link, index) => (
                             <li key={link.href}>
                                 {link.href.startsWith('#') ? (
-                                    <a
+                                    <NavAnchor
                                         ref={index === 0 ? firstLinkRef : undefined}
                                         href={resolveHref(link.href)}
-                                        aria-current={currentHref === link.href ? 'location' : undefined}
-                                        onClick={(event) => handleLinkClick(event, link.href)}
+                                        aria-current={isHome && currentHref === link.href ? 'location' : undefined}
+                                        onClick={() => handleLinkClick(link.href)}
                                     >
                                         {link.label}
-                                    </a>
+                                    </NavAnchor>
                                 ) : (
                                     <Link
                                         ref={index === 0 ? firstLinkRef : undefined}
@@ -203,13 +210,13 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     </ul>
                 </nav>
 
-                <a
+                <NavAnchor
                     className="nav-call"
                     href={resolveHref(DISCOVERY_HREF)}
                     aria-current={location.pathname === DISCOVERY_PAGE ? 'page' : undefined}
-                    onClick={(event) => {
+                    onClick={() => {
                         trackCtaClick('nav_book_a_call')
-                        handleLinkClick(event, DISCOVERY_HREF)
+                        handleLinkClick(DISCOVERY_HREF)
                     }}
                 >
                     <span>Book a Call</span>
@@ -222,7 +229,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                             strokeLinejoin="round"
                         />
                     </svg>
-                </a>
+                </NavAnchor>
 
                 <button
                     ref={toggleRef}

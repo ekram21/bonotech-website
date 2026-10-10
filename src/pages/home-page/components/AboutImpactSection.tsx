@@ -4,13 +4,7 @@ import projectsBackground from "@/assets/about/projects-background.mp4";
 import commitmentPortrait from "@/assets/about/stefano-portrait.jpg";
 import divcLogo from "@/assets/about/divc.svg";
 import dataMotion from "@/assets/about/data-motion.mp4";
-import { scrollToSection } from "@/lib/scroll";
-
 import "./AboutImpactSection.css";
-
-const scrollToDiscoveryCall = () => {
-    scrollToSection("discovery-call");
-};
 
 const AboutImpactSection = () => {
     const gridRef = useRef<HTMLDivElement | null>(null);
@@ -377,11 +371,7 @@ const AboutImpactSection = () => {
                     </p>
                 </article>
 
-                <button
-                    className="about-card about-contact"
-                    type="button"
-                    onClick={scrollToDiscoveryCall}
-                >
+                <a className="about-card about-contact" href="#discovery-call">
                     <span>Get In Touch</span>
                     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path
@@ -390,7 +380,7 @@ const AboutImpactSection = () => {
                             strokeWidth="1.5"
                         />
                     </svg>
-                </button>
+                </a>
             </div>
         </section>
     );

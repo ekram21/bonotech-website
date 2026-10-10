@@ -1,4 +1,3 @@
-import { Navbar } from '@/shared/Navbar'
 import Hero from './components/Hero/Hero'
 import SprintMetricsSection from './components/SprintMetricsSection'
 import ClientShowcaseSection from './components/client-showcase-section/ClientShowcaseSection'
@@ -14,7 +13,6 @@ import Footer from '@/shared/Footer/Footer'
 export function HomePage() {
     return (
         <>
-            <Navbar />
             <main id="main-content" tabIndex={-1} className="home-page-background">
                 <Hero />
                 <SprintMetricsSection />

@@ -1,4 +1,3 @@
-import { Navbar } from '@/shared/Navbar'
 import { usePageMeta } from '@/lib/usePageMeta'
 import DiscoveryCallSection from '@/pages/home-page/components/DiscoveryCallSection'
 import Footer from '@/shared/Footer/Footer'
@@ -13,7 +12,6 @@ export function DiscoveryMeetingPage() {
 
     return (
         <>
-            <Navbar />
             <main id="main-content" tabIndex={-1} className="discovery-meeting-page home-page-background">
                 <DiscoveryCallSection />
             </main>

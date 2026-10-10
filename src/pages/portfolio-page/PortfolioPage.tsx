@@ -1,4 +1,3 @@
-import { Navbar } from '@/shared/Navbar'
 import { usePageMeta } from '@/lib/usePageMeta'
 import { PortfolioHero } from './components/PortfolioHero/PortfolioHero'
 import './portfolio.css'
@@ -20,7 +19,6 @@ export function PortfolioPage() {
 
     return (
         <div className="portfolio-page home-page-background">
-            <Navbar />
             <PortfolioIndex />
             <main id="main-content" tabIndex={-1}>
                 <PortfolioHero />

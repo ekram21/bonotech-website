@@ -62,10 +62,11 @@
  .delivery-navigation{margin-top:18px}
 }
 @media (min-width: 701px) and (max-width: 1000px){
- .delivery{--delivery-card-width:320px;--delivery-card-height:418px;--delivery-spread:300px}
- .delivery-card{padding:25px}
- .delivery-time{font-size:68px}
- .delivery-media{height:169px}
+ .delivery{--delivery-card-width:calc((100vw - 2 * var(--edge)) * .325);--delivery-card-height:calc(var(--delivery-card-width) * 1.42);--delivery-spread:calc(var(--delivery-card-width) * .99)}
+ .delivery-card{padding:calc(var(--delivery-card-width) * .085)}
+ .delivery-time{font-size:calc(var(--delivery-card-width) * .2);margin-bottom:calc(var(--delivery-card-width) * .06)}
+ .delivery-detail{font-size:clamp(15px,1.8vw,16px)}
+ .delivery-media{height:calc(var(--delivery-card-width) * .5)}
 }
 @media (max-width: 700px){
  .delivery{--delivery-card-width:calc(100vw - 90px);--delivery-card-height:405px;--delivery-spread:calc(var(--delivery-card-width) + 12px);padding:48px 22px;gap:28px}
