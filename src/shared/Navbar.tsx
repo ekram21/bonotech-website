@@ -17,8 +17,8 @@ export interface NavbarProps {
 const COMPACT_QUERY = '(max-width: 940px)'
 const DISCOVERY_HREF = '#discovery-call'
 /** Pages that render the discovery section, so booking links can stay on the page. */
-export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/discovery-meeting'])
-const DISCOVERY_PAGE = '/discovery-meeting'
+export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/discovery-call', '/discovery-meeting'])
+const DISCOVERY_PAGES = new Set(['/discovery-call', '/discovery-meeting'])
 /** Distance below the header at which a section counts as the one being read. */
 const READING_LINE_OFFSET = 120
 
@@ -213,7 +213,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                 <NavAnchor
                     className="nav-call"
                     href={resolveHref(DISCOVERY_HREF)}
-                    aria-current={location.pathname === DISCOVERY_PAGE ? 'page' : undefined}
+                    aria-current={DISCOVERY_PAGES.has(location.pathname) ? 'page' : undefined}
                     onClick={() => {
                         trackCtaClick('nav_book_a_call')
                         handleLinkClick(DISCOVERY_HREF)

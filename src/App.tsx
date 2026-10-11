@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
 import { AnalyticsTracker } from '@/components/AnalyticsTracker'
 import { SplashScreen } from '@/components/SplashScreen/SplashScreen'
@@ -13,7 +13,7 @@ import { TermsOfService } from '@/pages/TermsOfService'
 import { PrivacyPolicy } from '@/pages/PrivacyPolicy'
 import { HomePage } from './pages/home-page/HomePage'
 import { DiscoveryMeetingPage } from '@/pages/discovery-meeting/DiscoveryMeetingPage'
-import { scrollToHashOnLoad } from '@/lib/scroll'
+import { holdHashTarget, scrollToHashOnLoad } from '@/lib/scroll'
 import { Navbar } from '@/shared/Navbar'
 
 /** Rendered once above the routes so it stays mounted across page changes. */
@@ -45,9 +45,19 @@ function ScrollToTop() {
 
 const SPLASH_SEEN_KEY = 'bonotech:splash-seen'
 
+/** Booking links shared with prospects open straight on the form, without the intro. */
+const DISCOVERY_PATHS = ['/discovery-call', '/discovery-meeting']
+
 function isAdminPath(): boolean {
     return typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')
 }
+
+function isDiscoveryPath(): boolean {
+    return typeof window !== 'undefined' && DISCOVERY_PATHS.includes(window.location.pathname)
+}
+
+/** Long enough to outlast the splash; the hold is renewed when the splash finishes. */
+const HOLD_BEHIND_SPLASH_MS = 10_000
 
 /** Full page loads (logo, hash links) remount the app. Keep the intro to the first visit. */
 function splashAlreadySeen(): boolean {
@@ -70,7 +80,8 @@ export default function App() {
     const wantSplashPreview =
         typeof window !== 'undefined' &&
         new URLSearchParams(window.location.search).has('splashPreview')
-    const skipSplash = (isAdminPath() || splashAlreadySeen()) && !wantSplashPreview
+    const skipSplash =
+        (isAdminPath() || isDiscoveryPath() || splashAlreadySeen()) && !wantSplashPreview
     const [showSplash, setShowSplash] = useState(!skipSplash)
     const handleSplashComplete = useCallback(() => {
         if (wantSplashPreview) return
@@ -80,18 +91,23 @@ export default function App() {
         // Let Projects (sticky stack) remeasure after splash unmounts.
         requestAnimationFrame(() => {
             window.dispatchEvent(new Event('resize'))
-            scrollToHashOnLoad()
+            holdHashTarget()
         })
     }, [wantSplashPreview])
 
-    useEffect(() => {
-        if (!splashAlreadySeen() || wantSplashPreview) return
+    // Before first paint, so a `#section` link never flashes the top of the page.
+    useLayoutEffect(() => {
+        if (wantSplashPreview) return
+        if (showSplash) {
+            holdHashTarget(HOLD_BEHIND_SPLASH_MS)
+            return
+        }
+        holdHashTarget()
         window.dispatchEvent(new Event('bonotech:splash-complete'))
-        requestAnimationFrame(() => {
-            window.dispatchEvent(new Event('resize'))
-            scrollToHashOnLoad()
-        })
-    }, [wantSplashPreview])
+        requestAnimationFrame(() => window.dispatchEvent(new Event('resize')))
+        // Mount only: later navigations are handled by ScrollToTop.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
@@ -111,6 +127,7 @@ export default function App() {
                                 </Suspense>
                             }
                         />
+                        <Route path="/discovery-call" element={<DiscoveryMeetingPage />} />
                         <Route path="/discovery-meeting" element={<DiscoveryMeetingPage />} />
                         <Route path="/terms" element={<TermsOfService />} />
                         <Route path="/privacy" element={<PrivacyPolicy />} />
