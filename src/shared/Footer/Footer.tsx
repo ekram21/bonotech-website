@@ -7,6 +7,7 @@ import {
     subscribeNewsletter,
 } from "@/lib/services/email";
 import { Link, useLocation } from "react-router-dom";
+import { PORTFOLIO_ENABLED } from "@/lib/features";
 import { NavAnchor, PAGES_WITH_DISCOVERY } from "@/shared/Navbar";
 import "./footer.css";
 
@@ -134,9 +135,11 @@ const Footer = () => {
                             <li>
                                 <NavAnchor href={homeSection("#about-bonotech")}>About Bonotech</NavAnchor>
                             </li>
-                            <li>
-                                <Link to="/portfolio">Portfolio</Link>
-                            </li>
+                            {PORTFOLIO_ENABLED ? (
+                                <li>
+                                    <Link to="/portfolio">Portfolio</Link>
+                                </li>
+                            ) : null}
                             <li>
                                 <NavAnchor href={homeSection("#ways-in")}>Our Service Scope</NavAnchor>
                             </li>

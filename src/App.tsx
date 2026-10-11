@@ -1,5 +1,6 @@
 import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
+import { BrowserRouter, Navigate, Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
+import { PORTFOLIO_ENABLED } from '@/lib/features'
 import { AnalyticsTracker } from '@/components/AnalyticsTracker'
 import { SplashScreen } from '@/components/SplashScreen/SplashScreen'
 
@@ -122,9 +123,13 @@ export default function App() {
                         <Route
                             path="/portfolio"
                             element={
-                                <Suspense fallback={null}>
-                                    <PortfolioPage />
-                                </Suspense>
+                                PORTFOLIO_ENABLED ? (
+                                    <Suspense fallback={null}>
+                                        <PortfolioPage />
+                                    </Suspense>
+                                ) : (
+                                    <Navigate to="/" replace />
+                                )
                             }
                         />
                         <Route path="/discovery-call" element={<DiscoveryMeetingPage />} />

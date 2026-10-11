@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ComponentProps, type MouseEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { trackCtaClick } from '@/lib/analytics'
+import { PORTFOLIO_ENABLED } from '@/lib/features'
 import bonotechLogo from '@/assets/bonotech-logo-nav.svg'
 import './navbar.css'
 
@@ -26,7 +27,7 @@ const DEFAULT_LINKS: NavLink[] = [
     { label: 'Service Scopes', href: '#ways-in' },
     { label: 'Clients', href: '#our-clients' },
     { label: 'Solutions', href: '#service-tiers' },
-    { label: 'Portfolio', href: '/portfolio' },
+    ...(PORTFOLIO_ENABLED ? [{ label: 'Portfolio', href: '/portfolio' }] : []),
     { label: 'Testimonials', href: '#client-testimonials' },
 ]
 
