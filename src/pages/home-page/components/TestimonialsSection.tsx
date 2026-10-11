@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
-import evoLogo from "@/assets/clients/evo.svg";
+import evoLogo from "@/assets/clients/evo.webp";
 import polysignalsLogo from "@/assets/clients/polysignals.svg";
 import zatiqLogo from "@/assets/clients/zatiq.svg";
 import gustavLogo from "@/assets/clients/gustav.svg";
 import ditechLogo from "@/assets/clients/ditech.svg";
 
-import evanMilho from "@/assets/testimonials/evan-milho.png";
-import nafisAbrar from "@/assets/testimonials/nafis-abrar.png";
-import sultanMoni from "@/assets/testimonials/sultan-moni-new.png";
-import shohiduzzamanShakil from "@/assets/testimonials/shohiduzzaman-shakil.png";
-import rakibulHasanRaihan from "@/assets/testimonials/rakibul-hasan-raihan.png";
+import evanMilho from "@/assets/testimonials/evan-milho.webp";
+import nafisAbrar from "@/assets/testimonials/nafis-abrar.webp";
+import sultanMoni from "@/assets/testimonials/sultan-moni-new.webp";
+import shohiduzzamanShakil from "@/assets/testimonials/shohiduzzaman-shakil.webp";
+import rakibulHasanRaihan from "@/assets/testimonials/rakibul-hasan-raihan.webp";
 
 import "./TestimonialsSection.css";
 import { initTestimonialWaves } from "./testimonialWaves";

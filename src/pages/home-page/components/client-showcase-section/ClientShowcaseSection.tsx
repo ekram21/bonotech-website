@@ -6,7 +6,7 @@ import ditechLogo from "@/assets/clients/ditech.svg";
 import gustavLogo from "@/assets/clients/gustav.svg";
 import olmoLogo from "@/assets/clients/olmo.svg";
 import dekkoIshoLogo from "@/assets/clients/dekko-isho.svg";
-import evoLogo from "@/assets/clients/evo.svg";
+import evoLogo from "@/assets/clients/evo.webp";
 import polysignalsLogo from "@/assets/clients/polysignals.svg";
 import zatiqLogo from "@/assets/clients/zatiq.svg";
 
