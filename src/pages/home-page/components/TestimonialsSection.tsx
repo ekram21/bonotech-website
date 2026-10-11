@@ -26,25 +26,14 @@ type Testimonial = {
     logoClassName?: string;
     portrait: string;
     portraitAlt: string;
+    logoAlt: string;
 };
 
 const testimonials: Testimonial[] = [
     {
-        id: "testimonial-evan",
-        slideClass: "testimonial-evan",
-        name: "Evan Milho",
-        role: "CEO, EVO Grading",
-        handle: "@evocardprep",
-        quote:
-            "I couldn\u2019t believe my eyes when I first saw what the team had built out for me. Looks so good. There are massive companies in the space who still haven\u2019t modernised a proper web-based application form, so excited to be the first to launch one for card prep & cleaning.",
-        logo: evoLogo,
-        logoClassName: "testimonial-logo testimonial-logo-evo",
-        portrait: evanMilho,
-        portraitAlt: "Evan Milho",
-    },
-    {
         id: "testimonial-nafis",
         slideClass: "testimonial-nafis",
+        logoAlt: "Polysignals",
         name: "Nafis Abrar",
         role: "ML Engineer at Meta",
         handle: "@polysignals.app",
@@ -56,8 +45,23 @@ const testimonials: Testimonial[] = [
         portraitAlt: "Nafis Abrar",
     },
     {
+        id: "testimonial-evan",
+        slideClass: "testimonial-evan",
+        logoAlt: "EVO Grading",
+        name: "Evan Milho",
+        role: "CEO, EVO Grading",
+        handle: "@evocardprep",
+        quote:
+            "I couldn\u2019t believe my eyes when I first saw what the team had built out for me. Looks so good. There are massive companies in the space who still haven\u2019t modernised a proper web-based application form, so excited to be the first to launch one for card prep & cleaning.",
+        logo: evoLogo,
+        logoClassName: "testimonial-logo testimonial-logo-evo",
+        portrait: evanMilho,
+        portraitAlt: "Evan Milho",
+    },
+    {
         id: "testimonial-sultan",
         slideClass: "testimonial-sultan",
+        logoAlt: "Zatiq",
         name: "Sultan Moni",
         role: "Founder and CEO, Zatiq",
         handle: "@zatiqglobal",
@@ -71,6 +75,7 @@ const testimonials: Testimonial[] = [
     {
         id: "testimonial-shakil",
         slideClass: "testimonial-shakil",
+        logoAlt: "Gustav",
         name: "MD. Shohiduzzaman Shakil",
         role: "Human Resources Generalist, Mermaid Beach Resort",
         handle: "@gustavclub",
@@ -84,6 +89,7 @@ const testimonials: Testimonial[] = [
     {
         id: "testimonial-raihan",
         slideClass: "testimonial-raihan",
+        logoAlt: "DITECH",
         name: "MD. Rakibul Hasan Raihan",
         role: "Project Coordinator, DITECH",
         handle: "@ditechbd",
@@ -407,17 +413,7 @@ const TestimonialsSection = () => {
                                     <img
                                         className={testimonial.logoClassName}
                                         src={testimonial.logo}
-                                        alt={
-                                            index === 0
-                                                ? "EVO Grading"
-                                                : index === 1
-                                                  ? "Polysignals"
-                                                  : index === 2
-                                                    ? "Zatiq"
-                                                    : index === 3
-                                                      ? "Gustav"
-                                                      : "DITECH"
-                                        }
+                                        alt={testimonial.logoAlt}
                                         loading="lazy"
                                         decoding="async"
                                     />
