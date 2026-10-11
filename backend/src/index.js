@@ -25,7 +25,7 @@ const DATA_DIR = path.resolve(__dirname, "../data");
 const NEWSLETTER_FILE = path.join(DATA_DIR, "newsletter-subscribers.json");
 
 const PORT = Number(process.env.PORT || 8792);
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = "0.0.0.0";
 
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "")
   .split(",")
@@ -115,6 +115,7 @@ async function appendNewsletterSubscriber(email) {
     try {
       const raw = await fs.readFile(NEWSLETTER_FILE, "utf8");
       const parsed = JSON.parse(raw);
+      
       if (Array.isArray(parsed)) {
         subscribers = parsed;
       }
@@ -290,7 +291,7 @@ app.post("/newsletter", newsletterLimiter, async (req, res) => {
       });
       return;
     }
-
+    
     const result = await appendNewsletterSubscriber(email);
 
     res.json({
