@@ -21,6 +21,7 @@
     gap: clamp(30px, 4vh, 48px);
     padding: clamp(44px, 5vh, 64px) var(--edge);
     background: #12081e;
+    line-height: 1.5;
 }
 
 .testimonials-heading {

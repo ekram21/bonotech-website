@@ -49,7 +49,7 @@ const testimonials: Testimonial[] = [
         role: "ML Engineer at Meta",
         handle: "@polysignals.app",
         quote:
-            "Polysignals is the highest quality app built in the shortest possible time that I have seen in quite some time. Speaking as someone who works with the highest level of engineers on a daily basis, Bonotech is the real deal!",
+            "Polysignals is the highest-quality app built in the shortest possible time that I have seen in quite some time. Speaking as someone who works with the highest level of engineers on a daily basis, Bonotech is the real deal!",
         logo: polysignalsLogo,
         logoClassName: "testimonial-logo",
         portrait: nafisAbrar,

@@ -1,5 +1,4 @@
 import Footer from '@/shared/Footer/Footer'
-import { Navbar } from '@/shared/Navbar'
 import { Link } from 'react-router-dom'
 
 const sectionClass =
@@ -8,8 +7,7 @@ const sectionClass =
 export function PrivacyPolicy() {
     return (
         <>
-            <Navbar />
-            <article className="min-h-screen w-full bg-surface-neutral text-content-primary">
+            <article id="main-content" tabIndex={-1} className="min-h-screen w-full bg-surface-neutral text-content-primary">
                 <div className="mx-auto w-full max-w-(--width-container) px-container-x pt-32 pb-16 lg:pt-40 lg:pb-24">
                     <header className="max-w-3xl mb-12 lg:mb-16">
                         <p className="font-body text-label-lg text-content-tertiary uppercase tracking-wider mb-3">

@@ -1,0 +1,39 @@
+/* Floating frosted glass, using the site's existing plum and lavender palette. */
+.skip-link{position:fixed;left:20px;top:12px;z-index:110;padding:14px 20px;border-radius:12px;background:#f1e8ff;color:#201130;text-decoration:none;transform:translateY(-160%)}
+.skip-link:focus{transform:translateY(0)}
+.site-header{position:fixed;z-index:100;top:22px;left:50%;transform:translateX(-50%);width:min(960px,calc(100% - 48px));min-height:68px;display:flex;align-items:center;gap:22px;padding:10px 12px 10px 24px;border:1px solid #e6d6ff42;border-radius:26px;background:linear-gradient(120deg,#f0dbff1c,#d3b5fa08 52%,#b68bee12),#24133599;-webkit-backdrop-filter:blur(28px) saturate(160%);backdrop-filter:blur(28px) saturate(160%);box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #ffffff06,0 10px 32px #06020f30;color:#f5efff;font-family:Montserrat,Arial,sans-serif;line-height:normal}
+.nav-brand{display:block;flex-shrink:0;width:146px;line-height:0;padding-block:8px}
+.nav-brand img{display:block;width:100%;height:auto;filter:brightness(0) invert(1)}
+.site-navigation{flex:1;min-width:0}
+.nav-links{display:flex;align-items:center;justify-content:center;gap:3px;margin:0;padding:0;list-style:none}
+.nav-links a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 13px;border:1px solid transparent;border-radius:15px;text-decoration:none;font-size:12px;line-height:1.4;letter-spacing:-.015em;color:#e6ddec;transition:background .25s,color .25s,border-color .25s}
+.nav-links a:hover,.nav-links a[aria-current=location],.nav-links a[aria-current=page]{color:#fff;background:#ead9ff12;border-color:#f2e3ff12}
+.site-header a:focus-visible,.nav-toggle:focus-visible{outline:2px solid #e0caff;outline-offset:3px}
+.nav-call{position:relative;isolation:isolate;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 19px;border:1px solid #f0dfff42;border-radius:17px;background:linear-gradient(135deg,#f1ddff26,#bb89f51a);box-shadow:inset 0 1px 0 #ffffff1c;color:#fff;text-decoration:none;font-size:12px;letter-spacing:-.01em}
+.nav-call::before{content:'';position:absolute;z-index:-1;inset:0;border-radius:inherit;background:linear-gradient(135deg,#9564c9,#6b399e);transform:translateY(105%);transition:transform .4s cubic-bezier(.22,.7,.2,1)}
+.nav-call:hover::before,.nav-call:focus-visible::before{transform:translateY(0)}
+.nav-call svg{width:17px;height:17px;transition:transform .3s}
+.nav-call:hover svg{transform:translate(1px,-1px)}
+.nav-toggle{position:relative;flex-shrink:0;display:grid;place-content:center;gap:6px;width:44px;height:44px;border:1px solid #e2cbff2b;border-radius:14px;background:#e5d0ff0c;color:#fff;cursor:pointer}
+.nav-toggle[hidden],.site-navigation[hidden]{display:none}
+.nav-toggle span{display:block;width:17px;height:1px;background:currentColor;transition:transform .25s}
+.nav-toggle[aria-expanded=true] span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.nav-toggle[aria-expanded=true] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-header{background:#281a3bf5}}
+@media(max-width:940px){
+ .site-header{top:14px;width:calc(100% - 28px);min-height:64px;gap:10px;padding:8px 10px 8px 18px;border-radius:23px;flex-wrap:wrap}
+ .nav-brand{width:135px;margin-right:auto}
+ .nav-call{min-height:44px;padding-inline:16px;border-radius:15px}
+ .site-navigation{order:4;flex-basis:100%;padding:10px 0 2px;border-top:1px solid #ddc2ff21}
+ .nav-links{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+ .nav-links a{min-height:48px;font-size:13px;justify-content:flex-start;padding-inline:17px;border-radius:14px}
+}
+@media(max-width:440px){
+ .site-header{gap:8px;padding-left:14px;width:calc(100% - 24px)}
+ .nav-brand{width:118px}
+ .nav-call{gap:7px;padding-inline:12px;font-size:11px}
+ .nav-call svg{width:15px;height:15px}
+ .nav-toggle{width:40px}
+}
+@media(max-width:360px){.site-header{padding-left:12px;gap:6px}.nav-brand{width:100px}.nav-call{padding-inline:10px}.nav-toggle{width:38px}}
+@media(prefers-reduced-motion:reduce){.nav-call::before,.nav-call svg,.nav-links a,.nav-toggle span{transition:none}}

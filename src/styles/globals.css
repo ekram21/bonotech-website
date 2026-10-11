@@ -258,8 +258,16 @@
 html {
     scroll-behavior: smooth;
     /* Clear fixed navbar on hash / programmatic section scroll */
-    --navbar-scroll-offset: 96px;
+    --navbar-scroll-offset: 110px;
     scroll-padding-top: var(--navbar-scroll-offset);
+    /* Rubber-band overscroll translates the page, including the hero glow. */
+    overscroll-behavior: none;
+}
+
+@media (max-width: 940px) {
+    html {
+        --navbar-scroll-offset: 98px;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -273,6 +281,7 @@ body {
     margin: 0;
     background: var(--ink);
     color: var(--white);
+    overscroll-behavior: none;
 }
 
 /* Calendly scheduling section loader */
@@ -315,6 +324,7 @@ body {
 
 .home-page-background {
     background: var(--home-section-seam);
+    line-height: normal;
 }
 
 .home-section-edge {

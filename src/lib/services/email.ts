@@ -60,6 +60,11 @@ export class EmailSendError extends Error {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+]?[\d\s\-().]{7,20}$/;
 
+export const isValidEmail = (value: string) => {
+  const email = value.trim();
+  return email.length <= 254 && EMAIL_RE.test(email);
+};
+
 export function validateContactForm(
   data: ContactFormData,
 ): Record<string, string> {

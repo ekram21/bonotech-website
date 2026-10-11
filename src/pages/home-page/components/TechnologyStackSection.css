@@ -3,7 +3,7 @@
     min-height: 100svh;
     overflow: hidden;
     padding: clamp(78px, 8vh, 110px) var(--edge) clamp(48px, 5vh, 75px);
-    background: linear-gradient(180deg, #0d0716, #10091b 28%, #12081e 100%);
+    background: linear-gradient(180deg, #09060f, #10091b 28%, #12081e 100%);
 }
 
 .technology-heading {
@@ -240,11 +240,10 @@
 
 .tech-core img {
     display: block;
-    width: 48%;
-    height: auto;
-    max-height: 42%;
+    width: 54%;
+    height: 40%;
     object-fit: contain;
-    filter: drop-shadow(0 0 10px #e7c6ff69) brightness(1.35);
+    filter: drop-shadow(0 0 10px #e7c6ff69);
 }
 
 .tech-core > span {

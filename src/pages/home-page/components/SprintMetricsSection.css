@@ -1,8 +1,7 @@
 .metrics {
   --metric-ink: #2f1952;
   position: relative;
-  min-height: 100svh;
-  padding: clamp(80px, 8vw, 140px) var(--edge) clamp(90px, 9vw, 155px);
+  padding: clamp(80px, 8vw, 140px) var(--edge) 46.5696px;
   background: linear-gradient(180deg, var(--section-seam) 0, #1c102e 190px, #1c102e 100%);
 }
 .metrics-grid {
@@ -12,6 +11,15 @@
   gap: clamp(12px, 1.3vw, 22px);
   max-width: 1540px;
   margin: 0 auto;
+}
+.metrics-disclaimer {
+  max-width: 1540px;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: clamp(1rem, 1.22vw, 1.125rem);
+  line-height: 1.6;
+  letter-spacing: -0.035em;
+  color: #b8abc8;
 }
 .metrics-heading {
   grid-column: 1;
@@ -249,7 +257,7 @@
 }
 @media (max-width: 760px) {
   .metrics {
-    padding: 74px var(--edge) 80px;
+    padding: 74px var(--edge) 34.9272px;
   }
   .metrics-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

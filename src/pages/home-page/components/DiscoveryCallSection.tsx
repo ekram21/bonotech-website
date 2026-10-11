@@ -1,11 +1,32 @@
-import { useEffect, useMemo, useState } from "react";
-import type { FormEventHandler } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import type { FormEventHandler, KeyboardEvent, MouseEvent, PointerEvent } from "react";
 import { trackDiscoverySubmit } from "@/lib/analytics";
 import {
     EmailSendError,
+    isValidEmail,
     sendDiscoveryCallEmail,
 } from "@/lib/services/email";
 import FlowBackground from "./Hero/FlowBackground";
+import {
+    DAY,
+    SCHEDULE,
+    TIME_ZONES,
+    buildSchedule,
+    calendarDay,
+    clampDay,
+    currentTime,
+    dayKey,
+    formatDay,
+    formatSlotRange,
+    formatSlotTime,
+    pageRange,
+    rangeHeading,
+    shiftMonth,
+    weekStart,
+    zoneLabel,
+    zoneOptionLabel,
+} from "./discoverySchedule";
+import type { CalendarView, ClockFormat, Schedule } from "./discoverySchedule";
 import "./discovery.css";
 
 type FormValues = {
@@ -19,144 +40,106 @@ type FormValues = {
     brief: string;
 };
 
-type CalendarView = "week" | "month";
-type ClockFormat = "12" | "24";
+type FieldName = keyof FormValues;
+type FieldErrors = Partial<Record<FieldName | "slot", string>>;
+
+const EMPTY_FORM: FormValues = {
+    fullName: "",
+    email: "",
+    company: "",
+    companySize: "",
+    role: "",
+    website: "",
+    focus: "",
+    brief: "",
+};
+
+/** Order matters: the first invalid field in this list receives focus on submit. */
+const VALIDATED_FIELDS: FieldName[] = [
+    "fullName",
+    "email",
+    "company",
+    "companySize",
+    "website",
+    "focus",
+];
+
+const WEBSITE_RE = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d{1,5})?(\/\S*)?$/i;
+
+const validateFields = (form: FormValues): FieldErrors => {
+    const errors: FieldErrors = {};
+    const name = form.fullName.trim();
+    const email = form.email.trim();
+    const website = form.website.trim();
+
+    if (!name) errors.fullName = "Please enter your full name.";
+    else if (name.length < 2) errors.fullName = "Name looks too short.";
+
+    if (!email) errors.email = "Please enter your work email.";
+    else if (!isValidEmail(email)) errors.email = "Please enter a valid email address.";
+
+    if (!form.company.trim()) errors.company = "Please enter your company name.";
+    if (!form.companySize) errors.companySize = "Please select your team size.";
+    if (website && !WEBSITE_RE.test(website))
+        errors.website = "Please enter a valid website, e.g. company.com.";
+    if (!form.focus) errors.focus = "Please choose what we can help with.";
+
+    return errors;
+};
+
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
-type CalendarCell = {
-    key: string;
-    label: string;
-    date: number;
-    value: string;
-    inCurrentMonth: boolean;
-};
+const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-const TIME_SLOT_MINUTES = [
-    10 * 60,
-    10 * 60 + 30,
-    11 * 60,
-    11 * 60 + 30,
-    14 * 60,
-    14 * 60 + 30,
-    15 * 60,
-    15 * 60 + 30,
-];
-
-const FALLBACK_TIME_ZONES = [
-    "Asia/Dhaka",
-    "Asia/Singapore",
-    "Asia/Kolkata",
-    "Asia/Dubai",
-    "Europe/London",
-    "Europe/Berlin",
-    "America/New_York",
-    "America/Chicago",
-    "America/Los_Angeles",
-    "Australia/Sydney",
-];
-
-const pad = (value: number) => String(value).padStart(2, "0");
-
-const toLocalDateValue = (date: Date) =>
-    `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-
-const fromLocalDateValue = (value: string) => {
-    const [year, month, day] = value.split("-").map(Number);
-    return new Date(year, month - 1, day);
-};
-
-/** Current calendar date + minutes-from-midnight in a given IANA timezone. */
-const getNowInTimeZone = (timeZone: string) => {
-    const parts = new Intl.DateTimeFormat("en-US", {
-        timeZone,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hourCycle: "h23",
-    }).formatToParts(new Date());
-
-    const read = (type: Intl.DateTimeFormatPartTypes) =>
-        parts.find((part) => part.type === type)?.value ?? "0";
-
-    const dateValue = `${read("year")}-${read("month")}-${read("day")}`;
-    const minutes = Number(read("hour")) * 60 + Number(read("minute"));
-
-    return { dateValue, minutes };
-};
-
-const isDateBefore = (value: string, other: string) => value < other;
-
-const addDays = (date: Date, amount: number) => {
-    const next = new Date(date);
-    next.setDate(next.getDate() + amount);
-    return next;
-};
-
-const addMonths = (date: Date, amount: number) => {
-    const next = new Date(date.getFullYear(), date.getMonth() + amount, 1);
-    return next;
-};
-
-const startOfWeek = (date: Date) => {
-    const next = new Date(date);
-    const mondayIndex = (next.getDay() + 6) % 7;
-    next.setDate(next.getDate() - mondayIndex);
-    next.setHours(0, 0, 0, 0);
-    return next;
-};
-
-const formatTime = (minutes: number, format: ClockFormat) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-
-    if (format === "24") {
-        return `${pad(hours)}:${pad(mins)}`;
-    }
-
-    const suffix = hours >= 12 ? "PM" : "AM";
-    const hour12 = hours % 12 || 12;
-    return `${hour12}:${pad(mins)} ${suffix}`;
-};
+const firstSlotDay = (schedule: Schedule, zone: string) =>
+    schedule.slots.length ? calendarDay(schedule.slots[0], zone) : schedule.today;
 
 const DiscoveryCallSection = () => {
     const browserTimeZone = useMemo(
-        () => Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Dhaka",
+        () => Intl.DateTimeFormat().resolvedOptions().timeZone || SCHEDULE.hostZone,
         [],
     );
 
     const timeZones = useMemo(
-        () => Array.from(new Set([browserTimeZone, ...FALLBACK_TIME_ZONES])),
+        () => Array.from(new Set([browserTimeZone, ...TIME_ZONES])),
         [browserTimeZone],
     );
 
-    const [form, setForm] = useState<FormValues>({
-        fullName: "",
-        email: "",
-        company: "",
-        companySize: "",
-        role: "",
-        website: "",
-        focus: "",
-        brief: "",
-    });
+    const [form, setForm] = useState<FormValues>(EMPTY_FORM);
+    const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
+    const [submitAttempted, setSubmitAttempted] = useState(false);
 
     const [calendarView, setCalendarView] = useState<CalendarView>("week");
     const [clockFormat, setClockFormat] = useState<ClockFormat>("12");
     const [timeZone, setTimeZone] = useState(browserTimeZone);
-    const nowInZone = getNowInTimeZone(timeZone);
-    const todayValue = nowInZone.dateValue;
-    const todayDate = useMemo(
-        () => fromLocalDateValue(todayValue),
-        [todayValue],
-    );
 
-    const [anchorDate, setAnchorDate] = useState(todayDate);
-    const [selectedDate, setSelectedDate] = useState(todayValue);
-    const [selectedTime, setSelectedTime] = useState<number | null>(null);
+    // Re-evaluate "now" periodically so slots inside the notice window drop out while the page is open.
+    const [now, setNow] = useState(() => Date.now());
+    useEffect(() => {
+        const id = window.setInterval(() => setNow(Date.now()), 30_000);
+        return () => window.clearInterval(id);
+    }, []);
+
+    const schedule = useMemo(() => buildSchedule(now, timeZone), [now, timeZone]);
+
+    const [cursor, setCursor] = useState(() => firstSlotDay(schedule, timeZone));
+    const [selectedDay, setSelectedDay] = useState(cursor);
+    const [pickedTime, setPickedTime] = useState<number | null>(null);
+    const [scrollRequest, setScrollRequest] = useState<{
+        day: number | null;
+        focusDate: boolean;
+    } | null>(null);
     const [showReview, setShowReview] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null);
+    const datesRef = useRef<HTMLDivElement>(null);
+    const slotListRef = useRef<HTMLDivElement>(null);
+    const returnFocusRef = useRef<HTMLElement | null>(null);
+    const focusAfterCloseRef = useRef<HTMLElement | null>(null);
+    const reviewDialogRef = useRef<HTMLDialogElement>(null);
+    const successDialogRef = useRef<HTMLDialogElement>(null);
+    const gestureRef = useRef<{ x: number; y: number } | null>(null);
+    const swipedRef = useRef(false);
     const [submitState, setSubmitState] = useState<SubmitState>("idle");
     const [submitMessage, setSubmitMessage] = useState("");
     const [confirmedSummary, setConfirmedSummary] = useState<{
@@ -166,218 +149,305 @@ const DiscoveryCallSection = () => {
         timeZone: string;
     } | null>(null);
 
-    const isSlotAvailable = (dateValue: string, slotMinutes: number) => {
-        if (isDateBefore(dateValue, todayValue)) return false;
-        if (dateValue > todayValue) return true;
-        return slotMinutes > nowInZone.minutes;
-    };
+    // A picked slot that has left the bookable window is treated as unselected.
+    const selectedTime =
+        pickedTime !== null && schedule.slots.includes(pickedTime) ? pickedTime : null;
+    const selectedTimeDay =
+        selectedTime !== null ? calendarDay(selectedTime, timeZone) : null;
 
-    const availableSlots = useMemo(
-        () =>
-            selectedDate
-                ? TIME_SLOT_MINUTES.filter((slot) =>
-                      isSlotAvailable(selectedDate, slot),
-                  )
-                : [],
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- recompute from live clock + selection
-        [selectedDate, todayValue, nowInZone.minutes],
-    );
+    const { start: rangeStart, end: rangeEnd } = pageRange(cursor, calendarView);
+    const canGoPrevious = rangeStart > schedule.today;
+    const canGoNext = rangeEnd < schedule.lastDay;
+    const focusableDay =
+        selectedDay >= rangeStart && selectedDay <= rangeEnd
+            ? selectedDay
+            : Math.max(rangeStart, schedule.today);
 
-    const canGoPrevious = useMemo(() => {
-        if (calendarView === "week") {
-            const previousWeekEnd = addDays(startOfWeek(anchorDate), -1);
-            return toLocalDateValue(previousWeekEnd) >= todayValue;
-        }
+    const calendarDays = useMemo(() => {
+        const days: number[] = [];
+        for (let day = rangeStart; day <= rangeEnd; day += DAY) days.push(day);
+        return days;
+    }, [rangeStart, rangeEnd]);
+    const leadingBlanks =
+        calendarView === "month" ? (rangeStart - weekStart(rangeStart)) / DAY : 0;
 
-        const previousMonth = addMonths(anchorDate, -1);
-        const lastDay = new Date(
-            previousMonth.getFullYear(),
-            previousMonth.getMonth() + 1,
-            0,
-        );
-        return toLocalDateValue(lastDay) >= todayValue;
-    }, [anchorDate, calendarView, todayValue]);
+    const slotWeekStart = weekStart(cursor);
+    const slotDays = Array.from({ length: 7 }, (_, index) => slotWeekStart + index * DAY);
 
     useEffect(() => {
-        if (selectedDate && isDateBefore(selectedDate, todayValue)) {
-            setSelectedDate(todayValue);
-            setSelectedTime(null);
-            return;
+        if (!scrollRequest) return;
+        const list = slotListRef.current;
+
+        if (list && scrollRequest.day === null) {
+            list.scrollTop = 0;
+        } else if (list && scrollRequest.day !== null) {
+            const row = list.querySelector<HTMLElement>(
+                `[data-day="${dayKey(scrollRequest.day)}"]`,
+            );
+            if (row) {
+                list.scrollTo({
+                    top:
+                        row.getBoundingClientRect().top -
+                        list.getBoundingClientRect().top +
+                        list.scrollTop -
+                        1,
+                    behavior: "instant",
+                });
+            }
         }
 
-        if (
-            selectedTime !== null &&
-            selectedDate &&
-            !isSlotAvailable(selectedDate, selectedTime)
-        ) {
-            setSelectedTime(null);
+        if (scrollRequest.focusDate && scrollRequest.day !== null) {
+            datesRef.current
+                ?.querySelector<HTMLElement>(`[data-date="${dayKey(scrollRequest.day)}"]`)
+                ?.focus({ preventScroll: true });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedDate, selectedTime, todayValue, nowInZone.minutes, timeZone]);
+    }, [scrollRequest]);
 
-    const calendarCells = useMemo<CalendarCell[]>(() => {
-        if (calendarView === "week") {
-            const weekStart = startOfWeek(anchorDate);
+    const isSelectedSlotValid = selectedTime !== null;
 
-            return Array.from({ length: 7 }, (_, index) => {
-                const date = addDays(weekStart, index);
-                return {
-                    key: toLocalDateValue(date),
-                    label: date.toLocaleDateString("en-US", { weekday: "short" }),
-                    date: date.getDate(),
-                    value: toLocalDateValue(date),
-                    inCurrentMonth: true,
-                };
-            });
+    const errors = useMemo<FieldErrors>(() => {
+        const next = validateFields(form);
+        if (!isSelectedSlotValid) {
+            next.slot = "Choose a preferred time to review your call details.";
         }
+        return next;
+    }, [form, isSelectedSlotValid]);
 
-        const monthStart = new Date(anchorDate.getFullYear(), anchorDate.getMonth(), 1);
-        const gridStart = startOfWeek(monthStart);
+    const isFormValid = Object.keys(errors).length === 0;
 
-        return Array.from({ length: 42 }, (_, index) => {
-            const date = addDays(gridStart, index);
-            return {
-                key: toLocalDateValue(date),
-                label: date.toLocaleDateString("en-US", { weekday: "short" }),
-                date: date.getDate(),
-                value: toLocalDateValue(date),
-                inCurrentMonth: date.getMonth() === anchorDate.getMonth(),
-            };
-        });
-    }, [anchorDate, calendarView]);
+    const visibleError = (field: FieldName | "slot") =>
+        field === "slot"
+            ? submitAttempted
+                ? errors.slot
+                : undefined
+            : submitAttempted || touched[field]
+              ? errors[field]
+              : undefined;
 
-    const selectedDateLabel = useMemo(() => {
-        if (!selectedDate) return "";
-        return fromLocalDateValue(selectedDate).toLocaleDateString("en-US", {
-            weekday: "short",
-            month: "short",
-            day: "numeric",
-        });
-    }, [selectedDate]);
+    const fieldA11y = (field: FieldName) => {
+        const message = visibleError(field);
+        return {
+            "aria-invalid": message ? true : undefined,
+            "aria-describedby": message ? `discovery-${field}-error` : undefined,
+            onBlur: () => setTouched((current) => ({ ...current, [field]: true })),
+        } as const;
+    };
 
-    const headingLabel = useMemo(
-        () =>
-            anchorDate.toLocaleDateString("en-US", {
-                month: "long",
-                year: "numeric",
-            }),
-        [anchorDate],
-    );
+    const renderFieldError = (field: FieldName) => {
+        const message = visibleError(field);
+        return message ? (
+            <span id={`discovery-${field}-error`} className="discovery-field-error">
+                {message}
+            </span>
+        ) : null;
+    };
 
-    const isEmailValid = /^\S+@\S+\.\S+$/.test(form.email.trim());
-    const isFormValid = Boolean(
-        form.fullName.trim() &&
-            isEmailValid &&
-            form.company.trim() &&
-            form.companySize &&
-            form.focus &&
-            selectedDate &&
-            selectedTime !== null &&
-            isSlotAvailable(selectedDate, selectedTime),
-    );
-
-    const updateField = (field: keyof FormValues, value: string) => {
+    const updateField = (field: FieldName, value: string) => {
         setForm((current) => ({
             ...current,
             [field]: value,
         }));
     };
 
-    const selectDate = (value: string) => {
-        if (isDateBefore(value, todayValue)) return;
+    const chooseDay = (day: number, focusDate = false, source: Schedule = schedule) => {
+        const next = clampDay(day, source);
+        setSelectedDay(next);
+        setCursor(next);
+        if (selectedTimeDay !== null && selectedTimeDay !== next) setPickedTime(null);
+        setScrollRequest({ day: next, focusDate });
+    };
 
-        const next = fromLocalDateValue(value);
-        setSelectedDate(value);
-        setSelectedTime(null);
-
-        // If an adjacent-month day is clicked in month view, move the heading too.
-        if (
-            calendarView === "month" &&
-            (next.getMonth() !== anchorDate.getMonth() ||
-                next.getFullYear() !== anchorDate.getFullYear())
-        ) {
-            setAnchorDate(new Date(next.getFullYear(), next.getMonth(), 1));
-        }
+    const changePage = (direction: 1 | -1) => {
+        if ((direction < 0 && !canGoPrevious) || (direction > 0 && !canGoNext)) return;
+        setCursor(
+            clampDay(
+                calendarView === "week"
+                    ? cursor + direction * 7 * DAY
+                    : shiftMonth(cursor, direction),
+                schedule,
+            ),
+        );
+        setScrollRequest({ day: null, focusDate: false });
     };
 
     const goToToday = () => {
-        setAnchorDate(todayDate);
-        setSelectedDate(todayValue);
-        setSelectedTime(null);
+        const fresh = Date.now();
+        const freshSchedule = buildSchedule(fresh, timeZone);
+        setNow(fresh);
+        chooseDay(freshSchedule.today, false, freshSchedule);
     };
 
-    const goPrevious = () => {
-        if (!canGoPrevious) return;
-        setAnchorDate((current) =>
-            calendarView === "week" ? addDays(current, -7) : addMonths(current, -1),
-        );
-        setSelectedTime(null);
+    const changeZone = (zone: string) => {
+        const fresh = Date.now();
+        const freshSchedule = buildSchedule(fresh, zone);
+        const day =
+            selectedTime !== null
+                ? calendarDay(selectedTime, zone)
+                : clampDay(selectedDay, freshSchedule);
+        setNow(fresh);
+        setTimeZone(zone);
+        setSelectedDay(day);
+        setCursor(day);
+        setScrollRequest({ day, focusDate: false });
     };
 
-    const goNext = () => {
-        setAnchorDate((current) =>
-            calendarView === "week" ? addDays(current, 7) : addMonths(current, 1),
-        );
-        setSelectedTime(null);
+    const selectSlot = (instant: number, day: number) => {
+        setPickedTime(instant);
+        setSelectedDay(day);
+        setCursor(day);
+    };
+
+    const handleDatesKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        const target = (event.target as HTMLElement).closest<HTMLElement>("[data-date]");
+        if (!target?.dataset.date || event.altKey || event.ctrlKey || event.metaKey)
+            return;
+
+        const day = Date.parse(target.dataset.date);
+        const destinations: Record<string, number> = {
+            ArrowLeft: day - DAY,
+            ArrowRight: day + DAY,
+            ArrowUp: day - 7 * DAY,
+            ArrowDown: day + 7 * DAY,
+            Home: weekStart(day),
+            End: weekStart(day) + 6 * DAY,
+            PageUp: shiftMonth(day, -1),
+            PageDown: shiftMonth(day, 1),
+        };
+        if (!(event.key in destinations)) return;
+
+        event.preventDefault();
+        chooseDay(destinations[event.key], true);
+    };
+
+    const handleDatesPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+        gestureRef.current =
+            event.pointerType !== "mouse" ? { x: event.clientX, y: event.clientY } : null;
+        swipedRef.current = false;
+    };
+
+    const handleDatesPointerUp = (event: PointerEvent<HTMLDivElement>) => {
+        const gesture = gestureRef.current;
+        if (!gesture) return;
+        gestureRef.current = null;
+
+        const dx = event.clientX - gesture.x;
+        const dy = event.clientY - gesture.y;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            swipedRef.current = true;
+            // Let the browser finish the touch sequence before replacing its target.
+            requestAnimationFrame(() => changePage(dx < 0 ? 1 : -1));
+        }
+    };
+
+    const handleDatesClickCapture = (event: MouseEvent<HTMLDivElement>) => {
+        if (!swipedRef.current) return;
+        event.preventDefault();
+        event.stopPropagation();
+        swipedRef.current = false;
     };
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
-        if (!isFormValid) return;
+        setSubmitAttempted(true);
 
+        if (!isFormValid) {
+            const firstInvalid = VALIDATED_FIELDS.find((field) => errors[field]);
+            if (firstInvalid) {
+                const element = formRef.current?.elements.namedItem(firstInvalid);
+                if (element instanceof HTMLElement) element.focus();
+            } else {
+                slotListRef.current?.querySelector("button")?.focus();
+            }
+            return;
+        }
+
+        returnFocusRef.current = document.activeElement as HTMLElement | null;
         setSubmitState("idle");
         setSubmitMessage("");
         setShowReview(true);
     };
 
-    const resetForm = () => {
-        setForm({
-            fullName: "",
-            email: "",
-            company: "",
-            companySize: "",
-            role: "",
-            website: "",
-            focus: "",
-            brief: "",
-        });
-        setSelectedDate(todayValue);
-        setSelectedTime(null);
-        setAnchorDate(todayDate);
+    const resetForm = (fresh: number) => {
+        const freshSchedule = buildSchedule(fresh, browserTimeZone);
+        const day = firstSlotDay(freshSchedule, browserTimeZone);
+
+        setForm(EMPTY_FORM);
+        setTouched({});
+        setSubmitAttempted(false);
+        setNow(fresh);
         setTimeZone(browserTimeZone);
+        setSelectedDay(day);
+        setCursor(day);
+        setPickedTime(null);
+        setSubmitMessage("");
+    };
+
+    const closeReview = (focusTarget: HTMLElement | null = returnFocusRef.current) => {
+        if (submitState === "submitting") return;
+        focusAfterCloseRef.current = focusTarget;
+        setShowReview(false);
         setSubmitState("idle");
         setSubmitMessage("");
     };
 
+    const editDetails = () => {
+        const fullName = formRef.current?.elements.namedItem("fullName");
+        closeReview(fullName instanceof HTMLElement ? fullName : null);
+    };
+
+    const selectedDateLabel =
+        selectedTimeDay !== null
+            ? formatDay(selectedTimeDay, {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+              })
+            : "";
+    const selectedTimeLabel =
+        selectedTime !== null ? formatSlotRange(selectedTime, timeZone, clockFormat) : "";
+
     const handleConfirmBooking = async () => {
-        if (!isFormValid || selectedTime === null) return;
+        if (submitState === "submitting") return;
+
+        if (!isFormValid || selectedTime === null || selectedTimeDay === null) {
+            setSubmitState("error");
+            setSubmitMessage(
+                errors.slot
+                    ? "That time is no longer available. Please edit your details and pick another slot."
+                    : "Some details need attention. Please edit your details and try again.",
+            );
+            return;
+        }
 
         setSubmitState("submitting");
         setSubmitMessage("");
 
-        const timeLabel = formatTime(selectedTime, clockFormat);
+        const trimmed = Object.fromEntries(
+            Object.entries(form).map(([key, value]) => [key, value.trim()]),
+        ) as FormValues;
 
         try {
             await sendDiscoveryCallEmail({
-                ...form,
-                date: selectedDate,
+                ...trimmed,
+                date: dayKey(selectedTimeDay),
                 dateLabel: selectedDateLabel,
-                time: timeLabel,
+                time: selectedTimeLabel,
                 timeZone,
-                durationMinutes: 30,
+                durationMinutes: SCHEDULE.duration,
             });
             trackDiscoverySubmit();
 
             setConfirmedSummary({
-                name: form.fullName.trim(),
+                name: trimmed.fullName,
                 dateLabel: selectedDateLabel,
-                time: timeLabel,
-                timeZone,
+                time: selectedTimeLabel,
+                timeZone: zoneLabel(timeZone),
             });
             setShowReview(false);
             setShowSuccess(true);
             setSubmitState("success");
-            resetForm();
+            resetForm(currentTime());
         } catch (error) {
             setSubmitState("error");
             setSubmitMessage(
@@ -389,14 +459,60 @@ const DiscoveryCallSection = () => {
     };
 
     const closeSuccess = () => {
+        focusAfterCloseRef.current = returnFocusRef.current;
         setShowSuccess(false);
         setConfirmedSummary(null);
         setSubmitState("idle");
     };
 
+    const isSuccessOpen = showSuccess && confirmedSummary !== null;
+
+    useEffect(() => {
+        const review = reviewDialogRef.current;
+        const success = successDialogRef.current;
+
+        if (review && showReview && !review.open) review.showModal();
+        if (review && !showReview && review.open) review.close();
+        if (success && isSuccessOpen && !success.open) success.showModal();
+        if (success && !isSuccessOpen && success.open) success.close();
+
+        if (!showReview && !isSuccessOpen && focusAfterCloseRef.current) {
+            focusAfterCloseRef.current.focus();
+            focusAfterCloseRef.current = null;
+        }
+
+        document.documentElement.classList.toggle(
+            "discovery-review-open",
+            showReview || isSuccessOpen,
+        );
+    }, [showReview, isSuccessOpen]);
+
+    useEffect(
+        () => () => document.documentElement.classList.remove("discovery-review-open"),
+        [],
+    );
+
+    const reviewEntries = [
+        ["Date", selectedDateLabel],
+        ["Time", selectedTimeLabel && `${selectedTimeLabel} (${zoneLabel(timeZone)})`],
+        ["Name", form.fullName.trim()],
+        ["Work email", form.email.trim()],
+        ["Company", form.company.trim()],
+        ["Company size", form.companySize],
+        ["Role", form.role.trim()],
+        ["Website", form.website.trim()],
+        ["Focus", form.focus],
+        ["Your brief", form.brief.trim()],
+    ].filter(([, value]) => value);
+
     const selectedTimeSummary =
-        selectedTime !== null
-            ? `${selectedDateLabel} · ${formatTime(selectedTime, clockFormat)} · ${timeZone}`
+        selectedTime !== null && selectedTimeDay !== null
+            ? `Preferred: ${formatDay(selectedTimeDay, {
+                  weekday: "short",
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+              })} · ${selectedTimeLabel} · ${zoneLabel(timeZone)}`
             : "Select a date and time above.";
 
     return (
@@ -423,21 +539,26 @@ const DiscoveryCallSection = () => {
                     </h2>
                     <p className="discovery-description">
                         Tell us what&apos;s slowing your business down—or what you want to
-                        build next.{" "}
-                        <br className="hidden sm:block" />
+                        build next. <br className="hidden sm:block" />
                         Let&apos;s map the opportunity, explore the right approach, and
                         define your next step.
                     </p>
                 </header>
 
-                <form className="discovery-booking" onSubmit={handleSubmit}>
+                <form
+                    ref={formRef}
+                    className="discovery-booking"
+                    onSubmit={handleSubmit}
+                    noValidate
+                >
                     <div className="discovery-details">
                         <div className="discovery-panel-heading">
                             <span className="discovery-step">01</span>
                             <div>
                                 <h3>A Little About Your Business</h3>
                                 <p>
-                                    Give us the context to make our first conversation count.
+                                    Give us the context to make our first conversation
+                                    count.
                                 </p>
                             </div>
                         </div>
@@ -455,7 +576,9 @@ const DiscoveryCallSection = () => {
                                     autoComplete="name"
                                     placeholder="Alex Morgan"
                                     maxLength={100}
+                                    {...fieldA11y("fullName")}
                                 />
+                                {renderFieldError("fullName")}
                             </label>
 
                             <label>
@@ -469,7 +592,9 @@ const DiscoveryCallSection = () => {
                                     autoComplete="email"
                                     placeholder="alex@company.com"
                                     maxLength={254}
+                                    {...fieldA11y("email")}
                                 />
+                                {renderFieldError("email")}
                             </label>
 
                             <label>
@@ -484,7 +609,9 @@ const DiscoveryCallSection = () => {
                                     autoComplete="organization"
                                     placeholder="Your company"
                                     maxLength={160}
+                                    {...fieldA11y("company")}
                                 />
+                                {renderFieldError("company")}
                             </label>
 
                             <label>
@@ -496,6 +623,7 @@ const DiscoveryCallSection = () => {
                                         updateField("companySize", e.target.value)
                                     }
                                     name="companySize"
+                                    {...fieldA11y("companySize")}
                                 >
                                     <option value="">Select team size</option>
                                     <option>1–10 people</option>
@@ -505,6 +633,7 @@ const DiscoveryCallSection = () => {
                                     <option>501–1,000 people</option>
                                     <option>1,000+ people</option>
                                 </select>
+                                {renderFieldError("companySize")}
                             </label>
 
                             <label>
@@ -531,7 +660,9 @@ const DiscoveryCallSection = () => {
                                     autoComplete="url"
                                     placeholder="company.com"
                                     maxLength={250}
+                                    {...fieldA11y("website")}
                                 />
+                                {renderFieldError("website")}
                             </label>
 
                             <label className="discovery-field-wide">
@@ -541,15 +672,19 @@ const DiscoveryCallSection = () => {
                                     value={form.focus}
                                     onChange={(e) => updateField("focus", e.target.value)}
                                     name="focus"
+                                    {...fieldA11y("focus")}
                                 >
                                     <option value="">Choose your starting point</option>
                                     <option>Shape an idea and build a plan</option>
                                     <option>Build a website, mobile or web app</option>
                                     <option>Review our technology and delivery</option>
-                                    <option>Digitize and connect enterprise systems</option>
+                                    <option>
+                                        Digitize and connect enterprise systems
+                                    </option>
                                     <option>Apply AI or automate workflows</option>
                                     <option>Help me find the right approach</option>
                                 </select>
+                                {renderFieldError("focus")}
                             </label>
 
                             <label className="discovery-field-wide">
@@ -567,7 +702,8 @@ const DiscoveryCallSection = () => {
                         </div>
 
                         <p className="discovery-form-note">
-                            A focused conversation about your business. No preparation needed.
+                            A focused conversation about your business. No preparation
+                            needed.
                             <br />
                             <span>Fields marked * are required.</span>
                         </p>
@@ -620,16 +756,22 @@ const DiscoveryCallSection = () => {
                             </div>
 
                             <div className="discovery-calendar-heading">
-                                <h4 id="discovery-month">{headingLabel}</h4>
+                                <h4 id="discovery-month">
+                                    {rangeHeading(rangeStart, rangeEnd)}
+                                </h4>
                                 <div>
                                     <button
                                         type="button"
-                                        className="discovery-nav"
-                                        onClick={goPrevious}
+                                        className="discovery-nav discovery-date-prev"
+                                        onClick={() => changePage(-1)}
                                         disabled={!canGoPrevious}
                                         aria-label={`Previous ${calendarView}`}
                                     >
-                                        <svg viewBox="0 0 24 24" fill="none">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            aria-hidden="true"
+                                        >
                                             <path
                                                 d="m14 6-6 6 6 6"
                                                 stroke="currentColor"
@@ -641,11 +783,16 @@ const DiscoveryCallSection = () => {
                                     </button>
                                     <button
                                         type="button"
-                                        className="discovery-nav"
-                                        onClick={goNext}
+                                        className="discovery-nav discovery-date-next"
+                                        onClick={() => changePage(1)}
+                                        disabled={!canGoNext}
                                         aria-label={`Next ${calendarView}`}
                                     >
-                                        <svg viewBox="0 0 24 24" fill="none">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            aria-hidden="true"
+                                        >
                                             <path
                                                 d="m10 6 6 6-6 6"
                                                 stroke="currentColor"
@@ -658,68 +805,82 @@ const DiscoveryCallSection = () => {
                                 </div>
                             </div>
 
-                            {calendarView === "month" && (
-                                <div className="discovery-dates is-month">
-                                    {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
-                                        (label) => (
-                                            <span key={label} className="discovery-weekday">
-                                                {label}
-                                            </span>
-                                        ),
-                                    )}
-                                </div>
-                            )}
-
                             <div
+                                ref={datesRef}
                                 className={`discovery-dates${
                                     calendarView === "month" ? " is-month" : ""
                                 }`}
                                 role="group"
                                 aria-labelledby="discovery-month"
+                                onKeyDown={handleDatesKeyDown}
+                                onPointerDown={handleDatesPointerDown}
+                                onPointerUp={handleDatesPointerUp}
+                                onPointerCancel={() => {
+                                    gestureRef.current = null;
+                                }}
+                                onClickCapture={handleDatesClickCapture}
                             >
-                                {calendarCells.map((day) => {
-                                    const selected = selectedDate === day.value;
-                                    const isToday = day.value === todayValue;
-                                    const isPast = isDateBefore(day.value, todayValue);
-
-                                    return (
-                                        <button
-                                            key={day.key}
-                                            type="button"
-                                            className="discovery-date"
-                                            onClick={() => selectDate(day.value)}
-                                            disabled={isPast}
-                                            aria-pressed={selected}
-                                            aria-current={isToday ? "date" : undefined}
-                                            style={
-                                                !day.inCurrentMonth &&
-                                                calendarView === "month"
-                                                    ? { opacity: 0.35 }
-                                                    : undefined
-                                            }
+                                {calendarView === "month" &&
+                                    WEEKDAY_LABELS.map((name) => (
+                                        <span
+                                            key={name}
+                                            className="discovery-weekday"
+                                            aria-hidden="true"
                                         >
-                                            {calendarView === "week" && (
-                                                <small>{day.label}</small>
-                                            )}
-                                            {day.date}
-                                        </button>
-                                    );
-                                })}
+                                            {name}
+                                        </span>
+                                    ))}
+                                {Array.from({ length: leadingBlanks }, (_, index) => (
+                                    <span
+                                        key={`empty-${index}`}
+                                        className="discovery-empty-date"
+                                        aria-hidden="true"
+                                    />
+                                ))}
+                                {calendarDays.map((day) => (
+                                    <button
+                                        key={day}
+                                        type="button"
+                                        className="discovery-date"
+                                        data-date={dayKey(day)}
+                                        disabled={
+                                            day < schedule.today || day > schedule.lastDay
+                                        }
+                                        tabIndex={day === focusableDay ? 0 : -1}
+                                        aria-pressed={day === selectedDay}
+                                        aria-label={formatDay(day, {
+                                            weekday: "long",
+                                            month: "long",
+                                            day: "numeric",
+                                            year: "numeric",
+                                        })}
+                                        aria-current={
+                                            day === schedule.today ? "date" : undefined
+                                        }
+                                        onClick={() => chooseDay(day, true)}
+                                    >
+                                        {calendarView === "week" && (
+                                            <small>
+                                                {formatDay(day, { weekday: "short" })}
+                                            </small>
+                                        )}
+                                        {new Date(day).getUTCDate()}
+                                    </button>
+                                ))}
                             </div>
 
                             <div className="discovery-schedule-options">
                                 <label>
                                     Time zone
                                     <select
+                                        id="discovery-zone"
+                                        name="timeZone"
                                         value={timeZone}
-                                        onChange={(e) => {
-                                            setTimeZone(e.target.value);
-                                            setSelectedTime(null);
-                                        }}
+                                        onChange={(e) => changeZone(e.target.value)}
                                     >
                                         {timeZones.map((zone) => (
                                             <option key={zone} value={zone}>
-                                                {zone}
+                                                {zoneOptionLabel(zone)}
                                             </option>
                                         ))}
                                     </select>
@@ -752,57 +913,118 @@ const DiscoveryCallSection = () => {
                             </p>
 
                             <div className="discovery-slots-header">
-                                <h4 id="discovery-slot-range">{selectedDateLabel}</h4>
-                                <span>30 min</span>
+                                <h4 id="discovery-slot-range">
+                                    {`${formatDay(slotWeekStart, {
+                                        month: "short",
+                                        day: "numeric",
+                                    })} – ${formatDay(slotWeekStart + 6 * DAY, {
+                                        month: "short",
+                                        day: "numeric",
+                                    })}`}
+                                </h4>
+                                <span>{SCHEDULE.duration} min</span>
                             </div>
 
                             <div
+                                ref={slotListRef}
                                 className="discovery-slot-list"
+                                tabIndex={0}
                                 role="group"
                                 aria-labelledby="discovery-slot-range"
+                                aria-describedby={
+                                    visibleError("slot")
+                                        ? "discovery-slot-error"
+                                        : undefined
+                                }
                             >
-                                <div className="discovery-slot-buttons discovery-slot-buttons--stack">
-                                    {TIME_SLOT_MINUTES.map((slot) => {
-                                        const available = isSlotAvailable(
-                                            selectedDate,
-                                            slot,
-                                        );
+                                {slotDays.map((day) => {
+                                    const times = schedule.byDay.get(day) ?? [];
 
-                                        return (
-                                            <button
-                                                key={slot}
-                                                type="button"
-                                                className="discovery-slot"
-                                                onClick={() => setSelectedTime(slot)}
-                                                disabled={!available}
-                                                aria-pressed={selectedTime === slot}
-                                            >
-                                                <span>
-                                                    {formatTime(slot, clockFormat)}
-                                                </span>
-                                                <span>
-                                                    {available ? "30 min" : "Unavailable"}
-                                                </span>
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                                {availableSlots.length === 0 && (
-                                    <p className="discovery-no-slots">
-                                        No open times left for this day — pick another
-                                        date.
-                                    </p>
-                                )}
+                                    return (
+                                        <div
+                                            key={day}
+                                            className="discovery-slot-day"
+                                            data-day={dayKey(day)}
+                                        >
+                                            <h5>
+                                                {`${
+                                                    day === schedule.today
+                                                        ? "Today"
+                                                        : formatDay(day, {
+                                                              weekday: "short",
+                                                          })
+                                                }, ${formatDay(day, {
+                                                    month: "short",
+                                                    day: "numeric",
+                                                })}`}
+                                            </h5>
+                                            {times.length ? (
+                                                <div className="discovery-slot-buttons">
+                                                    {times.map((instant) => {
+                                                        const time = formatSlotTime(
+                                                            instant,
+                                                            timeZone,
+                                                            clockFormat,
+                                                        );
+                                                        return (
+                                                            <button
+                                                                key={instant}
+                                                                type="button"
+                                                                className="discovery-slot"
+                                                                aria-pressed={
+                                                                    instant ===
+                                                                    selectedTime
+                                                                }
+                                                                aria-label={`${formatDay(
+                                                                    day,
+                                                                    {
+                                                                        weekday: "long",
+                                                                        month: "long",
+                                                                        day: "numeric",
+                                                                    },
+                                                                )}, ${time}, ${timeZone}`}
+                                                                onClick={() =>
+                                                                    selectSlot(
+                                                                        instant,
+                                                                        day,
+                                                                    )
+                                                                }
+                                                            >
+                                                                {time}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            ) : (
+                                                <p className="discovery-no-slots">
+                                                    {day < schedule.today
+                                                        ? "Date has passed"
+                                                        : "No available times on this day"}
+                                                </p>
+                                            )}
+                                        </div>
+                                    );
+                                })}
                             </div>
 
                             <div className="discovery-selected" aria-live="polite">
                                 {selectedTimeSummary}
                             </div>
 
+                            {visibleError("slot") && (
+                                <p
+                                    id="discovery-slot-error"
+                                    className="discovery-error"
+                                    role="alert"
+                                >
+                                    {visibleError("slot")}
+                                </p>
+                            )}
+
                             <button
                                 type="submit"
                                 className="discovery-submit"
-                                disabled={!isFormValid}
+                                aria-disabled={submitAttempted && !isFormValid}
                             >
                                 <span>Review Call Details</span>
                                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -818,151 +1040,125 @@ const DiscoveryCallSection = () => {
                         </div>
                     </div>
                 </form>
-            </section>
 
-            {showReview && (
-                <div className="discovery-review-overlay">
-                    <div
-                        className="discovery-review"
-                        role="dialog"
-                        aria-labelledby="discovery-review-title"
+                <dialog
+                    ref={reviewDialogRef}
+                    className="discovery-review"
+                    aria-labelledby="discovery-review-title"
+                    aria-busy={submitState === "submitting"}
+                    onCancel={(event) => {
+                        event.preventDefault();
+                        closeReview();
+                    }}
+                >
+                    <button
+                        type="button"
+                        className="discovery-review-close"
+                        onClick={() => closeReview()}
+                        disabled={submitState === "submitting"}
+                        aria-label="Close booking review"
                     >
-                        <button
-                            type="button"
-                            className="discovery-review-close"
-                            onClick={() => setShowReview(false)}
-                            aria-label="Close booking review"
-                        >
-                            ×
-                        </button>
-
-                        <p className="discovery-eyebrow">YOUR DISCOVERY CALL</p>
-                        <h3 id="discovery-review-title">A Clear Starting Point</h3>
-                        <p>
-                            Check your preferred time and business details before you send
-                            the request.
-                        </p>
-
-                        <dl className="discovery-review-details">
-                            <dt>Name</dt>
-                            <dd>{form.fullName}</dd>
-                            <dt>Email</dt>
-                            <dd>{form.email}</dd>
-                            <dt>Company</dt>
-                            <dd>{form.company}</dd>
-                            <dt>Date</dt>
-                            <dd>{selectedDateLabel}</dd>
-                            <dt>Time</dt>
-                            <dd>
-                                {selectedTime !== null
-                                    ? formatTime(selectedTime, clockFormat)
-                                    : "—"}
-                            </dd>
-                            <dt>Time zone</dt>
-                            <dd>{timeZone}</dd>
-                        </dl>
-
-                        {submitMessage && submitState === "error" && (
-                            <p className="discovery-error" role="alert">
-                                {submitMessage}
-                            </p>
+                        ×
+                    </button>
+                    <p className="discovery-eyebrow">YOUR DISCOVERY CALL</p>
+                    <h3 id="discovery-review-title">A Clear Starting Point</h3>
+                    <p>Check your preferred time and business details.</p>
+                    <dl className="discovery-review-details">
+                        {reviewEntries.map(([name, value]) => (
+                            <Fragment key={name}>
+                                <dt>{name}</dt>
+                                <dd>{value}</dd>
+                            </Fragment>
+                        ))}
+                    </dl>
+                    <div
+                        className="discovery-review-status"
+                        role={submitState === "error" ? "alert" : "status"}
+                    >
+                        {submitState === "error" ? (
+                            <>
+                                <strong>Your request was not sent.</strong>
+                                <p>{submitMessage}</p>
+                            </>
+                        ) : submitState === "submitting" ? (
+                            <>
+                                <strong>Sending your request…</strong>
+                                <p>Please keep this window open for a moment.</p>
+                            </>
+                        ) : (
+                            <>
+                                <strong>Nothing is sent until you confirm.</strong>
+                                <p>We&apos;ll follow up by email to confirm this time.</p>
+                            </>
                         )}
-
-                        <div className="discovery-review-actions">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setShowReview(false);
-                                    setSubmitState("idle");
-                                    setSubmitMessage("");
-                                }}
-                            >
-                                Edit Details
-                            </button>
-
-                            <button
-                                type="button"
-                                className="discovery-review-confirm"
-                                onClick={handleConfirmBooking}
-                                disabled={submitState === "submitting"}
-                            >
-                                {submitState === "submitting"
-                                    ? "Sending request…"
-                                    : "Confirm Discovery Call"}
-                            </button>
-                        </div>
                     </div>
-                </div>
-            )}
-
-            {showSuccess && confirmedSummary && (
-                <div className="discovery-review-overlay">
-                    <div
-                        className="discovery-review"
-                        role="dialog"
-                        aria-modal="true"
-                        aria-labelledby="discovery-success-title"
-                    >
+                    <div className="discovery-review-actions">
+                        <button
+                            className="discovery-edit"
+                            type="button"
+                            onClick={editDetails}
+                            disabled={submitState === "submitting"}
+                        >
+                            Edit Details
+                        </button>
                         <button
                             type="button"
-                            className="discovery-review-close"
-                            onClick={closeSuccess}
-                            aria-label="Close success message"
+                            onClick={handleConfirmBooking}
+                            disabled={submitState === "submitting"}
                         >
-                            ×
-                        </button>
-
-                        <div className="discovery-success-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-                                <path
-                                    d="M5 12.5 9.5 17 19 7.5"
-                                    stroke="currentColor"
-                                    strokeWidth="1.8"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        </div>
-
-                        <p className="discovery-eyebrow">Request Received</p>
-                        <h3 id="discovery-success-title">We&apos;ll Confirm Your Time</h3>
-                        <p>
-                            Thanks
-                            {confirmedSummary.name
-                                ? `, ${confirmedSummary.name.split(" ")[0]}`
-                                : ""}
-                            . We received your preferred slot and will follow up by email
-                            to confirm your discovery call.
-                        </p>
-
-                        <dl className="discovery-review-details">
-                            <dt>Date</dt>
-                            <dd>{confirmedSummary.dateLabel}</dd>
-                            <dt>Time</dt>
-                            <dd>{confirmedSummary.time}</dd>
-                            <dt>Time zone</dt>
-                            <dd>{confirmedSummary.timeZone}</dd>
-                        </dl>
-
-                        <button
-                            type="button"
-                            className="discovery-submit"
-                            onClick={closeSuccess}
-                        >
-                            <span>Done</span>
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <path
-                                    d="M4 12h15m-6-6 6 6-6 6"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
+                            {submitState === "submitting"
+                                ? "Sending Request…"
+                                : "Confirm Discovery Call"}
                         </button>
                     </div>
-                </div>
-            )}
+                </dialog>
+
+                <dialog
+                    ref={successDialogRef}
+                    className="discovery-review"
+                    aria-labelledby="discovery-success-title"
+                    onCancel={(event) => {
+                        event.preventDefault();
+                        closeSuccess();
+                    }}
+                >
+                    {confirmedSummary && (
+                        <>
+                            <button
+                                type="button"
+                                className="discovery-review-close"
+                                onClick={closeSuccess}
+                                aria-label="Close success message"
+                            >
+                                ×
+                            </button>
+                            <p className="discovery-eyebrow">REQUEST RECEIVED</p>
+                            <h3 id="discovery-success-title">
+                                We&apos;ll Confirm Your Time
+                            </h3>
+                            <p>
+                                Thanks
+                                {confirmedSummary.name
+                                    ? `, ${confirmedSummary.name.split(/\s+/)[0]}`
+                                    : ""}
+                                . We received your preferred slot and will follow up by
+                                email to confirm your discovery call.
+                            </p>
+                            <dl className="discovery-review-details">
+                                <dt>Date</dt>
+                                <dd>{confirmedSummary.dateLabel}</dd>
+                                <dt>Time</dt>
+                                <dd>{`${confirmedSummary.time} (${confirmedSummary.timeZone})`}</dd>
+                            </dl>
+                            <div className="discovery-review-actions">
+                                <button type="button" onClick={closeSuccess}>
+                                    Done
+                                </button>
+                            </div>
+                        </>
+                    )}
+                </dialog>
+            </section>
         </>
     );
 };

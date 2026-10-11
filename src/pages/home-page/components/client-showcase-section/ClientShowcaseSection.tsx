@@ -8,6 +8,7 @@ import olmoLogo from "@/assets/clients/olmo.svg";
 import dekkoIshoLogo from "@/assets/clients/dekko-isho.svg";
 import evoLogo from "@/assets/clients/evo.svg";
 import polysignalsLogo from "@/assets/clients/polysignals.svg";
+import zatiqLogo from "@/assets/clients/zatiq.svg";
 
 type Client = {
     name: string;
@@ -92,6 +93,14 @@ const clients: Client[] = [
         height: 85,
         href: "https://polysignals.app",
     },
+    {
+        name: "Zatiq",
+        logo: zatiqLogo,
+        className: "logo-zatiq",
+        width: 109.37,
+        height: 40.64,
+        href: "https://zatiq.com",
+    },
 ];
 
 const ClientShowcaseSection = () => {
@@ -161,7 +170,7 @@ const ClientShowcaseSection = () => {
                 card.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateY(${angle.toFixed(2)}deg)`;
 
                 if (renderedLights[index] !== light) {
-                    card.style.filter = `brightness(${light.toFixed(3)})`;
+                    card.style.setProperty("--recess-shade", (1 - light).toFixed(3));
                     renderedLights[index] = light;
                 }
 
@@ -445,7 +454,7 @@ const ClientShowcaseSection = () => {
         >
             <header className="clients-heading">
                 <p className="clients-eyebrow">
-                    BRANDS WE&apos;VE BUILT WITH
+                    BRANDS WE’VE BUILT WITH
                 </p>
 
                 <h2 id="clients-title">
@@ -490,7 +499,7 @@ const ClientShowcaseSection = () => {
                                     alt=""
                                     width={client.width}
                                     height={client.height}
-                                    loading="lazy"
+                                    loading="eager"
                                     decoding="async"
                                 />
                             </a>

@@ -1,45 +1,87 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { FormEventHandler } from "react";
-import bonotechLogo from "@/assets/bonotech-logo-white.svg";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
 import {
     EmailSendError,
+    isValidEmail,
     subscribeNewsletter,
 } from "@/lib/services/email";
+import { Link, useLocation } from "react-router-dom";
+import { NavAnchor, PAGES_WITH_DISCOVERY } from "@/shared/Navbar";
 import "./footer.css";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SHOW_PORTFOLIO_LINK = false;
+const EMAIL_MAX_LENGTH = 254;
+
+const getEmailError = (value: string): string => {
+    const email = value.trim();
+    if (!email) return "Please enter your email address.";
+    if (email.length > EMAIL_MAX_LENGTH) {
+        return "That email address is too long.";
+    }
+    if (/\s/.test(email)) return "Email addresses can't contain spaces.";
+    const atCount = email.split("@").length - 1;
+    if (atCount === 0) return "Your email address is missing an \"@\".";
+    if (atCount > 1) return "Your email address can only contain one \"@\".";
+    const [local, domain] = email.split("@");
+    if (!local) return "Please add the part before the \"@\".";
+    if (!domain) return "Please add a domain after the \"@\", e.g. name@company.com.";
+    if (
+        !domain.includes(".") ||
+        domain.startsWith(".") ||
+        domain.endsWith(".") ||
+        domain.includes("..")
+    ) {
+        return "Please check the domain, e.g. name@company.com.";
+    }
+    if (!isValidEmail(email)) return "Please enter a valid email address.";
+    return "";
+};
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
+    const { pathname } = useLocation();
+    const isHome = pathname === "/";
+    // From other pages, homepage sections are reached through the homepage URL.
+    const homeSection = (hash: string) => (isHome ? hash : `/${hash}`);
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
         "idle",
     );
     const [message, setMessage] = useState("");
+    const [validationError, setValidationError] = useState("");
+    const emailInputRef = useRef<HTMLInputElement>(null);
+    const submittingRef = useRef(false);
 
-    const isEmailValid = EMAIL_RE.test(email.trim());
-    const canSubmit = isEmailValid && status !== "submitting";
-
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
+    const isSubmitting = status === "submitting";
+    const hasError = Boolean(validationError) || status === "error";
+    const isReady = !isSubmitting && isValidEmail(email);
 
     const handleNewsletterSubmit: FormEventHandler<HTMLFormElement> = async (
         event,
     ) => {
         event.preventDefault();
-        if (!canSubmit) return;
+        if (submittingRef.current) return;
 
+        const trimmed = email.trim();
+        if (trimmed !== email) setEmail(trimmed);
+
+        const error = getEmailError(trimmed);
+        if (error) {
+            setValidationError(error);
+            setStatus("idle");
+            setMessage("");
+            emailInputRef.current?.focus();
+            return;
+        }
+
+        submittingRef.current = true;
+        setValidationError("");
         setStatus("submitting");
         setMessage("");
 
         try {
-            const result = await subscribeNewsletter(email);
+            const result = await subscribeNewsletter(trimmed);
             trackNewsletterSubscribe();
             setStatus("success");
             setMessage(
@@ -55,6 +97,9 @@ const Footer = () => {
                     ? error.message
                     : "Could not subscribe right now. Please try again.",
             );
+            emailInputRef.current?.focus();
+        } finally {
+            submittingRef.current = false;
         }
     };
 
@@ -65,13 +110,13 @@ const Footer = () => {
             <div className="footer-panel">
                 <div className="footer-main">
                     <div className="footer-brand">
-                        <a
+                        <NavAnchor
                             className="footer-brand-link"
-                            href="#home"
+                            href={isHome ? "#home" : "/"}
                             aria-label="Bonotech — back to home"
                         >
-                            <img src={bonotechLogo} alt="Bonotech" />
-                        </a>
+                            <span className="footer-logo" aria-hidden="true" />
+                        </NavAnchor>
                         <p>
                             Building innovative digital products that help businesses
                             transition into the age of AI.
@@ -87,19 +132,22 @@ const Footer = () => {
                         </h2>
                         <ul>
                             <li>
-                                <a href="#about-bonotech">About Bonotech</a>
+                                <NavAnchor href={homeSection("#about-bonotech")}>About Bonotech</NavAnchor>
                             </li>
                             <li>
-                                <a href="#ways-in">Our Service Scope</a>
+                                <Link to="/portfolio">Portfolio</Link>
                             </li>
                             <li>
-                                <a href="#delivery-times">Average Delivery Times</a>
+                                <NavAnchor href={homeSection("#ways-in")}>Our Service Scope</NavAnchor>
                             </li>
                             <li>
-                                <a href="#our-technology">Our Technology</a>
+                                <NavAnchor href={homeSection("#delivery-times")}>Average Delivery Times</NavAnchor>
                             </li>
                             <li>
-                                <a href="#client-testimonials">Client Testimonials</a>
+                                <NavAnchor href={homeSection("#our-technology")}>Our Technology</NavAnchor>
+                            </li>
+                            <li>
+                                <NavAnchor href={homeSection("#client-testimonials")}>Client Testimonials</NavAnchor>
                             </li>
                             {SHOW_PORTFOLIO_LINK ? (
                                 <li>
@@ -112,13 +160,17 @@ const Footer = () => {
                                 </li>
                             ) : null}
                             <li>
-                                <a
+                                <NavAnchor
                                     className="footer-discovery-link"
-                                    href="#discovery-call"
+                                    href={
+                                        PAGES_WITH_DISCOVERY.has(pathname)
+                                            ? "#discovery-call"
+                                            : "/#discovery-call"
+                                    }
                                 >
                                     Book a Discovery Call{" "}
                                     <span aria-hidden="true">↗</span>
-                                </a>
+                                </NavAnchor>
                             </li>
                         </ul>
                     </nav>
@@ -162,31 +214,61 @@ const Footer = () => {
                             <label htmlFor="footer-newsletter-email">
                                 Email address
                             </label>
-                            <div className="footer-newsletter-field">
+                            <div
+                                className={`footer-newsletter-field${
+                                    hasError ? " is-error" : ""
+                                }`}
+                            >
                                 <input
+                                    ref={emailInputRef}
                                     id="footer-newsletter-email"
                                     type="email"
                                     name="newsletterEmail"
+                                    inputMode="email"
                                     autoComplete="email"
+                                    autoCapitalize="off"
+                                    spellCheck={false}
                                     placeholder="Your email address"
                                     aria-describedby="footer-newsletter-note"
-                                    aria-invalid={status === "error"}
-                                    maxLength={254}
+                                    aria-invalid={hasError}
+                                    aria-errormessage={
+                                        hasError ? "footer-newsletter-note" : undefined
+                                    }
+                                    maxLength={EMAIL_MAX_LENGTH}
                                     value={email}
                                     onChange={(event) => {
-                                        setEmail(event.target.value);
+                                        const next = event.target.value;
+                                        setEmail(next);
+                                        if (validationError) {
+                                            setValidationError(getEmailError(next));
+                                        }
                                         if (status !== "idle") {
                                             setStatus("idle");
                                             setMessage("");
                                         }
                                     }}
-                                    disabled={status === "submitting"}
+                                    onBlur={() => {
+                                        if (isSubmitting) return;
+                                        const trimmed = email.trim();
+                                        if (trimmed !== email) setEmail(trimmed);
+                                        if (trimmed) {
+                                            setValidationError(getEmailError(trimmed));
+                                        }
+                                    }}
+                                    readOnly={isSubmitting}
+                                    aria-busy={isSubmitting}
                                     required
                                 />
                                 <button
                                     type="submit"
-                                    aria-label="Subscribe to the newsletter"
-                                    disabled={!canSubmit}
+                                    aria-label={
+                                        isSubmitting
+                                            ? "Subscribing to the newsletter"
+                                            : "Subscribe to the newsletter"
+                                    }
+                                    aria-disabled={isSubmitting}
+                                    data-ready={isReady}
+                                    data-submitting={isSubmitting}
                                 >
                                     <svg
                                         viewBox="0 0 24 24"
@@ -208,14 +290,18 @@ const Footer = () => {
                                 className={`footer-newsletter-note${
                                     status === "success"
                                         ? " is-success"
-                                        : status === "error"
+                                        : hasError
                                           ? " is-error"
                                           : ""
                                 }`}
                                 aria-live="polite"
+                                aria-atomic="true"
                             >
-                                {message ||
-                                    "No spam — just useful updates when we have them."}
+                                {validationError ||
+                                    message ||
+                                    (isSubmitting
+                                        ? "Subscribing…"
+                                        : "No spam — just useful updates when we have them.")}
                             </p>
                         </form>
                     </div>
@@ -227,10 +313,15 @@ const Footer = () => {
                         <span>All rights reserved.</span>
                     </p>
 
-                    <button
-                        type="button"
+                    <a
                         className="footer-top-link"
-                        onClick={scrollToTop}
+                        href={
+                            pathname === "/portfolio"
+                                ? "#portfolio"
+                                : pathname === "/"
+                                  ? "#home"
+                                  : "#main-content"
+                        }
                         aria-label="Back to top"
                     >
                         <span>Back to Top</span>
@@ -243,7 +334,7 @@ const Footer = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                    </button>
+                    </a>
 
                     <nav className="footer-socials" aria-label="Follow Bonotech">
                         <a
