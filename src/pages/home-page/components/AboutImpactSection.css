@@ -479,6 +479,9 @@
     font-size: 16px;
     max-width: 42ch;
   }
+  .about-description br {
+    display: none;
+  }
   .about-eyebrow {
     font-size: 12px;
     letter-spacing: 0.1em;

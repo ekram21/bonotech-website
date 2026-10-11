@@ -23,7 +23,9 @@
 .pi-hint{font-size:10px;line-height:1.5;color:#ae95c1;margin:12px 8px 0;padding-top:11px;border-top:1px solid #d5b8eb20}
 .portfolio-index :is(button,a):focus-visible{outline:2px solid #e0caff;outline-offset:3px}
 @keyframes pi-reveal{from{opacity:0;transform:translate(6px,-50%)}to{opacity:1;transform:translate(0,-50%)}}
-@media(max-width:650px){.portfolio-index{right:max(0px,env(safe-area-inset-right))}.pi-toggle{width:28px;min-height:111px;border-radius:14px 0 0 14px;gap:8px;padding-block:9px}.pi-toggle-icon{width:15px;height:15px}.pi-count{display:none}.pi-panel{width:264px;right:calc(100% + 7px);max-width:calc(100vw - 47px)}.pi-copy strong{font-size:13px}.pi-toggle::after{inset:-2px 0 -2px -8px}}
+@keyframes pi-reveal-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* On phones the mid-height rail sits over the reading column, so it becomes a corner button. */
+@media(max-width:650px){.portfolio-index{top:auto;transform:none;right:max(14px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom))}.portfolio-index::before{display:none}.pi-toggle{width:46px;height:46px;min-height:0;padding:0;justify-content:center;border-radius:50%}.pi-toggle-icon{width:18px;height:18px}.pi-rail,.pi-count{display:none}.pi-panel{top:auto;bottom:calc(100% + 10px);right:0;transform:none;width:264px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 120px);animation-name:pi-reveal-up}.pi-copy strong{font-size:13px}.pi-toggle::after{inset:-4px}}
 @media(max-height:450px){.pi-panel{max-height:calc(100dvh - 32px)}}
 @media(prefers-reduced-motion:reduce){.portfolio-index *{animation:none!important;transition:none!important}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.pi-toggle,.pi-panel{background:#281a3bf5}}

@@ -201,7 +201,7 @@ const AboutImpactSection = () => {
                     </span>
                 </h2>
                 <p className="about-description">
-                    A global consulting partner dedicated to building
+                    A global consulting partner dedicated to building{" "}
                     <br />
                     smarter and more adaptive tech.
                 </p>
@@ -258,7 +258,7 @@ const AboutImpactSection = () => {
                                 23<span>+</span>
                             </span>
                             <span className="project-caption">
-                                projects—and that’s just the last{" "}
+                                projects, and that’s just in the last{" "}
                                 <strong>6 months.</strong>
                             </span>
                         </h3>
