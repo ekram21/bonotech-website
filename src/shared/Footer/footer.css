@@ -21,10 +21,11 @@
 .footer-newsletter-title{margin:-3px 0 13px;font-size:24px;line-height:1.15;letter-spacing:-.055em;font-weight:500;color:#f1e2ff}
 .footer-newsletter-description{max-width: 29ch;margin:0 0 18px;font-size:12px;line-height:1.65;letter-spacing:-.015em;color:#c7b5d7}
 .footer-newsletter-form>label{display:block;margin:0 0 8px;font-size:10px;line-height:1.5;color:#c6aed8}
-.footer-newsletter-field{display:flex;gap:7px;align-items:center;padding:4px;border:1px solid #cba9e340;border-radius:var(--card-radius);background:#160b285e;transition:border-color .2s,box-shadow .2s}
-.footer-newsletter-field:focus-within{border-color:#c395ed;box-shadow:0 0 0 3px #b88adb26}
+.footer-newsletter-field{display:flex;gap:7px;align-items:center;padding:4px;border:1px solid #cba9e340;border-radius:var(--card-radius);background:#160b285e;transition:border-color .2s}
+.footer-newsletter-field:focus-within{border-color:#c395ed}
 .footer-newsletter-field.is-error{border-color:#f0b4b4a6}
-.footer-newsletter-field.is-error:focus-within{border-color:#f0b4b4;box-shadow:0 0 0 3px #f0b4b426}
+.footer-newsletter-field.is-error:focus-within{border-color:#f0b4b4}
+.footer-newsletter-field input:focus,.footer-newsletter-field input:focus-visible{outline:none}
 .footer-newsletter-field input{display:block;flex:1;min-width: 0;width:100%;height:37px;padding:0 7px;border:0;outline:0;background:transparent;font:400 11px/1.5 Montserrat,sans-serif;color:#f7edff;letter-spacing:-.02em}
 .footer-newsletter-field input::placeholder{color:#b39ac8;opacity:1}
 .footer-newsletter-field button{flex-shrink:0;display:grid;place-items:center;width:36px;height:36px;padding:9px;border:0;border-radius:4px;background:#c19be920;color:#b89bcd;cursor:pointer;transition:background .2s,color .2s,opacity .2s}

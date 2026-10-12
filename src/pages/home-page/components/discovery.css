@@ -1,4 +1,4 @@
-.discovery{position:relative;isolation:isolate;min-height:100svh;padding:80px var(--edge);background:#12081e;color:#f7f0ff;overflow:hidden}
+.discovery{--discovery-focus:#c9a0f1;position:relative;isolation:isolate;min-height:100svh;padding:80px var(--edge);background:#12081e;color:#f7f0ff;overflow:hidden}
 .portfolio-page .discovery{background:linear-gradient(180deg,#08060c,#12081e 220px)}
 .discovery-atmosphere{position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse at 65% 60%,#7435b863,transparent 70%);mask-image:linear-gradient(transparent,#000 30%,#000 83%,transparent)}
 .discovery-flow{display:block;width:100%;height:100%;opacity:0;transition:opacity 1s}
@@ -21,28 +21,13 @@
 .discovery-fields label>small{margin-left:5px;font-size:10px;color:#a994bb}
 .discovery-fields input,.discovery-fields select,.discovery-fields textarea{display:block;width:100%;min-width: 0;margin-top:9px;padding:13px 14px;border:1px solid #c6a4df35;border-radius:var(--card-radius);background-color:#11091d75;color:#f9f1ff;font:400 13px/1.5 Montserrat,sans-serif;letter-spacing:-.02em;transition:border-color .2s,background-color .2s;box-shadow:inset 0 1px 2px #00000012}
 .discovery-fields input,.discovery-fields select{height:47px}
-.discovery-fields select{
-  -webkit-appearance:none;
-  appearance:none;
-  padding-right:40px;
-  background-color:#11091d75;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1.5 1.75 6 6.25 10.5 1.75' stroke='%23e8dcfc' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 14px center;
-  background-size:12px 8px;
-  cursor:pointer;
-}
-.discovery-fields select:focus{
-  background-color:#1b0e2a99;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1.5 1.75 6 6.25 10.5 1.75' stroke='%23e8dcfc' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 14px center;
-  background-size:12px 8px;
-}
+.discovery-fields select{--select-chevron-inset:14px;padding-right:var(--select-chevron-space)}
 .discovery-fields textarea{resize:vertical;min-height:94px;max-height:240px}
 .discovery-fields option,.discovery-schedule-options option{color:#f3eaff;background:#20122f}
 .discovery-fields input::placeholder,.discovery-fields textarea::placeholder{color:#95829f;opacity:1}
-.discovery-fields input:focus,.discovery-fields select:focus,.discovery-fields textarea:focus{outline:none;border-color:#c9a0f1;background-color:#1b0e2a99;box-shadow:0 0 0 1px #c9a0f1}
+.discovery-fields select:has(option[value=""]:checked){color:#95829f}
+.discovery-fields option[value=""]{color:#95829f}
+.discovery-fields input:focus,.discovery-fields select:focus,.discovery-fields textarea:focus{outline:none;border-color:var(--discovery-focus);background-color:#1b0e2a99;box-shadow:0 0 0 1px var(--discovery-focus)}
 .discovery-field-wide{grid-column:1/-1}
 .discovery-form-note{margin:22px 0 0;font-size:12px;line-height:1.65;color:#c4b3d2;letter-spacing:-.02em}
 .discovery-form-note>span{color:#9e88b1;font-size:10px}
@@ -68,7 +53,7 @@
 .discovery-empty-date{min-height:35px}
 .discovery-schedule-options{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;border-top:1px solid #ccb0e525;padding-top:18px}
 .discovery-schedule-options label{min-width: 0;font-size:10px;line-height:1.4;color:#aa91bc}
-.discovery-schedule-options select{display:block;max-width: 230px;width:100%;margin-top:5px;padding:4px 0;border:0;background:transparent;color:#dcc9ed;font:400 12px/1.5 Montserrat,sans-serif}
+.discovery-schedule-options select{--select-chevron-inset:0px;display:block;max-width: 230px;width:100%;margin-top:5px;padding:4px var(--select-chevron-space) 4px 0;border:0;border-radius:4px;background-color:transparent;color:#dcc9ed;font:400 12px/1.5 Montserrat,sans-serif}
 .discovery-clock-format{display:flex;gap:3px}
 .discovery-clock-format button{width:34px;min-height:34px;padding:0;border:0;border-radius:4px;background:transparent;font:400 11px Montserrat,sans-serif;color:#a38bb6;cursor:pointer}
 .discovery-clock-format button[aria-pressed=true]{background:#bd8aea1c;color:#ead7fa}
@@ -76,7 +61,19 @@
 .discovery-slots-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:19px 0 14px}
 .discovery-slots-header h4{margin:0;font-size:13px;font-weight:500;letter-spacing:-.02em}
 .discovery-slots-header>span{font-size:10px;color:#b69bc9}
-.discovery-slot-list{max-height:218px;overflow-y:auto;overscroll-behavior:contain;padding:1px 8px 8px 1px;scrollbar-width:thin;scrollbar-color:#80629b #ffffff08;scroll-behavior:smooth}
+.discovery-slot-frame{position:relative;border-radius:var(--card-radius)}
+.discovery-slot-rail{display:none;position:absolute;top:0;right:0;bottom:0;width:3px;border-radius:2px;background:#ffffff14;pointer-events:none}
+.discovery-slot-rail>span{display:block;width:100%;height:var(--slot-thumb-size,0);transform:translateY(var(--slot-thumb-offset,0));border-radius:inherit;background:#a47fcc}
+.discovery-slot-list{--fade-top:0px;--fade-bottom:0px;max-height:218px;overflow-y:auto;overscroll-behavior:contain;padding:1px 8px 8px 1px;scroll-behavior:smooth;mask-image:linear-gradient(#000,#000),linear-gradient(transparent,#000 var(--fade-top),#000 calc(100% - var(--fade-bottom)),transparent);mask-size:8px 100%,100% 100%;mask-position:right,0 0;mask-repeat:no-repeat}
+.discovery-slot-list[data-more-above]{--fade-top:28px}
+.discovery-slot-list[data-more-below]{--fade-bottom:40px}
+.discovery-slot-list::-webkit-scrollbar{width:6px}
+.discovery-slot-list::-webkit-scrollbar-track{border-radius:3px;background:transparent}
+.discovery-slot-list::-webkit-scrollbar-thumb{border-radius:3px;background:transparent}
+:is(.discovery-slots-header:hover+.discovery-slot-frame,.discovery-slot-frame:hover,.discovery-slot-frame:focus-within)>.discovery-slot-list::-webkit-scrollbar-track{background:#ffffff0d}
+:is(.discovery-slots-header:hover+.discovery-slot-frame,.discovery-slot-frame:hover,.discovery-slot-frame:focus-within)>.discovery-slot-list::-webkit-scrollbar-thumb{background:#a47fcc}
+@supports not selector(::-webkit-scrollbar){.discovery-slot-list{scrollbar-width:thin;scrollbar-color:transparent transparent}:is(.discovery-slots-header:hover+.discovery-slot-frame,.discovery-slot-frame:hover,.discovery-slot-frame:focus-within)>.discovery-slot-list{scrollbar-color:#a47fcc #ffffff0d}}
+@media (hover:none){.discovery-slot-list{scrollbar-width:none}.discovery-slot-list::-webkit-scrollbar{display:none}.discovery-slot-list:is([data-more-above],[data-more-below])+.discovery-slot-rail{display:block}}
 .discovery-slot-day{padding:0 0 19px;scroll-margin-top:2px}
 .discovery-slot-day:last-child{padding-bottom:0}
 .discovery-slot-day h5{margin:0 0 10px;font-size:11px;font-weight:500;color:#cdb7df}
@@ -93,7 +90,9 @@
 .discovery-submit:focus-visible::before{transform:scaleY(1)}
 @media (hover:hover) and (pointer:fine){.discovery-submit:not(:disabled):hover{color:#f9efff;border-color:#c399eb}.discovery-submit:not(:disabled):hover::before{transform:scaleY(1)}.discovery-submit:not(:disabled):hover>svg{translate:3px 0}}
 .discovery-error{margin:0 0 12px;color:#ffc8d4;font-size:12px;line-height:1.5}
-.discovery button:focus-visible,.discovery-slot-list:focus-visible,.discovery-schedule-options select:focus-visible{outline:2px solid #dab5fc;outline-offset:3px}
+.discovery button:focus-visible{outline:2px solid var(--discovery-focus);outline-offset:-1px}
+.discovery-schedule-options select:focus-visible,.discovery-slot-frame:has(>.discovery-slot-list:focus-visible){outline:2px solid var(--discovery-focus);outline-offset:3px}
+.discovery-slot-list:focus-visible{outline:none}
 .discovery-review{position:fixed;width:min(580px,calc(100% - 32px));max-height:calc(100svh - 40px);overflow:auto;margin:auto;padding:34px;border:1px solid #ba97d45c;border-radius:var(--card-radius);background:#1a1026;color:#f8f0fe;box-shadow:0 25px 100px #0008;font-family:Montserrat,sans-serif}
 .discovery-review::backdrop{background:#06020dc9;backdrop-filter:blur(8px)}
 .discovery-review-open{overflow:hidden}

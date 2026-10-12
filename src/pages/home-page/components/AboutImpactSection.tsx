@@ -32,12 +32,22 @@ const AboutImpactSection = () => {
                 };
 
                 let previousHeight = 0;
+                let previousProjectHeight = 0;
 
                 const alignCopy = () => {
                     if (!grid) return;
                     const projectHeight =
                         count.getBoundingClientRect().height +
                         padding(summary);
+                    const roundedProjectHeight = Math.ceil(projectHeight);
+
+                    if (roundedProjectHeight !== previousProjectHeight) {
+                        grid.style.setProperty(
+                            "--project-copy-height",
+                            `${roundedProjectHeight}px`,
+                        );
+                        previousProjectHeight = roundedProjectHeight;
+                    }
                     const quoteStyle = getComputedStyle(quote);
                     const quoteHeight =
                         quote.getBoundingClientRect().height +
@@ -294,7 +304,7 @@ const AboutImpactSection = () => {
                                 “I couldn’t believe my eyes when I first saw what
                                 the team had built out for me. Looks so good.
                                 There are massive companies in the space who
-                                still haven’t modernised a proper web-based
+                                still haven’t modernised a proper <span className="whitespace-nowrap">web-based</span>{" "}
                                 application form, so excited to be the first to
                                 launch one for card prep &amp; cleaning.”
                             </p>

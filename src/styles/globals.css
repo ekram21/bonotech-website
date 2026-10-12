@@ -17,6 +17,8 @@
 }
 
 :root {
+    --focus-ring: #C4A5F0;
+
     color-scheme: dark;
     --ink: #160d29;
     --purple: #652cd8;
@@ -75,7 +77,28 @@
     --surface-accent-dark: var(--color-brand-dark);
     --surface-white: var(--color-neutral-0);
 }
+/* Global keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
 
+/* Select chevron; components set --select-chevron-inset to their horizontal padding */
+@layer base {
+    select {
+        --select-chevron-size: 16px;
+        --select-chevron-inset: 14px;
+        --select-chevron-space: calc(var(--select-chevron-inset) + var(--select-chevron-size) + 10px);
+        -webkit-appearance: none;
+        appearance: none;
+        padding-right: var(--select-chevron-space);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2395829f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right var(--select-chevron-inset) center;
+        background-size: var(--select-chevron-size) var(--select-chevron-size);
+        cursor: pointer;
+    }
+}
 .dark {
     /* Dark Theme */
     --content-primary: var(--color-neutral-1);
@@ -260,8 +283,6 @@ html {
     /* Clear fixed navbar on hash / programmatic section scroll */
     --navbar-scroll-offset: 110px;
     scroll-padding-top: var(--navbar-scroll-offset);
-    /* Rubber-band overscroll translates the page, including the hero glow. */
-    overscroll-behavior: none;
 }
 
 @media (max-width: 940px) {
@@ -281,7 +302,6 @@ body {
     margin: 0;
     background: var(--ink);
     color: var(--white);
-    overscroll-behavior: none;
 }
 
 /* Calendly scheduling section loader */

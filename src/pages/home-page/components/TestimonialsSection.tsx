@@ -62,7 +62,7 @@ const testimonials: Testimonial[] = [
         role: "Founder and CEO, Zatiq",
         handle: "@zatiqglobal",
         quote:
-            "Bonotech brought a thoughtful product perspective to the table. Their consultancy helped us look at the experience more strategically, and I especially loved the UI/UX suggestions \u2014 they give users a quick, engaging win while making the product easier to understand from the start.",
+            "Bonotech brought a thoughtful product perspective to the table. Their consultancy helped us look at the experience more strategically, and I especially loved the UI/UX suggestions\u00a0\u2014\u00a0they give users a quick, engaging win while making the product easier to understand from the start.",
         logo: zatiqLogo,
         logoClassName: "testimonial-logo testimonial-logo-zatiq",
         portrait: sultanMoni,
@@ -75,7 +75,7 @@ const testimonials: Testimonial[] = [
         role: "Generalist \u2014 Human Resources, Mermaid Beach Resort",
         handle: "@gustavclub",
         quote:
-            "Gustav is a user-friendly, visually appealing all-in-one cloud PMS. Intuitive, time-saving, and reliable \u2014 with excellent reports and friendly support for effortless hotel management.",
+            "Gustav is a user-friendly, visually appealing all\u2011in\u2011one cloud PMS. Intuitive, time-saving, and reliable\u00a0\u2014\u00a0with excellent reports and friendly support for effortless hotel management.",
         logo: gustavLogo,
         logoClassName: "testimonial-logo",
         portrait: shohiduzzamanShakil,

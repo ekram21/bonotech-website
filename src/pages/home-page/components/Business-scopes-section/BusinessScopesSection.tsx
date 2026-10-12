@@ -38,7 +38,10 @@ const BusinessScopesSection = () => {
                     <span>Depending On Where You’re Starting</span>
                 </h2>
                 <p className="ways-description">
-                    From the first idea to enterprise-wide transformation,
+                    From the first idea to 
+                    <span className="whitespace-nowrap">enterprise-wide</span>{" "}
+                    
+                    transformation,{" "}
                     <br />
                     we meet your business where it is and build what comes next.
                 </p>
@@ -88,7 +91,7 @@ const BusinessScopesSection = () => {
                         You Need It Built
                     </h3>
                     <p>
-                        We will deploy a solid team to build across mobile, web, cloud and
+                        We will deploy a solid team to build across mobile, web, cloud, and
                         AI, to work in dated phases with weekly shippable increments. 5 of
                         our 7 platforms went live in just 30 days or less.
                     </p>

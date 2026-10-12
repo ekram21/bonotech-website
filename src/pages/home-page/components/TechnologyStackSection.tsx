@@ -263,7 +263,7 @@ const TechnologyStackSection = () => {
                     <span>Built Around Your Business</span>
                 </h2>
                 <p className="technology-description">
-                    From mobile experiences to enterprise systems,
+                    From mobile experiences to enterprise systems,{" "}
                     <br />
                     we bring the right technologies together to build what your
                     business needs.
