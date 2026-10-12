@@ -26,6 +26,7 @@
 @media(max-width:650px){.portfolio-page .gc-stat-main{gap:22px}}
 @media(max-width:600px){
  .portfolio-hero{min-height:0;padding-inline:24px}
+ .portfolio-hero>.hero-clip{padding-inline:0}
  .portfolio-composition{padding:66px 0 40px}
  .portfolio-eyebrow{font-size:11px;margin-bottom:30px}
  .portfolio-title{font-size:clamp(36px,8.1vw,48px);line-height:1.13}

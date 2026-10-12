@@ -234,7 +234,7 @@ const SprintMetricsSection = () => {
                         <h3 id="automation-title">Less Repetitive Work</h3>
                         <p className="metric-description">
                             AI-assisted capture, validation and intelligent RPA
-                            take the re-keying out of the day.
+                            take the <span className="whitespace-nowrap">re-keying</span> out of the day.
                         </p>
                     </div>
                 </article>
@@ -359,9 +359,6 @@ const SprintMetricsSection = () => {
                     </svg>
                 </article>
             </div>
-            <p className="metrics-disclaimer">
-                These figures may vary from project to project.
-            </p>
         </section>
     );
 };

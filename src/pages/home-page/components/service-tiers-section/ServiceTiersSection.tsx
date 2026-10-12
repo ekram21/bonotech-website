@@ -31,7 +31,7 @@ const tiers: Tier[] = [
         tab: "MCP Access",
         kicker: "MCP ENABLEMENT",
         title: ["Let AI Work With", "Your Business"],
-        body: "Ask ChatGPT, Claude or any compatible AI agent of your choice about your business. Through MCP, we connect it to your AI harness (the layer bringing your business data together), so it can answer questions using your company’s documents, client emails and operational data, using only sources you’ve approved.",
+        body: "Ask ChatGPT, Claude or any compatible AI agent of your choice about your business. Through MCP, we connect it to your AI harness (the layer bringing your business data together), so it can answer questions using your company’s documents, client emails and operational data\u2060—\u2060only from sources you’ve approved.",
         example: "After integration, your team could ask: “How can we boost factory output?”",
         relationship: "Connect your preferred AI agent to your business context.",
     },

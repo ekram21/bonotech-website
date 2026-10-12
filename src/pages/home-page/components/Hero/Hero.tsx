@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import FlowBackground from "./FlowBackground";
+import { useHeroAtmospherePin } from "./useHeroAtmospherePin";
 import { useKeyFloat } from "./useKeyFloat";
 import "./Hero.css";
 
 const ENGINEERING_LETTERS = "ENGINEERING".split("");
 
 const Hero = () => {
+    const heroRef = useRef<HTMLElement>(null);
+    const atmosphereRef = useRef<HTMLDivElement>(null);
     const headlineRef = useRef<HTMLHeadingElement>(null);
     const keyImageRef = useRef<HTMLImageElement>(null);
     const [heroReady, setHeroReady] = useState(false);
@@ -60,19 +63,22 @@ const Hero = () => {
     }, []);
 
     useKeyFloat(keyImageRef);
+    useHeroAtmospherePin(heroRef, atmosphereRef);
 
     return (
         <section
             id="home"
+            ref={heroRef}
             className={`hero${heroReady ? " is-ready" : ""}`}
             aria-labelledby="hero-title"
         >
-            <div className="atmosphere" aria-hidden="true">
+            <div className="atmosphere" ref={atmosphereRef} aria-hidden="true">
                 <div className="background-still" />
                 <FlowBackground className="flow-canvas" paused={motionPaused} />
                 <div className="readability" />
             </div>
 
+            <div className="hero-clip">
             <div className="hero-nav-spacer" aria-hidden="true" />
 
             <div className="hero-composition">
@@ -174,6 +180,7 @@ const Hero = () => {
                         <path d="M6 3.5 16 10 6 16.5z" />
                     </svg>
                 </button>
+            </div>
             </div>
         </section>
     );

@@ -38,7 +38,9 @@ const BusinessScopesSection = () => {
                     <span>Depending On Where You’re Starting</span>
                 </h2>
                 <p className="ways-description">
-                    From the first idea to enterprise-wide transformation,{" "}
+                    From the first idea to{" "}
+                    <span className="whitespace-nowrap">enterprise-wide</span>{" "}
+                    transformation,{" "}
                     <br />
                     we meet your business where it is and build what comes next.
                 </p>

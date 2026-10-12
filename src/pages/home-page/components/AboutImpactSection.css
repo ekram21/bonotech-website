@@ -174,7 +174,7 @@
 }
 .project-video {
   width: 100%;
-  height: calc(100% - var(--bento-copy-height, 240px) - 24px - var(--project-video-gap));
+  height: calc(100% - var(--project-copy-height, 240px) - 24px - var(--project-video-gap));
   margin-top: var(--project-video-gap);
   object-fit: contain;
   object-position: center;
@@ -192,7 +192,10 @@
   color: #faf7ff;
   text-align: left;
 }
-.project-summary,
+.project-summary {
+  min-height: var(--project-copy-height, 0px);
+  flex-shrink: 0;
+}
 .client-testimonial {
   min-height: var(--bento-copy-height, 0px);
   flex-shrink: 0;

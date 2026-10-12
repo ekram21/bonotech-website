@@ -80,7 +80,7 @@ const testimonials: Testimonial[] = [
         role: "Human Resources Generalist, Mermaid Beach Resort",
         handle: "@gustavclub",
         quote:
-            "Gustav is a user-friendly, visually appealing all-in-one cloud PMS. Intuitive, time-saving, and reliable, with excellent reports and friendly support for effortless hotel management.",
+            "Gustav is a user-friendly, visually appealing all\u2011in\u2011one cloud PMS. Intuitive, time-saving, and reliable, with excellent reports and friendly support for effortless hotel management.",
         logo: gustavLogo,
         logoClassName: "testimonial-logo",
         portrait: shohiduzzamanShakil,

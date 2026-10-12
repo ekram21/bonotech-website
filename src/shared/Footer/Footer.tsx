@@ -326,6 +326,21 @@ const Footer = () => {
                                   : "#main-content"
                         }
                         aria-label="Back to top"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            const reduced = window.matchMedia(
+                                "(prefers-reduced-motion: reduce)",
+                            ).matches;
+                            window.scrollTo({
+                                top: 0,
+                                behavior: reduced ? "auto" : "smooth",
+                            });
+                            history.replaceState(
+                                history.state,
+                                "",
+                                event.currentTarget.getAttribute("href"),
+                            );
+                        }}
                     >
                         <span>Back to Top</span>
                         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

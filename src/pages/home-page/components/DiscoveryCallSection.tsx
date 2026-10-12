@@ -203,6 +203,38 @@ const DiscoveryCallSection = () => {
         }
     }, [scrollRequest]);
 
+    useEffect(() => {
+        const list = slotListRef.current;
+        if (!list) return;
+
+        const update = () => {
+            const { scrollTop, scrollHeight, clientHeight } = list;
+            const maxScroll = scrollHeight - clientHeight;
+            list.toggleAttribute("data-more-above", scrollTop > 1);
+            list.toggleAttribute("data-more-below", scrollTop < maxScroll - 1);
+
+            const ratio = scrollHeight > 0 ? clientHeight / scrollHeight : 1;
+            list.parentElement?.style.setProperty("--slot-thumb-size", `${ratio * 100}%`);
+            list.parentElement?.style.setProperty(
+                "--slot-thumb-offset",
+                `${scrollTop * ratio}px`,
+            );
+        };
+
+        update();
+        list.addEventListener("scroll", update, { passive: true });
+        const resizeObserver = new ResizeObserver(update);
+        resizeObserver.observe(list);
+        const mutationObserver = new MutationObserver(update);
+        mutationObserver.observe(list, { childList: true, subtree: true });
+
+        return () => {
+            list.removeEventListener("scroll", update);
+            resizeObserver.disconnect();
+            mutationObserver.disconnect();
+        };
+    }, []);
+
     const isSelectedSlotValid = selectedTime !== null;
 
     const errors = useMemo<FieldErrors>(() => {
@@ -538,7 +570,7 @@ const DiscoveryCallSection = () => {
                         <span>Into a Clear Build Plan</span>
                     </h2>
                     <p className="discovery-description">
-                        Tell us what’s slowing your business down, or what you want to
+                        Tell us what’s slowing your business down&nbsp;—&nbsp, or what you want to
                         build next. <br className="hidden sm:block" />
                         Let’s map the opportunity, explore the right approach, and
                         define your next step.
@@ -658,7 +690,7 @@ const DiscoveryCallSection = () => {
                                     name="website"
                                     inputMode="url"
                                     autoComplete="url"
-                                    placeholder="company.com"
+                                    placeholder="https://yourcompany.com"
                                     maxLength={250}
                                     {...fieldA11y("website")}
                                 />
@@ -925,86 +957,91 @@ const DiscoveryCallSection = () => {
                                 <span>{SCHEDULE.duration} min</span>
                             </div>
 
-                            <div
-                                ref={slotListRef}
-                                className="discovery-slot-list"
-                                tabIndex={0}
-                                role="group"
-                                aria-labelledby="discovery-slot-range"
-                                aria-describedby={
-                                    visibleError("slot")
-                                        ? "discovery-slot-error"
-                                        : undefined
-                                }
-                            >
-                                {slotDays.map((day) => {
-                                    const times = schedule.byDay.get(day) ?? [];
+                            <div className="discovery-slot-frame">
+                                <div
+                                    ref={slotListRef}
+                                    className="discovery-slot-list"
+                                    tabIndex={0}
+                                    role="group"
+                                    aria-labelledby="discovery-slot-range"
+                                    aria-describedby={
+                                        visibleError("slot")
+                                            ? "discovery-slot-error"
+                                            : undefined
+                                    }
+                                >
+                                    {slotDays.map((day) => {
+                                        const times = schedule.byDay.get(day) ?? [];
 
-                                    return (
-                                        <div
-                                            key={day}
-                                            className="discovery-slot-day"
-                                            data-day={dayKey(day)}
-                                        >
-                                            <h5>
-                                                {`${
-                                                    day === schedule.today
-                                                        ? "Today"
-                                                        : formatDay(day, {
-                                                              weekday: "short",
-                                                          })
-                                                }, ${formatDay(day, {
-                                                    month: "short",
-                                                    day: "numeric",
-                                                })}`}
-                                            </h5>
-                                            {times.length ? (
-                                                <div className="discovery-slot-buttons">
-                                                    {times.map((instant) => {
-                                                        const time = formatSlotTime(
-                                                            instant,
-                                                            timeZone,
-                                                            clockFormat,
-                                                        );
-                                                        return (
-                                                            <button
-                                                                key={instant}
-                                                                type="button"
-                                                                className="discovery-slot"
-                                                                aria-pressed={
-                                                                    instant ===
-                                                                    selectedTime
-                                                                }
-                                                                aria-label={`${formatDay(
-                                                                    day,
-                                                                    {
-                                                                        weekday: "long",
-                                                                        month: "long",
-                                                                        day: "numeric",
-                                                                    },
-                                                                )}, ${time}, ${timeZone}`}
-                                                                onClick={() =>
-                                                                    selectSlot(
-                                                                        instant,
+                                        return (
+                                            <div
+                                                key={day}
+                                                className="discovery-slot-day"
+                                                data-day={dayKey(day)}
+                                            >
+                                                <h5>
+                                                    {`${
+                                                        day === schedule.today
+                                                            ? "Today"
+                                                            : formatDay(day, {
+                                                                  weekday: "short",
+                                                              })
+                                                    }, ${formatDay(day, {
+                                                        month: "short",
+                                                        day: "numeric",
+                                                    })}`}
+                                                </h5>
+                                                {times.length ? (
+                                                    <div className="discovery-slot-buttons">
+                                                        {times.map((instant) => {
+                                                            const time = formatSlotTime(
+                                                                instant,
+                                                                timeZone,
+                                                                clockFormat,
+                                                            );
+                                                            return (
+                                                                <button
+                                                                    key={instant}
+                                                                    type="button"
+                                                                    className="discovery-slot"
+                                                                    aria-pressed={
+                                                                        instant ===
+                                                                        selectedTime
+                                                                    }
+                                                                    aria-label={`${formatDay(
                                                                         day,
-                                                                    )
-                                                                }
-                                                            >
-                                                                {time}
-                                                            </button>
-                                                        );
-                                                    })}
-                                                </div>
-                                            ) : (
-                                                <p className="discovery-no-slots">
-                                                    {day < schedule.today
-                                                        ? "Date has passed"
-                                                        : "No available times on this day"}
-                                                </p>
-                                            )}
-                                        </div>
-                                    );
-                                })}
+                                                                        {
+                                                                            weekday: "long",
+                                                                            month: "long",
+                                                                            day: "numeric",
+                                                                        },
+                                                                    )}, ${time}, ${timeZone}`}
+                                                                    onClick={() =>
+                                                                        selectSlot(
+                                                                            instant,
+                                                                            day,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {time}
+                                                                </button>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                ) : (
+                                                    <p className="discovery-no-slots">
+                                                        {day < schedule.today
+                                                            ? "Date has passed"
+                                                            : "No available times on this day"}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                <div className="discovery-slot-rail" aria-hidden="true">
+                                    <span />
+                                </div>
                             </div>
 
                             <div className="discovery-selected" aria-live="polite">
