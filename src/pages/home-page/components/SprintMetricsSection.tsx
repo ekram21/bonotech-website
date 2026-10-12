@@ -359,6 +359,9 @@ const SprintMetricsSection = () => {
                     </svg>
                 </article>
             </div>
+            <p className="metrics-disclaimer">
+                These figures may vary from project to project.
+            </p>
         </section>
     );
 };
