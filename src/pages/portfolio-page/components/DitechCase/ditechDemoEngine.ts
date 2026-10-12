@@ -26,7 +26,7 @@ const CAPTIONS: Record<Chapter, string> = {
     dashboard: 'Separate records become one shared view of leads, opportunities, approvals and follow-ups.',
     question: 'A simple business question draws on the connected CRM, through permission-controlled MCP access.',
     analytics:
-        'One question. Sales performance, pipeline coverage and supplier follow-ups—all in the same business context.',
+        'One question. Sales performance, pipeline coverage and supplier follow-ups, all in the same business context.',
 }
 
 export function initDitechDemo(section: HTMLElement): () => void {

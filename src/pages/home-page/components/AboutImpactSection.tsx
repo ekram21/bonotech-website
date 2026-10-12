@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 
 import projectsBackground from "@/assets/about/projects-background.mp4";
-import commitmentPortrait from "@/assets/testimonials/evan-milho.png";
-import evoLogo from "@/assets/clients/evo.svg";
+import commitmentPortrait from "@/assets/testimonials/evan-milho.webp";
+import evoLogo from "@/assets/clients/evo.webp";
 import dataMotion from "@/assets/about/data-motion.mp4";
 import "./AboutImpactSection.css";
 
@@ -211,7 +211,7 @@ const AboutImpactSection = () => {
                     </span>
                 </h2>
                 <p className="about-description">
-                    A global consulting partner dedicated to building
+                    A global consulting partner dedicated to building{" "}
                     <br />
                     smarter and more adaptive tech.
                 </p>
@@ -268,7 +268,7 @@ const AboutImpactSection = () => {
                                 23<span>+</span>
                             </span>
                             <span className="project-caption">
-                                projects—and that’s just the last{" "}
+                                projects, and that’s just in the last{" "}
                                 <strong>6 months.</strong>
                             </span>
                         </h3>

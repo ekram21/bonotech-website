@@ -39,7 +39,7 @@ const tiers: Tier[] = [
         tab: "AI Harness",
         kicker: "AI HARNESS",
         title: ["Turn Scattered Data", "Into A Shared View"],
-        body: "We connect documents, operational data and client emails to a shared AI layer. It processes incoming enquiries and requests, brings them into context, and surfaces useful information in your company’s CRM.",
+        body: "We connect documents, operational data and client emails to a shared AI layer. It processes incoming inquiries and requests, brings them into context, and surfaces useful information in your company’s CRM.",
         example: "Your CRM is the workspace. The harness powers the intelligence behind it.",
         relationship: "Connects your CRM with the AI agents your team uses.",
     },
@@ -505,7 +505,7 @@ const ServiceTiersSection = () => {
                                     <svg viewBox="0 0 500 500" role="img" aria-labelledby="tier-svg-title-2 tier-svg-desc-2">
                                         <BeamGradient index={1} />
                                         <title id="tier-svg-title-2">Documents, operational data and client emails connected to your AI harness</title>
-                                        <desc id="tier-svg-desc-2">Information from departments and client emails, including enquiries and requests, flows into the AI harness for processing, context and analysis. The insights appear in the CRM workspace, a shared view for your team.</desc>
+                                        <desc id="tier-svg-desc-2">Information from departments and client emails, including inquiries and requests, flows into the AI harness for processing, context and analysis. The insights appear in the CRM workspace, a shared view for your team.</desc>
                                         <BeamPaths
                                             index={1}
                                             paths={[
@@ -558,7 +558,7 @@ const ServiceTiersSection = () => {
                                     <svg viewBox="0 0 500 500" role="img" aria-labelledby="tier-svg-title-3 tier-svg-desc-3">
                                         <BeamGradient index={2} />
                                         <title id="tier-svg-title-3">A real-time CRM with data-informed suggestions</title>
-                                        <desc id="tier-svg-desc-3">Illustrative CRM: customer activity and team updates flow into a live workspace. A new enquiry is assigned to sales. Analysis suggests following up with AB Ltd. because there has been no reply for five days. Suggestions are for the team to review.</desc>
+                                        <desc id="tier-svg-desc-3">Illustrative CRM: customer activity and team updates flow into a live workspace. A new inquiry is assigned to sales. Analysis suggests following up with AB Ltd. because there has been no reply for five days. Suggestions are for the team to review.</desc>
                                         <BeamPaths
                                             index={2}
                                             paths={[
@@ -585,7 +585,7 @@ const ServiceTiersSection = () => {
                                         <g className="tier-crm-event">
                                             <rect x="86" y="253" width="328" height="38" rx="5" className="tier-event-bubble" />
                                             <circle cx="103" cy="272" r="3" className="tier-event-dot" />
-                                            <text x="116" y="278" className="tier-demo-left tier-chat-detail tier-event-first">New enquiry received</text>
+                                            <text x="116" y="278" className="tier-demo-left tier-chat-detail tier-event-first">New inquiry received</text>
                                             <text x="116" y="278" className="tier-demo-left tier-chat-detail tier-event-second">Lead assigned to sales</text>
                                         </g>
                                         <g className="tier-suggestion">

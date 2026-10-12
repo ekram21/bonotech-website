@@ -570,9 +570,9 @@ const DiscoveryCallSection = () => {
                         <span>Into a Clear Build Plan</span>
                     </h2>
                     <p className="discovery-description">
-                        Tell us what&apos;s slowing your business down&nbsp;—&nbsp;or what you want to
+                        Tell us what’s slowing your business down&nbsp;—&nbsp, or what you want to
                         build next. <br className="hidden sm:block" />
-                        Let&apos;s map the opportunity, explore the right approach, and
+                        Let’s map the opportunity, explore the right approach, and
                         define your next step.
                     </p>
                 </header>
@@ -720,7 +720,7 @@ const DiscoveryCallSection = () => {
                             </label>
 
                             <label className="discovery-field-wide">
-                                What would a successful outcome look like?{" "}
+                                What would success look like?{" "}
                                 <small>Optional</small>
                                 <textarea
                                     value={form.brief}
@@ -941,7 +941,7 @@ const DiscoveryCallSection = () => {
                             </div>
 
                             <p className="discovery-preview-note">
-                                Pick a preferred time — we&apos;ll confirm by email.
+                                Pick a preferred time and we’ll confirm it by email.
                             </p>
 
                             <div className="discovery-slots-header">
@@ -1125,7 +1125,7 @@ const DiscoveryCallSection = () => {
                         ) : (
                             <>
                                 <strong>Nothing is sent until you confirm.</strong>
-                                <p>We&apos;ll follow up by email to confirm this time.</p>
+                                <p>We’ll follow up by email to confirm this time.</p>
                             </>
                         )}
                     </div>
@@ -1171,7 +1171,7 @@ const DiscoveryCallSection = () => {
                             </button>
                             <p className="discovery-eyebrow">REQUEST RECEIVED</p>
                             <h3 id="discovery-success-title">
-                                We&apos;ll Confirm Your Time
+                                We’ll Confirm Your Time
                             </h3>
                             <p>
                                 Thanks

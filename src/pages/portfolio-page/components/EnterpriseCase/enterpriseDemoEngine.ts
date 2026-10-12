@@ -279,7 +279,7 @@ const CHAPTER_TIME: Record<Chapter, number> = { factory: 0, question: 9699, trac
 const CAPTIONS: Record<Chapter, string> = {
     factory: 'One view of production, from fabric inspection to packing.',
     question: 'A business question becomes a request across connected data.',
-    tracking: 'The same platform brings the consignment into view—with context.',
+    tracking: 'The same platform brings the consignment into view, with context.',
 }
 
 export function initEnterpriseDemo(section: HTMLElement): () => void {

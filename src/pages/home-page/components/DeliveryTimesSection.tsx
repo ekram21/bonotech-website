@@ -82,6 +82,7 @@ const DeliveryTimesSection = () => {
     const [isReady, setIsReady] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const [stageFullyVisible, setStageFullyVisible] = useState(false);
     const [videosPaused, setVideosPaused] = useState(false);
     const [reducedMotion, setReducedMotion] = useState(false);
     const [announcement, setAnnouncement] = useState("");
@@ -159,30 +160,38 @@ const DeliveryTimesSection = () => {
     }, []);
 
     useEffect(() => {
-        videoRefs.current.forEach((video) => {
-            if (!video) return;
-            video.muted = true;
-            if (isVisible && !document.hidden && !videosPaused && !reducedMotion) {
-                video.play().catch(() => {});
-            } else {
-                video.pause();
-            }
-        });
-    }, [isVisible, videosPaused, reducedMotion]);
+        const stage = stageRef.current;
+        if (!stage) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => setStageFullyVisible(entry.intersectionRatio >= 0.95),
+            { threshold: [0, 0.95] },
+        );
+        observer.observe(stage);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
-        const handleVisibility = () => {
-            videoRefs.current.forEach((video) => {
+        // Several videos clipped by the viewport edge at once drop scroll frames
+        // (they lose the cheap OS overlay path), so only the centre card plays
+        // while the cards are partly off-screen.
+        const syncVideos = () => {
+            videoRefs.current.forEach((video, index) => {
                 if (!video) return;
-                if (document.hidden) video.pause();
-                else if (isVisible && !videosPaused && !reducedMotion) {
-                    video.play().catch(() => {});
-                }
+                video.muted = true;
+                const shouldPlay =
+                    isVisible &&
+                    !document.hidden &&
+                    !videosPaused &&
+                    !reducedMotion &&
+                    (stageFullyVisible || index === active);
+                if (shouldPlay) video.play().catch(() => {});
+                else video.pause();
             });
         };
-        document.addEventListener("visibilitychange", handleVisibility);
-        return () => document.removeEventListener("visibilitychange", handleVisibility);
-    }, [isVisible, videosPaused, reducedMotion]);
+        syncVideos();
+        document.addEventListener("visibilitychange", syncVideos);
+        return () => document.removeEventListener("visibilitychange", syncVideos);
+    }, [isVisible, stageFullyVisible, active, videosPaused, reducedMotion]);
 
     useEffect(() => {
         const section = sectionRef.current;

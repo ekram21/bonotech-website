@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy:live": "vite build && firebase deploy --only hosting"
+    "deploy:live": "vite build && firebase deploy --only hosting",
+    "deploy:preview-portfolio": "VITE_SHOW_PORTFOLIO=true firebase hosting:channel:deploy portfolio --project bonotech-website --expires 30d"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",

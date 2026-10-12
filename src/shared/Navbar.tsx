@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ComponentProps, type MouseEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { trackCtaClick } from '@/lib/analytics'
+import { PORTFOLIO_ENABLED } from '@/lib/features'
 import bonotechLogo from '@/assets/bonotech-logo-nav.svg'
 import './navbar.css'
 
@@ -17,8 +18,8 @@ export interface NavbarProps {
 const COMPACT_QUERY = '(max-width: 940px)'
 const DISCOVERY_HREF = '#discovery-call'
 /** Pages that render the discovery section, so booking links can stay on the page. */
-export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/discovery-meeting'])
-const DISCOVERY_PAGE = '/discovery-meeting'
+export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/discovery-call', '/discovery-meeting'])
+const DISCOVERY_PAGES = new Set(['/discovery-call', '/discovery-meeting'])
 /** Distance below the header at which a section counts as the one being read. */
 const READING_LINE_OFFSET = 120
 
@@ -26,7 +27,7 @@ const DEFAULT_LINKS: NavLink[] = [
     { label: 'Service Scopes', href: '#ways-in' },
     { label: 'Clients', href: '#our-clients' },
     { label: 'Solutions', href: '#service-tiers' },
-    { label: 'Portfolio', href: '/portfolio' },
+    ...(PORTFOLIO_ENABLED ? [{ label: 'Portfolio', href: '/portfolio' }] : []),
     { label: 'Testimonials', href: '#client-testimonials' },
 ]
 
@@ -213,7 +214,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                 <NavAnchor
                     className="nav-call"
                     href={resolveHref(DISCOVERY_HREF)}
-                    aria-current={location.pathname === DISCOVERY_PAGE ? 'page' : undefined}
+                    aria-current={DISCOVERY_PAGES.has(location.pathname) ? 'page' : undefined}
                     onClick={() => {
                         trackCtaClick('nav_book_a_call')
                         handleLinkClick(DISCOVERY_HREF)

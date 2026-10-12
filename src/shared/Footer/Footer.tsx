@@ -7,6 +7,7 @@ import {
     subscribeNewsletter,
 } from "@/lib/services/email";
 import { Link, useLocation } from "react-router-dom";
+import { PORTFOLIO_ENABLED } from "@/lib/features";
 import { NavAnchor, PAGES_WITH_DISCOVERY } from "@/shared/Navbar";
 import "./footer.css";
 
@@ -19,7 +20,7 @@ const getEmailError = (value: string): string => {
     if (email.length > EMAIL_MAX_LENGTH) {
         return "That email address is too long.";
     }
-    if (/\s/.test(email)) return "Email addresses can't contain spaces.";
+    if (/\s/.test(email)) return "Email addresses can’t contain spaces.";
     const atCount = email.split("@").length - 1;
     if (atCount === 0) return "Your email address is missing an \"@\".";
     if (atCount > 1) return "Your email address can only contain one \"@\".";
@@ -86,8 +87,8 @@ const Footer = () => {
             setStatus("success");
             setMessage(
                 result.alreadySubscribed
-                    ? "You're already on the list — thanks for staying with us."
-                    : "You're in. We'll share fresh thinking and practical tech.",
+                    ? "You’re already on the list. Thanks for staying with us."
+                    : "You’re in. We’ll share fresh thinking and practical tech.",
             );
             setEmail("");
         } catch (error) {
@@ -134,9 +135,11 @@ const Footer = () => {
                             <li>
                                 <NavAnchor href={homeSection("#about-bonotech")}>About Bonotech</NavAnchor>
                             </li>
-                            <li>
-                                <Link to="/portfolio">Portfolio</Link>
-                            </li>
+                            {PORTFOLIO_ENABLED ? (
+                                <li>
+                                    <Link to="/portfolio">Portfolio</Link>
+                                </li>
+                            ) : null}
                             <li>
                                 <NavAnchor href={homeSection("#ways-in")}>Our Service Scope</NavAnchor>
                             </li>
@@ -301,7 +304,7 @@ const Footer = () => {
                                     message ||
                                     (isSubmitting
                                         ? "Subscribing…"
-                                        : "No spam — just useful updates when we have them.")}
+                                        : "No spam, just useful updates when we have them.")}
                             </p>
                         </form>
                     </div>
