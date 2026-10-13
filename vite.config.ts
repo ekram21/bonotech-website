@@ -19,7 +19,7 @@ export default defineConfig({
     },
   },
   server: {
-    host: 'localhost',
+    host: true,
     allowedHosts: ['.trycloudflare.com'],
     proxy: {
       // Local discovery/contact/newsletter/analytics → Bonotech mail API (or remote when unset).
