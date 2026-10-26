@@ -8,7 +8,7 @@ const POSE_KEYS: PoseKey[] = ['height', 'y', 'z', 'x']
 export function panelPose(
     index: number,
     active: number,
-    { compact = false, engaged = false, count = 7 } = {},
+    { compact = false, engaged = false, count = 6 } = {},
 ): Pose {
     const selected = clamp(Number.isFinite(active) ? active : 0, 0, count - 1)
     if (compact) {
@@ -19,9 +19,9 @@ export function panelPose(
     const influence = Math.exp(-(distance * distance) / (2 * 0.55 * 0.55))
     return {
         height: (370 - index * 5) * (engaged ? 0.46 + 0.54 * influence : 1),
-        y: engaged ? -influence * Math.min(95, 30 + index * 35) : 0,
-        z: -index * 115,
-        x: 0,
+        y: engaged ? -influence * 40 : 0,
+        z: engaged ? -index * 115 + influence * Math.max(0, index * 115 - 200) : -index * 115,
+        x: engaged ? influence * Math.max(0, index * 115 - 200) * 0.58 : 0,
         shade: index * 0.022,
     }
 }
@@ -61,13 +61,24 @@ export function createProjectStack(
     let vx = 0
     let vy = 0
     const poses = cards.map((_, i) => ({ ...panelPose(i, 0), velocity: { height: 0, y: 0, z: 0, x: 0 } }))
+    let highlighted = -1
+
+    function highlight(index: number) {
+        const active = clamp(Math.round(index), 0, cards.length - 1)
+        if (highlighted === active) return
+        highlighted = active
+        cards.forEach((card, i) => { card.dataset.active = String(i === active) })
+        buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === active)))
+    }
 
     function select(index: number, source: SelectSource) {
         selected = clamp(index, 0, cards.length - 1)
         current = selected
         engaged = true
+        highlight(selected)
         onSelect(selected)
         if (source === 'keyboard') buttons[selected]?.focus()
+        paint(performance.now(), true)
         start()
     }
     function spring(value: number, velocity: number, target: number, dt: number) {
@@ -129,8 +140,6 @@ export function createProjectStack(
         const trackWidth = 610 * scale
         const x = clamp((event.clientX - rect.left - (stageWidth - trackWidth) / 2) / trackWidth, 0, 1)
         const y = clamp((event.clientY - rect.top) / rect.height, 0, 1)
-        current = x * (cards.length - 1)
-        engaged = true
         targetX = 12 + (y - 0.5) * -7
         targetY = -43 + (x - 0.5) * 10
         start()
@@ -181,6 +190,7 @@ export function createProjectStack(
     reduced.addEventListener('change', measure)
     compact.addEventListener('change', measure)
     measure()
+    highlight(0)
 
     return {
         select,

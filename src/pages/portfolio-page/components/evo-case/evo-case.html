@@ -1,0 +1,98 @@
+<section id="evo-case" class="evo-case" aria-labelledby="evo-title">
+      <header class="ec-heading ev-heading">
+        <p class="ec-eyebrow">06 / CARD PREP &amp; GRADING PLATFORM</p>
+        <img class="ev-brand" src="assets/clients/evo.svg" alt="EVO Card Cleaning &amp; Prep" width="73" height="86" loading="lazy">
+        <h2 id="evo-title">From Card Submission To Return Shipping<span>One Connected Platform For EVO</span></h2>
+        <p class="ec-intro">We built EVO’s customer web platform and operations portal in <strong>just 30 days</strong>—connecting card intake, prep services, grading coordination, billing and fulfilment.</p>
+      </header>
+      <div class="gg-demo ev-demo" id="evo-demo" data-scene="submit" data-submitted="false" data-prepared="false" data-tagged="false" data-invoice-selected="false" data-paused="false" role="group" aria-label="EVO card submission journey demonstration">
+        <div class="gg-showcase ev-showcase">
+          <div class="gg-mobile-side">
+            <p class="gg-device-label"><span></span> COLLECTOR / CUSTOMER WEB VIEW</p>
+            <div class="gg-phone ev-phone">
+              <div class="gg-phone-status"><span>9:41</span><i aria-hidden="true"></i><svg class="phone-status-icons" viewBox="0 0 64 14" fill="none" aria-hidden="true" focusable="false"><g fill="currentColor"><rect x="1" y="9" width="2.5" height="4" rx=".6"/><rect x="5" y="7" width="2.5" height="6" rx=".6"/><rect x="9" y="4" width="2.5" height="9" rx=".6"/><rect x="13" y="1" width="2.5" height="12" rx=".6"/></g><g stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 4a10 10 0 0 1 14 0M24 7a6 6 0 0 1 8 0M27 10a1.6 1.6 0 0 1 2 0"/></g><circle cx="28" cy="12" r="1" fill="currentColor"/><rect x="41" y="1.5" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><rect x="43.3" y="3.8" width="13.4" height="6.4" rx=".7" fill="currentColor"/><rect x="60.4" y="4.5" width="2" height="5" rx=".8" fill="currentColor"/></svg></div>
+              <header class="ev-app-header"><img src="assets/clients/evo.svg" alt="EVO" width="35" height="41" loading="lazy"><div><strong>EVO GRADING</strong><small>Collector portal</small></div><span aria-label="Sample collector Alex">AL</span></header>
+              <div class="gg-phone-body">
+                <section class="ev-phone-scene" data-ev-phone="submit" aria-label="Sample card submission">
+                  <p class="ev-small">YOUR NEXT SUBMISSION</p><h3>Give Your Card<br>A Clear Starting Point</h3>
+                  <div class="ev-choice"><i aria-hidden="true">✓</i><div><strong>Card cleaning &amp; prep</strong><small>Prepare for PSA grading</small></div></div>
+                  <div class="ev-field"><span>Card details</span><strong>1990 Fleer · Michael Jordan</strong></div>
+                  <div class="ev-field"><span>Grading tier</span><strong>PSA Regular <b aria-hidden="true">⌄</b></strong></div>
+                  <div class="ev-field"><span>Cards in this submission</span><strong>1 card</strong></div>
+                  <button class="ev-action" id="ev-submit" type="button"><span id="ev-submit-label">Submit sample card →</span></button>
+                  <p class="ev-success">✓ Submission received · EVO-DEMO-024</p>
+                  <p class="ev-hint">Service choices and card details travel together.</p>
+                </section>
+                <section class="ev-phone-scene" data-ev-phone="prep" hidden aria-label="Collector prep status and message">
+                  <p class="ev-small">MY SUBMISSION</p><h3>Know Where<br>Your Card Stands</h3>
+                  <div class="ev-reference"><span>Reference</span><strong>EVO-DEMO-024</strong></div>
+                  <span class="ev-status" id="ev-prep-phone-status">Cleaning &amp; prep</span>
+                  <ol class="ev-timeline"><li class="is-complete"><i>✓</i><div><strong>Accepted by EVO</strong><small>Submission reviewed</small></div></li><li class="is-complete"><i>✓</i><div><strong>Physical card received</strong><small>Checked into the workflow</small></div></li><li class="ev-future ev-prepared"><i>✓</i><div><strong>Prep complete</strong><small>Ready for the grading batch</small></div></li></ol>
+                  <div class="ev-message"><span>EVO TEAM</span><p>Your card is with our prep team. We’ll keep you updated here.</p><small>Message linked to EVO-DEMO-024</small></div>
+                </section>
+                <section class="ev-phone-scene" data-ev-phone="grading" hidden aria-label="Collector grading order details">
+                  <p class="ev-small">MY SUBMISSION</p><h3>The Next Step,<br>Still In One Place</h3>
+                  <div class="ev-reference"><span>Reference</span><strong>EVO-DEMO-024</strong></div>
+                  <span class="ev-status">Grading coordination</span>
+                  <dl class="ev-phone-facts"><div><dt>Card</dt><dd>1990 Fleer · Michael Jordan</dd></div><div><dt>Service tier</dt><dd>PSA Regular</dd></div><div><dt>Grading order</dt><dd id="ev-phone-order">Being assigned</dd></div></dl>
+                  <div class="ev-message"><span>CONNECTED TO YOUR SUBMISSION</span><p>Card details and progress stay together as EVO coordinates the next stage.</p></div>
+                </section>
+                <section class="ev-phone-scene" data-ev-phone="return" hidden aria-label="Collector billing and return shipping">
+                  <p class="ev-small">MY SUBMISSION / BILLING</p>
+                  <div class="ev-stage-symbol" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 3h16v26l-4-2-4 2-4-2-4 2ZM12 10h8M12 15h8M12 20h5"/></svg></div>
+                  <div class="ev-return-heading"><h3>One Submission,<br>Its Details Together</h3></div>
+                  <div class="ev-reference"><span>Reference</span><strong>EVO-DEMO-024</strong></div>
+                  <dl class="ev-phone-facts"><div><dt>Service tier</dt><dd>PSA Regular</dd></div><div><dt>Shipping price</dt><dd>Pending</dd></div><div><dt>Invoices</dt><dd>None issued in this example</dd></div></dl>
+                  <p class="ev-hint">EVO manages the invoice and shipping details against the submission.</p>
+                </section>
+              </div>
+              <div class="ev-browser-label">EVO / Customer web platform</div><div class="gg-home-indicator" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="gg-companion">
+            <header class="gg-story-header ev-story"><span class="gg-step-label" id="ev-step-label">01 / SUBMIT</span><h3 id="ev-story-title">A Clear Start<br>For Every Submission</h3><p id="ev-story-description">The collector chooses a service, adds card details and selects a grading tier. The same submission arrives in EVO’s admin portal, ready for review.</p></header>
+            <p class="gg-view-label">EVO TEAM / ADMIN PORTAL</p>
+            <div class="gg-context-window ev-window">
+              <div class="gg-window-bar"><span id="ev-window-label">INTAKE / SUBMISSION REVIEW</span><span class="gg-window-sample">EVO ADMIN</span></div>
+              <div class="ev-context-body">
+                <section class="ev-context-scene" data-ev-context="submit" aria-label="EVO admin submission intake">
+                  <header class="ev-panel-heading"><div><span class="ev-small">CUSTOMER → OPERATIONS</span><h4>Active Submissions</h4></div><span class="ev-status" id="ev-intake-status">Awaiting submission</span></header>
+                  <div class="ev-intake-banner"><span aria-hidden="true">↳</span><div><strong id="ev-intake-message">The next submission starts here</strong><p id="ev-intake-detail">Submit the sample card on the left to see the shared record arrive.</p></div></div>
+                  <dl class="ev-record ev-intake-record"><div><dt>Collector</dt><dd>Alex Lee · Sample record</dd></div><div><dt>Service</dt><dd>Card cleaning &amp; prep</dd></div><div><dt>Cards / tier</dt><dd>1 card / PSA Regular</dd></div></dl>
+                  <p class="ev-record-caption"><i aria-hidden="true"></i>One reference connects both sides of the platform</p>
+                </section>
+                <section class="ev-context-scene" data-ev-context="prep" hidden aria-label="EVO operations prep workflow">
+                  <header class="ev-panel-heading"><div><span class="ev-small">EVO-DEMO-024</span><h4>Prep Workflow</h4></div><span class="ev-status" id="ev-prep-status">Prep in progress</span></header>
+                  <div class="ev-workflow"><div><i>✓</i><span><strong>Accepted by EVO</strong><small>Submission reviewed</small></span></div><div><i>✓</i><span><strong>Cards received</strong><small>Physical intake recorded</small></span></div><div><i>↻</i><span><strong>Cleaning &amp; prep</strong><small id="ev-prep-detail">Service in progress</small></span></div><div class="ev-prepared"><i>✓</i><span><strong>Ready for grading</strong><small>Next handoff recorded</small></span></div></div>
+                  <div class="ev-workflow-message"><span>CUSTOMER COMMUNICATION</span><p>Your card is with our prep team. We’ll keep you updated here.</p><small>Sent to Alex · Saved to this submission</small></div>
+                  <p class="ev-record-caption"><i aria-hidden="true"></i>The collector sees the same workflow updates</p>
+                </section>
+                <section class="ev-context-scene" data-ev-context="grading" hidden aria-label="EVO PSA tier grouping and order tagging">
+                  <header class="ev-panel-heading"><div><span class="ev-small">GRADING COORDINATION</span><h4>PSA Order Tagging</h4></div><span class="ev-status" id="ev-batch-status">Ready to tag</span></header>
+                  <div class="ev-batch"><header><strong>PSA Regular</strong><span>Selected tier</span></header><div class="ev-batch-row"><i>✓</i><div><strong>1990 Fleer · Michael Jordan</strong><small>EVO-DEMO-024 · Alex Lee · 1 card</small></div></div></div>
+                  <span class="ev-tag-label">Grading order reference</span><div class="ev-order-tag"><span id="ev-batch-reference">Awaiting order tag</span><span>Illustrative order</span></div>
+                  <button class="ev-action ev-batch-action" id="ev-tag" type="button">Assign Sample Order Tag ↗</button>
+                  <p class="ev-hint">Group cards by tier, tag the order and keep each submission traceable through the batch.</p>
+                </section>
+                <section class="ev-context-scene" data-ev-context="return" hidden aria-label="EVO billing and return fulfilment">
+                  <header class="ev-panel-heading"><div><span class="ev-small">EVO-DEMO-024 / INVOICING</span><h4>Billing &amp; Return Details</h4></div><span class="ev-status" id="ev-return-status">Select tier</span></header>
+                  <div class="ev-invoice-preview"><span class="ev-small">CREATE GRADING INVOICE</span><p>Choose the tiers to include. The invoice bills the selected cards and services.</p><div class="ev-invoice-tier"><i aria-hidden="true">✓</i><div><strong>PSA Regular</strong><small>1 card · Sample submission</small></div></div><div class="ev-invoice-summary"><span>Bulk shipping fee</span><strong>Set by EVO</strong></div></div>
+                  <p class="ev-hint">Separate controls create grading and shipping invoices from the submission’s card list.</p>
+                  <p class="ev-record-caption"><i aria-hidden="true"></i>Billing tools shown · No invoice sent or shipment assumed</p>
+                </section>
+              </div>
+            </div>
+            <div class="gg-built-for ev-built-for"><span>BUILT BY BONOTECH</span><p>Customer platform · Admin portal · Prep workflow<br>Grading coordination · Invoicing · Return shipping</p></div>
+          </div>
+        </div>
+        <div class="ed-playback ev-playback" role="group" aria-label="EVO journey playback">
+          <div class="ed-chapters"><button type="button" data-ev-chapter="submit" aria-current="step"><span>01</span>Submit<i></i></button><button type="button" data-ev-chapter="prep"><span>02</span>Prepare<i></i></button><button type="button" data-ev-chapter="grading"><span>03</span>Coordinate<i></i></button><button type="button" data-ev-chapter="return"><span>04</span>Return<i></i></button></div>
+          <div class="ed-playback-buttons"><button type="button" id="ev-replay" aria-label="Replay EVO journey" title="Replay demonstration"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8a8 8 0 1 1-1 8M5 3v5h5"/></svg></button><button type="button" id="ev-pause" aria-label="Pause EVO journey" aria-pressed="false" title="Pause demonstration"><svg class="ed-pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6v12M16 6v12"/></svg><svg class="ed-play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg></button></div>
+        </div>
+        <p class="gg-demo-note">Recreated interface · Illustrative records · One example workflow, with physical processing time compressed for this demonstration</p>
+        <p class="ed-sr-only" id="ev-announcement" role="status" aria-live="polite"></p>
+        <noscript><p class="gg-demo-note">The EVO platform connects customer submissions, prep workflows, PSA order tagging, billing and return shipping. Enable JavaScript to follow the four-stage example.</p></noscript>
+      </div>
+      <div class="gg-results ev-results"><div><strong>30</strong><span>days to build<br>the digital platform</span></div><div><strong>Customer + Admin</strong><span>two connected sides of the same service</span></div><div><strong>Intake To Return</strong><span>one traceable submission journey</span></div></div>
+      <div class="ec-project-note gg-project-note"><p>Turn your customer journey into a connected digital service.<br>From the first request to the operations behind it.</p><a href="#discovery-call">Build Your Service Platform <span aria-hidden="true">↗</span></a></div>
+    </section>

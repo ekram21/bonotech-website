@@ -570,8 +570,8 @@ const DiscoveryCallSection = () => {
                         <span>Into a Clear Build Plan</span>
                     </h2>
                     <p className="discovery-description">
-                        Tell us what’s slowing your business down&nbsp;—&nbsp, or what you want to
-                        build next. <br className="hidden sm:block" />
+                        Tell us what’s slowing your business down — or what you want to
+                        build next <br className="hidden sm:block" />
                         Let’s map the opportunity, explore the right approach, and
                         define your next step.
                     </p>

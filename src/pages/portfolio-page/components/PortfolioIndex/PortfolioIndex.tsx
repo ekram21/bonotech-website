@@ -3,6 +3,8 @@ import gustav from '@/assets/clients/gustav.svg'
 import ditech from '@/assets/clients/ditech.svg'
 import olmo from '@/assets/clients/olmo.svg'
 import getMyGrail from '@/assets/clients/get-my-grail.svg'
+import evo from '@/assets/clients/evo.svg'
+import polysignals from '@/assets/clients/polysignals.svg'
 import { initPortfolioIndex } from './portfolioIndexEngine'
 import './portfolio-index.css'
 
@@ -11,6 +13,8 @@ const CASES = [
     { href: '#ditech-case', logo: ditech, title: 'CRM', client: 'DITECH' },
     { href: '#olmo-case', logo: olmo, title: 'Property Management', client: 'Olmo' },
     { href: '#grail-case', logo: getMyGrail, title: 'Web App', client: 'Get My Grail' },
+    { href: '#evo-case', logo: evo, title: 'Card Prep Platform', client: 'EVO Grading' },
+    { href: '#polysignals-case', logo: polysignals, title: 'Market Intelligence', client: 'Polysignals' },
 ]
 
 const COUNT = String(CASES.length + 1).padStart(2, '0')
@@ -43,11 +47,7 @@ export function PortfolioIndex() {
                     />
                 </svg>
                 <span className="pi-rail" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
+                    {Array.from({ length: Number(COUNT) }, (_, index) => <i key={index} />)}
                 </span>
                 <span className="pi-count" aria-hidden="true">
                     {COUNT}

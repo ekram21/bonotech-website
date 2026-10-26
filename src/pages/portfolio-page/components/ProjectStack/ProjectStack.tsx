@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef, useState, useSyncExternalStore, type CSSProper
 import ditech from '@/assets/clients/ditech.svg'
 import gustav from '@/assets/clients/gustav.svg'
 import olmo from '@/assets/clients/olmo.svg'
-import zatiq from '@/assets/clients/zatiq.svg'
 import evo from '@/assets/clients/evo.webp'
 import getMyGrail from '@/assets/clients/get-my-grail.svg'
 import polysignals from '@/assets/clients/polysignals.svg'
@@ -10,13 +9,12 @@ import { createProjectStack, type ProjectStackEngine } from './projectStackEngin
 import './project-stack.css'
 
 const PROJECTS = [
-    { name: 'DITECH', logo: ditech, tint: '#e9e1f6' },
-    { name: 'Gustav', logo: gustav, tint: '#e5dcef' },
-    { name: 'Olmo', logo: olmo, tint: '#d7c5ec' },
-    { name: 'Zatiq', logo: zatiq, tint: '#eee4f8' },
-    { name: 'EVO', logo: evo, tint: '#ddd7eb', logoClassName: 'ps-logo-evo' },
-    { name: 'Get My Grail', logo: getMyGrail, tint: '#dcd0ef' },
-    { name: 'Polysignals', logo: polysignals, tint: '#e5d9f2' },
+    { name: 'DITECH', logo: ditech, tint: '#e9e1f6', href: '#ditech-case' },
+    { name: 'Gustav', logo: gustav, tint: '#e5dcef', href: '#gustav-case' },
+    { name: 'Olmo', logo: olmo, tint: '#d7c5ec', href: '#olmo-case' },
+    { name: 'EVO', logo: evo, tint: '#ddd7eb', href: '#evo-case', logoClassName: 'ps-logo-evo' },
+    { name: 'Get My Grail', logo: getMyGrail, tint: '#dcd0ef', href: '#grail-case' },
+    { name: 'Polysignals', logo: polysignals, tint: '#e5d9f2', href: '#polysignals-case' },
 ]
 
 const TOTAL = String(PROJECTS.length).padStart(2, '0')
@@ -94,17 +92,20 @@ export function ProjectStack() {
                 </header>
                 <div ref={stageRef} className="ps-stage">
                     <div className="ps-floor" aria-hidden="true" />
-                    <div ref={sceneRef} className="ps-scene" aria-hidden="true">
+                    <div ref={sceneRef} className="ps-scene">
                         {PROJECTS.map((project, index) => (
-                            <div
+                            <a
                                 key={project.name}
                                 className="ps-panel"
+                                href={project.href}
+                                aria-label={`View ${project.name} project`}
+                                onFocus={() => engineRef.current?.select(index, 'click')}
                                 style={{ '--panel-tint': project.tint } as CSSProperties}
                             >
                                 <div className="ps-panel-meta">
-                                    <span>Selected Project</span>
+                                    <span aria-hidden="true">Open project</span>
                                     <svg viewBox="0 0 20 20" aria-hidden="true">
-                                        <path d="M3 5h14M3 10h14M3 15h14" />
+                                        <path d="M5 15 15 5M5 5h10v10" />
                                     </svg>
                                 </div>
                                 <div className="ps-panel-logo">
@@ -124,7 +125,7 @@ export function ProjectStack() {
                                         {String(index + 1).padStart(2, '0')} / {TOTAL}
                                     </span>
                                 </div>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 </div>
@@ -136,10 +137,10 @@ export function ProjectStack() {
                         <span>
                             {chooseHint
                                 ? 'Choose a company to explore the stack'
-                                : 'Move across the stack to explore'}
+                                : 'Click a card to view the project'}
                         </span>
                     </p>
-                    <div ref={selectorsRef} className="ps-selectors" role="group" aria-label="Highlighted companies">
+                    <div ref={selectorsRef} className="ps-selectors" role="group" aria-label="Highlighted projects">
                         {PROJECTS.map((project, index) => (
                             <button
                                 key={project.name}

@@ -17,8 +17,11 @@ export interface NavbarProps {
 
 const COMPACT_QUERY = '(max-width: 940px)'
 const DISCOVERY_HREF = '#discovery-call'
+const TESTIMONIALS_HREF = '#client-testimonials'
 /** Pages that render the discovery section, so booking links can stay on the page. */
-export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/discovery-call', '/discovery-meeting'])
+export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/portfolio.html', '/discovery-call', '/discovery-meeting'])
+/** Pages that render testimonials, so the link can use the native smooth scroll. */
+const PAGES_WITH_TESTIMONIALS = new Set(['/', '/portfolio', '/portfolio.html'])
 const DISCOVERY_PAGES = new Set(['/discovery-call', '/discovery-meeting'])
 /** Distance below the header at which a section counts as the one being read. */
 const READING_LINE_OFFSET = 120
@@ -83,7 +86,9 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const menuOpen = compact && open
 
     const isOnPage = (href: string) =>
-        isHome || (href === DISCOVERY_HREF && PAGES_WITH_DISCOVERY.has(location.pathname))
+        isHome ||
+        (href === DISCOVERY_HREF && PAGES_WITH_DISCOVERY.has(location.pathname)) ||
+        (href === TESTIMONIALS_HREF && PAGES_WITH_TESTIMONIALS.has(location.pathname))
     // From other pages, section links go to the homepage with the hash.
     const resolveHref = (href: string) => (isOnPage(href) || !href.startsWith('#') ? href : `/${href}`)
 
@@ -200,7 +205,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                                     <Link
                                         ref={index === 0 ? firstLinkRef : undefined}
                                         to={link.href}
-                                        aria-current={location.pathname === link.href ? 'page' : undefined}
+                                        aria-current={location.pathname === link.href || (link.href === '/portfolio' && location.pathname === '/portfolio.html') ? 'page' : undefined}
                                         onClick={() => setOpen(false)}
                                     >
                                         {link.label}

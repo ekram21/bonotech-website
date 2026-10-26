@@ -9,6 +9,8 @@
 .portfolio-shift{flex-shrink:0;display:inline-block;width:2.3em;aspect-ratio:1.8;border-radius:15%;vertical-align:middle;perspective:900px}
 .portfolio-shift img{width:152.2%;left:-25.3%;top:-27.4%;height:auto}
 .portfolio-shift::before{inset:18% 7% 4%;border-radius:18%;filter:blur(10px);box-shadow:0 12px 24px #07011066,0 24px 45px #07011044}
+.portfolio-shift[href]{cursor:pointer;text-decoration:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;filter:none;transform:none;transition:none}
+.portfolio-shift[href]:focus-visible{outline:2px solid #ddc2ff;outline-offset:9px}
 .portfolio-description{max-width:68ch;margin:44px auto 0;font-size:clamp(16px,1.35vw,21px);line-height:1.65;letter-spacing:-.03em;color:#c9bfd9;text-shadow:0 2px 16px #0e051a66}
 .portfolio-eyebrow,.portfolio-title,.portfolio-description{animation:copy-arrive 1.2s ease both}
 .portfolio-title{animation-delay:.1s}.portfolio-description{animation-delay:.2s}

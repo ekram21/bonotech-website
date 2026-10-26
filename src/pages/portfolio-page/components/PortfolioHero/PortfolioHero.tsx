@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import FlowBackground from "@/pages/home-page/components/Hero/FlowBackground";
 import { useHeroAtmospherePin } from "@/pages/home-page/components/Hero/useHeroAtmospherePin";
-import { useKeyFloat } from "@/pages/home-page/components/Hero/useKeyFloat";
+import { usePortfolioShift } from "./usePortfolioShift";
 import "@/pages/home-page/components/Hero/Hero.css";
 import shiftKey from "@/assets/portfolio/shift-key.png";
 import "./portfolio-hero.css";
@@ -9,8 +9,8 @@ import "./portfolio-hero.css";
 export function PortfolioHero() {
     const heroRef = useRef<HTMLElement>(null);
     const atmosphereRef = useRef<HTMLDivElement>(null);
-    const keyImageRef = useRef<HTMLImageElement>(null);
-    useKeyFloat(keyImageRef);
+    const shiftRef = useRef<HTMLAnchorElement>(null);
+    usePortfolioShift(shiftRef);
     useHeroAtmospherePin(heroRef, atmosphereRef);
 
     return (
@@ -36,10 +36,14 @@ export function PortfolioHero() {
                     <span className="portfolio-title-lead" aria-hidden="true">
                         Projects Built To
                     </span>
-                    <span className="portfolio-title-finish" aria-hidden="true">
-                        <span className="home-key portfolio-shift">
+                    <span className="portfolio-title-finish">
+                        <a
+                            ref={shiftRef}
+                            className="home-key portfolio-shift"
+                            href="#highlighted-projects"
+                            aria-label="Shift — explore highlighted projects"
+                        >
                             <img
-                                ref={keyImageRef}
                                 src={shiftKey}
                                 alt=""
                                 width={2303}
@@ -47,12 +51,12 @@ export function PortfolioHero() {
                                 fetchPriority="high"
                                 draggable={false}
                             />
-                        </span>
-                        <span className="portfolio-title-outcome">Businesses Forward</span>
+                        </a>
+                        <span className="portfolio-title-outcome" aria-hidden="true">Businesses Forward</span>
                     </span>
                 </h1>
                 <p className="portfolio-description">
-                    Digital products, platforms, and transformations
+                    Digital products and enterprise-wide transformations
                     <br className="portfolio-desktop-break" /> engineered by Bonotech.
                 </p>
             </div>

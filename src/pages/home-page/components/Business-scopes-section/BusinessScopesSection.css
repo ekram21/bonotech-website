@@ -233,7 +233,7 @@
 .scope-idea {
     grid-column: 1;
     grid-row: 1;
-    background: linear-gradient(130deg, #09060ff5, #0c0814f2 72%, #0c0814b8);
+    background: linear-gradient(130deg, #09060fde, #0c0814cc 72%, #0c081488);
 }
 
 .scope-build {

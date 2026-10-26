@@ -92,7 +92,6 @@ export function initGustavDemo(section: HTMLElement): () => void {
                 node.classList.toggle('is-current', i === s.beforeStep)
                 node.classList.toggle('is-done', i < s.beforeStep)
             })
-            setText(byId('gc-before-time'), ['11:02 AM', '11:04 AM', '11:10 AM', '11:22 AM'][s.beforeStep])
             setText(byId('gc-phone-time'), s.delivered ? '11:06' : s.working ? '11:03' : '11:02')
             guest.hidden = !s.sent
             staff.hidden = !s.replied

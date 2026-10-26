@@ -201,9 +201,9 @@ const Footer = () => {
                             Stay in the Loop
                         </h2>
                         <p className="footer-newsletter-title">
-                            Fresh Thinking.
+                            Get A Sharper View of
                             <br />
-                            Practical Tech.
+                            Business Technology
                         </p>
                         <p className="footer-newsletter-description">
                             Product insights, smarter systems, and AI that works for

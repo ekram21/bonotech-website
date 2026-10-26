@@ -200,6 +200,39 @@
     color: #fff8ff;
 }
 
+.testimonial-employer {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-inline-start: 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.testimonial-employer-mark {
+    display: block;
+    flex: none;
+    width: 22px;
+    height: 15px;
+    object-fit: contain;
+}
+
+.testimonial-slide .testimonial-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.testimonial-country-flag {
+    display: block;
+    flex: none;
+    width: 20px;
+    height: auto;
+    border-radius: 1px;
+}
+
 .testimonial-portrait {
     grid-column: 2;
     grid-row: 1 / 4;
@@ -720,7 +753,7 @@
     }
 
     .testimonial-control {
-        width: 36px;
+        width: 34px;
     }
 }
 

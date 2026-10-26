@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import projectsBackground from "@/assets/about/projects-background.mp4";
 import commitmentPortrait from "@/assets/testimonials/evan-milho.webp";
 import evoLogo from "@/assets/clients/evo.webp";
+import usFlag from "@/assets/testimonials/us-flag.svg";
 import dataMotion from "@/assets/about/data-motion.mp4";
 import "./AboutImpactSection.css";
 
@@ -316,6 +317,7 @@ const AboutImpactSection = () => {
                                 </span>
                                 <span className="testimonial-role">
                                     CEO, EVO Grading
+                                    <span className="testimonial-location"><img className="testimonial-country-flag" src={usFlag} alt="" aria-hidden="true" width={20} height={11} />United States</span>
                                 </span>
                             </div>
                             <img

@@ -11,6 +11,8 @@ import nafisAbrar from "@/assets/testimonials/nafis-abrar.webp";
 import sultanMoni from "@/assets/testimonials/sultan-moni-new.webp";
 import shohiduzzamanShakil from "@/assets/testimonials/shohiduzzaman-shakil.webp";
 import rakibulHasanRaihan from "@/assets/testimonials/rakibul-hasan-raihan.webp";
+import metaMark from "@/assets/testimonials/meta-mark.svg";
+import usFlag from "@/assets/testimonials/us-flag.svg";
 
 import "./TestimonialsSection.css";
 import { initTestimonialWaves } from "./testimonialWaves";
@@ -27,6 +29,8 @@ type Testimonial = {
     portrait: string;
     portraitAlt: string;
     logoAlt: string;
+    employer?: string;
+    country?: string;
 };
 
 const testimonials: Testimonial[] = [
@@ -43,6 +47,7 @@ const testimonials: Testimonial[] = [
         logoClassName: "testimonial-logo",
         portrait: nafisAbrar,
         portraitAlt: "Nafis Abrar",
+        employer: "Meta",
     },
     {
         id: "testimonial-evan",
@@ -57,6 +62,7 @@ const testimonials: Testimonial[] = [
         logoClassName: "testimonial-logo testimonial-logo-evo",
         portrait: evanMilho,
         portraitAlt: "Evan Milho",
+        country: "United States",
     },
     {
         id: "testimonial-sultan",
@@ -424,7 +430,14 @@ const TestimonialsSection = () => {
                                 <blockquote>{testimonial.quote}</blockquote>
                                 <figcaption>
                                     <strong>{testimonial.name}</strong>
-                                    <span>{testimonial.role}</span>
+                                    <span>
+                                        {testimonial.employer ? (
+                                            <>ML Engineer at <span className="testimonial-employer"><img className="testimonial-employer-mark" src={metaMark} alt="" aria-hidden="true" width="22" height="15" />{testimonial.employer}</span></>
+                                        ) : testimonial.role}
+                                        {testimonial.country ? (
+                                            <span className="testimonial-location"><span aria-hidden="true">·</span><img className="testimonial-country-flag" src={usFlag} alt="" aria-hidden="true" width="20" height="11" />{testimonial.country}</span>
+                                        ) : null}
+                                    </span>
                                 </figcaption>
                                 <div className="testimonial-portrait">
                                     <img

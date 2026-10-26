@@ -132,8 +132,24 @@ export default function App() {
                                 )
                             }
                         />
+                        <Route
+                            path="/portfolio.html"
+                            element={
+                                PORTFOLIO_ENABLED ? (
+                                    <Suspense fallback={null}>
+                                        <PortfolioPage />
+                                    </Suspense>
+                                ) : (
+                                    <Navigate to="/" replace />
+                                )
+                            }
+                        />
                         <Route path="/discovery-call" element={<DiscoveryMeetingPage />} />
                         <Route path="/discovery-meeting" element={<DiscoveryMeetingPage />} />
+                        <Route
+                            path="/client-testimonials"
+                            element={<Navigate to="/#client-testimonials" replace />}
+                        />
                         <Route path="/terms" element={<TermsOfService />} />
                         <Route path="/privacy" element={<PrivacyPolicy />} />
                         <Route
