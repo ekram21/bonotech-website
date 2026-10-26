@@ -83,7 +83,7 @@
  .delivery-carousel.is-ready .delivery-card[data-position="right"]{opacity:.55;transform:translateX(calc(-50% + var(--delivery-spread))) translateZ(-70px) rotateY(-23deg)}
  .delivery-navigation{gap:8px;margin-top:22px}
  .delivery-video-toggle{left:calc(100% + 8px)}
- .delivery-glow{background:radial-gradient(ellipse 80% 48% at 50% 58%,#9666d659,#652cd83d 38%,transparent 80%)}
+ .delivery-glow{background:radial-gradient(ellipse 80% 48% at var(--glow-x) var(--glow-y),#ad7de49c,#652cd87a 38%,#3c185a52 61%,transparent 80%)}
  .delivery-stage{grid-template-columns:1fr}
 }
 @media (max-width: 360px){
