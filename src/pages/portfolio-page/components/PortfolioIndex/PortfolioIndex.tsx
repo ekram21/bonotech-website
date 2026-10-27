@@ -17,7 +17,7 @@ const CASES = [
     { href: '#polysignals-case', logo: polysignals, title: 'Market Intelligence', client: 'Polysignals' },
 ]
 
-const COUNT = String(CASES.length + 1).padStart(2, '0')
+const COUNT = String(CASES.length).padStart(2, '0')
 
 export function PortfolioIndex() {
     const rootRef = useRef<HTMLDivElement>(null)
@@ -59,28 +59,6 @@ export function PortfolioIndex() {
                     <span>{COUNT}</span>
                 </div>
                 <ol className="pi-links">
-                    <li>
-                        <a href="#enterprise-case">
-                            <span className="pi-logo pi-enterprise" aria-hidden="true">
-                                <svg viewBox="0 0 28 28" fill="none">
-                                    <path
-                                        d="M6 24V5h11v19M17 11h5v13M3 24h22M10 9h3m-3 5h3m-3 5h3"
-                                        stroke="currentColor"
-                                        strokeWidth="1.4"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                            </span>
-                            <span className="pi-copy">
-                                <strong>Enterprise Platform</strong>
-                                <span>15,000-employee group</span>
-                            </span>
-                            <span className="pi-arrow" aria-hidden="true">
-                                ↗
-                            </span>
-                        </a>
-                    </li>
                     {CASES.map((item) => (
                         <li key={item.href}>
                             <a href={item.href}>
