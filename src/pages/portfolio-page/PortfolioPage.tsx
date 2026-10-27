@@ -3,6 +3,8 @@ import { PortfolioHero } from './components/PortfolioHero/PortfolioHero'
 import './portfolio.css'
 import { ProjectStack } from './components/ProjectStack/ProjectStack'
 // import { EnterpriseCase } from './components/EnterpriseCase/EnterpriseCase'
+// Shared case heading and CTA styles are still used by the visible portfolio cases.
+import './components/EnterpriseCase/enterprise-demo.css'
 import { GustavCase } from './components/GustavCase/GustavCase'
 import { DitechCase } from './components/DitechCase/DitechCase'
 import { GrailCase } from './components/GrailCase/GrailCase'
