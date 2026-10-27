@@ -2,6 +2,7 @@ import { usePageMeta } from '@/lib/usePageMeta'
 import { PortfolioHero } from './components/PortfolioHero/PortfolioHero'
 import './portfolio.css'
 import { ProjectStack } from './components/ProjectStack/ProjectStack'
+// import { EnterpriseCase } from './components/EnterpriseCase/EnterpriseCase'
 import { GustavCase } from './components/GustavCase/GustavCase'
 import { DitechCase } from './components/DitechCase/DitechCase'
 import { GrailCase } from './components/GrailCase/GrailCase'
@@ -25,6 +26,7 @@ export function PortfolioPage() {
             <main id="main-content" tabIndex={-1}>
                 <PortfolioHero />
                 <ProjectStack />
+                {/* <EnterpriseCase /> */}
                 <GustavCase />
                 <DitechCase />
                 <OlmoCase />
