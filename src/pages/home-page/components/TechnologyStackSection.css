@@ -327,6 +327,7 @@
 
 @media (max-width: 760px) {
     .technology {
+        overflow: hidden;
         padding: 74px 22px 38px;
     }
 

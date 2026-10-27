@@ -29,8 +29,11 @@
  .nav-links a{min-height:48px;font-size:13px;justify-content:flex-start;padding-inline:17px;border-radius:14px}
 }
 @media(max-width:440px){
- .site-header{gap:8px;padding-left:14px;width:calc(100% - 24px)}
- .nav-brand{width:118px}
+ .site-header{left:12px;right:calc(12px + var(--viewport-scrollbar-width,0px));transform:none;margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"brand call toggle" "navigation navigation navigation";gap:8px;padding:8px 10px 8px 14px;width:auto;max-width:none;box-sizing:border-box}
+ .nav-brand{grid-area:brand;width:118px;max-width:100%;min-width:0;margin:0}
+ .site-navigation{grid-area:navigation;order:initial;flex-basis:auto;width:100%;min-width:0}
+ .nav-call{grid-area:call}
+ .nav-toggle{grid-area:toggle}
  .nav-call{gap:7px;padding-inline:12px;font-size:11px}
  .nav-call svg{width:15px;height:15px}
  .nav-toggle{width:40px}

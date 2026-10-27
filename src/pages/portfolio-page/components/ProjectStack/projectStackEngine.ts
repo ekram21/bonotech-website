@@ -19,9 +19,9 @@ export function panelPose(
     const influence = Math.exp(-(distance * distance) / (2 * 0.55 * 0.55))
     return {
         height: (370 - index * 5) * (engaged ? 0.46 + 0.54 * influence : 1),
-        y: engaged ? -influence * 40 : 0,
-        z: engaged ? -index * 115 + influence * Math.max(0, index * 115 - 200) : -index * 115,
-        x: engaged ? influence * Math.max(0, index * 115 - 200) * 0.58 : 0,
+        y: engaged ? -influence * Math.min(95, 30 + index * 35) : 0,
+        z: -index * 115,
+        x: 0,
         shade: index * 0.022,
     }
 }
@@ -49,7 +49,7 @@ export function createProjectStack(
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)')
     let current = 0
     let selected = 0
-    let engaged = false
+    let engaged = true
     let visible = false
     let frame = 0
     let last = 0
@@ -60,6 +60,7 @@ export function createProjectStack(
     let rotationY = -43
     let vx = 0
     let vy = 0
+    let hoverAnchor: { x: number; y: number } | null = null
     const poses = cards.map((_, i) => ({ ...panelPose(i, 0), velocity: { height: 0, y: 0, z: 0, x: 0 } }))
     let highlighted = -1
 
@@ -75,6 +76,7 @@ export function createProjectStack(
         selected = clamp(index, 0, cards.length - 1)
         current = selected
         engaged = true
+        hoverAnchor = null
         highlight(selected)
         onSelect(selected)
         if (source === 'keyboard') buttons[selected]?.focus()
@@ -82,7 +84,7 @@ export function createProjectStack(
         start()
     }
     function spring(value: number, velocity: number, target: number, dt: number) {
-        const nextVelocity = velocity + ((target - value) * 160 - velocity * 24) * dt
+        const nextVelocity = velocity + ((target - value) * 160 - velocity * 28) * dt
         return [value + nextVelocity * dt, nextVelocity]
     }
     function paint(now: number, immediate = false) {
@@ -130,12 +132,34 @@ export function createProjectStack(
         current = selected
         targetX = 12
         targetY = -43
+        hoverAnchor = null
+        highlight(selected)
+        onSelect(selected)
         start()
     }
 
     const onPointerMove = (event: PointerEvent) => {
         if (!fine.matches || compact.matches || reduced.matches || event.pointerType === 'touch') return
         const rect = stage.getBoundingClientRect()
+        const hoveredCard = (event.target as Element | null)?.closest('.ps-panel')
+        const candidate = cards.indexOf(hoveredCard as HTMLElement)
+        let next = current
+        if (candidate >= 0) {
+            if (
+                !hoverAnchor ||
+                (candidate !== current &&
+                    Math.hypot(event.clientX - hoverAnchor.x, event.clientY - hoverAnchor.y) >= 12)
+            ) {
+                hoverAnchor = { x: event.clientX, y: event.clientY }
+                next = candidate
+            }
+        }
+        if (next !== current) {
+            current = next
+            highlight(current)
+            onSelect(current)
+        }
+        engaged = true
         const scale = Math.min(1, stageWidth / 720)
         const trackWidth = 610 * scale
         const x = clamp((event.clientX - rect.left - (stageWidth - trackWidth) / 2) / trackWidth, 0, 1)

@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { Suspense, lazy, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { BrowserRouter, Navigate, Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
 import { PORTFOLIO_ENABLED } from '@/lib/features'
 import { AnalyticsTracker } from '@/components/AnalyticsTracker'
@@ -27,11 +27,15 @@ function SiteNavbar() {
 function ScrollToTop() {
     const { pathname } = useLocation()
     const navigationType = useNavigationType()
+    const isInitialNavigation = useRef(true)
 
-    useEffect(() => {
-        // First load and back/forward keep the browser's scroll position.
-        // Hash links on the same page are native anchors, so they are not handled here.
-        if (navigationType === 'POP') return
+    useLayoutEffect(() => {
+        const isInitial = isInitialNavigation.current
+        isInitialNavigation.current = false
+
+        // Preserve scroll on later back/forward navigation, but don't reopen a
+        // route at a stale saved position on the first page load.
+        if (!isInitial && navigationType === 'POP') return
 
         if (window.location.hash.length > 1) {
             scrollToHashOnLoad()

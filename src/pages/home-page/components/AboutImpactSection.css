@@ -297,15 +297,20 @@
   display: flex;
   flex-direction: column;
   margin: auto 0 0;
-  padding: clamp(24px, 1.85vw, 30px);
+  padding: clamp(16px, 1.2vw, 20px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: #fff;
-  text-shadow: 0 2px 14px rgba(9, 3, 18, 0.72);
+  box-shadow: none;
+  text-shadow: 0 2px 12px rgba(9, 3, 18, 0.82);
 }
 .client-testimonial blockquote {
-  margin: 0 0 24px;
-  font-size: clamp(18px, 1.25vw, 21px);
-  line-height: 1.52;
+  margin: 0 0 14px;
+  font-size: clamp(16px, 1vw, 17px);
+  line-height: 1.38;
   letter-spacing: -0.04em;
+  color: #fff;
 }
 .client-testimonial blockquote p {
   margin: 0;
@@ -316,7 +321,7 @@
   justify-content: space-between;
   gap: 16px;
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.38);
 }
 .testimonial-identity {
@@ -330,6 +335,7 @@
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.3;
+  color: #fff;
 }
 .testimonial-role {
   font-size: 14px;
@@ -346,6 +352,16 @@
   white-space: nowrap;
 }
 
+.about-commitment .testimonial-role {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-commitment .testimonial-location {
+  margin: 2px 0 0;
+}
+
 .about-commitment .testimonial-country-flag {
   display: block;
   width: 20px;
@@ -359,11 +375,17 @@
   height: auto;
 }
 .testimonial-company.testimonial-company-evo {
-  width: 34px;
+  width: 48px;
+  height: 56px;
+  object-fit: contain;
 }
 .about-commitment .testimonial-company {
   filter: brightness(0) invert(1);
   opacity: 0.92;
+}
+.about-commitment .testimonial-company-evo {
+  filter: none;
+  opacity: 1;
 }
 .about-data {
   grid-column: 3;
@@ -561,7 +583,7 @@
     font-size: 21px;
   }
   .about-commitment {
-    min-height: 630px;
+    min-height: 690px;
     padding: 21px;
   }
   .about-card-label {
@@ -569,20 +591,47 @@
   }
   .commitment-number {
     font-size: 72px;
-    margin: 21px 6px 160px;
+    margin: 21px 6px 64px;
   }
   .commitment-topline {
     margin: 7px 6px 0;
   }
   .client-testimonial {
-    padding: 24px;
+    padding: 18px;
+  }
+  .about-commitment .client-testimonial {
+    border-color: transparent;
+    background: transparent;
+    color: #fff;
+    box-shadow: none;
+    text-shadow: 0 2px 12px rgba(9, 3, 18, 0.82);
   }
   .client-testimonial blockquote {
-    font-size: 19px;
-    line-height: 1.5;
+    margin-bottom: 14px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .about-commitment .client-testimonial figcaption {
+    padding-top: 12px;
+  }
+  .about-commitment .client-testimonial blockquote {
+    color: #fff;
+  }
+  .about-commitment .client-testimonial figcaption {
+    border-top-color: rgba(255, 255, 255, 0.38);
+  }
+  .about-commitment .testimonial-name {
+    color: #fff;
+  }
+  .about-commitment .testimonial-role {
+    color: #e3d8ec;
   }
   .testimonial-company {
     width: 62px;
+  }
+  .testimonial-company.testimonial-company-evo {
+    width: 52px;
+    height: 60px;
   }
   .about-data {
     min-height: 370px;

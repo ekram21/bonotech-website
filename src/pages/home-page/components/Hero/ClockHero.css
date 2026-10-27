@@ -312,16 +312,23 @@
         gap: 10px;
     }
 
-    .clock-support::before {
+    .clock-support::before,
+    .clock-support::after {
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 50%;
         width: 1px;
-        background: #ddcbf966;
+        background: #ddcbf6a6;
         content: "";
         pointer-events: none;
-        transform: translateX(-50%);
+    }
+
+    .clock-support::before {
+        left: calc(50% - 4px);
+    }
+
+    .clock-support::after {
+        left: calc(50% + 3px);
     }
 
     .clock-support .intro-copy {
@@ -329,13 +336,13 @@
         line-height: 1.45;
     }
 
-    .clock-copy-left {
+    .clock-support .clock-copy-left {
         padding: 0 8px 0 0;
         border: 0;
         text-align: right;
     }
 
-    .clock-copy-right {
+    .clock-support .clock-copy-right {
         padding: 0 0 0 8px;
         border: 0;
         text-align: left;

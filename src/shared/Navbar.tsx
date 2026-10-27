@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ComponentProps, type MouseEvent } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentProps, type MouseEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { trackCtaClick } from '@/lib/analytics'
 import { PORTFOLIO_ENABLED } from '@/lib/features'
@@ -72,6 +72,23 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const navigationRef = useRef<HTMLElement | null>(null)
     const toggleRef = useRef<HTMLButtonElement | null>(null)
     const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
+
+    useLayoutEffect(() => {
+        const header = headerRef.current
+        if (!header) return
+
+        const updateViewportGutter = () => {
+            const scrollbarWidth = Math.max(
+                0,
+                window.innerWidth - document.documentElement.clientWidth,
+            )
+            header.style.setProperty('--viewport-scrollbar-width', `${scrollbarWidth}px`)
+        }
+
+        updateViewportGutter()
+        window.addEventListener('resize', updateViewportGutter)
+        return () => window.removeEventListener('resize', updateViewportGutter)
+    }, [])
 
     const [open, setOpen] = useState(false)
     const [currentHref, setCurrentHref] = useState<string | null>(null)
