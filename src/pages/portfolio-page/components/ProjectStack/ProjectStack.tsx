@@ -9,8 +9,8 @@ import { createProjectStack, type ProjectStackEngine } from './projectStackEngin
 import './project-stack.css'
 
 const PROJECTS = [
-    { name: 'DITECH', logo: ditech, tint: '#e9e1f6', href: '#ditech-case' },
     { name: 'Gustav', logo: gustav, tint: '#e5dcef', href: '#gustav-case' },
+    { name: 'DITECH', logo: ditech, tint: '#e9e1f6', href: '#ditech-case' },
     { name: 'Olmo', logo: olmo, tint: '#d7c5ec', href: '#olmo-case' },
     { name: 'EVO', logo: evo, tint: '#ddd7eb', href: '#evo-case', logoClassName: 'ps-logo-evo' },
     { name: 'Get My Grail', logo: getMyGrail, tint: '#dcd0ef', href: '#grail-case' },
