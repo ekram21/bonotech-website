@@ -128,7 +128,7 @@ const DiscoveryCallSection = () => {
     const [scrollRequest, setScrollRequest] = useState<{
         day: number | null;
         focusDate: boolean;
-    } | null>(null);
+    } | null>({ day: cursor, focusDate: false });
     const [showReview, setShowReview] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);

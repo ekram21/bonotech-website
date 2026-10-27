@@ -80,7 +80,6 @@ export function createProjectStack(
         highlight(selected)
         onSelect(selected)
         if (source === 'keyboard') buttons[selected]?.focus()
-        paint(performance.now(), true)
         start()
     }
     function spring(value: number, velocity: number, target: number, dt: number) {
