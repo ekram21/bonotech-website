@@ -154,7 +154,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     clipPath: mobileMenuOpen
                         ? 'circle(150% at calc(100% - 40px) 40px)'
                         : 'circle(0px at calc(100% - 40px) 40px)',
-                    transition: 'clip-path 0.6s cubic-bezier(0.76, 0, 0.24, 1)',
+                    transition: 'clip-path 06s cubic-bezier(0.76, 0, 0.24, 1)',
                     pointerEvents: mobileMenuOpen ? 'auto' : 'none',
                 }}
                 aria-hidden={!mobileMenuOpen}
@@ -169,11 +169,11 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                                 onClick={() => handleNavLinkClick(link.href)}
                                 className="text-white/90 font-semibold text-center hover:text-white transition-colors duration-200"
                                 style={{
-                                    fontSize: 'clamp(1.75rem, 6vw, 2.5rem)',
+                                    fontSize: 'clamp(175rem, 6vw, 25rem)',
                                     lineHeight: 1.15,
                                     opacity: mobileMenuOpen ? 1 : 0,
                                     transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-                                    transition: `opacity 0.4s ease ${0.1 + i * 0.07}s, transform 0.4s ease ${0.1 + i * 0.07}s`,
+                                    transition: `opacity 04s ease ${0.1 + i * 0.07}s, transform 04s ease ${0.1 + i * 0.07}s`,
                                 }}
                             >
                                 {link.label}
@@ -186,7 +186,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                         style={{
                             opacity: mobileMenuOpen ? 1 : 0,
                             transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-                            transition: `opacity 0.4s ease ${0.1 + links.length * 0.07}s, transform 0.4s ease ${0.1 + links.length * 0.07}s`,
+                            transition: `opacity 04s ease ${0.1 + links.length * 0.07}s, transform 04s ease ${0.1 + links.length * 0.07}s`,
                         }}
                     >
                         <a

@@ -17,7 +17,7 @@ import { EvoCase } from './components/EvoCase'
 import { PolysignalsCase } from './components/PolysignalsCase'
 
 const TITLE = 'Portfolio — Bonotech'
-const DESCRIPTION = 'Digital products, platforms, and transformations engineered by Bonotech.'
+const DESCRIPTION = 'Digital products, platforms, and transformations engineered by Bonotech'
 
 export function PortfolioPage() {
     usePageMeta(TITLE, DESCRIPTION)

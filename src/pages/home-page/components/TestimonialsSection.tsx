@@ -4,13 +4,11 @@ import evoLogo from "@/assets/clients/evo.webp";
 import polysignalsLogo from "@/assets/clients/polysignals.svg";
 import zatiqLogo from "@/assets/clients/zatiq.svg";
 import gustavLogo from "@/assets/clients/gustav.svg";
-import ditechLogo from "@/assets/clients/ditech.svg";
 
 import evanMilho from "@/assets/testimonials/evan-milho.webp";
 import nafisAbrar from "@/assets/testimonials/nafis-abrar.webp";
 import sultanMoni from "@/assets/testimonials/sultan-moni-new.webp";
 import shohiduzzamanShakil from "@/assets/testimonials/shohiduzzaman-shakil.webp";
-import rakibulHasanRaihan from "@/assets/testimonials/rakibul-hasan-raihan.webp";
 import metaMark from "@/assets/testimonials/meta-mark.svg";
 import usFlag from "@/assets/testimonials/us-flag.svg";
 
@@ -42,7 +40,7 @@ const testimonials: Testimonial[] = [
         role: "ML Engineer at Meta",
         handle: "@polysignals.app",
         quote:
-            "Polysignals is the highest-quality app built in the shortest possible time that I have seen in quite some time. Speaking as someone who works with the highest level of engineers on a daily basis, Bonotech is the real deal!",
+            "Polysignals is the highest-quality app built in the shortest possible time that I have seen in quite some time Speaking as someone who works with the highest level of engineers on a daily basis, Bonotech is the real deal!",
         logo: polysignalsLogo,
         logoClassName: "testimonial-logo",
         portrait: nafisAbrar,
@@ -57,7 +55,7 @@ const testimonials: Testimonial[] = [
         role: "CEO, EVO Grading",
         handle: "@evocardprep",
         quote:
-            "I couldn\u2019t believe my eyes when I first saw what the team had built out for me. Looks so good. There are massive companies in the space who still haven\u2019t modernised a proper web-based application form, so excited to be the first to launch one for card prep & cleaning.",
+            "I couldn\u2019t believe my eyes when I first saw what the team had built out for me Looks so good There are massive companies in the space who still haven\u2019t modernised a proper web-based application form, so excited to be the first to launch one for card prep & cleaning",
         logo: evoLogo,
         logoClassName: "testimonial-logo testimonial-logo-evo",
         portrait: evanMilho,
@@ -72,7 +70,7 @@ const testimonials: Testimonial[] = [
         role: "Founder and CEO, Zatiq",
         handle: "@zatiqglobal",
         quote:
-            "Bonotech brought a thoughtful product perspective to the table. Their consultancy helped us look at the experience more strategically, and I especially loved the UI/UX suggestions. They give users a quick, engaging win while making the product easier to understand from the start.",
+            "Bonotech brought a thoughtful product perspective to the table Their consultancy helped us look at the experience more strategically, and I especially loved the UI/UX suggestions They give users a quick, engaging win while making the product easier to understand from the start",
         logo: zatiqLogo,
         logoClassName: "testimonial-logo testimonial-logo-zatiq",
         portrait: sultanMoni,
@@ -86,25 +84,11 @@ const testimonials: Testimonial[] = [
         role: "Human Resources Generalist, Mermaid Beach Resort",
         handle: "@gustavclub",
         quote:
-            "Gustav is a user-friendly, visually appealing all\u2011in\u2011one cloud PMS. Intuitive, time-saving, and reliable, with excellent reports and friendly support for effortless hotel management.",
+            "Gustav is a user-friendly, visually appealing all\u2011in\u2011one cloud PMS Intuitive, time-saving, and reliable, with excellent reports and friendly support for effortless hotel management",
         logo: gustavLogo,
         logoClassName: "testimonial-logo",
         portrait: shohiduzzamanShakil,
         portraitAlt: "MD. Shohiduzzaman Shakil",
-    },
-    {
-        id: "testimonial-raihan",
-        slideClass: "testimonial-raihan",
-        logoAlt: "DITECH",
-        name: "MD. Rakibul Hasan Raihan",
-        role: "Project Coordinator, DITECH",
-        handle: "@ditechbd",
-        quote:
-            "The CRM has significantly improved how we monitor and manage our sales team by consolidating key information into one centralized dashboard. What impressed me most was how quickly everything came together; the speed of delivery was genuinely new and remarkable to me.",
-        logo: ditechLogo,
-        logoClassName: "testimonial-logo",
-        portrait: rakibulHasanRaihan,
-        portraitAlt: "MD. Rakibul Hasan Raihan",
     },
 ];
 
@@ -435,7 +419,7 @@ const TestimonialsSection = () => {
                                             <>ML Engineer at <span className="testimonial-employer"><img className="testimonial-employer-mark" src={metaMark} alt="" aria-hidden="true" width="22" height="15" />{testimonial.employer}</span></>
                                         ) : testimonial.role}
                                         {testimonial.country ? (
-                                            <span className="testimonial-location"><span aria-hidden="true">·</span><img className="testimonial-country-flag" src={usFlag} alt="" aria-hidden="true" width="20" height="11" />{testimonial.country}</span>
+                                            <span className="testimonial-location"><span className="testimonial-location-separator" aria-hidden="true">.</span><img className="testimonial-country-flag" src={usFlag} alt="" aria-hidden="true" width="20" height="11" />{testimonial.country}</span>
                                         ) : null}
                                     </span>
                                 </figcaption>

@@ -71,25 +71,25 @@ export function validateContactForm(
   const errors: Record<string, string> = {};
 
   if (!data.name.trim()) {
-    errors.name = "Name is required.";
+    errors.name = "Name is required";
   }
 
   const email = data.email.trim();
   if (!email) {
-    errors.email = "Email is required.";
+    errors.email = "Email is required";
   } else if (!EMAIL_RE.test(email)) {
-    errors.email = "Please enter a valid email address.";
+    errors.email = "Please enter a valid email address";
   }
 
   const phone = data.phone.trim();
   if (!phone) {
-    errors.phone = "Phone number is required.";
+    errors.phone = "Phone number is required";
   } else if (!PHONE_RE.test(phone)) {
-    errors.phone = "Please enter a valid phone number.";
+    errors.phone = "Please enter a valid phone number";
   }
 
   if (!data.message.trim()) {
-    errors.message = "Message is required.";
+    errors.message = "Message is required";
   }
 
   return errors;
@@ -123,7 +123,7 @@ function buildContactEmailHtml(data: ContactFormData): string {
         </tr>
       </table>
       <p style="margin-top:24px;font-size:13px;color:#999;">
-        Sent from the Bonotech contact form.
+        Sent from the Bonotech contact form
       </p>
     </div>
   `.trim();
@@ -152,11 +152,11 @@ async function postJSON<T>(url: string, body: unknown): Promise<T> {
     if (err instanceof EmailSendError) throw err;
 
     if (err instanceof DOMException && err.name === "AbortError") {
-      throw new EmailSendError("Request timed out. Please try again.");
+      throw new EmailSendError("Request timed out Please try again");
     }
 
     throw new EmailSendError(
-      "Unable to reach the server. Please check your connection and try again.",
+      "Unable to reach the server Please check your connection and try again",
       err,
     );
   } finally {
@@ -207,7 +207,7 @@ function buildDiscoveryCallEmailHtml(data: DiscoveryCallFormData): string {
         ${tableRows}
       </table>
       <p style="margin-top:24px;font-size:13px;color:#999;">
-        Sent from the Bonotech discovery call form.
+        Sent from the Bonotech discovery call form
       </p>
     </div>
   `.trim();
@@ -219,38 +219,38 @@ export function validateDiscoveryCallForm(
   const errors: Record<string, string> = {};
 
   if (!data.fullName.trim()) {
-    errors.fullName = "Full name is required.";
+    errors.fullName = "Full name is required";
   }
 
   const email = data.email.trim();
   if (!email) {
-    errors.email = "Email is required.";
+    errors.email = "Email is required";
   } else if (!EMAIL_RE.test(email)) {
-    errors.email = "Please enter a valid email address.";
+    errors.email = "Please enter a valid email address";
   }
 
   if (!data.company.trim()) {
-    errors.company = "Company name is required.";
+    errors.company = "Company name is required";
   }
 
   if (!data.companySize.trim()) {
-    errors.companySize = "Company size is required.";
+    errors.companySize = "Company size is required";
   }
 
   if (!data.focus.trim()) {
-    errors.focus = "Please choose what we can help with.";
+    errors.focus = "Please choose what we can help with";
   }
 
   if (!data.date.trim()) {
-    errors.date = "Please select a date.";
+    errors.date = "Please select a date";
   }
 
   if (!data.time.trim()) {
-    errors.time = "Please select a time.";
+    errors.time = "Please select a time";
   }
 
   if (!data.timeZone.trim()) {
-    errors.timeZone = "Please select a time zone.";
+    errors.timeZone = "Please select a time zone";
   }
 
   return errors;
@@ -268,7 +268,7 @@ async function sendMarketingEmail(payload: EmailPayload): Promise<void> {
 
   if (response?.message === "Failed") {
     throw new EmailSendError(
-      "The server could not send the email. Please try again later.",
+      "The server could not send the email Please try again later",
     );
   }
 }
@@ -336,11 +336,11 @@ export async function subscribeNewsletter(
   const cleaned = email.trim().toLowerCase();
 
   if (!cleaned) {
-    throw new EmailSendError("Please enter your email address.");
+    throw new EmailSendError("Please enter your email address");
   }
 
   if (!EMAIL_RE.test(cleaned) || cleaned.length > 254) {
-    throw new EmailSendError("Please enter a valid email address.");
+    throw new EmailSendError("Please enter a valid email address");
   }
 
   const controller = new AbortController();
@@ -369,7 +369,7 @@ export async function subscribeNewsletter(
     if (!res.ok || payload.message === "Failed") {
       throw new EmailSendError(
         payload.error?.trim() ||
-          "Could not subscribe right now. Please try again.",
+          "Could not subscribe right now Please try again",
       );
     }
 
@@ -378,11 +378,11 @@ export async function subscribeNewsletter(
     if (err instanceof EmailSendError) throw err;
 
     if (err instanceof DOMException && err.name === "AbortError") {
-      throw new EmailSendError("Request timed out. Please try again.");
+      throw new EmailSendError("Request timed out Please try again");
     }
 
     throw new EmailSendError(
-      "Unable to reach the server. Please check your connection and try again.",
+      "Unable to reach the server Please check your connection and try again",
       err,
     );
   } finally {

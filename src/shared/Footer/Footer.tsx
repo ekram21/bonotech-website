@@ -16,26 +16,26 @@ const EMAIL_MAX_LENGTH = 254;
 
 const getEmailError = (value: string): string => {
     const email = value.trim();
-    if (!email) return "Please enter your email address.";
+    if (!email) return "Please enter your email address";
     if (email.length > EMAIL_MAX_LENGTH) {
-        return "That email address is too long.";
+        return "That email address is too long";
     }
-    if (/\s/.test(email)) return "Email addresses can’t contain spaces.";
+    if (/\s/.test(email)) return "Email addresses can’t contain spaces";
     const atCount = email.split("@").length - 1;
-    if (atCount === 0) return "Your email address is missing an \"@\".";
-    if (atCount > 1) return "Your email address can only contain one \"@\".";
+    if (atCount === 0) return "Your email address is missing an \"@\"";
+    if (atCount > 1) return "Your email address can only contain one \"@\"";
     const [local, domain] = email.split("@");
-    if (!local) return "Please add the part before the \"@\".";
-    if (!domain) return "Please add a domain after the \"@\", e.g. name@company.com.";
+    if (!local) return "Please add the part before the \"@\"";
+    if (!domain) return "Please add a domain after the \"@\", e.g. name@company.com";
     if (
         !domain.includes(".") ||
         domain.startsWith(".") ||
         domain.endsWith(".") ||
         domain.includes("..")
     ) {
-        return "Please check the domain, e.g. name@company.com.";
+        return "Please check the domain, e.g. name@company.com";
     }
-    if (!isValidEmail(email)) return "Please enter a valid email address.";
+    if (!isValidEmail(email)) return "Please enter a valid email address";
     return "";
 };
 
@@ -87,8 +87,8 @@ const Footer = () => {
             setStatus("success");
             setMessage(
                 result.alreadySubscribed
-                    ? "You’re already on the list. Thanks for staying with us."
-                    : "You’re in. We’ll share fresh thinking and practical tech.",
+                    ? "You’re already on the list Thanks for staying with us"
+                    : "You’re in We’ll share fresh thinking and practical tech",
             );
             setEmail("");
         } catch (error) {
@@ -96,7 +96,7 @@ const Footer = () => {
             setMessage(
                 error instanceof EmailSendError
                     ? error.message
-                    : "Could not subscribe right now. Please try again.",
+                    : "Could not subscribe right now Please try again",
             );
             emailInputRef.current?.focus();
         } finally {
@@ -120,7 +120,7 @@ const Footer = () => {
                         </NavAnchor>
                         <p>
                             Building innovative digital products that help businesses
-                            transition into the age of AI.
+                            transition into the age of AI
                         </p>
                     </div>
 
@@ -207,7 +207,7 @@ const Footer = () => {
                         </p>
                         <p className="footer-newsletter-description">
                             Product insights, smarter systems, and AI that works for
-                            business.
+                            business
                         </p>
                         <form
                             className="footer-newsletter-form"
@@ -304,7 +304,7 @@ const Footer = () => {
                                     message ||
                                     (isSubmitting
                                         ? "Subscribing…"
-                                        : "No spam, just useful updates when we have them.")}
+                                        : "No spam, just useful updates when we have them")}
                             </p>
                         </form>
                     </div>
@@ -313,7 +313,7 @@ const Footer = () => {
                 <div className="footer-bottom">
                     <p>
                         © {currentYear} Bonotech Holdings Pte. Ltd.
-                        <span>All rights reserved.</span>
+                        <span>All rights reserved</span>
                     </p>
 
                     <a

@@ -1,7 +1,7 @@
 // Illustrative local walkthrough: no payment, chat or property systems are contacted.
 export const OLMO_DURATION = 34000
 export const OLMO_CHAPTERS = { rent: 6500, repairs: 18000, properties: 24000 }
-export const OLMO_REQUEST = 'The bathtub is cracked. Could someone take a look?'
+export const OLMO_REQUEST = 'The bathtub is cracked Could someone take a look?'
 
 type Scene = keyof typeof OLMO_CHAPTERS
 
@@ -26,19 +26,19 @@ const DESCRIPTIONS: Record<Scene, { title: string; role: string; caption: string
     rent: {
         title: 'Rent & Payments',
         role: 'Tenant + Landlord',
-        caption: 'An in-app rent payment is matched to the correct unit and month, with a receipt and a shared record.',
+        caption: 'An in-app rent payment is matched to the correct unit and month, with a receipt and a shared record',
     },
     repairs: {
         title: 'Maintenance',
         role: 'Tenant + Property Manager',
         caption:
-            'A tenant’s message and photo become an assigned repair ticket, with the flat, timestamp and updates kept together.',
+            'A tenant’s message and photo become an assigned repair ticket, with the flat, timestamp and updates kept together',
     },
     properties: {
         title: 'Properties & Units',
         role: 'Landlord',
         caption:
-            'Landlords oversee properties and occupancy, managers handle day-to-day operations, and tenants access their own payments and documents.',
+            'Landlords oversee properties and occupancy, managers handle day-to-day operations, and tenants access their own payments and documents',
     },
 }
 
@@ -87,13 +87,13 @@ export function initOlmoDemo(section: HTMLElement): () => void {
             demo.dataset.rent = s.paid ? 'paid' : 'pending'
             setText('#oc-payment-label span', s.paid ? 'Payment Confirmed' : 'Payment being confirmed…')
             setText('#oc-paid-badge', s.paid ? 'Paid' : 'Awaiting payment')
-            setText('#oc-receipt-title', s.paid ? 'Matched. Receipted.' : 'Ready To Reconcile')
+            setText('#oc-receipt-title', s.paid ? 'Matched Receipted' : 'Ready To Reconcile')
             setText('#oc-receipt-id', s.paid ? 'OLM-DEMO-1042' : 'Awaiting confirmation')
             setText(
                 '#oc-rent-caption',
                 s.paid
-                    ? 'Flat 4B · September · Paid. Both workspaces reflect the same rent record.'
-                    : 'The unit, rental month and payment stay connected from the start.',
+                    ? 'Flat 4B · September · Paid Both workspaces reflect the same rent record'
+                    : 'The unit, rental month and payment stay connected from the start',
             )
             demo.querySelector('.oc-receipt-confirmation')!.setAttribute('aria-hidden', String(!s.paid))
             previousPaid = s.paid
@@ -168,7 +168,7 @@ export function initOlmoDemo(section: HTMLElement): () => void {
         userPaused = !userPaused
         last = null
         syncPlayback()
-        announcement.textContent = 'Olmo demonstration ' + (userPaused ? 'paused.' : 'playing.')
+        announcement.textContent = 'Olmo demonstration ' + (userPaused ? 'paused' : 'playing')
     })
     listen(replay, 'click', () => {
         elapsed = reduced.matches ? OLMO_CHAPTERS.rent : 0
@@ -176,7 +176,7 @@ export function initOlmoDemo(section: HTMLElement): () => void {
         last = null
         paint()
         syncPlayback()
-        announcement.textContent = 'Olmo demonstration restarted.'
+        announcement.textContent = 'Olmo demonstration restarted'
     })
     const observer = new IntersectionObserver(
         ([entry]) => {

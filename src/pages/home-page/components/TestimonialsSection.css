@@ -221,8 +221,14 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    margin-inline-start: 6px;
     vertical-align: middle;
     white-space: nowrap;
+}
+
+.testimonial-location-separator {
+    align-self: center;
+    transform: translateY(-0.2em);
 }
 
 .testimonial-country-flag {
@@ -270,10 +276,6 @@
 
 .testimonial-sultan .testimonial-portrait img {
     object-position: 50% 30%;
-}
-
-.testimonial-raihan .testimonial-portrait img {
-    object-position: 50% 25%;
 }
 
 .testimonials-navigation {

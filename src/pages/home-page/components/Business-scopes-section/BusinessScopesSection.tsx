@@ -42,7 +42,7 @@ const BusinessScopesSection = () => {
                     <span className="whitespace-nowrap">enterprise-wide</span>{" "}
                     transformation,{" "}
                     <br />
-                    we meet your business where it is and build what comes next.
+                    we meet your business where it is and build what comes next
                 </p>
             </header>
             <div ref={gridRef} className="scope-grid">
@@ -90,9 +90,10 @@ const BusinessScopesSection = () => {
                         You Need It Built
                     </h3>
                     <p>
-                        We will deploy a solid team to build across mobile, web, cloud and
-                        AI, to work in dated phases with weekly shippable increments. 5 of
-                        our 7 platforms went live in just 30 days or less.
+                        We deploy a solid team to build across mobile, web, cloud
+                        and AI, working in defined phases with weekly shippable
+                        increments. Five of our seven platforms went live in 30 days or
+                        less.
                     </p>
                 </article>
                 <div className="scope-notification">
@@ -131,9 +132,10 @@ const BusinessScopesSection = () => {
                     </h3>
                     <p>
                         We digitize fragmented, ageing legacy systems across your
-                        enterprise into one digital flow, giving your teams/management
-                        real-time visibility, actionable insights, and the ability to
-                        manage operations through simple, natural-language conversations.
+                        enterprise into one digital flow, giving your teams and
+                        management real-time visibility, actionable insights, and the
+                        ability to manage operations through simple, natural-language
+                        conversations.
                     </p>
                 </article>
             </div>

@@ -40,7 +40,7 @@ export function PortfolioIndex() {
             >
                 <svg className="pi-toggle-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                     <path
-                        d="M7 5h9M7 10h9M7 15h9M3 5h.1M3 10h.1M3 15h.1"
+                        d="M7 5h9M7 10h9M7 15h9M3 5h1M3 10h1M3 15h1"
                         stroke="currentColor"
                         strokeWidth="1.5"
                         strokeLinecap="round"

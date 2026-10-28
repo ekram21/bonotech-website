@@ -24,8 +24,8 @@
 .portfolio-index :is(button,a):focus-visible{outline:2px solid #e0caff;outline-offset:3px}
 @keyframes pi-reveal{from{opacity:0;transform:translate(6px,-50%)}to{opacity:1;transform:translate(0,-50%)}}
 @keyframes pi-reveal-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-/* On phones the mid-height rail sits over the reading column, so it becomes a corner button. */
-@media(max-width:650px){.portfolio-index{top:auto;transform:none;right:max(14px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom))}.portfolio-index::before{display:none}.pi-toggle{width:46px;height:46px;min-height:0;padding:0;justify-content:center;border-radius:50%}.pi-toggle-icon{width:18px;height:18px}.pi-rail,.pi-count{display:none}.pi-panel{top:auto;bottom:calc(100% + 10px);right:0;transform:none;width:264px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 120px);animation-name:pi-reveal-up}.pi-copy strong{font-size:13px}.pi-toggle::after{inset:-4px}}
+/* Keep the project index as a slim right-side rail on phones, matching the desktop behavior. */
+@media(max-width:650px){.portfolio-index{top:50%;transform:translateY(-50%);right:max(6px,env(safe-area-inset-right));bottom:auto}.pi-toggle{width:34px;height:156px;min-height:156px;padding:11px 0;gap:12px;border-radius:16px}.pi-toggle-icon{width:17px;height:17px}.pi-count{display:none}.pi-panel{top:50%;bottom:auto;right:calc(100% + 9px);transform:translateY(-50%);width:264px;max-width:calc(100vw - 52px);max-height:calc(100dvh - 32px)}.pi-copy strong{font-size:13px}.pi-toggle::after{inset:-4px}}
 @media(max-height:450px){.pi-panel{max-height:calc(100dvh - 32px)}}
 @media(prefers-reduced-motion:reduce){.portfolio-index *{animation:none!important;transition:none!important}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.pi-toggle,.pi-panel{background:#281a3bf5}}

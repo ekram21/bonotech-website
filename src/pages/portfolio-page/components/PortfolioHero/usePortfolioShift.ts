@@ -10,7 +10,7 @@ export function usePortfolioShift(ref: RefObject<HTMLAnchorElement | null>) {
         const reduced = matchMedia('(prefers-reduced-motion: reduce)')
         const neutral = { transform: 'translateY(0) scale(1)', filter: 'brightness(1)' }
         const raised = { transform: 'translateY(-3px) scale(1)', filter: 'brightness(1.08)' }
-        const depressed = { transform: 'translateY(4px) scale(.98)', filter: 'brightness(1.06)' }
+        const depressed = { transform: 'translateY(4px) scale(98)', filter: 'brightness(1.06)' }
         let motion: Animation | null = null
         let press: Animation | null = null
         let hovered = false

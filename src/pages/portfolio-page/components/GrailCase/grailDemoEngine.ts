@@ -20,25 +20,25 @@ const STORIES: Record<Scene, { label: string; title: [string, string]; descripti
     discover: {
         label: '01 / DISCOVER',
         title: ['The Right Card', 'A Connected Experience'],
-        description: 'Collectors browse graded cards, explore the details and find the next addition to their collection.',
+        description: 'Collectors browse graded cards, explore the details and find the next addition to their collection',
         window: 'MARKETPLACE / CARD DETAILS',
     },
     value: {
         label: '02 / UNDERSTAND VALUE',
         title: ['A Clearer View', 'A More Informed Choice'],
-        description: 'Collectors can scan a card or search comparable sales. The value screen brings together a market overview and recently sold cards.',
+        description: 'Collectors can scan a card or search comparable sales The value screen brings together a market overview and recently sold cards',
         window: 'VALUE / MARKET OVERVIEW',
     },
     buy: {
         label: '03 / BUY',
         title: ['A Card They Want', 'A Delivery Choice That Fits'],
-        description: 'At checkout, collectors choose delivery to their home or a hold at their nearest vault. This example shows the choice without placing an order.',
+        description: 'At checkout, collectors choose delivery to their home or a hold at their nearest vault This example shows the choice without placing an order',
         window: 'CHECKOUT / DELIVER TO',
     },
     manage: {
         label: '04 / MANAGE',
         title: ['Collector Tools', 'Connected Business Operations'],
-        description: 'Collectors access their purchase history, collections and balance. In a separate admin workspace, the team manages vaults, inventory and assigned consignors.',
+        description: 'Collectors access their purchase history, collections and balance In a separate admin workspace, the team manages vaults, inventory and assigned consignors',
         window: 'OPERATIONS / VAULT INVENTORY',
     },
 }
@@ -99,9 +99,9 @@ export function initGrailDemo(section: HTMLElement): () => void {
         if (s.vaultSelected !== previousDelivery) {
             const destination = s.vaultSelected ? 'Vault' : 'Home'
             demo.dataset.delivery = destination.toLowerCase()
-            setText('#gg-order-title', s.vaultSelected ? 'Hold At A Vault.' : 'Deliver To Home.')
+            setText('#gg-order-title', s.vaultSelected ? 'Hold At A Vault' : 'Deliver To Home')
             setText('#gg-payment-state', destination)
-            setText('#gg-delivery-detail', s.vaultSelected ? 'Held at your nearest vault. No shipping selected.' : 'Ship to your address.')
+            setText('#gg-delivery-detail', s.vaultSelected ? 'Held at your nearest vault No shipping selected' : 'Ship to your address')
             deliveryButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.ggDelivery === destination.toLowerCase())))
             previousDelivery = s.vaultSelected
         }
@@ -167,13 +167,13 @@ export function initGrailDemo(section: HTMLElement): () => void {
     goButtons.forEach((button) => listen(button, 'click', () => select(button.dataset.ggGo!)))
     deliveryButtons.forEach((button) => listen(button, 'click', () => {
         select('buy', button.dataset.ggDelivery === 'vault' ? 17000 : 14000)
-        announcement.textContent = `${button.dataset.ggDelivery} delivery selected in this example. No order has been placed.`
+        announcement.textContent = `${button.dataset.ggDelivery} delivery selected in this example No order has been placed`
     }))
     listen(pause, 'click', () => {
         userPaused = !userPaused
         last = null
         syncPlayback()
-        announcement.textContent = 'Collector journey ' + (userPaused ? 'paused.' : 'playing.')
+        announcement.textContent = 'Collector journey ' + (userPaused ? 'paused' : 'playing')
     })
     listen(replay, 'click', () => {
         elapsed = 0
@@ -181,7 +181,7 @@ export function initGrailDemo(section: HTMLElement): () => void {
         last = null
         paint()
         syncPlayback()
-        announcement.textContent = 'Collector journey restarted.'
+        announcement.textContent = 'Collector journey restarted'
     })
     const observer = new IntersectionObserver(
         ([entry]) => {

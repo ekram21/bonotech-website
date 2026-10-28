@@ -57,7 +57,7 @@ export function PortfolioHero() {
                 </h1>
                 <p className="portfolio-description">
                     Digital products and enterprise-wide transformations
-                    <br className="portfolio-desktop-break" /> engineered by Bonotech.
+                    <br className="portfolio-desktop-break" /> engineered by Bonotech
                 </p>
             </div>
             </div>

@@ -5,29 +5,29 @@ import "./expertise-summary.css";
 const expertiseServices = [
     {
         title: "Enterprise Software",
-        description: "Custom software, legacy modernization, CRM and SaaS solutions.",
+        description: "Custom software, legacy modernization, CRM and SaaS solutions",
         icon: (
             <>
                 <path pathLength="1" d="M7 8h34v27H7zM7 15h34M16 41h16M24 35v6" />
                 <path pathLength="1" d="m18 21-4 4 4 4m12-8 4 4-4 4m-4-10-4 12" />
-                <path pathLength="1" d="M11 11.5h1m3 0h1" />
+                <path pathLength="1" d="M11 115h1m3 0h1" />
             </>
         ),
     },
     {
         title: "AI-Native Systems",
-        description: "AI-integrated applications and predictive analytics.",
+        description: "AI-integrated applications and predictive analytics",
         icon: (
             <>
                 <path pathLength="1" d="M16 16h16v16H16zM20 16V7m8 9V7m-8 34v-9m8 9v-9M7 20h9m-9 8h9m16-8h9m-9 8h9" />
-                <path pathLength="1" d="m24 20 1.2 2.8L28 24l-2.8 1.2L24 28l-1.2-2.8L20 24l2.8-1.2L24 20Z" />
+                <path pathLength="1" d="m24 20 1.2 28L28 24l-2.8 12L24 28l-1.2-28L20 24l28-12L24 20Z" />
                 <path pathLength="1" d="M5 18h2v4H5zm36 8h2v4h-2zM18 5h4v2h-4zm8 36h4v2h-4z" />
             </>
         ),
     },
     {
         title: "Business Automation",
-        description: "Workflow automation and robotic process automation (RPA).",
+        description: "Workflow automation and robotic process automation (RPA)",
         icon: (
             <>
                 <path pathLength="1" d="M5 6h13v13H5zM30 29h13v13H30z" />
@@ -39,7 +39,7 @@ const expertiseServices = [
     },
     {
         title: "AI Harness & MCP",
-        description: "AI harnesses bring business data and tools together. MCP integrations connect them to compatible AI agents.",
+        description: "AI harnesses bring business data and tools together MCP integrations connect them to compatible AI agents",
         icon: (
             <>
                 <path pathLength="1" d="M18 18h12v12H18zM5 5h8v8H5zm30 0h8v8h-8zM5 35h8v8H5zm30 0h8v8h-8z" />
@@ -107,7 +107,7 @@ export default function ExpertiseSummarySection() {
                     <p className="expertise-summary-copy">
                         We engineer custom enterprise software and AI-native systems, from legacy
                         modernization and AI-integrated applications to workflow automation,
-                        predictive analytics, RPA, CRM and SaaS solutions.
+                        predictive analytics, RPA, CRM and SaaS solutions
                     </p>
                 </header>
 
@@ -148,11 +148,11 @@ export default function ExpertiseSummarySection() {
                         aria-hidden="true"
                     >
                         <path pathLength="1" d="m12 3 8 3v6c0 4.5-8 9-8 9s-8-4.5-8-9V6l8-3Z" />
-                        <path pathLength="1" d="M9.5 11V9a2.5 2.5 0 0 1 5 0v2M8.5 11h7v6h-7z" />
+                        <path pathLength="1" d="M95 11V9a25 2.5 0 0 1 5 0v2M85 11h7v6h-7z" />
                     </svg>
                     <p>
                         We build information security and personal data protection into our
-                        engineering approach, helping businesses meet applicable GDPR requirements.
+                        engineering approach, helping businesses meet applicable GDPR requirements
                     </p>
                 </div>
             </div>

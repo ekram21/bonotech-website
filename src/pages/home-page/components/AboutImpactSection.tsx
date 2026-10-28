@@ -214,7 +214,7 @@ const AboutImpactSection = () => {
                 <p className="about-description">
                     A global consulting partner dedicated to building{" "}
                     <br />
-                    smarter and more adaptive tech.
+                    smarter and more adaptive tech
                 </p>
             </header>
 
@@ -260,7 +260,7 @@ const AboutImpactSection = () => {
                             fill="currentColor"
                             aria-hidden="true"
                         >
-                            <path d="M6 3.5 16 10 6 16.5z" />
+                            <path d="M6 3.5 16 10 6 165z" />
                         </svg>
                     </button>
                     <div className="project-summary">
@@ -270,7 +270,7 @@ const AboutImpactSection = () => {
                             </span>
                             <span className="project-caption">
                                 projects, and that’s just in the last{" "}
-                                <strong>6 months.</strong>
+                                <strong>6 months</strong>
                             </span>
                         </h3>
                     </div>
@@ -303,11 +303,11 @@ const AboutImpactSection = () => {
                         <blockquote>
                             <p>
                                 “I couldn’t believe my eyes when I first saw what
-                                the team had built out for me. Looks so good.
+                                the team had built out for me Looks so good
                                 There are massive companies in the space who
                                 still haven’t modernised a proper <span className="whitespace-nowrap">web-based</span>{" "}
                                 application form, so excited to be the first to
-                                launch one for card prep &amp; cleaning.”
+                                launch one for card prep &amp; cleaning”
                             </p>
                         </blockquote>
                         <figcaption>
@@ -372,7 +372,7 @@ const AboutImpactSection = () => {
                             fill="currentColor"
                             aria-hidden="true"
                         >
-                            <path d="M6 3.5 16 10 6 16.5z" />
+                            <path d="M6 3.5 16 10 6 165z" />
                         </svg>
                     </button>
                     <h3 id="data-title" className="about-card-label">
@@ -382,7 +382,7 @@ const AboutImpactSection = () => {
                         520k<span>+</span>
                     </p>
                     <p className="about-data-description">
-                        Analyzed monthly to power smarter tech for businesses.
+                        Analyzed monthly to power smarter tech for businesses
                     </p>
                 </article>
 

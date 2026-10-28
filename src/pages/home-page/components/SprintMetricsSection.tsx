@@ -92,7 +92,7 @@ const SprintMetricsSection = () => {
                         <h3 id="development-title">Faster Development</h3>
                         <p className="metric-description">
                             Focused sprints, one team across the whole surface,
-                            and no hand-off lag between disciplines.
+                            and no hand-off lag between disciplines
                         </p>
                     </div>
                     <svg
@@ -223,7 +223,7 @@ const SprintMetricsSection = () => {
                             fill="#652cd8"
                         />
                         <path
-                            d="M146 128h5v5h-5z M157.5 128h5v5h-5z M169 128h5v5h-5z M146 139h5v5h-5z M157.5 139h5v5h-5z M169 139h5v5h-5z"
+                            d="M146 128h5v5h-5z M1575 128h5v5h-5z M169 128h5v5h-5z M146 139h5v5h-5z M1575 139h5v5h-5z M169 139h5v5h-5z"
                             fill="#fff"
                         />
                     </svg>
@@ -234,7 +234,7 @@ const SprintMetricsSection = () => {
                         <h3 id="automation-title">Less Repetitive Work</h3>
                         <p className="metric-description">
                             AI-assisted capture, validation and intelligent RPA
-                            take the <span className="whitespace-nowrap">re-keying</span> out of the day.
+                            take the <span className="whitespace-nowrap">re-keying</span> out of the day
                         </p>
                     </div>
                 </article>
@@ -255,7 +255,7 @@ const SprintMetricsSection = () => {
                         <h3 id="quality-title">Faster QA Cycles</h3>
                         <p className="metric-description">
                             Automated regression and continuous checks, so
-                            hardening does not become its own project.
+                            hardening does not become its own project
                         </p>
                     </div>
                     <svg
@@ -360,7 +360,7 @@ const SprintMetricsSection = () => {
                 </article>
             </div>
             <p className="metrics-disclaimer">
-                These figures may vary from project to project.
+                These figures may vary from project to project
             </p>
         </section>
     );

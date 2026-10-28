@@ -108,8 +108,8 @@ const Hero = () => {
                         href="#hero-clock-artwork"
                         transform={
                             isCompact
-                                ? "translate(0 926.9) scale(1 -.3)"
-                                : "translate(0 1176.45) scale(1 -.65)"
+                                ? "translate(0 926.9) scale(1 -3)"
+                                : "translate(0 1176.45) scale(1 -65)"
                         }
                         filter="url(#hero-clock-reflection-blur)"
                     />
@@ -124,15 +124,15 @@ const Hero = () => {
                     <strong>connected digital operations,</strong> engineered with{" "}
                     <strong>precision</strong> and delivered at
                     <br />
-                    <strong>exceptional&nbsp;speed.</strong>
+                    <strong>exceptional&nbsp;speed</strong>
                 </p>
                 <p className="intro-copy clock-copy-right">
                     <strong>AI works best</strong> with the right{" "}
-                    <strong>business context.</strong> We connect it to your{" "}
+                    <strong>business context</strong> We connect it to your{" "}
                     <strong>data, documents and everyday workflows</strong> through{" "}
                     <strong>custom AI systems</strong> and <strong>MCP</strong>
                     <br />
-                    <strong>integrations.</strong>
+                    <strong>integrations</strong>
                 </p>
             </div>
 
@@ -151,7 +151,7 @@ const Hero = () => {
                         <rect x="12" y="4" width="3" height="12" rx=".7" />
                     </svg>
                     <svg className="clock-play-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path d="M6 3.5 16 10 6 16.5z" />
+                        <path d="M6 3.5 16 10 6 165z" />
                     </svg>
                 </button>
             </div>

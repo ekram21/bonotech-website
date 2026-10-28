@@ -72,17 +72,17 @@ const validateFields = (form: FormValues): FieldErrors => {
     const email = form.email.trim();
     const website = form.website.trim();
 
-    if (!name) errors.fullName = "Please enter your full name.";
-    else if (name.length < 2) errors.fullName = "Name looks too short.";
+    if (!name) errors.fullName = "Please enter your full name";
+    else if (name.length < 2) errors.fullName = "Name looks too short";
 
-    if (!email) errors.email = "Please enter your work email.";
-    else if (!isValidEmail(email)) errors.email = "Please enter a valid email address.";
+    if (!email) errors.email = "Please enter your work email";
+    else if (!isValidEmail(email)) errors.email = "Please enter a valid email address";
 
-    if (!form.company.trim()) errors.company = "Please enter your company name.";
-    if (!form.companySize) errors.companySize = "Please select your team size.";
+    if (!form.company.trim()) errors.company = "Please enter your company name";
+    if (!form.companySize) errors.companySize = "Please select your team size";
     if (website && !WEBSITE_RE.test(website))
-        errors.website = "Please enter a valid website, e.g. company.com.";
-    if (!form.focus) errors.focus = "Please choose what we can help with.";
+        errors.website = "Please enter a valid website, e.g. company.com";
+    if (!form.focus) errors.focus = "Please choose what we can help with";
 
     return errors;
 };
@@ -240,7 +240,7 @@ const DiscoveryCallSection = () => {
     const errors = useMemo<FieldErrors>(() => {
         const next = validateFields(form);
         if (!isSelectedSlotValid) {
-            next.slot = "Choose a preferred time to review your call details.";
+            next.slot = "Choose a preferred time to review your call details";
         }
         return next;
     }, [form, isSelectedSlotValid]);
@@ -446,8 +446,8 @@ const DiscoveryCallSection = () => {
             setSubmitState("error");
             setSubmitMessage(
                 errors.slot
-                    ? "That time is no longer available. Please edit your details and pick another slot."
-                    : "Some details need attention. Please edit your details and try again.",
+                    ? "That time is no longer available Please edit your details and pick another slot"
+                    : "Some details need attention Please edit your details and try again",
             );
             return;
         }
@@ -485,7 +485,7 @@ const DiscoveryCallSection = () => {
             setSubmitMessage(
                 error instanceof EmailSendError
                     ? error.message
-                    : "Could not submit the discovery call request. Please try again.",
+                    : "Could not submit the discovery call request Please try again",
             );
         }
     };
@@ -545,7 +545,7 @@ const DiscoveryCallSection = () => {
                   day: "numeric",
                   year: "numeric",
               })} · ${selectedTimeLabel} · ${zoneLabel(timeZone)}`
-            : "Select a date and time above.";
+            : "Select a date and time above";
 
     return (
         <>
@@ -573,7 +573,7 @@ const DiscoveryCallSection = () => {
                         Tell us what’s slowing your business down — or what you want to
                         build next <br className="hidden sm:block" />
                         Let’s map the opportunity, explore the right approach, and
-                        define your next step.
+                        define your next step
                     </p>
                 </header>
 
@@ -590,7 +590,7 @@ const DiscoveryCallSection = () => {
                                 <h3>A Little About Your Business</h3>
                                 <p>
                                     Give us the context to make our first conversation
-                                    count.
+                                    count
                                 </p>
                             </div>
                         </div>
@@ -734,10 +734,10 @@ const DiscoveryCallSection = () => {
                         </div>
 
                         <p className="discovery-form-note">
-                            A focused conversation about your business. No preparation
-                            needed.
+                            A focused conversation about your business No preparation
+                            needed
                             <br />
-                            <span>Fields marked * are required.</span>
+                            <span>Fields marked * are required</span>
                         </p>
                     </div>
 
@@ -941,7 +941,7 @@ const DiscoveryCallSection = () => {
                             </div>
 
                             <p className="discovery-preview-note">
-                                Pick a preferred time and we’ll confirm it by email.
+                                Pick a preferred time and we’ll confirm it by email
                             </p>
 
                             <div className="discovery-slots-header">
@@ -1099,7 +1099,7 @@ const DiscoveryCallSection = () => {
                     </button>
                     <p className="discovery-eyebrow">YOUR DISCOVERY CALL</p>
                     <h3 id="discovery-review-title">A Clear Starting Point</h3>
-                    <p>Check your preferred time and business details.</p>
+                    <p>Check your preferred time and business details</p>
                     <dl className="discovery-review-details">
                         {reviewEntries.map(([name, value]) => (
                             <Fragment key={name}>
@@ -1114,18 +1114,18 @@ const DiscoveryCallSection = () => {
                     >
                         {submitState === "error" ? (
                             <>
-                                <strong>Your request was not sent.</strong>
+                                <strong>Your request was not sent</strong>
                                 <p>{submitMessage}</p>
                             </>
                         ) : submitState === "submitting" ? (
                             <>
                                 <strong>Sending your request…</strong>
-                                <p>Please keep this window open for a moment.</p>
+                                <p>Please keep this window open for a moment</p>
                             </>
                         ) : (
                             <>
-                                <strong>Nothing is sent until you confirm.</strong>
-                                <p>We’ll follow up by email to confirm this time.</p>
+                                <strong>Nothing is sent until you confirm</strong>
+                                <p>We’ll follow up by email to confirm this time</p>
                             </>
                         )}
                     </div>
@@ -1179,7 +1179,7 @@ const DiscoveryCallSection = () => {
                                     ? `, ${confirmedSummary.name.split(/\s+/)[0]}`
                                     : ""}
                                 . We received your preferred slot and will follow up by
-                                email to confirm your discovery call.
+                                email to confirm your discovery call
                             </p>
                             <dl className="discovery-review-details">
                                 <dt>Date</dt>

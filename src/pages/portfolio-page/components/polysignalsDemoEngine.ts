@@ -1,9 +1,9 @@
 const CHAPTERS = ['markets', 'signal', 'reputation'] as const
 type Chapter = (typeof CHAPTERS)[number]
 const STORIES: Record<Chapter, { label: string; title: [string, string]; description: string; window: string }> = {
-    markets: { label: '01 / EXPLORE', title: ['Market Sentiment', 'Made Visible'], description: 'Browse markets and categories, then see how analysts are positioned. The mobile and web views organise bullish and bearish sentiment around the assets people follow.', window: 'WEB VIEW / MARKET SENTIMENT' },
-    signal: { label: '02 / TRACK', title: ['A Market Call', 'With A Record To Follow'], description: 'A published signal brings its target, date and price tracking into one view. Signal Arena adds community participation, while on-chain verification provides an immutable record of each signal.', window: 'COMMUNITY / SIGNAL ARENA' },
-    reputation: { label: '03 / COMPARE', title: ['Analyst Reputation', 'In Plain View'], description: 'PolyRating, analyst performance and monthly leaderboards make reputation visible. These views show both a rating history and a season’s standings—two ways to explore the platform’s reputation system.', window: 'WEB VIEW / POLYRATING' },
+    markets: { label: '01 / EXPLORE', title: ['Market Sentiment', 'Made Visible'], description: 'Browse markets and categories, then see how analysts are positioned The mobile and web views organise bullish and bearish sentiment around the assets people follow', window: 'WEB VIEW / MARKET SENTIMENT' },
+    signal: { label: '02 / TRACK', title: ['A Market Call', 'With A Record To Follow'], description: 'A published signal brings its target, date and price tracking into one view Signal Arena adds community participation, while on-chain verification provides an immutable record of each signal', window: 'COMMUNITY / SIGNAL ARENA' },
+    reputation: { label: '03 / COMPARE', title: ['Analyst Reputation', 'In Plain View'], description: 'PolyRating, analyst performance and monthly leaderboards make reputation visible These views show both a rating history and a season’s standings—two ways to explore the platform’s reputation system', window: 'WEB VIEW / POLYRATING' },
 }
 
 export function initPolysignalsDemo(root: HTMLElement): () => void {
@@ -38,7 +38,7 @@ export function initPolysignalsDemo(root: HTMLElement): () => void {
         on(button, 'keydown', ((event: KeyboardEvent) => { const keys: Record<string, number> = { ArrowRight: (index + 1) % chapters.length, ArrowLeft: (index + chapters.length - 1) % chapters.length, Home: 0, End: chapters.length - 1 }; if (keys[event.key] !== undefined) { event.preventDefault(); chapters[keys[event.key]].focus(); chapters[keys[event.key]].click() } }) as EventListener)
     })
     on(pause, 'click', () => { paused = !paused; sync(); announcement.textContent = `Polysignals walkthrough ${paused ? 'paused' : 'playing'}.` })
-    on(demo.querySelector<HTMLButtonElement>('#pl-replay')!, 'click', () => { elapsed = 0; paused = reduced.matches; paint(); sync(); announcement.textContent = 'Polysignals walkthrough restarted.' })
+    on(demo.querySelector<HTMLButtonElement>('#pl-replay')!, 'click', () => { elapsed = 0; paused = reduced.matches; paint(); sync(); announcement.textContent = 'Polysignals walkthrough restarted' })
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync() }, { threshold: 0 })
     observer.observe(demo.querySelector<HTMLElement>('.pl-showcase')!)
     on(document, 'visibilitychange', sync); on(window, 'pagehide', () => { cancelAnimationFrame(frame); frame = 0; last = null })

@@ -3,10 +3,10 @@ type Chapter = (typeof CHAPTERS)[number]
 const START: Record<Chapter, number> = { submit: 0, prep: 9000, grading: 18000, return: 27000 }
 const DURATION = 36000
 const STORIES: Record<Chapter, { label: string; title: [string, string]; description: string; window: string }> = {
-    submit: { label: '01 / SUBMIT', title: ['A Clear Start', 'For Every Submission'], description: 'The collector chooses a service, adds card details and selects a grading tier. The same submission arrives in EVO’s admin portal, ready for review.', window: 'INTAKE / SUBMISSION REVIEW' },
-    prep: { label: '02 / PREPARE', title: ['Every Card', 'A Traceable Workflow'], description: 'Once the physical cards arrive, EVO records each prep stage. Status updates and customer messages stay attached to the submission.', window: 'OPERATIONS / PREP WORKFLOW' },
-    grading: { label: '03 / COORDINATE', title: ['Individual Cards', 'Organised Into Grading Batches'], description: 'Prepared cards are grouped by grading tier and tagged with a PSA order. The team can coordinate a batch while keeping each collector’s submission identifiable.', window: 'GRADING / PSA ORDER TAGGING' },
-    return: { label: '04 / RETURN', title: ['Billing & Return Details', 'Tied To The Submission'], description: 'EVO can create grading and shipping invoices from the card list, selecting the relevant tiers and services. Billing and shipping details stay with the submission.', window: 'BILLING / INVOICE PREPARATION' },
+    submit: { label: '01 / SUBMIT', title: ['A Clear Start', 'For Every Submission'], description: 'The collector chooses a service, adds card details and selects a grading tier The same submission arrives in EVO’s admin portal, ready for review', window: 'INTAKE / SUBMISSION REVIEW' },
+    prep: { label: '02 / PREPARE', title: ['Every Card', 'A Traceable Workflow'], description: 'Once the physical cards arrive, EVO records each prep stage Status updates and customer messages stay attached to the submission', window: 'OPERATIONS / PREP WORKFLOW' },
+    grading: { label: '03 / COORDINATE', title: ['Individual Cards', 'Organised Into Grading Batches'], description: 'Prepared cards are grouped by grading tier and tagged with a PSA order The team can coordinate a batch while keeping each collector’s submission identifiable', window: 'GRADING / PSA ORDER TAGGING' },
+    return: { label: '04 / RETURN', title: ['Billing & Return Details', 'Tied To The Submission'], description: 'EVO can create grading and shipping invoices from the card list, selecting the relevant tiers and services Billing and shipping details stay with the submission', window: 'BILLING / INVOICE PREPARATION' },
 }
 
 export function initEvoDemo(root: HTMLElement): () => void {
@@ -39,7 +39,7 @@ export function initEvoDemo(root: HTMLElement): () => void {
         for (const [key, value] of Object.entries({ submitted, prepared, tagged, invoiceSelected: invoice })) demo.dataset[key] = String(value)
         text('#ev-intake-status', submitted ? 'Ready for review' : 'Awaiting submission')
         text('#ev-intake-message', submitted ? 'EVO-DEMO-024 received' : 'The next submission starts here')
-        text('#ev-intake-detail', submitted ? 'Card details, service choice and grading tier are linked in one record.' : 'Submit the sample card on the left to see the shared record arrive.')
+        text('#ev-intake-detail', submitted ? 'Card details, service choice and grading tier are linked in one record' : 'Submit the sample card on the left to see the shared record arrive')
         text('#ev-submit-label', submitted ? 'View prep workflow →' : 'Submit sample card →')
         text('#ev-prep-status', prepared ? 'Prep complete' : 'Prep in progress'); text('#ev-prep-detail', prepared ? 'Service completed' : 'Service in progress')
         text('#ev-prep-phone-status', prepared ? 'Ready for grading' : 'Cleaning & prep')
@@ -60,10 +60,10 @@ export function initEvoDemo(root: HTMLElement): () => void {
         on(button, 'click', () => select(button.dataset.evChapter as Chapter))
         on(button, 'keydown', ((event: KeyboardEvent) => { const keys: Record<string, number> = { ArrowRight: (index + 1) % chapters.length, ArrowLeft: (index + chapters.length - 1) % chapters.length, Home: 0, End: chapters.length - 1 }; if (keys[event.key] !== undefined) { event.preventDefault(); chapters[keys[event.key]].focus(); chapters[keys[event.key]].click() } }) as EventListener)
     })
-    on(demo.querySelector<HTMLButtonElement>('#ev-submit')!, 'click', () => { if (elapsed >= 3300) select('prep'); else { elapsed = 3300; paused = true; paint(); sync(); announcement.textContent = 'Sample submission received in EVO’s admin view. This is a demonstration only.' } })
-    on(demo.querySelector<HTMLButtonElement>('#ev-tag')!, 'click', () => { elapsed = 22000; paused = true; paint(); sync(); announcement.textContent = 'Sample card linked to PSA demo order 108.' })
+    on(demo.querySelector<HTMLButtonElement>('#ev-submit')!, 'click', () => { if (elapsed >= 3300) select('prep'); else { elapsed = 3300; paused = true; paint(); sync(); announcement.textContent = 'Sample submission received in EVO’s admin view This is a demonstration only' } })
+    on(demo.querySelector<HTMLButtonElement>('#ev-tag')!, 'click', () => { elapsed = 22000; paused = true; paint(); sync(); announcement.textContent = 'Sample card linked to PSA demo order 108' })
     on(pause, 'click', () => { paused = !paused; sync(); announcement.textContent = `EVO journey ${paused ? 'paused' : 'playing'}.` })
-    on(demo.querySelector<HTMLButtonElement>('#ev-replay')!, 'click', () => { elapsed = 0; paused = reduced.matches; paint(); sync(); announcement.textContent = 'EVO journey restarted.' })
+    on(demo.querySelector<HTMLButtonElement>('#ev-replay')!, 'click', () => { elapsed = 0; paused = reduced.matches; paint(); sync(); announcement.textContent = 'EVO journey restarted' })
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting && entry.intersectionRatio >= .1; sync() }, { threshold: [0, .1] })
     observer.observe(demo.querySelector<HTMLElement>('.ev-showcase')!)
     on(document, 'visibilitychange', sync); on(window, 'pagehide', () => { cancelAnimationFrame(frame); frame = 0; last = null })

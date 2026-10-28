@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePageMeta } from '@/lib/usePageMeta'
 
 const TITLE = 'Privacy Policy — Bonotech'
-const DESCRIPTION = 'How Bonotech Holdings Pte. Ltd. collects, uses and protects your information.'
+const DESCRIPTION = 'How Bonotech Holdings Pte. Ltd. collects, uses and protects your information'
 
 const sectionClass =
     'rounded-2xl border border-border-primary/80 bg-surface-white/60 p-8 sm:p-10 shadow-[0_1px_0_rgba(0,0,0,0.04)]'
@@ -24,7 +24,7 @@ export function PrivacyPolicy() {
                         </h1>
                         <p className="font-body text-body-lg text-content-secondary">
                             This Privacy Policy explains how we handle your information when you use our websites and
-                            services.
+                            services
                         </p>
                     </header>
 
@@ -38,9 +38,9 @@ export function PrivacyPolicy() {
                             </h2>
                             <p className="text-content-secondary leading-[1.75]">
                                 Bonotech Holdings Pte. Ltd. values your privacy and is fully committed to protecting the
-                                information you share on our website. We never sell or give your information to outside
-                                parties unless required by law. We collect information to meet your needs and respond to
-                                your requests.
+                                information you share on our website We never sell or give your information to outside
+                                parties unless required by law We collect information to meet your needs and respond to
+                                your requests
                             </p>
                         </section>
 
@@ -52,11 +52,11 @@ export function PrivacyPolicy() {
                                 Data Security Compliance
                             </h2>
                             <p className="text-content-secondary leading-[1.75]">
-                                Keeping your data safe and secure is central to how Bonotech Holdings Pte. Ltd. operates.
-                                This statement sets out our commitment to information and data security. We are
+                                Keeping your data safe and secure is central to how Bonotech Holdings Pte. Ltd. operates
+                                This statement sets out our commitment to information and data security We are
                                 committed to protecting your privacy online and understand that any personally
                                 identifiable information (“Personal Information”) you provide to us must be handled
-                                securely. We continually work to improve our privacy practices.
+                                securely We continually work to improve our privacy practices
                             </p>
                         </section>
 
@@ -69,9 +69,9 @@ export function PrivacyPolicy() {
                             </h2>
                             <p className="text-content-secondary leading-[1.75]">
                                 We collect some information about website visitors indirectly through our internet
-                                access logs. When you visit our website, your browser’s domain name and IP address are
-                                automatically recorded in these logs. We use this information to understand which
-                                sections, pages and information visitors view.
+                                access logs When you visit our website, your browser’s domain name and IP address are
+                                automatically recorded in these logs We use this information to understand which
+                                sections, pages and information visitors view
                             </p>
                         </section>
 
@@ -86,25 +86,25 @@ export function PrivacyPolicy() {
                                 <p>
                                     If you give us your phone number, you agree to receive text messages from Bonotech
                                     Holdings Pte. Ltd. Message frequency varies, and message and data rates may apply
-                                    if you reply.
+                                    if you reply
                                 </p>
                                 <p>
-                                    Personal information is any information that can be used to identify an individual.
+                                    Personal information is any information that can be used to identify an individual
                                     This includes, but is not limited to, first and last names, physical addresses,
-                                    email addresses and other contact details, whether personal or work-related. In
+                                    email addresses and other contact details, whether personal or work-related In
                                     general, you can browse our websites without identifying yourself or sharing any
-                                    personal information.
+                                    personal information
                                 </p>
                                 <p>
                                     If you choose to share personal information with us online, we may transfer it from
                                     your country or jurisdiction to other countries or jurisdictions, within Bonotech
-                                    Holdings Pte. Ltd. or to our third-party service providers.
+                                    Holdings Pte. Ltd. or to our third-party service providers
                                 </p>
                                 <p>
                                     We make every effort to follow all relevant international regulations that protect
-                                    your privacy. Even if we transfer your Personal Information to a country whose laws
+                                    your privacy Even if we transfer your Personal Information to a country whose laws
                                     offer a different level of protection, we remain committed to the principles in this
-                                    Privacy Policy.
+                                    Privacy Policy
                                 </p>
                             </div>
                         </section>
@@ -117,9 +117,9 @@ export function PrivacyPolicy() {
                                 Cookies
                             </h2>
                             <p className="text-content-secondary leading-[1.75]">
-                                Our website may use cookies to produce overall site traffic statistics. Cookies cannot
-                                identify you on their own unless you choose to identify yourself. If you prefer, you can
-                                disable cookies in your browser’s settings.
+                                Our website may use cookies to produce overall site traffic statistics Cookies cannot
+                                identify you on their own unless you choose to identify yourself If you prefer, you can
+                                disable cookies in your browser’s settings
                             </p>
                         </section>
 
@@ -132,9 +132,9 @@ export function PrivacyPolicy() {
                             </h2>
                             <p className="text-content-secondary leading-[1.75]">
                                 Bonotech Holdings Pte. Ltd. does not rent, sell or disclose your personal information to
-                                other businesses or unaffiliated parties. If you send us information by email, we only
+                                other businesses or unaffiliated parties If you send us information by email, we only
                                 share it with members of our management team who are responsible for responding to your
-                                request.
+                                request
                             </p>
                         </section>
 
@@ -148,16 +148,16 @@ export function PrivacyPolicy() {
                             <ul className="text-content-secondary leading-[1.75] list-disc pl-5 space-y-3">
                                 <li>
                                     To trusted partners who work for or with Bonotech Holdings Pte. Ltd., under strict
-                                    confidentiality agreements.
+                                    confidentiality agreements
                                 </li>
                                 <li>
                                     To respond to subpoenas, court orders or legal proceedings, or to establish,
-                                    exercise or defend our legal rights.
+                                    exercise or defend our legal rights
                                 </li>
                                 <li>
                                     When we believe disclosure is necessary to investigate, prevent or take action
                                     against illegal activity, suspected fraud or situations that could threaten
-                                    someone’s physical safety, or when otherwise required by law.
+                                    someone’s physical safety, or when otherwise required by law
                                 </li>
                             </ul>
                         </section>
@@ -170,12 +170,12 @@ export function PrivacyPolicy() {
                                 Links to External Websites
                             </h2>
                             <p className="text-content-secondary leading-[1.75]">
-                                Our website may contain links to third-party websites. Bonotech Holdings Pte. Ltd. is not
-                                responsible for the policies or content of those websites. These links are provided for
+                                Our website may contain links to third-party websites Bonotech Holdings Pte. Ltd. is not
+                                responsible for the policies or content of those websites These links are provided for
                                 your convenience only, and we accept no liability for any inaccurate information on
-                                them. Some of these websites may collect data, ask for personal information or set their
-                                own cookies. We make no guarantees about the availability, accuracy or completeness of
-                                any linked third-party website.
+                                them Some of these websites may collect data, ask for personal information or set their
+                                own cookies We make no guarantees about the availability, accuracy or completeness of
+                                any linked third-party website
                             </p>
                         </section>
 
@@ -188,10 +188,10 @@ export function PrivacyPolicy() {
                             </h2>
                             <p className="text-content-secondary leading-[1.75]">
                                 Bonotech Holdings Pte. Ltd. or third parties may hold intellectual property rights in
-                                the products, technology and services described on this website. Nothing in this policy
+                                the products, technology and services described on this website Nothing in this policy
                                 grants you any license, title or ownership of any intellectual property rights of
                                 Bonotech Holdings Pte. Ltd. or any third party, whether by implication, estoppel or
-                                otherwise.
+                                otherwise
                             </p>
                         </section>
 

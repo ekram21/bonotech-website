@@ -5,7 +5,7 @@ import type { BonoExperienceProps, ExperienceCardData } from "./BonoExperience.t
 const ROW1_CARDS: ExperienceCardData[] = [
   {
     title: "SME Fusion Discovery",
-    description: "Subject matter experts, product consultants, technical architects, and AI planning layer align the opportunity.",
+    description: "Subject matter experts, product consultants, technical architects, and AI planning layer align the opportunity",
     bullets: [
       "Subject matter expert",
       "Product consultant",
@@ -26,7 +26,7 @@ const ROW1_CARDS: ExperienceCardData[] = [
   },
   {
     title: "Rapid Prototype Validation",
-    description: "Interactive prototypes help stakeholders validate user flows and approve direction faster.",
+    description: "Interactive prototypes help stakeholders validate user flows and approve direction faster",
     bullets: [
       "Interactive prototype",
       "Stakeholder reviews",
@@ -39,7 +39,7 @@ const ROW1_CARDS: ExperienceCardData[] = [
 const ROW2_CARDS: ExperienceCardData[] = [
   {
     title: "Bono Fit Governance",
-    description: "Every sprint stays accountable through checkpoints, dashboards, shared backlog, and reviews.",
+    description: "Every sprint stays accountable through checkpoints, dashboards, shared backlog, and reviews",
     bullets: [
       "Executive checkpoint",
       "Sprint review",
@@ -49,7 +49,7 @@ const ROW2_CARDS: ExperienceCardData[] = [
   },
   {
     title: "AI Assistant Engineering",
-    description: "Engineering gets faster with code generation, testing, documentation, refactoring, and QA automation.",
+    description: "Engineering gets faster with code generation, testing, documentation, refactoring, and QA automation",
     bullets: [
       "Code generation",
       "Test generation",
@@ -148,7 +148,7 @@ export function BonoExperience({ className }: BonoExperienceProps) {
 
           {/* Section Subtitle */}
           <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A]">
-            Bonotech uses AI to accelerate the entire product lifecycle from research to launch, building systems that evolve with <span className="font-bold text-[#313233]">SPEED</span> and accountability at every step.
+            Bonotech uses AI to accelerate the entire product lifecycle from research to launch, building systems that evolve with <span className="font-bold text-[#313233]">SPEED</span> and accountability at every step
           </p>
         </div>
 

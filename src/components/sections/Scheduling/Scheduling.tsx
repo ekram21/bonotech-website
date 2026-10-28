@@ -176,9 +176,9 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                 Schedule a Free Discovery Call
                             </h2>
                             <p className="font-body text-[16px] font-normal leading-[150%] tracking-[-0.25px] text-[#313233] max-w-xl">
-                                Schedule a 30-min free discovery call with our Bono-Pros. Our
+                                Schedule a 30-min free discovery call with our Bono-Pros Our
                                 experts will evaluate your business needs and goals to translate
-                                them into market-ready business products.
+                                them into market-ready business products
                             </p>
                         </div>
 
@@ -221,7 +221,7 @@ export function Scheduling({ className, calendlyUrl = DEFAULT_CALENDLY_URL }: Sc
                                     <MapPin size={16} />
                                 </div>
                                 <span className="font-body text-[16px] text-[#272829] leading-relaxed max-w-sm">
-                                    Bonotech Holdings PTE LTD. 111 Somerset Road, #08-10A, Singapore
+                                    Bonotech Holdings PTE LTD 111 Somerset Road, #08-10A, Singapore
                                     238164
                                 </span>
                             </div>

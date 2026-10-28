@@ -86,8 +86,8 @@ export function ProjectStack() {
                         A Stack Of Projects<span>Across Every Scale</span>
                     </h2>
                     <p className="ps-description">
-                        Digital work for a diverse range of businesses. <br />
-                        From ambitious startups to established enterprises.
+                        Digital work for a diverse range of businesses <br />
+                        From ambitious startups to established enterprises
                     </p>
                 </header>
                 <div ref={stageRef} className="ps-stage">
