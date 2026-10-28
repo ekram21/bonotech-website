@@ -266,7 +266,7 @@ const TechnologyStackSection = () => {
                     From mobile experiences to enterprise systems,{" "}
                     <br />
                     we bring the right technologies together to build what your
-                    business needs.
+                    business needs
                 </p>
             </header>
             <div ref={stageRef} className="tech-stage">

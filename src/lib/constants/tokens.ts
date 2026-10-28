@@ -4,8 +4,8 @@
 
 export const TOKENS = {
     transitions: {
-        fast: 'all 0.15s ease',
-        base: 'all 0.25s ease',
-        slow: 'all 0.4s ease',
+        fast: 'all 015s ease',
+        base: 'all 025s ease',
+        slow: 'all 04s ease',
     },
 } as const

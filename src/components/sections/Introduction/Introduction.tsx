@@ -7,19 +7,19 @@ const FEATURE_CARDS = [
     {
         icon: Rocket,
         title: 'Speed',
-        text: 'Faster product cycles.',
+        text: 'Faster product cycles',
         iconClassName: 'text-[#168ED8]',
     },
     {
         icon: ShieldCheck,
         title: 'Security',
-        text: 'Faster product cycles.',
+        text: 'Faster product cycles',
         iconClassName: 'text-[#05C982]',
     },
     {
         icon: Lightbulb,
         title: 'Outcome',
-        text: 'Business metrics tied to every sprint.',
+        text: 'Business metrics tied to every sprint',
         iconClassName: 'text-[#FFC94D]',
     },
 ] as const
@@ -65,22 +65,22 @@ export function Introduction({ className }: IntroductionProps) {
                             id="introduction-heading"
                             className="mt-[17px] max-w-[410px] font-display text-[64px] font-semibold leading-[1.02] tracking-[0] text-[#272829] max-md:text-[48px] max-sm:text-[40px]"
                         >
-                            Better Faster Stronger.
+                            Better Faster Stronger
                         </h2>
                     </div>
 
                     <div className="pt-[14px] max-lg:pt-0">
                         <h3 className="font-display text-[32px] font-semibold leading-[1.25] tracking-[0] text-[#272829] max-sm:text-[28px]">
-                            Zero to Launch with <span className="text-[#8269CF]">SPEED.</span>
+                            Zero to Launch with <span className="text-[#8269CF]">SPEED</span>
                         </h3>
                         <div className="mt-[10px] space-y-[10px] font-body text-[16px] font-normal leading-[1.5] tracking-[0] text-[#444547]">
                             <p>
                                 Turn ideas into custom software and SaaS products in a shorter time frame,
-                                with Bonotech# AI-accelerated product engine.
+                                with Bonotech# AI-accelerated product engine
                             </p>
                             <p>
                                 Designs intuitive and scalable systems combining AI-native delivery, shorter
-                                product cycles, and measurable business KPIs.
+                                product cycles, and measurable business KPIs
                             </p>
                         </div>
                     </div>

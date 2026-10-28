@@ -11,7 +11,7 @@ export function grailStateAt(elapsed: number) {
     const scene: Scene = time < 6000 ? 'discover' : time < 14000 ? 'value' : time < 21000 ? 'buy' : 'manage'
     return {
         scene,
-        confirmed: time >= 17000,
+        vaultSelected: time >= 17000,
         progress: (time - GRAIL_CHAPTERS[scene]) / (ENDS[scene] - GRAIL_CHAPTERS[scene]),
     }
 }
@@ -19,30 +19,27 @@ export function grailStateAt(elapsed: number) {
 const STORIES: Record<Scene, { label: string; title: [string, string]; description: string; window: string }> = {
     discover: {
         label: '01 / DISCOVER',
-        title: ['The Right Card.', 'A Connected Experience.'],
-        description: 'Collectors browse graded cards, explore the details and find the next addition to their collection.',
+        title: ['The Right Card', 'A Connected Experience'],
+        description: 'Collectors browse graded cards, explore the details and find the next addition to their collection',
         window: 'MARKETPLACE / CARD DETAILS',
     },
     value: {
         label: '02 / UNDERSTAND VALUE',
-        title: ['A Clearer View.', 'A More Informed Choice.'],
-        description:
-            'Card details, comparable sales and price history help collectors understand what they are buying. Values shown here are illustrative.',
-        window: 'MARKET DATA / COMPARABLE SALES',
+        title: ['A Clearer View', 'A More Informed Choice'],
+        description: 'Collectors can scan a card or search comparable sales The value screen brings together a market overview and recently sold cards',
+        window: 'VALUE / MARKET OVERVIEW',
     },
     buy: {
         label: '03 / BUY',
-        title: ['From A Great Find', 'To A Confirmed Order.'],
-        description:
-            'The selected card moves into checkout. Listing, payment and custody details stay connected through one order.',
-        window: 'ORDERS / CHECKOUT & HANDOFF',
+        title: ['A Card They Want', 'A Delivery Choice That Fits'],
+        description: 'At checkout, collectors choose delivery to their home or a hold at their nearest vault This example shows the choice without placing an order',
+        window: 'CHECKOUT / DELIVER TO',
     },
     manage: {
         label: '04 / MANAGE',
-        title: ['Their Collection.', 'Your Connected Operations.'],
-        description:
-            'Collectors see their cards in one place, while consignor and vault workflows keep the business behind each transaction connected.',
-        window: 'OPERATIONS / COLLECTION & CUSTODY',
+        title: ['Collector Tools', 'Connected Business Operations'],
+        description: 'Collectors access their purchase history, collections and balance In a separate admin workspace, the team manages vaults, inventory and assigned consignors',
+        window: 'OPERATIONS / VAULT INVENTORY',
     },
 }
 
@@ -55,7 +52,7 @@ export function initGrailDemo(section: HTMLElement): () => void {
     const goButtons = [...demo.querySelectorAll<HTMLButtonElement>('[data-gg-go]')]
     const pause = demo.querySelector<HTMLButtonElement>('#gg-pause')!
     const replay = demo.querySelector<HTMLButtonElement>('#gg-replay')!
-    const confirm = demo.querySelector<HTMLButtonElement>('[data-gg-confirm]')!
+    const deliveryButtons = [...demo.querySelectorAll<HTMLButtonElement>('[data-gg-delivery]')]
     const announcement = demo.querySelector<HTMLElement>('#gg-announcement')!
     let elapsed = 0
     let userPaused = reduced.matches
@@ -63,7 +60,7 @@ export function initGrailDemo(section: HTMLElement): () => void {
     let last: number | null = null
     let frame = 0
     let previousScene = ''
-    let previousConfirmed: boolean | null = null
+    let previousDelivery: boolean | null = null
     const setText = (selector: string, text: string) => {
         demo.querySelector(selector)!.textContent = text
     }
@@ -88,6 +85,7 @@ export function initGrailDemo(section: HTMLElement): () => void {
                 )
             setText('#gg-story-description', story.description)
             setText('#gg-window-label', story.window)
+            setText('#gg-view-role', s.scene === 'manage' ? 'GMG TEAM / ADMIN PORTAL' : 'COLLECTOR / WEB MARKETPLACE')
             chapters.forEach((button) => {
                 if (button.dataset.ggChapter === s.scene) button.setAttribute('aria-current', 'step')
                 else button.removeAttribute('aria-current')
@@ -98,11 +96,14 @@ export function initGrailDemo(section: HTMLElement): () => void {
             })
             previousScene = s.scene
         }
-        if (s.confirmed !== previousConfirmed) {
-            demo.dataset.checkout = s.confirmed ? 'confirmed' : 'cart'
-            setText('#gg-order-title', s.confirmed ? 'Demo Order Confirmed.' : 'Ready For Checkout.')
-            setText('#gg-payment-state', s.confirmed ? 'Confirmed' : 'Review')
-            previousConfirmed = s.confirmed
+        if (s.vaultSelected !== previousDelivery) {
+            const destination = s.vaultSelected ? 'Vault' : 'Home'
+            demo.dataset.delivery = destination.toLowerCase()
+            setText('#gg-order-title', s.vaultSelected ? 'Hold At A Vault' : 'Deliver To Home')
+            setText('#gg-payment-state', destination)
+            setText('#gg-delivery-detail', s.vaultSelected ? 'Held at your nearest vault No shipping selected' : 'Ship to your address')
+            deliveryButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.ggDelivery === destination.toLowerCase())))
+            previousDelivery = s.vaultSelected
         }
         chapters.forEach((button) =>
             button.style.setProperty('--chapter-progress', String(button.dataset.ggChapter === s.scene ? s.progress : 0)),
@@ -164,15 +165,15 @@ export function initGrailDemo(section: HTMLElement): () => void {
         })
     })
     goButtons.forEach((button) => listen(button, 'click', () => select(button.dataset.ggGo!)))
-    listen(confirm, 'click', () => {
-        select('buy', 17000)
-        announcement.textContent = 'Simulated order confirmed. No payment has been made.'
-    })
+    deliveryButtons.forEach((button) => listen(button, 'click', () => {
+        select('buy', button.dataset.ggDelivery === 'vault' ? 17000 : 14000)
+        announcement.textContent = `${button.dataset.ggDelivery} delivery selected in this example No order has been placed`
+    }))
     listen(pause, 'click', () => {
         userPaused = !userPaused
         last = null
         syncPlayback()
-        announcement.textContent = 'Collector journey ' + (userPaused ? 'paused.' : 'playing.')
+        announcement.textContent = 'Collector journey ' + (userPaused ? 'paused' : 'playing')
     })
     listen(replay, 'click', () => {
         elapsed = 0
@@ -180,7 +181,7 @@ export function initGrailDemo(section: HTMLElement): () => void {
         last = null
         paint()
         syncPlayback()
-        announcement.textContent = 'Collector journey restarted.'
+        announcement.textContent = 'Collector journey restarted'
     })
     const observer = new IntersectionObserver(
         ([entry]) => {

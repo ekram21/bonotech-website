@@ -465,7 +465,7 @@ const ClientShowcaseSection = () => {
 
                 <p className="clients-description">
                     From growing platforms to enterprise teams, we build for the way each
-                    business works.
+                    business works
                 </p>
             </header>
 

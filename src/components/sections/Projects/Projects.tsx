@@ -245,12 +245,12 @@ const SectionHeading = ({ id }: { id?: string }) => (
       id={id}
       className="font-display font-semibold text-[32px] md:text-[48px] leading-[1.15] text-[#272829]"
     >
-      Bono-Fide Products,<br className="hidden sm:inline" /> Built for Good.
+      Bono-Fide Products,<br className="hidden sm:inline" /> Built for Good
     </h2>
 
     {/* Subtitle */}
     <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A] mb-20">
-      Bonotech’s focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, and verification systems.
+      Bonotech’s focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, and verification systems
     </p>
   </div>
 );

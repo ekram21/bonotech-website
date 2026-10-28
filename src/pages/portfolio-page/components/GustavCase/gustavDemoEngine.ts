@@ -6,7 +6,7 @@ export const GUSTAV_MESSAGE = 'Could you send two extra towels to Room 203?'
 
 type Chapter = keyof typeof GUSTAV_CHAPTERS
 
-const NOTE = 'Two extra towels, please.'
+const NOTE = 'Two extra towels, please'
 const STARTS: Record<Chapter, number> = { request: 0, reply: 4500, operations: 11500, result: 23500 }
 const ENDS: Record<Chapter, number> = { request: 4500, reply: 11500, operations: 23500, result: GUSTAV_DURATION }
 const clamp = (n: number) => Math.max(0, Math.min(1, n))
@@ -40,10 +40,10 @@ export function gustavStateAt(elapsed: number) {
 }
 
 const CAPTIONS: Record<Chapter, string> = {
-    request: 'One guest asks for two towels. A call to reception on the left; a direct message to housekeeping on the right.',
-    reply: 'Reception writes a paper note. With Gustav, the housekeeping head replies directly to the guest.',
-    operations: 'The chat becomes a tracked task, with the room, request and responsible team already connected.',
-    result: 'The same towel request: approximately 20 minutes and 3 manual relays become 4 minutes and 0 manual relays.',
+    request: 'One guest asks for two towels A call to reception on the left; a direct message to housekeeping on the right',
+    reply: 'Reception writes a paper note With Gustav, the housekeeping head replies directly to the guest',
+    operations: 'The chat becomes a tracked task, with the room, request and responsible team already connected',
+    result: 'The same towel request: approximately 20 minutes and 3 manual relays become 4 minutes and 0 manual relays',
 }
 
 export function initGustavDemo(section: HTMLElement): () => void {
@@ -92,7 +92,6 @@ export function initGustavDemo(section: HTMLElement): () => void {
                 node.classList.toggle('is-current', i === s.beforeStep)
                 node.classList.toggle('is-done', i < s.beforeStep)
             })
-            setText(byId('gc-before-time'), ['11:02 AM', '11:04 AM', '11:10 AM', '11:22 AM'][s.beforeStep])
             setText(byId('gc-phone-time'), s.delivered ? '11:06' : s.working ? '11:03' : '11:02')
             guest.hidden = !s.sent
             staff.hidden = !s.replied
@@ -185,7 +184,7 @@ export function initGustavDemo(section: HTMLElement): () => void {
             paint()
             syncPlayback()
             announcement.textContent = `${button.textContent?.trim()}. ${
-                userPaused ? 'Showing the completed example.' : 'Replay restarted.'
+                userPaused ? 'Showing the completed example' : 'Replay restarted'
             }`
         }),
     )
@@ -193,7 +192,7 @@ export function initGustavDemo(section: HTMLElement): () => void {
         userPaused = !userPaused
         last = null
         syncPlayback()
-        announcement.textContent = 'Towel comparison ' + (userPaused ? 'paused.' : 'playing.')
+        announcement.textContent = 'Towel comparison ' + (userPaused ? 'paused' : 'playing')
     })
     listen(replay, 'click', () => {
         elapsed = reduced.matches ? GUSTAV_CHAPTERS.result : 0
@@ -201,7 +200,7 @@ export function initGustavDemo(section: HTMLElement): () => void {
         last = null
         paint()
         syncPlayback()
-        announcement.textContent = 'Towel comparison restarted.'
+        announcement.textContent = 'Towel comparison restarted'
     })
     const observer = new IntersectionObserver(
         ([entry]) => {

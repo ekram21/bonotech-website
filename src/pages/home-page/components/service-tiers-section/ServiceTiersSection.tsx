@@ -31,33 +31,33 @@ const tiers: Tier[] = [
         tab: "MCP Access",
         kicker: "MCP ENABLEMENT",
         title: ["Let AI Work With", "Your Business"],
-        body: "Ask ChatGPT, Claude or any compatible AI agent of your choice about your business. Through MCP, we connect it to your AI harness (the layer bringing your business data together), so it can answer questions using your company’s documents, client emails and operational data\u2060—\u2060only from sources you’ve approved.",
+        body: "Ask ChatGPT, Claude or any compatible AI agent of your choice about your business Through MCP, we connect it to your AI harness (the layer bringing your business data together), so it can answer questions using your company’s documents, client emails and operational data\u2060—\u2060only from sources you’ve approved",
         example: "After integration, your team could ask: “How can we boost factory output?”",
-        relationship: "Connect your preferred AI agent to your business context.",
+        relationship: "Connect your preferred AI agent to your business context",
     },
     {
         tab: "AI Harness",
         kicker: "AI HARNESS",
         title: ["Turn Scattered Data", "Into A Shared View"],
-        body: "We connect documents, operational data and client emails to a shared AI layer. It processes incoming inquiries and requests, brings them into context, and surfaces useful information in your company’s CRM.",
-        example: "Your CRM is the workspace. The harness powers the intelligence behind it.",
-        relationship: "Connects your CRM with the AI agents your team uses.",
+        body: "We connect documents, operational data and client emails to a shared AI layer It processes incoming inquiries and requests, brings them into context, and surfaces useful information in your company’s CRM",
+        example: "Your CRM is the workspace The harness powers the intelligence behind it",
+        relationship: "Connects your CRM with the AI agents your team uses",
     },
     {
         tab: "CRMs",
         kicker: "CRMs",
         title: ["Your CRM, Updated", "As Business Happens"],
-        body: "We build CRMs that bring customer activity and team updates into one real-time workspace. Data analysis highlights patterns and suggests next actions, so your team can respond sooner.",
-        example: "Live updates from connected systems. Suggestions for your team to review.",
-        relationship: "Connect to an AI harness for wider business context.",
+        body: "We build CRMs that bring customer activity and team updates into one real-time workspace Data analysis highlights patterns and suggests next actions, so your team can respond sooner",
+        example: "Live updates from connected systems Suggestions for your team to review",
+        relationship: "Connect to an AI harness for wider business context",
     },
     {
         tab: "Websites & Apps",
         kicker: "STANDALONE PRODUCTS",
         title: ["A Focused Product", "Built To Perform"],
-        body: "Need a website or an app with a clear purpose? We design and build a complete, independent product around that need, ready for your customers to use.",
-        example: "A company website. A booking app. Your next digital product.",
-        relationship: "A complete standalone build, ready to use on its own.",
+        body: "Need a website or an app with a clear purpose? We design and build a complete, independent product around that need, ready for your customers to use",
+        example: "A company website A booking app Your next digital product",
+        relationship: "A complete standalone build, ready to use on its own",
     },
 ];
 
@@ -170,7 +170,7 @@ const ServiceTiersSection = () => {
         }
 
         if (announce) {
-            setAnnouncement(`Solution ${next + 1} of 4. ${tiers[next].tab}.`);
+            setAnnouncement(`Solution ${next + 1} of 4 ${tiers[next].tab}.`);
         }
 
         if (restart) setRestartKey((key) => key + 1);
@@ -285,9 +285,9 @@ const ServiceTiersSection = () => {
                     From A Single Product<span>To A Connected Business</span>
                 </h2>
                 <p className="tiers-description">
-                    Choose the solution you need. We can build one product,{" "}
+                    Choose the solution you need We can build one product,{" "}
                     <br />
-                    connect your existing systems, or bring it all together.
+                    connect your existing systems, or bring it all together
                 </p>
             </header>
 
@@ -447,7 +447,7 @@ const ServiceTiersSection = () => {
                                     <svg viewBox="0 0 500 500" role="img" aria-labelledby="tier-svg-title-1 tier-svg-desc-1">
                                         <BeamGradient index={0} />
                                         <title id="tier-svg-title-1">Ask your preferred AI agent about increasing factory output through MCP</title>
-                                        <desc id="tier-svg-desc-1">Illustrative production conversation: How can we boost factory output? The request travels through MCP to the AI harness, which connects business data. Data returns through MCP. The assistant answers: Line 2 runs at 92 percent efficiency. Use its setup across all lines. ChatGPT and Claude are two examples of compatible AI agents.</desc>
+                                        <desc id="tier-svg-desc-1">Illustrative production conversation: How can we boost factory output? The request travels through MCP to the AI harness, which connects business data Data returns through MCP The assistant answers: Line 2 runs at 92 percent efficiency Use its setup across all lines ChatGPT and Claude are two examples of compatible AI agents</desc>
                                         <text x="250" y="54" className="tier-demo-label">EXAMPLE CONVERSATION</text>
                                         <rect x="77" y="75" width="346" height="200" rx="10" className="tier-demo-panel" />
                                         <image href={chatgptLogo} x="97" y="81" width="38" height="38" />
@@ -467,8 +467,8 @@ const ServiceTiersSection = () => {
                                         </g>
                                         <g className="tier-answer">
                                             <rect x="97" y="186" width="306" height="70" rx="6" className="tier-answer-bubble" />
-                                            <text x="112" y="212" className="tier-demo-left tier-chat-text">Line 2 runs at 92% efficiency.</text>
-                                            <text x="112" y="239" className="tier-demo-left tier-chat-detail">Use its setup across all lines.</text>
+                                            <text x="112" y="212" className="tier-demo-left tier-chat-text">Line 2 runs at 92% efficiency</text>
+                                            <text x="112" y="239" className="tier-demo-left tier-chat-detail">Use its setup across all lines</text>
                                         </g>
                                         <BeamPaths
                                             index={0}
@@ -505,7 +505,7 @@ const ServiceTiersSection = () => {
                                     <svg viewBox="0 0 500 500" role="img" aria-labelledby="tier-svg-title-2 tier-svg-desc-2">
                                         <BeamGradient index={1} />
                                         <title id="tier-svg-title-2">Documents, operational data and client emails connected to your AI harness</title>
-                                        <desc id="tier-svg-desc-2">Information from departments and client emails, including inquiries and requests, flows into the AI harness for processing, context and analysis. The insights appear in the CRM workspace, a shared view for your team.</desc>
+                                        <desc id="tier-svg-desc-2">Information from departments and client emails, including inquiries and requests, flows into the AI harness for processing, context and analysis The insights appear in the CRM workspace, a shared view for your team</desc>
                                         <BeamPaths
                                             index={1}
                                             paths={[
@@ -558,7 +558,7 @@ const ServiceTiersSection = () => {
                                     <svg viewBox="0 0 500 500" role="img" aria-labelledby="tier-svg-title-3 tier-svg-desc-3">
                                         <BeamGradient index={2} />
                                         <title id="tier-svg-title-3">A real-time CRM with data-informed suggestions</title>
-                                        <desc id="tier-svg-desc-3">Illustrative CRM: customer activity and team updates flow into a live workspace. A new inquiry is assigned to sales. Analysis suggests following up with AB Ltd. because there has been no reply for five days. Suggestions are for the team to review.</desc>
+                                        <desc id="tier-svg-desc-3">Illustrative CRM: customer activity and team updates flow into a live workspace A new inquiry is assigned to sales Analysis suggests following up with AB Ltd because there has been no reply for five days Suggestions are for the team to review</desc>
                                         <BeamPaths
                                             index={2}
                                             paths={[
@@ -608,7 +608,7 @@ const ServiceTiersSection = () => {
                                 >
                                     <svg viewBox="0 0 500 500" role="img" aria-labelledby="tier-svg-title-4 tier-svg-desc-4">
                                         <title id="tier-svg-title-4">A standalone website and mobile app</title>
-                                        <desc id="tier-svg-desc-4">A website and an app shown as complete, independent products.</desc>
+                                        <desc id="tier-svg-desc-4">A website and an app shown as complete, independent products</desc>
                                         <g className="tier-device">
                                             <rect x="66" y="110" width="321" height="235" rx="6" />
                                             <path d="M66 141H387" />

@@ -5,6 +5,7 @@ import AboutImpactSection from './components/AboutImpactSection'
 import BusinessScopesSection from './components/Business-scopes-section/BusinessScopesSection'
 import DeliveryTimesSection from './components/DeliveryTimesSection'
 import ServiceTiersSection from './components/service-tiers-section/ServiceTiersSection'
+import ExpertiseSummarySection from './components/expertise-summary/ExpertiseSummarySection'
 import TechnologyStackSection from './components/TechnologyStackSection'
 import TestimonialsSection from './components/TestimonialsSection'
 import DiscoveryCallSection from './components/DiscoveryCallSection'
@@ -21,6 +22,7 @@ export function HomePage() {
                 <DeliveryTimesSection />
                 <BusinessScopesSection />
                 <ServiceTiersSection />
+                <ExpertiseSummarySection />
                 <TechnologyStackSection />
                 <TestimonialsSection />
                 <DiscoveryCallSection />

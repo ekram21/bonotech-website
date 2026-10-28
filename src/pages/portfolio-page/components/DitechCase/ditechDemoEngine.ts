@@ -23,10 +23,10 @@ export function ditechStateAt(elapsed: number) {
 }
 
 const CAPTIONS: Record<Chapter, string> = {
-    dashboard: 'Separate records become one shared view of leads, opportunities, approvals and follow-ups.',
-    question: 'A simple business question draws on the connected CRM, through permission-controlled MCP access.',
+    dashboard: 'Separate records become one shared view of leads, opportunities, approvals and follow-ups',
+    question: 'A simple business question draws on the connected CRM, through permission-controlled MCP access',
     analytics:
-        'One question. Sales performance, pipeline coverage and supplier follow-ups, all in the same business context.',
+        'One question Sales performance, pipeline coverage and supplier follow-ups, all in the same business context',
 }
 
 export function initDitechDemo(section: HTMLElement): () => void {
@@ -71,7 +71,7 @@ export function initDitechDemo(section: HTMLElement): () => void {
                 helper,
                 s.phase === 'sending'
                     ? 'Reading approved CRM data…'
-                    : 'Sample question · This demonstration types and sends automatically.',
+                    : 'Sample question · This demonstration types and sends automatically',
             )
             previousPhase = s.phase
         }
@@ -144,7 +144,7 @@ export function initDitechDemo(section: HTMLElement): () => void {
         userPaused = !userPaused
         last = null
         syncPlayback()
-        announcement.textContent = 'DITECH demonstration ' + (userPaused ? 'paused.' : 'playing.')
+        announcement.textContent = 'DITECH demonstration ' + (userPaused ? 'paused' : 'playing')
     })
     listen(replay, 'click', () => {
         elapsed = reduced.matches ? DITECH_CHAPTERS.analytics : 0
@@ -152,7 +152,7 @@ export function initDitechDemo(section: HTMLElement): () => void {
         last = null
         paint()
         syncPlayback()
-        announcement.textContent = 'DITECH demonstration restarted.'
+        announcement.textContent = 'DITECH demonstration restarted'
     })
     const observer = new IntersectionObserver(
         ([entry]) => {

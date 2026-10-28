@@ -22,7 +22,7 @@ const deliveryItems: DeliveryItem[] = [
         value: "3",
         unit: "Days",
         descriptionPrefix: "Average time to develop a full-fledged",
-        descriptionStrong: "website.",
+        descriptionStrong: "website",
         video: websiteVideo,
         label: "Website",
         selectLabel: "Bring website to the center",
@@ -32,7 +32,7 @@ const deliveryItems: DeliveryItem[] = [
         value: "30",
         unit: "Days",
         descriptionPrefix: "Average time to develop a full",
-        descriptionStrong: "mobile + web app.",
+        descriptionStrong: "mobile + web app",
         video: appVideo,
         label: "Mobile + Web App",
         selectLabel: "Bring mobile + web app to the center",
@@ -42,7 +42,7 @@ const deliveryItems: DeliveryItem[] = [
         value: "60",
         unit: "Days",
         descriptionPrefix: "Average time to develop",
-        descriptionStrong: "enterprise-grade software.",
+        descriptionStrong: "enterprise-grade software",
         video: enterpriseVideo,
         label: "Enterprise-Grade Software",
         selectLabel: "Bring enterprise-grade software to the center",
@@ -342,7 +342,7 @@ const DeliveryTimesSection = () => {
                 </h2>
                 <p className="delivery-description">
                     These are Bonotech’s average build times for websites,
-                    <br /> mobile and web apps, and enterprise-grade software.
+                    <br /> mobile and web apps, and enterprise-grade software
                 </p>
             </header>
 

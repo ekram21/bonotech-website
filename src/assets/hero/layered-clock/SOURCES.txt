@@ -1,0 +1,11 @@
+Background and transparent clock:
+Provided by the user in Bonotech hero.rar, 11 October 2026.
+Original images are preserved as separate, unedited layers.
+
+Speed motion video:
+Background-video reference from the user-provided MotionSites.docx.
+https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261005_143837_163b1a55-c5a0-4558-a4a4-634208c89cd6.mp4
+Only this video is used from the template. Blur, purple tint, blending and masks
+are applied in clock-hero.css; the original video file is unchanged.
+
+The hero uses the website's existing, locally hosted Montserrat fonts.

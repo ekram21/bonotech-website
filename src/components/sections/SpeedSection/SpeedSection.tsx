@@ -27,7 +27,7 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
         modal: {
             title: 'Launch Rapid MVPs Faster With AI Assisted Product Delivery Systems',
             description:
-                'Move from idea to working prototype quickly using focused sprints, reusable components, and intelligent delivery workflows.',
+                'Move from idea to working prototype quickly using focused sprints, reusable components, and intelligent delivery workflows',
             imageSrc: speedWireframeSketch,
             imageAlt: 'Hand sketching mobile app wireframes on paper',
         },
@@ -40,7 +40,7 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
         modal: {
             title: 'Build Every Feature Around Real Users And Measurable Product Outcomes',
             description:
-                'Prioritize the right workflows by validating needs, reducing waste, and aligning design with business goals clearly.',
+                'Prioritize the right workflows by validating needs, reducing waste, and aligning design with business goals clearly',
             imageSrc: speedAnalytics,
             imageAlt: 'Analytics dashboard showing user engagement and performance metrics',
         },
@@ -53,7 +53,7 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
         modal: {
             title: 'Work With Senior Experts Who Guide Strategy Design And Delivery',
             description:
-                'Experienced specialists guide decisions, unblock teams, and keep every sprint structured, practical, measurable, and consistently accountable.',
+                'Experienced specialists guide decisions, unblock teams, and keep every sprint structured, practical, measurable, and consistently accountable',
             imageSrc: speedExpertLed,
             imageAlt: 'Team collaborating in a modern office with a sprint planning whiteboard',
         },
@@ -66,7 +66,7 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
         modal: {
             title: 'Continuously Improve Products With AI Accelerated Learning And Scalable Systems',
             description:
-                'Adapt faster with automated insights, modern architecture, and product systems designed to evolve successfully beyond launch.',
+                'Adapt faster with automated insights, modern architecture, and product systems designed to evolve successfully beyond launch',
             imageSrc: speedEvolved,
             imageAlt: 'Metallic brain on a glowing circuit board representing AI evolution',
         },
@@ -79,7 +79,7 @@ const FEATURE_ITEMS: SpeedFeatureItem[] = [
         modal: {
             title: 'Ship Shorter Product Cycles With Production Ready Releases Faster',
             description:
-                'Release stable versions confidently through tested builds, clean handoff, deployment planning, and reliable launch support processes.',
+                'Release stable versions confidently through tested builds, clean handoff, deployment planning, and reliable launch support processes',
             imageSrc: speedDeployable,
             imageAlt: 'Laptop screen showing production-ready application code',
         },
@@ -148,7 +148,7 @@ export function SpeedSection({ className }: SpeedSectionProps) {
 
                         <p className="mt-4 max-w-[560px] font-body text-[16px] leading-[1.65] text-[#C9C9CC] md:text-[17px]">
                             Bonotech&apos;s cross-industry team turns product needs into smarter
-                            workflows &amp; faster delivery AI-accelerated, but expert-led.
+                            workflows &amp; faster delivery AI-accelerated, but expert-led
                         </p>
 
                         <motion.ul
