@@ -412,7 +412,7 @@ const ServiceTiersSection = () => {
                                     <rect x="12" y="4" width="3" height="12" rx=".7" />
                                 </svg>
                                 <svg className="tier-play-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path d="M6 3.5 16 10 6 165z" />
+                                    <path d="M6 3.5 16 10 6 16.5z" />
                                 </svg>
                             </button>
                         </div>
@@ -422,7 +422,7 @@ const ServiceTiersSection = () => {
                         <div className="tier-wheel-rings" aria-hidden="true" />
                         <svg className="tier-icon-library" width="0" height="0" aria-hidden="true">
                             <defs>
-                                <symbol id="tier-icon-ai" viewBox="0 0 24 24"><path d="m12 3 2.5 65L21 12l-6.5 25L12 21l-2.5-65L3 12l65-25Z" /></symbol>
+                                <symbol id="tier-icon-ai" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z" /></symbol>
                                 <symbol id="tier-icon-chat" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 3V6a2 2 0 0 1 2-2Z" /><path d="M7 9h10M7 13h6" /></symbol>
                                 <symbol id="tier-icon-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18" /></symbol>
                                 <symbol id="tier-icon-link" viewBox="0 0 24 24"><path d="m9 15 6-6M7 14l-2 2a4 4 0 0 0 5 5l4-4a4 4 0 0 0 0-6M17 10l2-2a4 4 0 0 0-5-5l-4 4a4 4 0 0 0 0 6" /></symbol>
@@ -592,7 +592,7 @@ const ServiceTiersSection = () => {
                                             <rect x="86" y="306" width="328" height="80" rx="6" className="tier-answer-bubble" />
                                             <use href="#tier-icon-ai" x="100" y="317" width="19" height="19" />
                                             <text x="128" y="332" className="tier-demo-left tier-demo-small">SUGGESTED NEXT ACTION</text>
-                                            <text x="101" y="356" className="tier-demo-left tier-chat-text">Follow up with AB Ltd</text>
+                                            <text x="101" y="356" className="tier-demo-left tier-chat-text">Follow up with AB Ltd.</text>
                                             <text x="101" y="377" className="tier-demo-left tier-chat-detail">No reply in 5 days</text>
                                         </g>
                                         <text x="250" y="446" className="tier-demo-label">ILLUSTRATIVE CRM ACTIVITY</text>

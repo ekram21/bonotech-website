@@ -20,7 +20,7 @@ const expertiseServices = [
         icon: (
             <>
                 <path pathLength="1" d="M16 16h16v16H16zM20 16V7m8 9V7m-8 34v-9m8 9v-9M7 20h9m-9 8h9m16-8h9m-9 8h9" />
-                <path pathLength="1" d="m24 20 1.2 28L28 24l-2.8 12L24 28l-1.2-28L20 24l28-12L24 20Z" />
+                <path pathLength="1" d="m24 20 1.2 2.8L28 24l-2.8 1.2L24 28l-1.2-2.8L20 24l2.8-1.2L24 20Z" />
                 <path pathLength="1" d="M5 18h2v4H5zm36 8h2v4h-2zM18 5h4v2h-4zm8 36h4v2h-4z" />
             </>
         ),
