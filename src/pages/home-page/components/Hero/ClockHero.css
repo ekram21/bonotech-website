@@ -93,7 +93,7 @@
     z-index: 4;
     inset: 48% clamp(54px, 8vw, 164px) auto;
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: space-between;
     gap: 32px;
 }
@@ -102,6 +102,7 @@
     position: relative;
     isolation: isolate;
     max-width: clamp(210px, 20vw, 330px);
+    flex: 0 1 clamp(210px, 20vw, 330px);
     margin: 0;
     color: #ede3f6;
     font-size: clamp(16px, 1.36vw, 23px);
@@ -126,13 +127,13 @@
 }
 
 .clock-copy-left {
-    padding-right: 20px;
+    padding-right: clamp(8px, 1.2vw, 20px);
     border-right: 1px solid #ddcbf966;
     text-align: right;
 }
 
 .clock-copy-right {
-    padding-left: 20px;
+    padding-left: clamp(8px, 1.2vw, 20px);
     border-left: 1px solid #ddcbf966;
     text-align: left;
 }
@@ -230,14 +231,18 @@
     .clock-support {
         position: relative;
         inset: auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         align-self: center;
         width: min(100%, 620px);
+        gap: 20px;
     }
 
     .clock-support .intro-copy {
-        flex: 1;
         min-width: 0;
         max-width: none;
+        width: 100%;
+        flex: none;
         font-size: 16px;
     }
 }
@@ -260,8 +265,6 @@
     }
 
     .clock-support {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
 
@@ -308,27 +311,7 @@
     }
 
     .clock-support {
-        grid-template-columns: 1fr 1fr;
         gap: 10px;
-    }
-
-    .clock-support::before,
-    .clock-support::after {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 1px;
-        background: #ddcbf6a6;
-        content: "";
-        pointer-events: none;
-    }
-
-    .clock-support::before {
-        left: calc(50% - 4px);
-    }
-
-    .clock-support::after {
-        left: calc(50% + 3px);
     }
 
     .clock-support .intro-copy {
@@ -338,13 +321,11 @@
 
     .clock-support .clock-copy-left {
         padding: 0 8px 0 0;
-        border: 0;
         text-align: right;
     }
 
     .clock-support .clock-copy-right {
         padding: 0 0 0 8px;
-        border: 0;
         text-align: left;
     }
 }

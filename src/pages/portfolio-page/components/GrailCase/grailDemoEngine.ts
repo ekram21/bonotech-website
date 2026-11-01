@@ -31,7 +31,7 @@ const STORIES: Record<Scene, { label: string; title: [string, string]; descripti
     },
     buy: {
         label: '03 / BUY',
-        title: ['A Card They Want', 'A Delivery Choice That Fits'],
+        title: ['From A Great Find', 'To A Confirmed Order'],
         description: 'At checkout, collectors choose delivery to their home or a hold at their nearest vault This example shows the choice without placing an order',
         window: 'CHECKOUT / DELIVER TO',
     },

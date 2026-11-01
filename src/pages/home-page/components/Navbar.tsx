@@ -18,7 +18,7 @@ export interface NavbarProps {
 
 const DEFAULT_LINKS: NavLink[] = [
     { label: 'About', href: '#' },
-    { label: 'Clients', href: '#' },
+    { label: "Brands We've Built With", href: '#' },
     { label: 'Services', href: '#' },
     { label: 'Testimonials', href: '#' },
 ]

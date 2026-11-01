@@ -28,7 +28,7 @@ const READING_LINE_OFFSET = 120
 
 const DEFAULT_LINKS: NavLink[] = [
     { label: 'Service Scopes', href: '#ways-in' },
-    { label: 'Clients', href: '#our-clients' },
+    { label: "Brands We've Built With", href: '#our-clients' },
     { label: 'Solutions', href: '#service-tiers' },
     ...(PORTFOLIO_ENABLED ? [{ label: 'Portfolio', href: '/portfolio' }] : []),
     { label: 'Testimonials', href: '#client-testimonials' },
