@@ -15,13 +15,10 @@ export interface NavbarProps {
     links?: NavLink[]
 }
 
-const COMPACT_QUERY = '(max-width: 940px)'
+const COMPACT_QUERY = '(max-width: 1020px)'
 const DISCOVERY_HREF = '#discovery-call'
-const TESTIMONIALS_HREF = '#client-testimonials'
 /** Pages that render the discovery section, so booking links can stay on the page. */
 export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/portfolio.html', '/discovery-call', '/discovery-meeting'])
-/** Pages that render testimonials, so the link can use the native smooth scroll. */
-const PAGES_WITH_TESTIMONIALS = new Set(['/', '/portfolio', '/portfolio.html'])
 const DISCOVERY_PAGES = new Set(['/discovery-call', '/discovery-meeting'])
 /** Distance below the header at which a section counts as the one being read. */
 const READING_LINE_OFFSET = 120
@@ -58,6 +55,7 @@ function useCompactLayout(onChange: (compact: boolean) => void) {
             onChangeRef.current(query.matches)
         }
         query.addEventListener('change', handleChange)
+        handleChange()
         return () => query.removeEventListener('change', handleChange)
     }, [])
 
@@ -93,19 +91,18 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const [open, setOpen] = useState(false)
     const [currentHref, setCurrentHref] = useState<string | null>(null)
 
-    const compact = useCompactLayout((isCompact) => {
+    useCompactLayout((isCompact) => {
         const focusWillHide =
             isCompact && navigationRef.current?.contains(document.activeElement)
         setOpen(false)
         if (focusWillHide) toggleRef.current?.focus()
     })
 
-    const menuOpen = compact && open
+    const menuOpen = open
 
     const isOnPage = (href: string) =>
         isHome ||
-        (href === DISCOVERY_HREF && PAGES_WITH_DISCOVERY.has(location.pathname)) ||
-        (href === TESTIMONIALS_HREF && PAGES_WITH_TESTIMONIALS.has(location.pathname))
+        (href === DISCOVERY_HREF && PAGES_WITH_DISCOVERY.has(location.pathname))
     // From other pages, section links go to the homepage with the hash.
     const resolveHref = (href: string) => (isOnPage(href) || !href.startsWith('#') ? href : `/${href}`)
 
@@ -204,7 +201,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     className="site-navigation"
                     id="site-navigation"
                     aria-label="Main navigation"
-                    hidden={compact && !open}
+                    data-menu-open={menuOpen}
                 >
                     <ul className="nav-links">
                         {links.map((link, index) => (
@@ -261,9 +258,9 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
                     aria-expanded={menuOpen}
                     aria-controls="site-navigation"
-                    hidden={!compact}
                     onClick={handleToggleClick}
                 >
+                    <span />
                     <span />
                     <span />
                 </button>

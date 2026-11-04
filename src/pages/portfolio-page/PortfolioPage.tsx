@@ -12,7 +12,6 @@ import { OlmoCase } from './components/OlmoCase/OlmoCase'
 import { PortfolioIndex } from './components/PortfolioIndex/PortfolioIndex'
 import DiscoveryCallSection from '@/pages/home-page/components/DiscoveryCallSection'
 import Footer from '@/shared/Footer/Footer'
-import TestimonialsSection from '@/pages/home-page/components/TestimonialsSection'
 import { EvoCase } from './components/EvoCase'
 import { PolysignalsCase } from './components/PolysignalsCase'
 
@@ -35,7 +34,6 @@ export function PortfolioPage() {
                 <GrailCase />
                 <EvoCase />
                 <PolysignalsCase />
-                <TestimonialsSection />
                 <DiscoveryCallSection />
             </main>
             <Footer />

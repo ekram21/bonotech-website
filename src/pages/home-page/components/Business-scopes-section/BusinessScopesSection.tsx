@@ -42,7 +42,7 @@ const BusinessScopesSection = () => {
                     <span className="whitespace-nowrap">enterprise-wide</span>{" "}
                     transformation,{" "}
                     <br />
-                    we meet your business where it is and build what comes next
+                    we meet your business where it is and build what comes next.
                 </p>
             </header>
             <div ref={gridRef} className="scope-grid">
@@ -90,9 +90,9 @@ const BusinessScopesSection = () => {
                         You Need It Built
                     </h3>
                     <p>
-                        We deploy a solid team to build across mobile, web, cloud
-                        and AI, working in defined phases with weekly shippable
-                        increments. Five of our seven platforms went live in 30 days or
+                        We will deploy a solid team to build across mobile, web, cloud
+                        and AI, to work in dated phases with weekly shippable
+                        increments. 5 of our 7 platforms went live in just 30 days or
                         less.
                     </p>
                 </article>

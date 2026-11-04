@@ -147,6 +147,7 @@
   height: 36px;
   place-items: center;
   padding: 9px;
+  border-radius: 50%;
   background: rgba(15, 7, 29, 0.45);
   backdrop-filter: blur(8px);
   border-color: rgba(234, 215, 255, 0.32);
