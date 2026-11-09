@@ -33,7 +33,7 @@ export function AnalyticsTracker() {
   }, [location.pathname, location.hash]);
 
   useEffect(() => {
-    if (location.pathname !== "/") return;
+    if (location.pathname !== "/" && location.pathname !== "/index.html") return;
 
     const observer = new IntersectionObserver(
       (entries) => {

@@ -182,6 +182,11 @@
   transform-origin: 160px 137px;
   transition: transform 1.6s cubic-bezier(0.2, 0.65, 0.2, 1);
 }
+/* @keyframes automation-orbit-mobile {
+  to {
+    transform: rotate(360deg);
+  }
+} */
 .growth-pixels {
   transform-origin: 50% 100%;
   transition: transform 0.9s cubic-bezier(0.2, 0.65, 0.2, 1);
@@ -315,6 +320,10 @@
   .metric-automation .metric-content {
     padding-top: 20px;
   }
+  /* .metric-automation.is-revealed .orbit-system {
+    animation: automation-orbit-mobile 12s linear infinite;
+    will-change: transform;
+  } */
 }
 @media (max-width: 520px) {
   .metrics {
@@ -374,6 +383,7 @@
   }
   .metric-card * {
     transition: none !important;
+    /* animation: none !important; */
     transform: none !important;
   }
 }

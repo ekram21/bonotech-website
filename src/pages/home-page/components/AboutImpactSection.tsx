@@ -246,7 +246,7 @@ const AboutImpactSection = () => {
                 23<span>+</span>
               </span>
               <span className="project-caption">
-                projects, and that’s just in the last <strong>6 months</strong>.
+                projects—and that’s just the last <strong>6 months</strong>.
               </span>
             </h3>
           </div>

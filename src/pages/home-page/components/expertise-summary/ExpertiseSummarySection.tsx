@@ -50,7 +50,7 @@ const expertiseServices = [
   {
     title: "AI Harness & MCP",
     description:
-      "AI harnesses bring business data and tools together MCP integrations connect them to compatible AI agents.",
+      "AI harnesses bring business data and tools together. MCP integrations connect them to compatible AI agents.",
     icon: (
       <>
         <path

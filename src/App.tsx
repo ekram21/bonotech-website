@@ -124,6 +124,7 @@ export default function App() {
                 <div className="min-h-screen w-full bg-[var(--ink)] text-[var(--white)]">
                     <Routes>
                         <Route path="/" element={<HomePage/>} />
+                        <Route path="/index.html" element={<HomePage/>} />
                         <Route
                             path="/portfolio"
                             element={

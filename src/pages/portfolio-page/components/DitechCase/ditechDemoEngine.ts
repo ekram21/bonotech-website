@@ -106,7 +106,7 @@ export function initDitechDemo(section: HTMLElement): () => void {
         helper,
         s.phase === "sending"
           ? "Reading approved CRM data…"
-          : "Sample question · This demonstration types and sends automatically",
+          : "Sample question · This demonstration types and sends automatically.",
       );
       previousPhase = s.phase;
     }

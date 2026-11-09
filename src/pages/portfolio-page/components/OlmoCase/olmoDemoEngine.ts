@@ -1,7 +1,7 @@
 // Illustrative local walkthrough: no payment, chat or property systems are contacted.
 export const OLMO_DURATION = 34000;
 export const OLMO_CHAPTERS = { rent: 6500, repairs: 18000, properties: 24000 };
-export const OLMO_REQUEST = "The bathtub is cracked Could someone take a look?";
+export const OLMO_REQUEST = "The bathtub is cracked. Could someone take a look?";
 
 type Scene = keyof typeof OLMO_CHAPTERS;
 
@@ -41,19 +41,19 @@ const DESCRIPTIONS: Record<
 > = {
   rent: {
     title: "Rent & Payments",
-    role: "Tenant & Landlord",
+    role: "Tenant & Landlord Views",
     caption:
       "An in-app rent payment is matched to the correct unit and month, with a receipt and a shared record.",
   },
   repairs: {
     title: "Maintenance",
-    role: "Tenant & Property Manager",
+    role: "Tenant & Property Manager Views",
     caption:
       "A tenant’s message and photo become an assigned repair ticket, with the flat, timestamp and updates kept together.",
   },
   properties: {
     title: "Properties & Units",
-    role: "Landlord",
+    role: "Landlord View",
     caption:
       "Landlords oversee properties and occupancy, managers handle day-to-day operations, and tenants access their own payments and documents.",
   },
@@ -121,8 +121,8 @@ export function initOlmoDemo(section: HTMLElement): () => void {
       setText(
         "#oc-rent-caption",
         s.paid
-          ? "Flat 4B · September · Paid Both workspaces reflect the same rent record"
-          : "The unit, rental month and payment stay connected from the start",
+          ? "Flat 4B · September · Paid. Both workspaces reflect the same rent record."
+          : "The unit, rental month and payment stay connected from the start.",
       );
       demo
         .querySelector(".oc-receipt-confirmation")!

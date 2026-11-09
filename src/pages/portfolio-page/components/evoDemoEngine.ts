@@ -125,8 +125,8 @@ export function initEvoDemo(root: HTMLElement): () => void {
     text(
       "#ev-intake-detail",
       submitted
-        ? "Card details, service choice and grading tier are linked in one record"
-        : "Submit the sample card on the left to see the shared record arrive",
+        ? "Card details, service choice and grading tier are linked in one record."
+        : "Submit the sample card on the left to see the shared record arrive.",
     );
     text(
       "#ev-submit-label",

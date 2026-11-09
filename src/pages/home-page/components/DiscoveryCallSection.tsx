@@ -582,7 +582,7 @@ const DiscoveryCallSection = () => {
           day: "numeric",
           year: "numeric",
         })} · ${selectedTimeLabel} · ${zoneLabel(timeZone)}`
-      : "Select a date and time above";
+      : "Select a date and time above.";
 
   return (
     <>
@@ -758,7 +758,7 @@ const DiscoveryCallSection = () => {
             </div>
 
             <p className="discovery-form-note">
-              A focused conversation about your business No preparation needed.
+              A focused conversation about your business. No preparation needed.
               <br />
               <span>Fields marked * are required.</span>
             </p>

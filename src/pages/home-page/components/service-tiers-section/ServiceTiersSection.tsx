@@ -31,7 +31,7 @@ const tiers: Tier[] = [
     tab: "MCP Access",
     kicker: "MCP ENABLEMENT",
     title: ["Let AI Work With", "Your Business"],
-    body: "Ask ChatGPT, Claude or any compatible AI agent of your choice about your business Through MCP, we connect it to your AI harness (the layer bringing your business data together), so it can answer questions using your company’s documents, client emails and operational data\u2060—\u2060only from sources you’ve approved.",
+    body: "Ask ChatGPT, Claude or any compatible AI agent of your choice about your business. Through MCP, we connect it to your AI harness (the layer bringing your business data together), so it can answer questions using your company’s documents, client emails and operational data\u2060—\u2060only from sources you’ve approved.",
     example:
       "After integration, your team could ask: “How can we boost factory output?”",
     relationship: "Connect your preferred AI agent to your business context.",
@@ -58,7 +58,7 @@ const tiers: Tier[] = [
     tab: "Websites & Apps",
     kicker: "STANDALONE PRODUCTS",
     title: ["A Focused Product", "Built To Perform"],
-    body: "Need a website or an app with a clear purpose? We design and build a complete, independent product around that need, ready for your customers to use",
+    body: "Need a website or an app with a clear purpose? We design and build a complete, independent product around that need, ready for your customers to use.",
     example: "A company website. A booking app. Your next digital product.",
     relationship: "A complete standalone build, ready to use on its own.",
   },
@@ -529,10 +529,10 @@ const ServiceTiersSection = () => {
                     <desc id="tier-svg-desc-1">
                       Illustrative production conversation: How can we boost
                       factory output? The request travels through MCP to the AI
-                      harness, which connects business data Data returns through
-                      MCP The assistant answers: Line 2 runs at 92 percent
-                      efficiency Use its setup across all lines ChatGPT and
-                      Claude are two examples of compatible AI agents
+                      harness, which connects business data. Data returns through
+                      MCP. The assistant answers: Line 2 runs at 92 percent
+                      efficiency. Use its setup across all lines. ChatGPT and
+                      Claude are two examples of compatible AI agents.
                     </desc>
                     <text x="250" y="54" className="tier-demo-label">
                       EXAMPLE CONVERSATION
@@ -621,14 +621,14 @@ const ServiceTiersSection = () => {
                         y="212"
                         className="tier-demo-left tier-chat-text"
                       >
-                        Line 2 runs at 92% efficiency
+                        Line 2 runs at 92% efficiency.
                       </text>
                       <text
                         x="112"
                         y="239"
                         className="tier-demo-left tier-chat-detail"
                       >
-                        Use its setup across all lines
+                        Use its setup across all lines.
                       </text>
                     </g>
                     <BeamPaths

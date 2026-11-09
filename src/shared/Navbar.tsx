@@ -18,7 +18,7 @@ export interface NavbarProps {
 const COMPACT_QUERY = '(max-width: 1020px)'
 const DISCOVERY_HREF = '#discovery-call'
 /** Pages that render the discovery section, so booking links can stay on the page. */
-export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/portfolio.html', '/discovery-call', '/discovery-meeting'])
+export const PAGES_WITH_DISCOVERY = new Set(['/', '/index.html', '/portfolio', '/portfolio.html', '/discovery-call', '/discovery-meeting'])
 const DISCOVERY_PAGES = new Set(['/discovery-call', '/discovery-meeting'])
 /** Distance below the header at which a section counts as the one being read. */
 const READING_LINE_OFFSET = 120
@@ -64,7 +64,7 @@ function useCompactLayout(onChange: (compact: boolean) => void) {
 
 export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const location = useLocation()
-    const isHome = location.pathname === '/'
+    const isHome = location.pathname === '/' || location.pathname === '/index.html'
 
     const headerRef = useRef<HTMLElement | null>(null)
     const navigationRef = useRef<HTMLElement | null>(null)

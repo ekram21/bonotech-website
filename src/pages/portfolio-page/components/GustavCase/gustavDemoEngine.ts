@@ -11,7 +11,7 @@ export const GUSTAV_MESSAGE = "Could you send two extra towels to Room 203?";
 
 type Chapter = keyof typeof GUSTAV_CHAPTERS;
 
-const NOTE = "Two extra towels, please";
+const NOTE = "Two extra towels, please.";
 const STARTS: Record<Chapter, number> = {
   request: 0,
   reply: 4500,
@@ -77,7 +77,7 @@ export function gustavStateAt(elapsed: number) {
 
 const CAPTIONS: Record<Chapter, string> = {
   request:
-    "One guest asks for two towels A call to reception on the left; a direct message to housekeeping on the right.",
+    "One guest asks for two towels. A call to reception on the left; a direct message to housekeeping on the right.",
   reply:
     "Reception writes a paper note With Gustav, the housekeeping head replies directly to the guest.",
   operations:

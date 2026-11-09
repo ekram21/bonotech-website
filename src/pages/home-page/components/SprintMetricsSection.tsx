@@ -87,7 +87,7 @@ const SprintMetricsSection = () => {
             <h3 id="development-title">Faster Development</h3>
             <p className="metric-description">
               Focused sprints, one team across the whole surface, and no
-              hand-off lag between disciplines
+              hand-off lag between disciplines.
             </p>
           </div>
           <svg
@@ -197,7 +197,7 @@ const SprintMetricsSection = () => {
             <p className="metric-description">
               AI-assisted capture, validation and intelligent RPA take the{" "}
               <span className="whitespace-nowrap">re-keying</span> out of the
-              day
+              day.
             </p>
           </div>
         </article>

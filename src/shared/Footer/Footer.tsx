@@ -43,7 +43,7 @@ const getEmailError = (value: string): string => {
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { pathname } = useLocation();
-  const isHome = pathname === "/";
+  const isHome = pathname === "/" || pathname === "/index.html";
   // From other pages, homepage sections are reached through the homepage URL.
   const homeSection = (hash: string) => (isHome ? hash : `/${hash}`);
   const [email, setEmail] = useState("");

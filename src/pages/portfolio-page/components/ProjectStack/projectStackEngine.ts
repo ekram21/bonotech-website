@@ -13,7 +13,7 @@ export function panelPose(
     const selected = clamp(Number.isFinite(active) ? active : 0, 0, count - 1)
     if (compact) {
         const depth = (index - Math.round(selected) + count) % count
-        return { height: 310 - depth * 4, y: 0, z: -depth * 28, x: depth * 10, shade: depth * 0.04 }
+        return { height: 310 - depth * 3, y: depth * 3, z: -depth * 40, x: depth * 16, shade: depth * 0.04 }
     }
     const distance = index - selected
     const influence = Math.exp(-(distance * distance) / (2 * 0.55 * 0.55))
@@ -49,7 +49,9 @@ export function createProjectStack(
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)')
     let current = 0
     let selected = 0
-    let engaged = true
+    // Start with the same full-height stack as the static reference. The
+    // selected-card height effect is enabled after the first pointer move.
+    let engaged = false
     let visible = false
     let frame = 0
     let last = 0
