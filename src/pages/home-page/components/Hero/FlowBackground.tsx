@@ -54,7 +54,7 @@ const fragmentShaderSource = `
       smoothstep(0.6, 1.8, aspect)
     );
 
-    /* Ring vertical center — hero nudges down under the fixed navbar; discovery keeps template 0.43. */
+    /* Ring vertical center — hero nudges down under the fixed navbar; discovery keeps template 0.43 */
     vec2 center = vec2(
       0.5 + 0.024 * sin(time * 0.43),
       uCenterY + 0.025 * sin(time * 0.57)
@@ -136,14 +136,14 @@ function createShader(
     const shader = gl.createShader(type);
 
     if (!shader) {
-        throw new Error("Unable to create WebGL shader.");
+        throw new Error("Unable to create WebGL shader");
     }
 
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        const error = gl.getShaderInfoLog(shader) ?? "Unknown shader error.";
+        const error = gl.getShaderInfoLog(shader) ?? "Unknown shader error";
         gl.deleteShader(shader);
         throw new Error(error);
     }
@@ -167,7 +167,7 @@ function createProgram(gl: WebGLRenderingContext): WebGLProgram {
     const program = gl.createProgram();
 
     if (!program) {
-        throw new Error("Unable to create WebGL program.");
+        throw new Error("Unable to create WebGL program");
     }
 
     gl.attachShader(program, vertexShader);
@@ -178,7 +178,7 @@ function createProgram(gl: WebGLRenderingContext): WebGLProgram {
     gl.deleteShader(fragmentShader);
 
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        const error = gl.getProgramInfoLog(program) ?? "Unknown program error.";
+        const error = gl.getProgramInfoLog(program) ?? "Unknown program error";
         gl.deleteProgram(program);
         throw new Error(error);
     }
@@ -212,7 +212,7 @@ export default function FlowBackground({
         });
 
         if (!gl) {
-            console.warn("WebGL is not supported by this browser.");
+            console.warn("WebGL is not supported by this browser");
             return;
         }
 

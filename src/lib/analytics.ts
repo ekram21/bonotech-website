@@ -155,7 +155,7 @@ export async function adminLogin(
   };
 
   if (!res.ok || !payload.token) {
-    throw new Error(payload.error || "Invalid email or password.");
+    throw new Error(payload.error || "Invalid email or password");
   }
 
   setAdminToken(payload.token);
@@ -239,7 +239,7 @@ export async function fetchAnalyticsOverview(
   range: string,
 ): Promise<AnalyticsOverview> {
   const token = getAdminToken();
-  if (!token) throw new Error("Not signed in.");
+  if (!token) throw new Error("Not signed in");
 
   const res = await fetch(
     `${API_BASE}/admin/analytics/overview?range=${encodeURIComponent(range)}`,
@@ -255,7 +255,7 @@ export async function fetchAnalyticsOverview(
 
   if (!res.ok) {
     if (res.status === 401) clearAdminToken();
-    throw new Error(payload.error || "Could not load analytics.");
+    throw new Error(payload.error || "Could not load analytics");
   }
 
   return payload;

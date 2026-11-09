@@ -13,7 +13,7 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
         daysLabel: '3 Days',
         badge: 'Website',
         title: 'Website Development Timeline Starts From 3 Days',
-        subtitle: 'Fast preview, focused content, and launch-ready structure.',
+        subtitle: 'Fast preview, focused content, and launch-ready structure',
         image: websiteWireframe,
     },
     {
@@ -21,7 +21,7 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
         daysLabel: '30 Days',
         badge: 'Mobile',
         title: 'Mobile App Launched in IOS and Android App Store Timeline Start From 30 Days',
-        subtitle: 'App interface, engineering, testing, and deployment readiness.',
+        subtitle: 'App interface, engineering, testing, and deployment readiness',
         image: mobileWireframe,
     },
     {
@@ -29,7 +29,7 @@ const TIMELINE_ITEMS: TimelineSectionItem[] = [
         daysLabel: '60 Days',
         badge: 'Enterprise',
         title: 'Enterprise Software Development Timeline Starts From 60 Days',
-        subtitle: "Scalable architecture, integrations, dashboards, and governance.",
+        subtitle: "Scalable architecture, integrations, dashboards, and governance",
         image: enterpriseWireframe,
     },
 ]
@@ -62,7 +62,7 @@ function TimelineHeading({ id }: { id?: string }) {
             </h2>
             <p className="mt-4 max-w-[500px] font-body text-[16px] leading-[1.6] text-[#75777A] lg:text-[17px]">
                 Bonotech is built to deliver shorter product cycles and faster results, without
-                compromising on quality or efficiency.
+                compromising on quality or efficiency
             </p>
         </div>
     )

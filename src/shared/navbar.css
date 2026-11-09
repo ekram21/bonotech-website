@@ -14,23 +14,28 @@
 .nav-call:hover::before,.nav-call:focus-visible::before{transform:translateY(0)}
 .nav-call svg{width:17px;height:17px;transition:transform .3s}
 .nav-call:hover svg{transform:translate(1px,-1px)}
-.nav-toggle{position:relative;flex-shrink:0;display:grid;place-content:center;gap:6px;width:44px;height:44px;border:1px solid #e2cbff2b;border-radius:14px;background:#e5d0ff0c;color:#fff;cursor:pointer}
-.nav-toggle[hidden],.site-navigation[hidden]{display:none}
-.nav-toggle span{display:block;width:17px;height:1px;background:currentColor;transition:transform .25s}
-.nav-toggle[aria-expanded=true] span:first-child{transform:translateY(3.5px) rotate(45deg)}
-.nav-toggle[aria-expanded=true] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.nav-toggle{position:relative;flex-shrink:0;display:none;place-content:center;gap:4px;width:44px;height:44px;border:1px solid #e2cbff2b;border-radius:14px;background:#e5d0ff0c;color:#fff;cursor:pointer}
+.nav-toggle span{display:block;width:17px;height:1px;background:currentColor;transition:transform .25s,opacity .25s}
+.nav-toggle[aria-expanded=true] span:first-child{transform:translateY(5px) rotate(45deg)}
+.nav-toggle[aria-expanded=true] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded=true] span:last-child{transform:translateY(-5px) rotate(-45deg)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-header{background:#281a3bf5}}
-@media(max-width:940px){
+@media(max-width:1020px){
  .site-header{top:14px;width:calc(100% - 28px);min-height:64px;gap:10px;padding:8px 10px 8px 18px;border-radius:23px;flex-wrap:wrap}
  .nav-brand{width:135px;margin-right:auto}
  .nav-call{min-height:44px;padding-inline:16px;border-radius:15px}
- .site-navigation{order:4;flex-basis:100%;padding:10px 0 2px;border-top:1px solid #ddc2ff21}
+ .site-navigation{display:none;order:4;flex-basis:100%;padding:10px 0 2px;border-top:1px solid #ddc2ff21}
+ .site-navigation[data-menu-open="true"]{display:block}
  .nav-links{display:grid;grid-template-columns:1fr 1fr;gap:5px}
  .nav-links a{min-height:48px;font-size:13px;justify-content:flex-start;padding-inline:17px;border-radius:14px}
+ .nav-toggle{display:grid}
 }
 @media(max-width:440px){
- .site-header{gap:8px;padding-left:14px;width:calc(100% - 24px)}
- .nav-brand{width:118px}
+ .site-header{left:12px;right:calc(12px + var(--viewport-scrollbar-width,0px));transform:none;margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"brand call toggle" "navigation navigation navigation";gap:8px;padding:8px 10px 8px 14px;width:auto;max-width:none;box-sizing:border-box}
+ .nav-brand{grid-area:brand;width:118px;max-width:100%;min-width:0;margin:0}
+ .site-navigation{grid-area:navigation;order:initial;flex-basis:auto;width:100%;min-width:0}
+ .nav-call{grid-area:call}
+ .nav-toggle{grid-area:toggle}
  .nav-call{gap:7px;padding-inline:12px;font-size:11px}
  .nav-call svg{width:15px;height:15px}
  .nav-toggle{width:40px}

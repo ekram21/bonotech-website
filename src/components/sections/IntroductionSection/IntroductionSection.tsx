@@ -10,17 +10,17 @@ const FEATURE_CARDS = [
     {
         icon: SpeedIcon,
         title: 'Speed',
-        text: 'Faster Product Cycles.',
+        text: 'Faster Product Cycles',
     },
     {
         icon: SecurityIcon,
         title: 'Security',
-        text: 'Enterprise Ready Architecture And Governance.',
+        text: 'Enterprise Ready Architecture And Governance',
     },
     {
         icon: OutcomeIcon,
         title: 'Outcome',
-        text: 'Business Metrics Tied To Every Sprint.',
+        text: 'Business Metrics Tied To Every Sprint',
     },
 ] as const
 
@@ -145,23 +145,23 @@ export function IntroductionSection({ className }: IntroductionSectionProps) {
                             id="introduction-heading"
                             className="mt-4 font-display text-[40px] font-semibold leading-[1.08] tracking-[-0.02em] text-[#272829] sm:text-[40px] md:text-[48px]"
                         >
-                            Better. Faster.
+                            Better Faster
                             <br />
-                            Stronger.
+                            Stronger
                         </h2>
 
                         <div className="mt-6 flex flex-col gap-4 rounded-2xl bg-[#F5F3FB] p-3">
                             <h3 className="font-display text-2xl font-bold leading-none tracking-[0] text-[#272829]">
-                                Zero to Launch With <span className="text-[#8269CF]">SPEED.</span>
+                                Zero to Launch With <span className="text-[#8269CF]">SPEED</span>
                             </h3>
                             <div className="flex flex-col gap-4">
                                 <p className="font-body text-[16px] leading-[1.6] text-[#444547]">
                                     Turn ideas into custom software and SaaS products in a shorter time
-                                    frame, with Bonotech AI-accelerated product engine.
+                                    frame, with Bonotech AI-accelerated product engine
                                 </p>
                                 <p className="font-body text-[16px] leading-[1.6] text-[#444547]">
                                     Designs intuitive and scalable systems combining AI-native delivery,
-                                    shorter product cycles, and measurable business KPIs.
+                                    shorter product cycles, and measurable business KPIs
                                 </p>
                             </div>
                         </div>

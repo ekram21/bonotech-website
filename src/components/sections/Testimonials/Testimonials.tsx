@@ -12,7 +12,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-1",
     quote:
-      "Gustav Is a User-Friendly, Visually Appealing All-in-One Cloud PMS. Intuitive, Time-Saving, and Reliable—With Excellent Reports and Friendly Support for Effortless Hotel Management.",
+      "Gustav Is a User-Friendly, Visually Appealing All-in-One Cloud PMS Intuitive, Time-Saving, and Reliable—With Excellent Reports and Friendly Support for Effortless Hotel Management",
     authorName: "MD. Shohiduzzaman Shakil",
     authorRole: "Generalist-Human Resources, Mermaid Beach Resort",
     backgroundColor: "#8269CF",
@@ -21,7 +21,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-2",
     quote:
-      "I Couldn't Believe My Eyes When I First Saw What the Team Had Built Out for Me. Looks So Good. There's Massive Companies in the Space Who Still Haven't Been Able to Modernize a Proper Web Based Application Form So Excited to Be the First One to Launch a Modern Web Application for Card Prep & Cleaning.",
+      "I Couldn't Believe My Eyes When I First Saw What the Team Had Built Out for Me Looks So Good There's Massive Companies in the Space Who Still Haven't Been Able to Modernize a Proper Web Based Application Form So Excited to Be the First One to Launch a Modern Web Application for Card Prep & Cleaning",
     authorName: "Evan Milho",
     authorRole: "CEO, EVO Grading",
     backgroundColor: "#131314",
@@ -30,7 +30,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-3",
     quote:
-      "Super Impressive Team With a Can-Do Attitude. No Requests That I Have Made Has Ever Been Met With Not Possible or Can't Do. Pretty Much They Can Build Any and Everything!",
+      "Super Impressive Team With a Can-Do Attitude No Requests That I Have Made Has Ever Been Met With Not Possible or Can't Do Pretty Much They Can Build Any and Everything!",
     authorName: "Dan Iqbal",
     authorRole: "CEO, Get My Grail",
     backgroundColor: "#FFAB51",
@@ -39,7 +39,7 @@ const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-4",
     quote:
-      "Polysignals Is the Highest Quality App Built in the Shortest Possible Time That I Have Seen in Quite Some Time. Speaking as Someone Who Works With the Highest Level of Engineers on a Daily Basis, Bonotech Is the Real Deal!",
+      "Polysignals Is the Highest Quality App Built in the Shortest Possible Time That I Have Seen in Quite Some Time Speaking as Someone Who Works With the Highest Level of Engineers on a Daily Basis, Bonotech Is the Real Deal!",
     authorName: "Nafis Abrar",
     authorRole: "ML Engineer at Meta Facebook",
     backgroundColor: "#3D8B5F",
@@ -69,7 +69,7 @@ function QuoteIcon() {
       aria-hidden="true"
     >
       <path
-        d="M0 42V25.2C0 20.72 0.77 16.52 2.31 12.6C3.92 8.68 6.58 4.76 10.29 0.84L18.9 5.88C16.38 8.82 14.56 11.62 13.44 14.28C12.39 16.87 11.76 19.6 11.55 22.47H22.68V42H0ZM33.32 42V25.2C33.32 20.72 34.09 16.52 35.63 12.6C37.24 8.68 39.9 4.76 43.61 0.84L52.22 5.88C49.7 8.82 47.88 11.62 46.76 14.28C45.71 16.87 45.08 19.6 44.87 22.47H56V42H33.32Z"
+        d="M0 42V252C0 20.72 0.77 16.52 2.31 126C392 8.68 6.58 4.76 10.29 084L189 588C1638 8.82 14.56 11.62 13.44 1428C1239 16.87 11.76 19.6 11.55 2247H2268V42H0ZM3332 42V252C3332 20.72 34.09 16.52 35.63 126C3724 8.68 39.9 4.76 43.61 084L5222 588C497 8.82 47.88 11.62 46.76 1428C4571 16.87 45.08 19.6 44.87 2247H56V42H3332Z"
         fill="currentColor"
         fillOpacity="0.3"
       />

@@ -57,7 +57,7 @@ const Footer = () => {
 
                         <p className="mt-4 max-w-[26ch] text-[16px] font-light leading-[1.65] tracking-[-0.045em] text-[#D4C5E0] sm:text-[17px]">
                             Building innovative digital products that help businesses
-                            transition into the age of AI.
+                            transition into the age of AI
                         </p>
                     </div>
 
@@ -176,14 +176,14 @@ const Footer = () => {
                         </h2>
 
                         <p className="mb-3 text-[24px] font-medium leading-[1.15] tracking-[-0.055em] text-[#F1E2FF]">
-                            Fresh Thinking.
+                            Fresh Thinking
                             <br />
-                            Practical Tech.
+                            Practical Tech
                         </p>
 
                         <p className="mb-[18px] max-w-[29ch] text-[12px] leading-[1.65] tracking-[-0.015em] text-[#C7B5D7]">
                             Product insights, smarter systems, and AI that works for
-                            business.
+                            business
                         </p>
 
                         <label
@@ -232,7 +232,7 @@ const Footer = () => {
                             id="footer-newsletter-note"
                             className="mt-[10px] text-[10px] leading-[1.5] text-[#B49AC8]"
                         >
-                            Newsletter signup coming soon.
+                            Newsletter signup coming soon
                         </p>
                     </div>
                 </div>
@@ -243,7 +243,7 @@ const Footer = () => {
                     <p className="m-0 text-[10px] leading-[1.8] text-[#BFA7D0]">
                         © {currentYear} Bonotech Holdings Pte. Ltd.
                         <span className="block">
-                            All rights reserved.
+                            All rights reserved
                         </span>
                     </p>
 

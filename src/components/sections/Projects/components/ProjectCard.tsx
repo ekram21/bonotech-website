@@ -27,25 +27,25 @@ function BuildDaysIcon() {
             className="shrink-0"
         >
             <path
-                d="M2.5 6.91651C2.5 4.70737 4.29086 2.9165 6.5 2.9165L13.5 2.9165C15.7091 2.9165 17.5 4.70737 17.5 6.9165V14.3332C17.5 16.5423 15.7091 18.3332 13.5 18.3332H6.5C4.29086 18.3332 2.5 16.5423 2.5 14.3332L2.5 6.91651Z"
+                d="M25 691651C25 4.70737 4.29086 2.9165 6.5 29165L135 29165C157091 2.9165 17.5 4.70737 17.5 69165V143332C175 16.5423 15.7091 18.3332 13.5 183332H65C429086 18.3332 2.5 16.5423 2.5 143332L25 691651Z"
                 stroke="currentColor"
                 strokeWidth="1.5"
             />
             <path
-                d="M2.5 7.5L17.5 7.5"
+                d="M25 75L175 7.5"
                 stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
             />
             <path
-                d="M6.66699 1.6665L6.66699 4.1665"
+                d="M666699 16665L666699 4.1665"
                 stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />
             <path
-                d="M13.333 1.6665V4.1665"
+                d="M13333 16665V41665"
                 stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"

@@ -106,9 +106,9 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 0 11px #c79dfccc) drop-shadow(0 0 34px #8e49f97f);
+    filter: drop-shadow(0 0 9px #bd8bfab3) drop-shadow(0 0 28px #873ff86b);
     animation: scope-star-breathe 7s ease-in-out infinite;
-    will-change: transform;
+    will-change: transform, filter;
 }
 
 .scope-star::before {
@@ -233,7 +233,7 @@
 .scope-idea {
     grid-column: 1;
     grid-row: 1;
-    background: linear-gradient(130deg, #09060ff5, #0c0814f2 72%, #0c0814b8);
+    background: linear-gradient(130deg, #09060fde, #0c0814cc 72%, #0c081488);
 }
 
 .scope-build {
@@ -323,10 +323,12 @@
     0%,
     100% {
         transform: scale(0.985);
+        filter: drop-shadow(0 0 9px #bd8bfab3) drop-shadow(0 0 28px #873ff86b);
     }
 
     50% {
         transform: scale(1.012);
+        filter: drop-shadow(0 0 14px #d5b4ffe0) drop-shadow(0 0 40px #9755ff91);
     }
 }
 

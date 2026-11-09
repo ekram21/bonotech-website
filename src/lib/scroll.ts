@@ -24,7 +24,7 @@ export function scrollToHashOnLoad() {
  * Jump to `#section` and keep it in place while content above it is still changing height,
  * so a shared deep link lands once instead of drifting. Lets go as soon as the reader scrolls.
  */
-export function holdHashTarget(durationMs = SETTLE_MS) {
+export function holdHashTarget(durationMs = SETTLE_MS, behavior: 'instant' | 'smooth' = 'instant') {
     releaseHold?.()
     const target = hashTarget()
     if (!target) return
@@ -32,16 +32,20 @@ export function holdHashTarget(durationMs = SETTLE_MS) {
     const align = () => target.scrollIntoView({ behavior: 'instant', block: 'start' })
     const observer = new ResizeObserver(align)
     const timer = window.setTimeout(release, durationMs)
+    const observerTimer = behavior === 'smooth'
+        ? window.setTimeout(() => observer.observe(document.body), 850)
+        : 0
 
     function release() {
         observer.disconnect()
         window.clearTimeout(timer)
+        window.clearTimeout(observerTimer)
         READER_INPUT.forEach((type) => window.removeEventListener(type, release))
         if (releaseHold === release) releaseHold = null
     }
 
-    align()
-    observer.observe(document.body)
+    target.scrollIntoView({ behavior, block: 'start' })
+    if (behavior === 'instant') observer.observe(document.body)
     READER_INPUT.forEach((type) => window.addEventListener(type, release, { passive: true }))
     releaseHold = release
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ComponentProps, type MouseEvent } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentProps, type MouseEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { trackCtaClick } from '@/lib/analytics'
 import { PORTFOLIO_ENABLED } from '@/lib/features'
@@ -15,17 +15,17 @@ export interface NavbarProps {
     links?: NavLink[]
 }
 
-const COMPACT_QUERY = '(max-width: 940px)'
+const COMPACT_QUERY = '(max-width: 1020px)'
 const DISCOVERY_HREF = '#discovery-call'
 /** Pages that render the discovery section, so booking links can stay on the page. */
-export const PAGES_WITH_DISCOVERY = new Set(['/', '/portfolio', '/discovery-call', '/discovery-meeting'])
+export const PAGES_WITH_DISCOVERY = new Set(['/', '/index.html', '/portfolio', '/portfolio.html', '/discovery-call', '/discovery-meeting'])
 const DISCOVERY_PAGES = new Set(['/discovery-call', '/discovery-meeting'])
 /** Distance below the header at which a section counts as the one being read. */
 const READING_LINE_OFFSET = 120
 
 const DEFAULT_LINKS: NavLink[] = [
     { label: 'Service Scopes', href: '#ways-in' },
-    { label: 'Clients', href: '#our-clients' },
+    { label: "Brands We've Built With", href: '#our-clients' },
     { label: 'Solutions', href: '#service-tiers' },
     ...(PORTFOLIO_ENABLED ? [{ label: 'Portfolio', href: '/portfolio' }] : []),
     { label: 'Testimonials', href: '#client-testimonials' },
@@ -55,6 +55,7 @@ function useCompactLayout(onChange: (compact: boolean) => void) {
             onChangeRef.current(query.matches)
         }
         query.addEventListener('change', handleChange)
+        handleChange()
         return () => query.removeEventListener('change', handleChange)
     }, [])
 
@@ -63,27 +64,45 @@ function useCompactLayout(onChange: (compact: boolean) => void) {
 
 export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const location = useLocation()
-    const isHome = location.pathname === '/'
+    const isHome = location.pathname === '/' || location.pathname === '/index.html'
 
     const headerRef = useRef<HTMLElement | null>(null)
     const navigationRef = useRef<HTMLElement | null>(null)
     const toggleRef = useRef<HTMLButtonElement | null>(null)
     const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
 
+    useLayoutEffect(() => {
+        const header = headerRef.current
+        if (!header) return
+
+        const updateViewportGutter = () => {
+            const scrollbarWidth = Math.max(
+                0,
+                window.innerWidth - document.documentElement.clientWidth,
+            )
+            header.style.setProperty('--viewport-scrollbar-width', `${scrollbarWidth}px`)
+        }
+
+        updateViewportGutter()
+        window.addEventListener('resize', updateViewportGutter)
+        return () => window.removeEventListener('resize', updateViewportGutter)
+    }, [])
+
     const [open, setOpen] = useState(false)
     const [currentHref, setCurrentHref] = useState<string | null>(null)
 
-    const compact = useCompactLayout((isCompact) => {
+    useCompactLayout((isCompact) => {
         const focusWillHide =
             isCompact && navigationRef.current?.contains(document.activeElement)
         setOpen(false)
         if (focusWillHide) toggleRef.current?.focus()
     })
 
-    const menuOpen = compact && open
+    const menuOpen = open
 
     const isOnPage = (href: string) =>
-        isHome || (href === DISCOVERY_HREF && PAGES_WITH_DISCOVERY.has(location.pathname))
+        isHome ||
+        (href === DISCOVERY_HREF && PAGES_WITH_DISCOVERY.has(location.pathname))
     // From other pages, section links go to the homepage with the hash.
     const resolveHref = (href: string) => (isOnPage(href) || !href.startsWith('#') ? href : `/${href}`)
 
@@ -182,7 +201,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     className="site-navigation"
                     id="site-navigation"
                     aria-label="Main navigation"
-                    hidden={compact && !open}
+                    data-menu-open={menuOpen}
                 >
                     <ul className="nav-links">
                         {links.map((link, index) => (
@@ -200,7 +219,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                                     <Link
                                         ref={index === 0 ? firstLinkRef : undefined}
                                         to={link.href}
-                                        aria-current={location.pathname === link.href ? 'page' : undefined}
+                                        aria-current={location.pathname === link.href || (link.href === '/portfolio' && location.pathname === '/portfolio.html') ? 'page' : undefined}
                                         onClick={() => setOpen(false)}
                                     >
                                         {link.label}
@@ -239,9 +258,9 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                     aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
                     aria-expanded={menuOpen}
                     aria-controls="site-navigation"
-                    hidden={!compact}
                     onClick={handleToggleClick}
                 >
+                    <span />
                     <span />
                     <span />
                 </button>

@@ -126,7 +126,7 @@ export function Industries({ className }: { className?: string }) {
                 </h2>
 
                 <p className="max-w-[520px] text-center font-body text-[16px] font-normal leading-[150%] tracking-[-0.25px] text-content-white mb-8 md:mb-10">
-                    We build across industries, constantly expanding our portfolio as we take on new challenges and create new solutions.
+                    We build across industries, constantly expanding our portfolio as we take on new challenges and create new solutions
                 </p>
 
                 <div className="grid w-full max-w-[1200px] grid-cols-1 gap-[10px] sm:grid-cols-2 md:flex md:flex-wrap md:justify-center">

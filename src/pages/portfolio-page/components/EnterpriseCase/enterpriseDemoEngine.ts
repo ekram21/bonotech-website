@@ -225,7 +225,7 @@ function drawFactory(svg: SVGSVGElement): () => void {
         icon: keyof typeof icons
     }[] = [
         { x: 93, y: 30, title: ['Fabric Storage', '& Inspection'], value: '99.1% inspected', width: 164, color: zones[0].color, target: [55, 240, 43], icon: 'circle' },
-        { x: 259, y: 112, title: ['Cutting'], value: '17.8K pcs / day', width: 162, color: zones[1].color, target: [170, 250, 15], icon: 'cut' },
+        { x: 259, y: 112, title: ['Cutting'], value: '178K pcs / day', width: 162, color: zones[1].color, target: [170, 250, 15], icon: 'cut' },
         { x: 458, y: 30, title: ['Sewing Lines'], value: '18 lines · 102%', width: 160, color: zones[2].color, target: [279, 194, 27], icon: 'machine' },
         { x: 651, y: 112, title: ['Finishing', '& Quality Check'], value: '98.4% pass rate', width: 167, color: zones[3].color, target: [390, 204, 36], icon: 'shirt' },
         { x: 864, y: 30, title: ['Packing'], value: '1,280 cartons ready', width: 196, color: zones[4].color, target: [508, 223, 24], icon: 'box' },
@@ -277,9 +277,9 @@ function drawFactory(svg: SVGSVGElement): () => void {
 
 const CHAPTER_TIME: Record<Chapter, number> = { factory: 0, question: 9699, tracking: 11000 }
 const CAPTIONS: Record<Chapter, string> = {
-    factory: 'One view of production, from fabric inspection to packing.',
-    question: 'A business question becomes a request across connected data.',
-    tracking: 'The same platform brings the consignment into view, with context.',
+    factory: 'One view of production, from fabric inspection to packing',
+    question: 'A business question becomes a request across connected data',
+    tracking: 'The same platform brings the consignment into view, with context',
 }
 
 export function initEnterpriseDemo(section: HTMLElement): () => void {
@@ -394,7 +394,7 @@ export function initEnterpriseDemo(section: HTMLElement): () => void {
         userPaused = reduced.matches
         paint()
         updatePlayback()
-        announcement.textContent = 'Factory overview. Demonstration restarted.'
+        announcement.textContent = 'Factory overview Demonstration restarted'
     }
     const chapterHandlers = chapters.map((button) => {
         const onClick = () => {

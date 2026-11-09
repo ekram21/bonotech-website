@@ -75,7 +75,7 @@ export function AdminPortal() {
       setAuthed(false);
       setOverview(null);
       setLoadError(
-        error instanceof Error ? error.message : "Could not load analytics.",
+        error instanceof Error ? error.message : "Could not load analytics",
       );
     } finally {
       setLoading(false);
@@ -97,7 +97,7 @@ export function AdminPortal() {
       setAuthed(true);
     } catch (error) {
       setLoginError(
-        error instanceof Error ? error.message : "Invalid email or password.",
+        error instanceof Error ? error.message : "Invalid email or password",
       );
     } finally {
       setLoggingIn(false);
@@ -116,7 +116,7 @@ export function AdminPortal() {
         <form className="admin-login-card" onSubmit={handleLogin}>
           <img src={bonotechLogo} alt="Bonotech" className="admin-logo" />
           <h1>Admin portal</h1>
-          <p>Sign in to review visitor analytics and KPI progress.</p>
+          <p>Sign in to review visitor analytics and KPI progress</p>
           <label>
             Email
             <input
@@ -217,7 +217,7 @@ export function AdminPortal() {
               <strong>{kpis.conversionRate ?? 0}%</strong>
             </article>
             <article>
-              <span>Avg. time on site</span>
+              <span>Avg time on site</span>
               <strong>{formatDuration(kpis.avgSessionSeconds ?? 0)}</strong>
             </article>
             <article>
@@ -282,8 +282,8 @@ export function AdminPortal() {
                   {overview.zoominfo.matchedCompanies.length === 0 ? (
                     <p className="admin-empty">
                       {overview.zoominfo.apiConfigured
-                        ? "No company matches in this range yet."
-                        : "Connect ZoomInfo API credentials to pull company matches into this portal."}
+                        ? "No company matches in this range yet"
+                        : "Connect ZoomInfo API credentials to pull company matches into this portal"}
                     </p>
                   ) : (
                     <ul className="admin-rank">
@@ -303,7 +303,7 @@ export function AdminPortal() {
                   <h3>Recent company visits</h3>
                   {overview.zoominfo.recentMatches.length === 0 ? (
                     <p className="admin-empty">
-                      Company-level visits currently live in ZoomInfo WebSights Analytics.
+                      Company-level visits currently live in ZoomInfo WebSights Analytics
                     </p>
                   ) : (
                     <div className="admin-table-wrap">
@@ -340,16 +340,16 @@ export function AdminPortal() {
             <ChartPanel
               wide
               title="Traffic by day"
-              subtitle="Unique visitors and total page views per day."
+              subtitle="Unique visitors and total page views per day"
               isEmpty={overview.byDay.every((d) => d.visitors === 0 && d.pageViews === 0)}
-              emptyText="No traffic in this range yet."
+              emptyText="No traffic in this range yet"
             >
               <TrafficByDayChart data={overview.byDay} />
             </ChartPanel>
 
             <ChartPanel
               title="Engagement trend"
-              subtitle="Section views, CTA clicks and conversions per day."
+              subtitle="Section views, CTA clicks and conversions per day"
               isEmpty={overview.byDay.every(
                 (d) => !d.sectionViews && !d.ctaClicks && !d.conversions,
               )}
@@ -359,9 +359,9 @@ export function AdminPortal() {
 
             <ChartPanel
               title="Conversions"
-              subtitle="Discovery calls + newsletter signups, and share of visitors converting."
+              subtitle="Discovery calls + newsletter signups, and share of visitors converting"
               isEmpty={overview.byDay.every((d) => !d.conversions)}
-              emptyText="No conversions in this range yet."
+              emptyText="No conversions in this range yet"
             >
               <ConversionTrendChart data={overview.byDay} />
             </ChartPanel>
@@ -386,7 +386,7 @@ export function AdminPortal() {
 
             <ChartPanel
               title="Homepage section reach"
-              subtitle="How many visitors scrolled to each section, top to bottom."
+              subtitle="How many visitors scrolled to each section, top to bottom"
               height={360}
               isEmpty={!overview.sectionReach || overview.sectionReach.every((s) => s.visitors === 0)}
             >
@@ -404,7 +404,7 @@ export function AdminPortal() {
 
             <ChartPanel
               title="Session length"
-              subtitle="How long visitors stayed on the site."
+              subtitle="How long visitors stayed on the site"
               height={360}
               isEmpty={!overview.sessionLengthBuckets || overview.sessionLengthBuckets.every((b) => b.sessions === 0)}
             >
@@ -419,9 +419,9 @@ export function AdminPortal() {
 
             <ChartPanel
               title="Top CTAs"
-              subtitle="Which buttons visitors click most."
+              subtitle="Which buttons visitors click most"
               isEmpty={overview.topCtas.length === 0}
-              emptyText="No CTA clicks yet."
+              emptyText="No CTA clicks yet"
             >
               <HorizontalBarChart
                 data={overview.topCtas}
@@ -436,9 +436,9 @@ export function AdminPortal() {
 
             <ChartPanel
               title="Devices"
-              subtitle="Visitors by screen size."
+              subtitle="Visitors by screen size"
               isEmpty={overview.devices.length === 0}
-              emptyText="No device data yet."
+              emptyText="No device data yet"
             >
               <HorizontalBarChart
                 data={overview.devices}
@@ -453,9 +453,9 @@ export function AdminPortal() {
 
             <ChartPanel
               title="Top pages"
-              subtitle="Most viewed pages and anchors."
+              subtitle="Most viewed pages and anchors"
               isEmpty={overview.topPages.length === 0}
-              emptyText="No page views yet."
+              emptyText="No page views yet"
             >
               <HorizontalBarChart
                 data={overview.topPages}
@@ -470,9 +470,9 @@ export function AdminPortal() {
 
             <ChartPanel
               title="Referrers"
-              subtitle="Sites that sent visitors to Bonotech."
+              subtitle="Sites that sent visitors to Bonotech"
               isEmpty={overview.referrers.length === 0}
-              emptyText="No referrers captured yet."
+              emptyText="No referrers captured yet"
             >
               <HorizontalBarChart
                 data={overview.referrers.map((r) => ({
@@ -491,9 +491,9 @@ export function AdminPortal() {
             <ChartPanel
               wide
               title="Campaign sources"
-              subtitle="Visitors arriving with a utm_source tag."
+              subtitle="Visitors arriving with a utm_source tag"
               isEmpty={!overview.utmSources || overview.utmSources.length === 0}
-              emptyText="No tagged campaign traffic yet. Add ?utm_source=… to links you share."
+              emptyText="No tagged campaign traffic yet Add ?utm_source=… to links you share"
             >
               <HorizontalBarChart
                 data={overview.utmSources ?? []}
@@ -510,7 +510,7 @@ export function AdminPortal() {
           <section className="admin-panel admin-panel-wide">
             <h2>Recent activity</h2>
             {overview.recentEvents.length === 0 ? (
-              <p className="admin-empty">Waiting for the first visitor events.</p>
+              <p className="admin-empty">Waiting for the first visitor events</p>
             ) : (
               <div className="admin-table-wrap">
                 <table className="admin-table">

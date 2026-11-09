@@ -8,7 +8,7 @@ const WebsiteIcon = () => (
         {/* Browser Frame */}
         <rect x="2" y="5" width="36" height="30" rx="6" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1.5" />
         {/* Header Bar */}
-        <path d="M2.75 11H37.25V8C37.25 6.34315 35.9069 5 34.25 5H5.75C4.09315 5 2.75 6.34315 2.75 8V11Z" fill="#F8FAFC" />
+        <path d="M275 11H3725V8C3725 6.34315 35.9069 5 34.25 5H575C409315 5 2.75 6.34315 2.75 8V11Z" fill="#F8FAFC" />
         {/* Window Controls */}
         <circle cx="7" cy="8" r="1.5" fill="#EF4444" />
         <circle cx="11.5" cy="8" r="1.5" fill="#F59E0B" />
@@ -43,7 +43,7 @@ const MobileIcon = () => (
         {/* Speaker / Notch */}
         <rect x="18" y="5.5" width="4" height="0.5" rx="0.25" fill="#1A1B1C" />
         {/* Soft hand styling */}
-        <path d="M26.5 22.5C26.5 22.5 28.5 23.5 29 25C29.5 26.5 28 28.5 26 28L23.5 27" stroke="#FFAB50" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M265 225C265 22.5 28.5 23.5 29 25C295 26.5 28 28.5 26 28L235 27" stroke="#FFAB50" strokeWidth="2.2" strokeLinecap="round" />
     </svg>
 )
 
@@ -60,7 +60,7 @@ const EnterpriseIcon = () => (
         {/* Charts inside Monitor Screen */}
         {/* Pie Chart */}
         <circle cx="12" cy="16" r="6" fill="#8269CF" fillOpacity="0.15" />
-        <path d="M12 16L12 10C15.3137 10 18 12.6863 18 16H12Z" fill="#FFAB50" />
+        <path d="M12 16L12 10C153137 10 18 12.6863 18 16H12Z" fill="#FFAB50" />
         <path d="M12 16L18 16C18 19.3137 15.3137 22 12 22V16Z" fill="#3B82F6" />
         {/* Bar Charts */}
         <rect x="22" y="18" width="2.5" height="5" rx="0.5" fill="#8269CF" />
@@ -74,19 +74,19 @@ const TIMELINE_DATA = [
         days: '3 Days',
         icon: <WebsiteIcon />,
         title: 'Website Development Timeline Starts From 3 Days',
-        subtitle: 'Fast preview, focused content, and launch-ready structure.',
+        subtitle: 'Fast preview, focused content, and launch-ready structure',
     },
     {
         days: '30 Days',
         icon: <MobileIcon />,
         title: 'Mobile App Launched in IOS and Android App Store Timeline Start From 30 Days',
-        subtitle: 'App interface, engineering, testing, and deployment readiness.',
+        subtitle: 'App interface, engineering, testing, and deployment readiness',
     },
     {
         days: '60 Days',
         icon: <EnterpriseIcon />,
         title: 'Enterprise Software Development Timeline Starts From 60 Days',
-        subtitle: 'Scalable architecture, integrations, dashboards, and governance.',
+        subtitle: 'Scalable architecture, integrations, dashboards, and governance',
     },
 ]
 

@@ -49,7 +49,7 @@ export function ChartPanel({
   subtitle,
   wide,
   isEmpty,
-  emptyText = "No data in this range yet.",
+  emptyText = "No data in this range yet",
   height = 280,
   children,
 }: {

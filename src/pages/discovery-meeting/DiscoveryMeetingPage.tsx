@@ -5,7 +5,7 @@ import './discovery-meeting.css'
 
 const TITLE = 'Book a Discovery Call — Bonotech'
 const DESCRIPTION =
-    'Schedule a free 30-minute discovery call with Bonotech to map your next build and define the right approach.'
+    'Schedule a free 30-minute discovery call with Bonotech to map your next build and define the right approach'
 
 export function DiscoveryMeetingPage() {
     usePageMeta(TITLE, DESCRIPTION)

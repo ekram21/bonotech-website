@@ -8,7 +8,7 @@ const EXPERIENCE_CARDS: ExperienceCardData[] = [
     {
         title: 'SME Fusion Discovery',
         description:
-            'Subject matter experts, product consultants, technical architects, and AI planning layer align the opportunity.',
+            'Subject matter experts, product consultants, technical architects, and AI planning layer align the opportunity',
         labels: [
             'Subject Matter Expert',
             'Product Consultant',
@@ -26,7 +26,7 @@ const EXPERIENCE_CARDS: ExperienceCardData[] = [
     {
         title: 'Rapid Prototype Validation',
         description:
-            'Interactive prototypes help stakeholders validate user flows and approve direction faster.',
+            'Interactive prototypes help stakeholders validate user flows and approve direction faster',
         labels: [
             'Interactive Prototype',
             'Stakeholder Reviews',
@@ -37,13 +37,13 @@ const EXPERIENCE_CARDS: ExperienceCardData[] = [
     {
         title: 'Bono-Fit Governance',
         description:
-            'Every sprint stays accountable through checkpoints, dashboards, shared backlog, and reviews.',
+            'Every sprint stays accountable through checkpoints, dashboards, shared backlog, and reviews',
         labels: ['Executive Checkpoint', 'Sprint Review', 'Shared Backlog', 'KPI Dashboard'],
     },
     {
         title: 'AI-Assisted Engineering',
         description:
-            'Engineering gets faster with code generation, testing, documentation, refactoring, and QA automation.',
+            'Engineering gets faster with code generation, testing, documentation, refactoring, and QA automation',
         labels: ['Code Generation', 'Test Generation', 'API Integration', 'QA Automation'],
     },
 ]
@@ -94,7 +94,7 @@ export function BonoExperienceSection({ className }: BonoExperienceSectionProps)
                         Bonotech uses AI to accelerate the entire product lifecycle from research to launch,
                         building systems that evolve with{' '}
                         SPEED and accountability at every
-                        step.
+                        step
                     </p>
                 </div>
 

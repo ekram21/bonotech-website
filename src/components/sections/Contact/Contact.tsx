@@ -62,7 +62,7 @@ export function Contact({ className }: ContactProps) {
       try {
         await sendContactEmail(form);
         setStatus("success");
-        setStatusMessage("Message sent! We'll get back to you soon.");
+        setStatusMessage("Message sent! We'll get back to you soon");
         setForm(INITIAL_FORM);
 
         resetTimer.current = setTimeout(() => {
@@ -74,7 +74,7 @@ export function Contact({ className }: ContactProps) {
         setStatusMessage(
           err instanceof EmailSendError
             ? err.message
-            : "Something went wrong. Please try again.",
+            : "Something went wrong Please try again",
         );
       }
     },
@@ -101,9 +101,9 @@ export function Contact({ className }: ContactProps) {
                 Get In Touch
               </h2>
               <p className="font-body text-[#444547] text-[18px] leading-[1.6] max-w-xl">
-                Schedule a 30- min free discovery call with our Bono-Pros. Our
+                Schedule a 30- min free discovery call with our Bono-Pros Our
                 experts will evaluate your business needs and goals to translate
-                them into market-ready business products.
+                them into market-ready business products
               </p>
             </div>
 
@@ -150,7 +150,7 @@ export function Contact({ className }: ContactProps) {
                   <MapPin size={16} />
                 </div>
                 <span className="font-body text-[16px] text-[#272829] leading-relaxed max-w-sm">
-                  Bonotech Holdings PTE LTD. 111 Somerset Road, #08-10A, Singapore
+                  Bonotech Holdings PTE LTD 111 Somerset Road, #08-10A, Singapore
                   238164
                 </span>
               </div>

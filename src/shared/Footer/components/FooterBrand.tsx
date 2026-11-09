@@ -21,7 +21,7 @@ export function FooterBrand() {
             {/* Description */}
             <p className="font-body text-sm leading-7 font-normal text-white opacity-50 max-w-[300px]">
                 Building innovative digital products that help
-                businesses transition into the age of AI.
+                businesses transition into the age of AI
             </p>
 
             {/* Email */}
